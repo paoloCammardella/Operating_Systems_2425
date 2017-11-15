@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/tn1" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/tn2" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/tn3" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/tn4" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/tn5" android:layout_width="fill_parent"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:layout_height="wrap_content" android:id="@+id/tn6" android:layout_width="fill_parent"></TextView>
+    <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/btnBackTaxi" android:text="@string/back"></Button>    
+</LinearLayout>

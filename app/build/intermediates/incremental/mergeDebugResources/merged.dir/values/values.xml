@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="strMezzi">
+        <item>Any</item>
+        <item>Ferries (Traghetti)</item>
+        <item>Hydrofoils (Aliscafi)</item>
+        <item>Traghetto Caremar</item>
+        <item>Aliscafo Caremar</item>
+        <item>Aliscafo SNAV</item>
+        <item>Procida Lines</item>
+        <item>Gestur</item>
+        <item>Medmar</item>
+        <item>Ippocampo</item>
+        <item>Traghetto Aladino</item>
+    </string-array>
+    <string-array name="strPorti">
+        <item>Any</item>
+        <item>Procida</item>
+        <item>Napoli</item>
+        <item>Pozzuoli</item>
+        <item>Ischia</item>
+        <item>Napoli o Pozzuoli</item>
+        <item>Napoli Beverello</item>
+        <item>Napoli Porta di Massa</item>        
+        <item>Napoli Mergellina</item>        
+		<item>Ischia Porto</item>                
+        <item>Casamicciola</item>
+        <item>Ischia</item>
+        <item>Monte di Procida</item>
+    </string-array>
+    <string-array name="strRagioni">
+        <item>Unknown</item>
+        <item>Bad Weather Conditions</item>
+        <item>Strike</item>
+        <item>Damaged Ship</item>
+        <item>Festivity</item>
+        <item>Changed Timetable</item>
+        <item>Delay</item>
+    </string-array>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <string name="Conferma">Confirm</string>
+    <string name="a">to</string>
+    <string name="aRischio">Chance of cancellation due to bad weather conditions!!!</string>
+    <string name="about">Info</string>
+    <string name="aggiornamentoDaWeb">Timetables updated from Web</string>
+    <string name="aliscafi">Hydrofoils</string>
+    <string name="aliscafo">Hydrofoil</string>
+    <string name="altriDettagliRagione">"Other Details : "</string>
+    <string name="app_name">Uno Procida Residente</string>
+    <string name="arrivaAlle">Arrives at  </string>
+    <string name="back">Back</string>
+    <string name="backTimetable">Back to timetable</string>
+    <string name="bavaDiVento">Light air</string>
+    <string name="brezzaLeggera">Light breeze</string>
+    <string name="brezzaTesa">Gentle breeze</string>
+    <string name="burrasca">Gale</string>
+    <string name="burrascaForte">Strong gale</string>
+    <string name="calma">Calm</string>
+    <string name="cheLaCorsaERegolare">that the journey will take place</string>
+    <string name="circa">(approximately) </string>
+    <string name="condimeteo">Meteorological conditions:</string>
+    <string name="confermaOSmentisci">Confirm that the journey will take place or report a problem </string>
+    <string name="connessioneLenta">The connection is too slow: timetable updates have not been loaded</string>
+    <string name="corsaImpossibile">Surely cancelled for bad weather conditions !!!</string>
+    <string name="corsaQuasi">Probably cancelled for bad weather conditions !!!</string>
+    <string name="costo">Price :  </string>
+    <string name="costoInteroNonNoto">I don\'t know the price of the full ticket</string>
+    <string name="costoResidenteNonNoto">I don\'t know the price of the reduced ticket for islanders</string>
+    <string name="credits">By Porfirio Tramontana 2011,2012. GPL3 license. Credits: Prof.Tramontana for the metheorological algorithm, Maria for the application name, for the icon, for the international publicity and for the usability discussions, Angela for english version support, Gilda for continuous criticism, Google and Weather Underground for meteo data, the navigation companies for the continuous timetable changes and the procidan voyagers for the broadcasting of timetable changes information.</string>
+    <string name="da">from  </string>
+    <string name="dalle">As of </string>
+    <string name="del"> of  </string>
+    <string name="diProblemi">for problems</string>
+    <string name="disclaimer">Timetables are originally published by navigation companies. The author is not responsible for timetable variations. </string>
+    <string name="errore">Error</string>
+    <string name="esci">Quit</string>
+    <string name="est">East</string>
+    <string name="fortunale">Violent storm</string>
+    <string name="ga_trackingId">UA-26671719-2</string>
+    <string name="inParticolare">in particular</string>
+    <string name="inserisciFinestra">Size of time window</string>
+    <string name="intero">(normal)</string>
+    <string name="invia">Submit the Report</string>
+    <string name="inviaSegnalazione">Do you want to report that this journey will not be made?</string>
+    <string name="labelBackground">labelBackground</string>
+    <string name="meteo">Refresh meteo data</string>
+    <string name="mezzo">Ship : </string>
+    <string name="minus">&lt;</string>
+    <string name="minusminus">&lt;&lt;</string>
+    <string name="noUpdateWeb">Don\'t update timetable from Web</string>
+    <string name="nord">North</string>
+    <string name="nordEst">North-East</string>
+    <string name="nordOvest">North-West</string>
+    <string name="novita">Recent news : </string>
+    <string name="numeriTaxi">Call for a taxi</string>
+    <string name="numeriUtili">Call to ticket office</string>
+    <string name="nuovoAggiornamento">Timetables updated to </string>
+    <string name="ok">OK</string>
+    <string name="orariAggiornatiAl">Last timetable update: </string>
+    <string name="ore">hour </string>
+    <string name="ovest">West</string>
+    <string name="parteAlle">Leaves at  </string>
+    <string name="plus">></string>
+    <string name="plusplus">>></string>
+    <string name="pocoProbabile">Risks of delay due to bad weather conditions!!!</string>
+    <string name="portoArrivo">To : </string>
+    <string name="portoPartenza">From : </string>
+    <string name="possibiliProblemi">possible problems</string>
+    <string name="ragione">Reason :</string>
+    <string name="residenteO">(reduced for islanders) or  </string>
+    <string name="ringraziamentoSegnalazione">Thank you for your report: it will be shown starting from the next app opening!</string>
+    <string name="secondoMeVuoiPartireDa">In my opinion, you want to leave from </string>
+    <string name="segnalazione">warning</string>
+    <string name="segnalazioni">warnings</string>
+    <string name="soloOnline">This function is accessible only when the device is connected to the Internet</string>
+    <string name="sud">South</string>
+    <string name="sudEst">Soth-East</string>
+    <string name="sudOvest">South-West</string>
+    <string name="tampone">1234567890123456789012345</string>
+    <string name="tempesta">Storm</string>
+    <string name="textConferma">Or do you want to confirm the regularity of this journey?</string>
+    <string name="traghetti">Ferries</string>
+    <string name="traghetto">Ferry</string>
+    <string name="trasportaAutoPasseggeri">The ship carries both cars and passengers</string>
+    <string name="trasportaSoloPasseggeri">Passengers only ship</string>
+    <string name="tutti">Any</string>
+    <string name="updateWeb">Update timetable from Web</string>
+    <string name="updated">Meteo info refreshed at </string>
+    <string name="uragano">Hurricane</string>
+    <string name="utenteDice">user says</string>
+    <string name="utentiDicono">user say</string>
+    <string name="ventiquattro">24</string>
+    <string name="ventoForte">Moderate gale</string>
+    <string name="ventoFresco">Strong breeze</string>
+    <string name="ventoModerato">Moderate breeze</string>
+    <string name="ventoTeso">Fresh breeze</string>
+</resources>

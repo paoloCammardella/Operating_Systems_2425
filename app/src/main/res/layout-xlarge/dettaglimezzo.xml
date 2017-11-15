@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+    <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/txtMezzo" android:layout_width="wrap_content" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtPartenza" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtArrivo" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtCosto" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtAuto" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtPeriodo" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtGiorniSettimana" android:layout_width="fill_parent" android:text="@string/tampone" android:fitsSystemWindows="true" android:layout_weight="1" android:layout_height="0dp"></TextView>
+    <Button android:text="@string/numeriUtili" android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="0dp" android:layout_gravity="center_horizontal" android:id="@+id/btnBiglietterie"></Button>
+    <Button android:text="@string/numeriTaxi" android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="0dp" android:layout_gravity="center_horizontal" android:id="@+id/btnTaxi"></Button>
+
+    <Button
+        android:id="@+id/btnConfermaOSmentisci"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/confermaOSmentisci" />
+
+    <Button android:text="@string/esci" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="0dp" android:id="@+id/btnReturnToHome"></Button>
+    
+    
+</LinearLayout>

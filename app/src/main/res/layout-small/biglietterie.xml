@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/pn1" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/pn2" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/pn3" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/pn4" android:layout_width="fill_parent"></TextView>
+    <TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:id="@+id/pn5" android:layout_width="fill_parent"></TextView>
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:layout_height="wrap_content" android:id="@+id/pn6" android:layout_width="fill_parent"></TextView>
+    <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/btnBack" android:text="@string/back"></Button>    
+</LinearLayout>
