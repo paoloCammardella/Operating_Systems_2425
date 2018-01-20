@@ -473,7 +473,6 @@ public class OrariProcida2011Activity extends Activity {
 					
 					//Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
 					
-					
 					//aggiornamento del file locale con il dato meteo
 					aggiornamentoMeteo=Calendar.getInstance();
                     String rigaAggiornamento = aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + aggiornamentoMeteo.get(Calendar.MONTH) + "," + aggiornamentoMeteo.get(Calendar.YEAR) + "," + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + aggiornamentoMeteo.get(Calendar.MINUTE);
