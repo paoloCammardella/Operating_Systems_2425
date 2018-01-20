@@ -2,31 +2,6 @@ package com.porfirio.orariprocida2011;
 
 //versione 1.3 per Android Market 
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -55,9 +30,39 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
+
 public class OrariProcida2011Activity extends Activity {
-	/** Called when the activity is first created. */
-    
+    static final int ABOUT_DIALOG_ID = 0;
+    static final int METEO_DIALOG_ID = 1;
+    static final int NOVITA_DIALOG_ID = 1;
+    /**
+     * Called when the activity is first created.
+     */
+
 
     public String nave;
     public String portoPartenza;
@@ -76,29 +81,57 @@ public class OrariProcida2011Activity extends Activity {
 	public Button buttonPlus;
 	public TextView txtOrario;
 	public AlertDialog aboutDialog;
-	private AlertDialog meteoDialog;
 	public AlertDialog novitaDialog;
-	public ConfigData configData; 
-	private DettagliMezzoDialog dettagliMezzoDialog;
-	private ArrayList <Mezzo> selectMezzi;
-	
-    static final int ABOUT_DIALOG_ID = 0;
-    static final int METEO_DIALOG_ID=1;
-    static final int NOVITA_DIALOG_ID=1;
-
+    public ConfigData configData;
+    public Meteo meteo;
+    private AlertDialog meteoDialog;
+    private DettagliMezzoDialog dettagliMezzoDialog;
+    private ArrayList <Mezzo> selectMezzi;
 	private ArrayList<Mezzo> listMezzi;
 	private ArrayList<Compagnia> listCompagnia;
 	private LocationManager myManager;
 	private Criteria criteria;
 	private String BestProvider;
 	private boolean updateWeb=true; //capacit? di fare l'upload degli orari da Web: impostata a true
-	
-	public Meteo meteo;
 	private Locale locale;
 	private SegnalazioneDialog segnalazioneDialog;
 	private boolean slow=false;
-	private boolean primoAvvio=true;
+	private boolean primoAvvio = true;
 
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            return new JSONObject(jsonText);
+        } finally {
+            is.close();
+        }
+    }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//    //language hack here.
+//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
+//    	{
+//    	String languageToLoad  = "en";
+//    	locale = new Locale(languageToLoad);        	
+//    	Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//        getBaseContext().getResources().updateConfiguration(config, 
+//        getBaseContext().getResources().getDisplayMetrics());
+//    }    	
+//    }
     
     //Menu
     @Override
@@ -107,7 +140,7 @@ public class OrariProcida2011Activity extends Activity {
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -121,14 +154,14 @@ public class OrariProcida2011Activity extends Activity {
                 public void onDismiss(DialogInterface dialog) {
                         aggiornaLista();
                 }
-    		});        
-        	finestraDialog.show();
-        	return true;
+            });
+            finestraDialog.show();
+            return true;
         // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
         case R.id.updateWeb:
-        		// Caricare da Web 
-        		if (isOnline()){
-        			riempiMezzidaWeb();
+            // Caricare da Web
+            if (isOnline()){
+                riempiMezzidaWeb();
         			int meseToast=aggiornamentoOrariWeb.get(Calendar.MONTH);
         			if (meseToast==0) meseToast=12;
         			if (!primoAvvio)
@@ -154,34 +187,17 @@ public class OrariProcida2011Activity extends Activity {
         }
     }
 
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//    //language hack here.
-//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
-//    	{
-//    	String languageToLoad  = "en";
-//    	locale = new Locale(languageToLoad);        	
-//    	Locale.setDefault(locale);
-//        Configuration config = new Configuration();
-//        config.locale = locale;
-//        getBaseContext().getResources().updateConfiguration(config, 
-//        getBaseContext().getResources().getDisplayMetrics());
-//    }    	
-//    }
-    
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
-        	{
-        	String languageToLoad  = "en";
-        	locale = new Locale(languageToLoad);        	
-        	Locale.setDefault(locale);
+
+        if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
+            String languageToLoad = "en";
+            locale = new Locale(languageToLoad);
+            Locale.setDefault(locale);
             Configuration config = new Configuration();
             config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config, 
+            getBaseContext().getResources().updateConfiguration(config,
             getBaseContext().getResources().getDisplayMetrics());
         }
         Log.d("ACTIVITY","create");
@@ -191,9 +207,9 @@ public class OrariProcida2011Activity extends Activity {
         criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        BestProvider = myManager.getBestProvider(criteria, true);        
-        
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);      
+        BestProvider = myManager.getBestProvider(criteria, true);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.disclaimer)+"\n"+getString(R.string.credits))
                .setCancelable(false)
                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -206,7 +222,7 @@ public class OrariProcida2011Activity extends Activity {
         meteo=new Meteo(this);
         leggiMeteo(false);
     	Log.d("CONDIMETEO","AVVIO"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
-       
+
         builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()
         		+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE))
@@ -220,28 +236,28 @@ public class OrariProcida2011Activity extends Activity {
 
         configData=new ConfigData();
         configData.setFinestraTemporale(24);
-        
+
         // get the current time
-        
+
         c = Calendar.getInstance(TimeZone.getDefault());
-        
+
         txtOrario = (TextView)findViewById(R.id.txtOrario);
-        
+
 		setTxtOrario(c);
-        
-        buttonMinusMinus = (Button)findViewById(R.id.btnConfermaOSmentisci);    
+
+        buttonMinusMinus = (Button) findViewById(R.id.btnConfermaOSmentisci);
         buttonMinusMinus.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v) {
-        		
+
 //        		orario.setHours(orario.getHours()-1);
         		c.add(Calendar.HOUR, -1);
         		setTxtOrario(c);
         		aggiornaLista();
         	}
         });
-        
-        buttonMinus = (Button)findViewById(R.id.button2);    
+
+        buttonMinus = (Button) findViewById(R.id.button2);
         buttonMinus.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v) {
@@ -251,8 +267,8 @@ public class OrariProcida2011Activity extends Activity {
         		aggiornaLista();
         	}
         });
-        
-        buttonPlus = (Button)findViewById(R.id.button3);    
+
+        buttonPlus = (Button) findViewById(R.id.button3);
         buttonPlus.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v) {
@@ -263,8 +279,8 @@ public class OrariProcida2011Activity extends Activity {
         		aggiornaLista();
         	}
         });
-        
-        buttonPlusPlus = (Button)findViewById(R.id.button4);    
+
+        buttonPlusPlus = (Button) findViewById(R.id.button4);
         buttonPlusPlus.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v) {
@@ -275,37 +291,37 @@ public class OrariProcida2011Activity extends Activity {
         	}
         });
         // spostato in avanti setSpinner();
-        
-       
+
+
         listMezzi = new ArrayList <Mezzo>();
         lvMezzi=(ListView)findViewById(R.id.listMezzi);
-        aalvMezzi = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);       
+        aalvMezzi = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
-        
+
         dettagliMezzoDialog = new DettagliMezzoDialog(this,this,c);
         segnalazioneDialog=new SegnalazioneDialog(this,c);
         lvMezzi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	//listener sul click di un item della lista
-        	
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
 				for (int i=0;i<aalvMezzi.getCount();i++){
 					if (selectMezzi.get(i).getOrderInList()==arg2)
 						dettagliMezzoDialog.setMezzo(selectMezzi.get(i));
 				}
-					
-				
+
+
 //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
 //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
 //				altra soluzione: trovare il mezzo dalla stringa
 				dettagliMezzoDialog.fill(listCompagnia);
 				dettagliMezzoDialog.show();
-			}
+            }
 
-        	
-		});
+
+        });
         lvMezzi.setLongClickable(true);
         lvMezzi.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
         	@Override
@@ -317,11 +333,11 @@ public class OrariProcida2011Activity extends Activity {
 					for (int i=0;i<aalvMezzi.getCount();i++){
 						if (selectMezzi.get(i).getOrderInList()==arg2)
 							segnalazioneDialog.setMezzo(selectMezzi.get(i));
-					}
-						
-					
-	//				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
-	//				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
+                    }
+
+
+                    //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
+                    //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
 	//				altra soluzione: trovare il mezzo dalla stringa
 					segnalazioneDialog.fill(listCompagnia);
 					segnalazioneDialog.show();
@@ -330,8 +346,8 @@ public class OrariProcida2011Activity extends Activity {
                 return true;
             }
         });
-        
-        
+
+
         //aggiungere onlongclick su lvMezzi che faccia partire il dialog di segnalazione
         //che ha due funzioni: segnala un cambiamento (interazione con mail)
         //esegui un cambiamento (richiede una password che conosco solo io)
@@ -339,7 +355,7 @@ public class OrariProcida2011Activity extends Activity {
         //ad ogni cambiamento si apre il file, si riscrivono le righe di oggi, si aggiunge la riga della segnalazione
         //bisogna cambiare anche la lettura dei mezzi prevedendo la lettura di questo file con la conseguente
         //eliminazione delle corse indicate
-        
+
         ultimaLetturaOrariDaWeb=Calendar.getInstance();
         ultimaLetturaOrariDaWeb.setLenient(true);
         //setto fittiziamente ad un valore diverso da oggi
@@ -351,30 +367,8 @@ public class OrariProcida2011Activity extends Activity {
 
     }
 
-  	  private static String readAll(Reader rd) throws IOException {
-    	    StringBuilder sb = new StringBuilder();
-    	    int cp;
-    	    while ((cp = rd.read()) != -1) {
-    	      sb.append((char) cp);
-    	    }
-    	    return sb.toString();
-    	  }
-
-   	  public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-    	    InputStream is = new URL(url).openStream();
-    	    try {
-    	      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-    	      String jsonText = readAll(rd);
-    	      return new JSONObject(jsonText);
-    	    } finally {
-    	      is.close();
-    	    }
-    	  }
-    
-   	  
-   	  
-	private void leggiMeteo(boolean aggiorna) {
-		/* Create a URL we want to load some xml-data from. */
+    private void leggiMeteo(boolean aggiorna) {
+        /* Create a URL we want to load some xml-data from. */
 		URL url;
 		Double windKmhFromIS=0.0;
 		Integer windDirFromIS=0;
@@ -482,8 +476,8 @@ public class OrariProcida2011Activity extends Activity {
 					
 					//aggiornamento del file locale con il dato meteo
 					aggiornamentoMeteo=Calendar.getInstance();
-					String rigaAggiornamento=new String(aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+","+aggiornamentoMeteo.get(Calendar.MONTH)+","+aggiornamentoMeteo.get(Calendar.YEAR)+","+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+","+aggiornamentoMeteo.get(Calendar.MINUTE));
-					try {
+                    String rigaAggiornamento = aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + aggiornamentoMeteo.get(Calendar.MONTH) + "," + aggiornamentoMeteo.get(Calendar.YEAR) + "," + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + aggiornamentoMeteo.get(Calendar.MINUTE);
+                    try {
 						fos.write(rigaAggiornamento.getBytes());fos.write("\n".getBytes());
 						fos.write(meteo.getWindKmh().toString().getBytes());fos.write("\n".getBytes());
 						fos.write(String.valueOf(meteo.getWindDirection()).getBytes());fos.write("\n".getBytes());						
@@ -1275,10 +1269,11 @@ public class OrariProcida2011Activity extends Activity {
         		spnPortoPartenza.setSelection(i);
         	}
         }
-	}
-      
-	private String setPortoPartenza() {
-		// Trova il porto pi? vicino a quello di partenza
+    }
+
+
+    private String setPortoPartenza() {
+        // Trova il porto pi? vicino a quello di partenza
 		Location l=null;
 		try {
 			l = myManager.getLastKnownLocation(BestProvider);
