@@ -91,7 +91,7 @@ public class OrariProcida2011Activity extends Activity {
 	private LocationManager myManager;
 	private Criteria criteria;
 	private String BestProvider;
-	private boolean updateWeb=true; //capacità di fare l'upload degli orari da Web: impostata a true
+	private boolean updateWeb=true; //capacit? di fare l'upload degli orari da Web: impostata a true
 	
 	public Meteo meteo;
 	private Locale locale;
@@ -136,7 +136,7 @@ public class OrariProcida2011Activity extends Activity {
         				Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariWeb.get(Calendar.DATE)+"/"+meseToast+"/"+aggiornamentoOrariWeb.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
         		}
         		else
-        			Log.d("ORARI", "Non c'è la connessione: non carico orari da Web");
+        			Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
         		return true;
         case R.id.meteo:
         	Log.d("CONDIMETEO","PRIMA"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
@@ -257,7 +257,7 @@ public class OrariProcida2011Activity extends Activity {
         buttonPlus.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v) {
-      		//TODO L'unico problema residuo è che problemi correttamente segnalati con più di 24 ore di anticipo vengono visualizzati solo a meno di 24h
+      		//TODO L'unico problema residuo ? che problemi correttamente segnalati con pi? di 24 ore di anticipo vengono visualizzati solo a meno di 24h
        		//Forse potrebbe essere risolto forzando un refresh quando si avanza di 24h rispetto all'orario corrente
         		c.add(Calendar.MINUTE, 15);
         		setTxtOrario(c);
@@ -328,7 +328,7 @@ public class OrariProcida2011Activity extends Activity {
 	//				altra soluzione: trovare il mezzo dalla stringa
 					segnalazioneDialog.fill(listCompagnia);
 					segnalazioneDialog.show();
-					aggiornaLista(); //TODO Capire come si fa ad aggiornare dopo una segnalazione (oppure scrivere che prossimamente verrà aggiunta)
+					aggiornaLista(); //TODO Capire come si fa ad aggiornare dopo una segnalazione (oppure scrivere che prossimamente verr? aggiunta)
         		}
                 return true;
             }
@@ -478,7 +478,7 @@ public class OrariProcida2011Activity extends Activity {
 						e.printStackTrace();
 					}
 					
-					//TODO: se il valore letto da weather underground è troppo piccolo (oppure è intero anzichè string) rivolgiti a openweathermap
+					//TODO: se il valore letto da weather underground ? troppo piccolo (oppure ? intero anzich? string) rivolgiti a openweathermap
 					//esempio di query json verso openweathermap:
 					//http://api.openweathermap.org/data/2.5/weather?q=Procida,it&lang=it
 					
@@ -645,7 +645,7 @@ public class OrariProcida2011Activity extends Activity {
 			//	Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
 
 			if (aggiornamentoOrariWeb.after(aggiornamentoOrariIS)){
-				Log.d("ORARI", "GLi orari dal Web sono più aggiornati");
+				Log.d("ORARI", "GLi orari dal Web sono pi? aggiornati");
 				
 				//legge riga novita da novita.csv
 				String url2="http://wpage.unina.it/ptramont/novita.txt";
@@ -662,7 +662,7 @@ public class OrariProcida2011Activity extends Activity {
 					in2 = conn2.getInputStream();
 					BufferedReader r2 = new BufferedReader(new InputStreamReader(in2));
 					rigaNovita=r2.readLine();
-					if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non è italiano legge la seconda riga delle novita
+					if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non ? italiano legge la seconda riga delle novita
 						rigaNovita=r2.readLine();
 					r2.close();
 				} catch (IOException e) {
@@ -957,7 +957,7 @@ public class OrariProcida2011Activity extends Activity {
 			if (isOnline() && (ultimaLetturaOrariDaWeb.get(Calendar.DAY_OF_YEAR)!=Calendar.getInstance().get(Calendar.DAY_OF_YEAR)))
 				riempiMezzidaWeb();
 			else
-				Log.d("ORARI", "Non c'è connessione o non c'è bisogno di aggiornamento: non carico orari da Web");
+				Log.d("ORARI", "Non c'? connessione o non c'? bisogno di aggiornamento: non carico orari da Web");
 		}
 		if (isOnline())
 			leggiSegnalazioniDaWeb();
@@ -1035,7 +1035,7 @@ public class OrariProcida2011Activity extends Activity {
         
         
     public void aggiornaLista() {   
-        //NOn è chiaro perchè il controllo del locale debba essere fatto proprio qui!!!
+        //NOn ? chiaro perch? il controllo del locale debba essere fatto proprio qui!!!
     	
     	if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
     	{
@@ -1144,7 +1144,7 @@ public class OrariProcida2011Activity extends Activity {
     		String spc=selectMezzi.get(i).segnalazionePiuComune();
     		if (selectMezzi.get(i).tot>0 || selectMezzi.get(i).conferme>0){
     			//Trasformato con resources
-    			if (selectMezzi.get(i).tot>0){ //c'è qualcosa
+    			if (selectMezzi.get(i).tot>0){ //c'? qualcosa
 	    			if (selectMezzi.get(i).conc){
 	    				s+=" -  "+selectMezzi.get(i).tot;
 	    				if (selectMezzi.get(i).tot==1)
@@ -1288,7 +1288,7 @@ public class OrariProcida2011Activity extends Activity {
 	}
       
 	private String setPortoPartenza() {
-		// Trova il porto più vicino a quello di partenza
+		// Trova il porto pi? vicino a quello di partenza
 		Location l=null;
 		try {
 			l = myManager.getLastKnownLocation(BestProvider);

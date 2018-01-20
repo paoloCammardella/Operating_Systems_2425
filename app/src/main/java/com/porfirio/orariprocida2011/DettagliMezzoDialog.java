@@ -145,7 +145,8 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 			s+=callingContext.getString(R.string.costo)+" "+mezzo.getCostoResidente()+" euro ";
 		}
 		else 
-			s+=callingContext.getString(R.string.costoResidenteNonNoto)+" ";
+			//s+=callingContext.getString(R.string.costoResidenteNonNoto)+" ";
+            s+=" ";
 		if (mezzo.getCostoIntero()>0.0){
 			if (mezzo.isCircaIntero())
 				s+=callingContext.getString(R.string.circa)+" ";
@@ -153,7 +154,8 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 			s+=" "+callingContext.getString(R.string.intero);
 		}
 		else 
-			s+=callingContext.getString(R.string.costoInteroNonNoto)+" ";		
+			//s+=callingContext.getString(R.string.costoInteroNonNoto)+" ";
+            s+=" ";
 		txtCosto.setText(s);
 		
         //trova compagnia c
@@ -164,14 +166,16 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
         } 
         
         //Aggiunto Aladino
-        if (c.nome.contains("Ippocampo")||c.nome.contentEquals("Procida Lines")||mezzo.nave.contains("Aliscafo")||mezzo.nave.contains("Aladino"))
-        	txtAuto.setText(""+callingContext.getString(R.string.trasportaSoloPasseggeri));
-        else
-        	txtAuto.setText(""+callingContext.getString(R.string.trasportaAutoPasseggeri));
-        
-        biglietterieDialog = new BiglietterieDialog(this.getContext());
-        biglietterieDialog.fill(c);
-        
+		if (c!=null) {
+			if (c.nome.contains("Ippocampo") || c.nome.contentEquals("Procida Lines") || mezzo.nave.contains("Aliscafo") || mezzo.nave.contains("Aladino"))
+				txtAuto.setText("" + callingContext.getString(R.string.trasportaSoloPasseggeri));
+			else
+				txtAuto.setText("" + callingContext.getString(R.string.trasportaAutoPasseggeri));
+
+			biglietterieDialog = new BiglietterieDialog(this.getContext());
+			biglietterieDialog.fill(c);
+		} else
+		    txtAuto.setText("");
         taxiDialog = new TaxiDialog(this.getContext());
         taxiDialog.fill(mezzo.portoPartenza);
         

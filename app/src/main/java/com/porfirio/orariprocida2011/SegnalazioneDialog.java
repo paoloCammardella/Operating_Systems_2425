@@ -83,7 +83,7 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 
 	}
 	
-	//Aggiunta anche la possibilità di confermare (con un extra button)
+	//Aggiunta anche la possibilita' di confermare (con un extra button)
 
 	private String scriviSegnalazione(boolean problema){
 		HttpClient Client = new DefaultHttpClient();
