@@ -17,7 +17,7 @@ public class Meteo {
 		setWindDirection(wd);
 	}
 	
-	public Meteo(OrariProcida2011Activity orariProcida2011Activity){
+	Meteo(OrariProcida2011Activity orariProcida2011Activity){
 		windBeaufort=0.0;
 		windDirection=0;
 		windKmh=0.0;
@@ -25,7 +25,7 @@ public class Meteo {
 		callingActivity=orariProcida2011Activity;
 	}
 
-	public void setWindBeaufort(Double wkmh)
+	void setWindBeaufort(Double wkmh)
 {
     	if (wkmh<=1)
     		this.windBeaufort =(0.0);
@@ -55,20 +55,20 @@ public class Meteo {
     		this.windBeaufort =(12.0);
 }
 	
-	public double getWindBeaufort() {
+	double getWindBeaufort() {
 		return windBeaufort;
 	}
 
-	public void setWindDirection(int windDirection) {
+	void setWindDirection(int windDirection) {
 		this.windDirection = windDirection;
 	}
 
-	public int getWindDirection() {
+	int getWindDirection() {
 		return windDirection;
 	}
 
-	public String condimeteoString(OrariProcida2011Activity orariProcida2011Activity, Mezzo mezzo) {
-		String result=new String("");
+	String condimeteoString(OrariProcida2011Activity orariProcida2011Activity, Mezzo mezzo) {
+		String result;
 		Double actualBeaufort=getWindBeaufort();
 		Double limitBeaufort=0.0;
 		
@@ -121,46 +121,43 @@ public class Meteo {
 	
 	}
 
-	public String getWindDirectionString() {
+	String getWindDirectionString() {
 		return windDirectionString;
 	}
 
-	public Double getWindKmh() {		
+	Double getWindKmh() {
 		return windKmh;
 	}
 
-	public void setWindKmh(double wkmh) {
+	void setWindKmh(double wkmh) {
 		if (windKmh==0 || wkmh>0)
 			windKmh=wkmh;
-		return;
 	}
 
-	public void setWindDirectionString(int dir) {
+	void setWindDirectionString(int dir) {
     	if (dir==0)
 			windDirectionString=callingActivity.getString(R.string.nord);
-    	else if (dir==0)
-    		windDirectionString=callingActivity.getString(R.string.nordEst);
     	else if (dir==45)
-    		windDirectionString=callingActivity.getString(R.string.est);
+    		windDirectionString=callingActivity.getString(R.string.nordEst);
     	else if (dir==90)
-    		windDirectionString=callingActivity.getString(R.string.sudEst);
+    		windDirectionString=callingActivity.getString(R.string.est);
     	else if (dir==135)
-    		windDirectionString=callingActivity.getString(R.string.sud);
+    		windDirectionString=callingActivity.getString(R.string.sudEst);
     	else if (dir==180)
-    		windDirectionString=callingActivity.getString(R.string.sudOvest);
+    		windDirectionString=callingActivity.getString(R.string.sud);
     	else if (dir==225)
-    		windDirectionString=callingActivity.getString(R.string.ovest);
+    		windDirectionString=callingActivity.getString(R.string.sudOvest);
     	else if (dir==270)
+    		windDirectionString=callingActivity.getString(R.string.ovest);
+    	else if (dir==315)
     		windDirectionString=callingActivity.getString(R.string.nordOvest);
-		return;
 	}
 	
-	public void setWindDirectionString(String s) {
+	void setWindDirectionString(String s) {
 		windDirectionString=s;
-		return;
 	}
 	
-	public String getWindBeaufortString(){
+	String getWindBeaufortString(){
 		int forza=Double.valueOf(windBeaufort).intValue();
 		switch (forza){
 		case 0:
