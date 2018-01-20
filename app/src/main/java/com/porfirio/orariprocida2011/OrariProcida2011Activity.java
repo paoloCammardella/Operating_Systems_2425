@@ -120,7 +120,6 @@ public class OrariProcida2011Activity extends Activity {
     		finestraDialog.setOnDismissListener(new OnDismissListener() {
                 public void onDismiss(DialogInterface dialog) {
                         aggiornaLista();
-                        return;
                 }
     		});        
         	finestraDialog.show();
@@ -139,11 +138,11 @@ public class OrariProcida2011Activity extends Activity {
         			Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
         		return true;
         case R.id.meteo:
-        	Log.d("CONDIMETEO","PRIMA"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
+        	Log.d("CONDIMETEO","PRIMA"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
         	showDialog(METEO_DIALOG_ID);
         	leggiMeteo(true);
-        	Log.d("CONDIMETEO","DOPO"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
-            meteoDialog.setMessage(getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
+        	Log.d("CONDIMETEO","DOPO"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
+            meteoDialog.setMessage(getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
             this.aggiornaLista();
         	showDialog(METEO_DIALOG_ID);
         	return true;
@@ -206,10 +205,10 @@ public class OrariProcida2011Activity extends Activity {
 
         meteo=new Meteo(this);
         leggiMeteo(false);
-    	Log.d("CONDIMETEO","AVVIO"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
+    	Log.d("CONDIMETEO","AVVIO"+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE));
        
         builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()
+        builder.setMessage(getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()
         		+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE))
                .setCancelable(false)
                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -292,9 +291,8 @@ public class OrariProcida2011Activity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				int position=arg2;
 				for (int i=0;i<aalvMezzi.getCount();i++){
-					if (selectMezzi.get(i).getOrderInList()==position)
+					if (selectMezzi.get(i).getOrderInList()==arg2)
 						dettagliMezzoDialog.setMezzo(selectMezzi.get(i));
 				}
 					
@@ -316,9 +314,8 @@ public class OrariProcida2011Activity extends Activity {
 	    	    if (!isOnline())
 	    	    	Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.soloOnline), Toast.LENGTH_SHORT).show();
         		else{
-	        		int position=arg2;
 					for (int i=0;i<aalvMezzi.getCount();i++){
-						if (selectMezzi.get(i).getOrderInList()==position)
+						if (selectMezzi.get(i).getOrderInList()==arg2)
 							segnalazioneDialog.setMezzo(selectMezzi.get(i));
 					}
 						
@@ -368,8 +365,7 @@ public class OrariProcida2011Activity extends Activity {
     	    try {
     	      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
     	      String jsonText = readAll(rd);
-    	      JSONObject json = new JSONObject(jsonText);
-    	      return json;
+    	      return new JSONObject(jsonText);
     	    } finally {
     	      is.close();
     	    }
@@ -402,8 +398,7 @@ public class OrariProcida2011Activity extends Activity {
 			  BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			  String rigaAggiornamento = null;
 			try {
-				String s=br.readLine();
-				rigaAggiornamento = s;
+				rigaAggiornamento = br.readLine();
 			} catch (IOException e) {
 				// 
 				e.printStackTrace();
@@ -470,7 +465,7 @@ public class OrariProcida2011Activity extends Activity {
 					meteo.setWindBeaufort(meteo.getWindKmh());
 					Log.d("ORARI","letto da json");
 					//scrivo l'aggiornamento su internal storage
-					FileOutputStream fos = null;
+					FileOutputStream fos=null;
 					try {
 						fos = openFileOutput("aggiornamentoMeteo.csv", Context.MODE_WORLD_WRITEABLE);
 					} catch (FileNotFoundException e) {
@@ -550,7 +545,7 @@ public class OrariProcida2011Activity extends Activity {
 	}
 
 	private void setTxtOrario(Calendar c) {
-		String s=new String(getString(R.string.dalle)+" ");
+		String s=getString(R.string.dalle)+" ";
 		if (c.get(Calendar.HOUR_OF_DAY)<10)
 			s+="0";
 		s+=c.get(Calendar.HOUR_OF_DAY)+":";
@@ -592,7 +587,7 @@ public class OrariProcida2011Activity extends Activity {
 			  Log.d("ORARI", "Fine caricamento orari da IS");
 	          int meseToast=aggiornamentoOrariIS.get(Calendar.MONTH);
 	          if (meseToast==0) meseToast=12;
-			  String str=new String(getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH)+"/"+meseToast+"/"+aggiornamentoOrariIS.get(Calendar.YEAR));
+			  String str=getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH)+"/"+meseToast+"/"+aggiornamentoOrariIS.get(Calendar.YEAR);
 			  Log.d("ORARI", str);
 			  if (!primoAvvio) 
 				  Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
@@ -638,7 +633,7 @@ public class OrariProcida2011Activity extends Activity {
 			ultimaLetturaOrariDaWeb=Calendar.getInstance();
         	int meseToast=aggiornamentoOrariIS.get(Calendar.MONTH);
         	if (meseToast==0) meseToast=12;
-		    String str=new String(getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH)+"/"+meseToast+"/"+aggiornamentoOrariWeb.get(Calendar.YEAR));		    
+		    String str=getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH)+"/"+meseToast+"/"+aggiornamentoOrariWeb.get(Calendar.YEAR);
 		    aboutDialog.setMessage(""+getString(R.string.disclaimer)+"\n"+getString(R.string.credits));
 			Log.d("ORARI", str);
 			//if (!primoAvvio)
@@ -771,10 +766,7 @@ public class OrariProcida2011Activity extends Activity {
 	public boolean isOnline() {
 	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-	        return true;
-	    }
-	    return false;
+	    return (netInfo != null && netInfo.isConnectedOrConnecting());
 	}
 	
     private void riempiLista() {
@@ -1009,9 +1001,7 @@ public class OrariProcida2011Activity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		return;
-		
+
 	}
 
 	@Override
@@ -1072,7 +1062,7 @@ public class OrariProcida2011Activity extends Activity {
     	
     	aalvMezzi.clear();
 
-		String naveEspanso=new String(nave);
+		String naveEspanso=nave;
 		if (nave.contains(getString(R.string.traghetti)))
 			naveEspanso="Traghetto Caremar Procida Lines Gestur Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Aladino"; 
 		if (nave.contains(getString(R.string.aliscafi)))
@@ -1080,14 +1070,14 @@ public class OrariProcida2011Activity extends Activity {
 		if (nave.equals("Ippocampo"))
 			naveEspanso="Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella)";
     	
-    	String portoPartenzaEspanso=new String(portoPartenza); 
+    	String portoPartenzaEspanso=portoPartenza;
 		if (portoPartenza.equals("Napoli"))
 			portoPartenzaEspanso="Napoli Porta di Massa o Napoli Beverello";
 		if (portoPartenza.equals("Napoli o Pozzuoli"))
 			portoPartenzaEspanso="Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
 		if (portoPartenza.equals("Ischia"))
 			portoPartenzaEspanso="Ischia Porto o Casamicciola";
-		String portoArrivoEspanso=new String(portoArrivo);
+		String portoArrivoEspanso=portoArrivo;
 		if (portoArrivo.equals("Napoli"))
 			portoArrivoEspanso="Napoli Porta di Massa o Napoli Beverello";
 		if (portoArrivo.equals("Napoli o Pozzuoli"))
@@ -1129,7 +1119,7 @@ public class OrariProcida2011Activity extends Activity {
     	Collections.sort(selectMezzi,comparator);
 		for (int i=0;i<selectMezzi.size();i++){
 			selectMezzi.get(i).setOrderInList(i); 
-    		String s=new String(selectMezzi.get(i).nave+" - "+selectMezzi.get(i).portoPartenza+" - "+selectMezzi.get(i).portoArrivo+" - ");
+    		String s=selectMezzi.get(i).nave+" - "+selectMezzi.get(i).portoPartenza+" - "+selectMezzi.get(i).portoArrivo+" - ";
 //    		s += selectMezzi.get(i).getOrderInList()+" - ";
     		if (selectMezzi.get(i).oraPartenza.get(Calendar.HOUR_OF_DAY)<10)
     			s+="0";
@@ -1210,7 +1200,7 @@ public class OrariProcida2011Activity extends Activity {
         	int mese=aggiornamentoOrariIS.get(Calendar.MONTH);
         	if (mese==0) mese=12;
         	meteo.setWindBeaufort(meteo.getWindKmh());
-			Toast.makeText(getApplicationContext(), getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza+"\n"+getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariIS.get(Calendar.DATE)+"/"+mese+"/"+aggiornamentoOrariIS.get(Calendar.YEAR)+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE)+" "+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+Double.valueOf(meteo.getWindKmh()).intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza+"\n"+getString(R.string.orariAggiornatiAl)+" "+aggiornamentoOrariIS.get(Calendar.DATE)+"/"+mese+"/"+aggiornamentoOrariIS.get(Calendar.YEAR)+"\n"+getString(R.string.updated)+" "+aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH)+"/"+(1+aggiornamentoMeteo.get(Calendar.MONTH))+"/"+aggiornamentoMeteo.get(Calendar.YEAR)+" "+getString(R.string.ore)+" "+aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY)+":"+aggiornamentoMeteo.get(Calendar.MINUTE)+" "+getString(R.string.condimeteo)+meteo.getWindBeaufortString()+" ("+meteo.getWindKmh().intValue()+" km/h) "+getString(R.string.da)+" "+meteo.getWindDirectionString()+"\n", Toast.LENGTH_LONG).show();
 			primoAvvio=false;
 //        	Toast.makeText(getApplicationContext(), getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza, Toast.LENGTH_LONG).show();
         }
@@ -1298,43 +1288,43 @@ public class OrariProcida2011Activity extends Activity {
 			Log.d("ACTIVITY", "Problema con GPS");
 		}
         if (l==null)
-        	return new String(getString(R.string.tutti));
+        	return getString(R.string.tutti);
         //Coordinate angoli Procida
         if ((l.getLatitude()>40.7374)&&(l.getLatitude()<40.7733)&&(l.getLongitude()>13.9897)&&(l.getLongitude()<14.0325))
-        	return new String ("Procida");
+        	return "Procida";
         //Coordinate angoli Isola d'Ischia
         if ((l.getLatitude()>40.6921)&&(l.getLatitude()<40.7626)&&(l.getLongitude()>13.8465)&&(l.getLongitude()<13.9722)){
         	//Isola d'Ischia
         	if (calcolaDistanza(l,13.9063,40.7496)>calcolaDistanza(l,13.9602,40.7319))
-        		return new String ("Ischia");
+        		return "Ischia";
         	else
-        		return new String ("Casamicciola");
+        		return "Casamicciola";
         } 
       //Inserire coordinate Napoli (media porti) e Pozzuoli
       double distNapoli=calcolaDistanza(l,14.2575,40.84); Log.d("OrariProcida","d(Napoli)="+distNapoli);
       double distPozzuoli=calcolaDistanza(l,14.1179,40.8239); Log.d("OrariProcida","d(Pozzuoli)="+distPozzuoli);
       double distMonteProcida=calcolaDistanza(l,14.05,40.8);
       if (distMonteProcida<1500)
-    	  return new String("Monte di Procida");
+    	  return "Monte di Procida";
       if (distPozzuoli<distNapoli){
     	  if (distPozzuoli<15000)
-      		return new String ("Pozzuoli");
+      		return "Pozzuoli";
     	  else
-    		return new String ("Napoli o Pozzuoli");
+    		return "Napoli o Pozzuoli";
       }
       else { 
     	  if (distNapoli<15000){
     		  if (distNapoli>1000)
-    			  return new String ("Napoli");
+    			  return "Napoli";
     		  else{
     	        	if (calcolaDistanza(l,14.2548,40.8376)<calcolaDistanza(l,14.2602,40.8424))
-    	        		return new String ("Napoli Beverello");
+    	        		return "Napoli Beverello";
     	        	else
-    	        		return new String ("Napoli Porta di Massa");
+    	        		return "Napoli Porta di Massa";
     		  }    			  
     	  }        		
       	  else
-      		return new String ("Napoli o Pozzuoli");    	  
+      		return "Napoli o Pozzuoli";
       }
 	}
 

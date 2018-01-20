@@ -30,12 +30,12 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	private TextView txtPartenza;
 	private TextView txtArrivo;
 	private Context callingContext;
-	Spinner spnRagioni;
+	private Spinner spnRagioni;
     private int ragione;
 	private EditText txtDettagli;
 	private Calendar orarioRef;
 	
-	public SegnalazioneDialog(Context context, Calendar c) {
+	SegnalazioneDialog(Context context, Calendar c) {
 		super(context);
 		callingContext=context;
 		orarioRef=c;
@@ -114,7 +114,7 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
         
        try
         {
-             String SetServerString = "";
+             String SetServerString;
              HttpGet httpget = new HttpGet(URL);
              ResponseHandler<String> responseHandler = new BasicResponseHandler();
              SetServerString = Client.execute(httpget, responseHandler);
@@ -138,15 +138,15 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 
 
 	
-	public void fill(ArrayList<Compagnia> listCompagnia) {
+	void fill(ArrayList<Compagnia> listCompagnia) {
 		txtMezzo.setText("    "+mezzo.nave+"    ");
-		String s=new String();
-		s+=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
+		String s;
+		s=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
 		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraPartenza.get(Calendar.MONTH)+1)+"/"+mezzo.oraPartenza.get(Calendar.YEAR);
 		s+=" "+callingContext.getString(R.string.da)+" "+mezzo.portoPartenza;
 		txtPartenza.setText(s);
-		s=new String();
-		s+=callingContext.getString(R.string.arrivaAlle)+" "+mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraArrivo.get(Calendar.MINUTE);
+		//s=new String();
+		s=callingContext.getString(R.string.arrivaAlle)+" "+mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraArrivo.get(Calendar.MINUTE);
 		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraArrivo.get(Calendar.MONTH)+1)+"/"+mezzo.oraArrivo.get(Calendar.YEAR);		
 		s+=" "+callingContext.getString(R.string.a)+" "+mezzo.portoArrivo;
 		txtArrivo.setText(s);

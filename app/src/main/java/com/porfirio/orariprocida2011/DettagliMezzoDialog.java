@@ -37,16 +37,16 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 	public ArrayAdapter<String> aalvNumeri;
 	public ListView lvNumeri;
 	public ArrayList <String> listNumeri;
-	public BiglietterieDialog biglietterieDialog;
-	public TaxiDialog taxiDialog;
-	public SegnalazioneDialog segnalazioneDialog;
+    private BiglietterieDialog biglietterieDialog;
+    private TaxiDialog taxiDialog;
+    private SegnalazioneDialog segnalazioneDialog;
 	private TextView txtAuto;
 	private Calendar calen;
 	private ArrayList<Compagnia> lc;
 	private OrariProcida2011Activity callingActivity;
-	
 
-	public DettagliMezzoDialog(OrariProcida2011Activity a,Context context,Calendar cal) {
+
+    DettagliMezzoDialog(OrariProcida2011Activity a,Context context,Calendar cal) {
 		super(context);
 		callingActivity=a;
 		callingContext=context;
@@ -114,17 +114,17 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 
 
 	
-	public void fill(ArrayList<Compagnia> listCompagnia) {
+	void fill(ArrayList<Compagnia> listCompagnia) {
 		lc=listCompagnia;
 		txtMezzo.setText("    "+mezzo.nave+"    ");
-		String s=new String();
-		s+=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
+		//String s=new String();
+		String s=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
 		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraPartenza.get(Calendar.MONTH)+1)+"/"+mezzo.oraPartenza.get(Calendar.YEAR);
 		s+=" "+callingContext.getString(R.string.da)+" "+mezzo.portoPartenza;
 		txtPartenza.setText(s);
-		s=new String();
-		s+=callingContext.getString(R.string.arrivaAlle)+" "+mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraArrivo.get(Calendar.MINUTE);
-		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraArrivo.get(Calendar.MONTH)+1)+"/"+mezzo.oraArrivo.get(Calendar.YEAR);		
+		//s=new String();
+        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraArrivo.get(Calendar.MINUTE);
+		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraArrivo.get(Calendar.MONTH)+1)+"/"+mezzo.oraArrivo.get(Calendar.YEAR);
 		s+=" "+callingContext.getString(R.string.a)+" "+mezzo.portoArrivo;
 		txtArrivo.setText(s);
 		
@@ -138,7 +138,7 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 //        aalvNumeri = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_list_item_1);       
 //        lvNumeri.setAdapter(aalvNumeri);
 //		
-		s=new String();
+		s="";
 		if (mezzo.getCostoResidente()>0.0){
 			if (mezzo.isCircaResidente())
 				s+=callingContext.getString(R.string.circa)+" ";
@@ -168,9 +168,9 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
         //Aggiunto Aladino
 		if (c!=null) {
 			if (c.nome.contains("Ippocampo") || c.nome.contentEquals("Procida Lines") || mezzo.nave.contains("Aliscafo") || mezzo.nave.contains("Aladino"))
-				txtAuto.setText("" + callingContext.getString(R.string.trasportaSoloPasseggeri));
+				txtAuto.setText(callingContext.getString(R.string.trasportaSoloPasseggeri));
 			else
-				txtAuto.setText("" + callingContext.getString(R.string.trasportaAutoPasseggeri));
+				txtAuto.setText( callingContext.getString(R.string.trasportaAutoPasseggeri));
 
 			biglietterieDialog = new BiglietterieDialog(this.getContext());
 			biglietterieDialog.fill(c);
