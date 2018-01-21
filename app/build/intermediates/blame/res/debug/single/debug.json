@@ -1,139 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\taxi.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\taxi.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\taxi.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\menu_menu.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\menu\\menu.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-ldpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\segnalazione.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_dettaglimezzo.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\dettaglimezzo.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\taxi.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-xhdpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\taxi.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-xhdpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\segnalazione.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\taxi.xml"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_segnalazione.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\segnalazione.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_dettaglimezzo.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\dettaglimezzo.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_taxi.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\taxi.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
@@ -144,56 +16,40 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\dettaglimezzo.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_dettaglimezzo.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\dettaglimezzo.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_finestradialog.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\finestradialog.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\main.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_biglietterie.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\biglietterie.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_biglietterie.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\biglietterie.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\main.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_traghetti.png.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-ldpi\\ic_launcher_traghetti.png"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_row.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\row.xml"
     },
     {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_traghetti.png.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher_traghetti.png"
+    },
+    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_main.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\main.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_main.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\main.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_main.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\main.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\segnalazione.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_main.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\main.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_finestradialog.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_row.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\row.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\segnalazione.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_taxi.xml.flat",
@@ -208,24 +64,8 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\dettaglimezzo.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_dettaglimezzo.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\dettaglimezzo.xml"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_segnalazione.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\segnalazione.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_finestradialog.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\finestradialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-ldpi\\ic_launcher_traghetti.png"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher_traghetti.png"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_finestradialog.xml.flat",
@@ -244,16 +84,24 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable\\ic_launcher_traghetti.png"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\segnalazione.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_main.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_finestradialog.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\finestradialog.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_dettaglimezzo.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\dettaglimezzo.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_taxi.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\taxi.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_traghetti.png.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\drawable-xhdpi\\ic_launcher_traghetti.png"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_biglietterie.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\biglietterie.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\menu_menu.xml.flat",
@@ -268,6 +116,10 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\biglietterie.xml"
     },
     {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_segnalazione.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\segnalazione.xml"
+    },
+    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_segnalazione.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\segnalazione.xml"
     },
@@ -280,6 +132,10 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\biglietterie.xml"
     },
     {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_biglietterie.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\biglietterie.xml"
+    },
+    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-small_dettaglimezzo.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\dettaglimezzo.xml"
     },
@@ -288,11 +144,7 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-small\\taxi.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_dettaglimezzo.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\dettaglimezzo.xml"
-    },
-    {
-        "merged": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\Dropbox\\UnoProcidaResidente\\OrariProcida2011-2017\\app\\src\\main\\res\\layout\\segnalazione.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_taxi.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\taxi.xml"
     }
 ]

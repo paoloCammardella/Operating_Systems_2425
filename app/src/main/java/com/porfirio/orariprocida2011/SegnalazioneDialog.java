@@ -1,17 +1,6 @@
 package com.porfirio.orariprocida2011;
 
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -23,6 +12,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 
 public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	private Mezzo mezzo;
@@ -40,13 +41,13 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 		callingContext=context;
 		orarioRef=c;
 		setContentView(R.layout.segnalazione);
-		txtMezzo = (TextView) findViewById(R.id.txtMezzo);
-		txtPartenza = (TextView) findViewById(R.id.txtPartenza);
-		txtArrivo = (TextView) findViewById(R.id.txtArrivo);
-		txtDettagli= (EditText) findViewById(R.id.txtDettagli);
-		
-    	spnRagioni = (Spinner)findViewById(R.id.spnRagioni);
-    	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        txtMezzo = findViewById(R.id.txtMezzo);
+        txtPartenza = findViewById(R.id.txtPartenza);
+        txtArrivo = findViewById(R.id.txtArrivo);
+        txtDettagli = findViewById(R.id.txtDettagli);
+
+        spnRagioni = findViewById(R.id.spnRagioni);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context, R.array.strRagioni, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnRagioni.setAdapter(adapter);
@@ -59,10 +60,10 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
             }
         });
 
-	    Button btnInvia = (Button)findViewById(R.id.btnInvia);    
-	    btnInvia.setOnClickListener(new View.OnClickListener(){
-	    	@Override
-	    	public void onClick(View v) {
+        Button btnInvia = findViewById(R.id.btnInvia);
+        btnInvia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(true);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
@@ -70,10 +71,10 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	    	}
 	    });
 
-	    Button btnConferma = (Button)findViewById(R.id.btnConferma);    
-	    btnConferma.setOnClickListener(new View.OnClickListener(){
-	    	@Override
-	    	public void onClick(View v) {
+        Button btnConferma = findViewById(R.id.btnConferma);
+        btnConferma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(false);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
@@ -84,6 +85,9 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	}
 	
 	//Aggiunta anche la possibilita' di confermare (con un extra button)
+//TODO SOstituire con la nuova HTTPUrlConnection
+    // https://developer.android.com/reference/java/net/HttpURLConnection.html
+
 
 	private String scriviSegnalazione(boolean problema){
 		HttpClient Client = new DefaultHttpClient();

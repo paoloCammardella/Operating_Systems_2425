@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:enabled="true" android:orderInCategory="1" android:title="@string/about" android:visible="true" android:id="@+id/about"></item>
-<item android:enabled="true" android:id="@+id/esci" android:orderInCategory="2" android:title="@string/esci" android:visible="true"></item>
-<item android:title="Finestra Temporale" android:id="@+id/finTemp" android:visible="false" android:enabled="false"></item>
-<item android:id="@+id/updateWeb" android:title="@string/updateWeb" android:orderInCategory="3"></item>
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:orderInCategory="1"
+        android:title="@string/about"
+        android:visible="true"></item>
+    <item
+        android:id="@+id/esci"
+        android:enabled="true"
+        android:orderInCategory="2"
+        android:title="@string/esci"
+        android:visible="true"></item>
+    <item
+        android:id="@+id/finTemp"
+        android:enabled="false"
+        android:visible="false"></item>
+    <item
+        android:id="@+id/updateWeb"
+        android:orderInCategory="3"
+        android:title="@string/updateWeb"></item>
 <item android:id="@+id/meteo" android:title="@string/meteo" android:titleCondensed="@string/meteo"></item>
 </menu>
