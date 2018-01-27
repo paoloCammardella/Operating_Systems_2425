@@ -463,7 +463,7 @@ public class OrariProcida2011Activity extends Activity {
                         //scrivo l'aggiornamento su internal storage
                         FileOutputStream fos = null;
                         try {
-                            fos = openFileOutput("aggiornamentoMeteo.csv", Context.MODE_WORLD_WRITEABLE);
+                            fos = openFileOutput("aggiornamentoMeteo.csv", Context.MODE_PRIVATE);
                         } catch (FileNotFoundException e) {
                             //
                             e.printStackTrace();
@@ -674,7 +674,7 @@ public class OrariProcida2011Activity extends Activity {
                         e.printStackTrace();
                     }
 
-                    FileOutputStream fos = openFileOutput("orari.csv", Context.MODE_WORLD_WRITEABLE);
+                    FileOutputStream fos = openFileOutput("orari.csv", Context.MODE_PRIVATE);
                     fos.write(rigaAggiornamento.getBytes());
                     fos.write("\n".getBytes());
                     listMezzi.clear();

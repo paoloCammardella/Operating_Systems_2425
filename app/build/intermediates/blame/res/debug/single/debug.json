@@ -8,12 +8,12 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-xlarge\\taxi.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\segnalazione.xml"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_dettaglimezzo.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-normal\\dettaglimezzo.xml"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\src\\main\\res\\layout-large\\segnalazione.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017\\app\\build\\intermediates\\res\\merged\\debug\\layout-normal_finestradialog.xml.flat",
