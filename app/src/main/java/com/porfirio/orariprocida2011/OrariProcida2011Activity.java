@@ -17,7 +17,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,23 +32,13 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -70,6 +59,8 @@ public class OrariProcida2011Activity extends Activity {
     public String nave;
     public String portoPartenza;
     public String portoArrivo;
+    public String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
+    public String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
     public Calendar aggiornamentoOrariWeb;
     public Calendar aggiornamentoOrariIS;
@@ -87,10 +78,11 @@ public class OrariProcida2011Activity extends Activity {
 	public AlertDialog novitaDialog;
     public ConfigData configData;
     public Meteo meteo;
-    private AlertDialog meteoDialog;
+    public AlertDialog meteoDialog;
+    public ArrayList<Mezzo> listMezzi;
+    public boolean aggiorna;
     private DettagliMezzoDialog dettagliMezzoDialog;
     private ArrayList<Mezzo> selectMezzi;
-    private ArrayList<Mezzo> listMezzi;
     private ArrayList<Compagnia> listCompagnia;
     private LocationManager myManager;
 	private Criteria criteria;
@@ -101,7 +93,7 @@ public class OrariProcida2011Activity extends Activity {
     private boolean slow = false;
     private boolean primoAvvio = true;
 
-    private static String readAll(Reader rd) throws IOException {
+    public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {
@@ -110,7 +102,7 @@ public class OrariProcida2011Activity extends Activity {
         return sb.toString();
     }
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+/*    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -119,7 +111,7 @@ public class OrariProcida2011Activity extends Activity {
         } finally {
             is.close();
         }
-    }
+    }*/
 
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
@@ -223,12 +215,14 @@ public class OrariProcida2011Activity extends Activity {
 
         meteo = new Meteo(this);
         leggiMeteo(false);
-        Log.d("CONDIMETEO", "AVVIO" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
+
+        //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
 
         builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString()
+/*        builder.setMessage(getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString()
                 + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE))
-                .setCancelable(false)
+*/
+        builder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -370,175 +364,16 @@ public class OrariProcida2011Activity extends Activity {
     }
 
     private void leggiMeteo(boolean aggiorna) {
-        /* Create a URL we want to load some xml-data from. */
-		URL url;
-        Double windKmhFromIS = 0.0;
-        Integer windDirFromIS = 0;
-        String windDirectionStringFromIS = getString(R.string.nord);
-        boolean scriviSuIS = false;
-        //Prova a leggere da Internal Storage il valore di aggiornamentoMeteoIS
-        FileInputStream fstream = null;
-        try {
-			Log.i("k", getApplicationContext().getFilesDir().getPath());
-            fstream = new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/aggiornamentoMeteo.csv");
-        } catch (FileNotFoundException e1) {
-            scriviSuIS = true;
-            //metto fittiziamente aggiornamento al 2001
-            aggiornamentoMeteo = Calendar.getInstance(TimeZone.getDefault());
-            aggiornamentoMeteo.set(Calendar.YEAR, 2001);
-        }
+        this.aggiorna = aggiorna;
+        //TODO Provare a mettere anche la lettura dei dati meteo in un task
 
-        if (!(fstream == null)) {
-            Log.d("ORARI", "legge da IS il valore di aggiornamentoMeteoIS");
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String rigaAggiornamento = null;
-            try {
-                rigaAggiornamento = br.readLine();
-            } catch (IOException e) {
-                //
-                e.printStackTrace();
-            }
-            Log.d("ORARI", "aggiornamento al " + rigaAggiornamento);
-            StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            aggiornamentoMeteo = Calendar.getInstance(TimeZone.getDefault());
-            aggiornamentoMeteo.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoMeteo.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoMeteo.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-            aggiornamentoMeteo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(st0.nextToken()));
-            aggiornamentoMeteo.set(Calendar.MINUTE, Integer.parseInt(st0.nextToken()));
-            try {
-                String s = br.readLine();
-                windKmhFromIS = Double.parseDouble(s);
-                meteo.setWindKmh(windKmhFromIS);
-                s = br.readLine();
-                windDirFromIS = Integer.parseInt(s);
-                meteo.setWindDirection(windDirFromIS);
-                s = br.readLine();
-                windDirectionStringFromIS = s;
-                meteo.setWindDirectionString(windDirectionStringFromIS);
-
-			} catch (NumberFormatException e1) {
-                //
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                //
-                e1.printStackTrace();
-            }
-            try {
-                in.close();
-            } catch (IOException e) {
-                //
-                e.printStackTrace();
-            }
-        }
+/*        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(policy);
+        */
+        new LeggiMeteoTask().execute(this);
 
 
-		Long differenza = Calendar.getInstance().getTimeInMillis() - aggiornamentoMeteo.getTimeInMillis();
-        Log.d("ORARI", "vecchiaia dell'aggiornamento in millisec " + differenza.toString());
-        if (isOnline() && (differenza > 10000000 || aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
-            //if (isOnline() && differenza>10000) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
-            if (!slow && false) {
-                try {
-                    JSONObject jsonObject = null;
-                    try {
-                        //jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Procida.json");
-                        jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json");
-                    } catch (SocketTimeoutException e) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
-                        slow = true;
-                    } catch (IOException e) {
-                        //
-                        Log.d("ORARI", "dati meteo non caricati da web");
-                    }
-//Grazie alla formattazione ottenuta con http://jsonformatter.curiousconcept.com/
-                    if (!(jsonObject == null)) {
-
-                        Integer windDir = (Integer) jsonObject.getJSONObject("current_observation").get("wind_degrees");
-                        meteo.setWindKmh(Double.parseDouble(jsonObject.getJSONObject("current_observation").get("wind_kph").toString()));
-                        meteo.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
-                        meteo.setWindDirectionString(meteo.getWindDirection());
-                        meteo.setWindBeaufort(meteo.getWindKmh());
-                        Log.d("ORARI", "letto da json");
-                        //scrivo l'aggiornamento su internal storage
-                        FileOutputStream fos = null;
-                        try {
-                            fos = openFileOutput("aggiornamentoMeteo.csv", Context.MODE_PRIVATE);
-                        } catch (FileNotFoundException e) {
-                            //
-                            e.printStackTrace();
-                        }
-
-                        //TODO: se il valore letto da weather underground ? troppo piccolo (oppure ? intero anzich? string) rivolgiti a openweathermap
-                        //esempio di query json verso openweathermap:
-                        //http://api.openweathermap.org/data/2.5/weather?q=Procida,it&lang=it
-
-                        //Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
-
-                        //aggiornamento del file locale con il dato meteo
-                        aggiornamentoMeteo = Calendar.getInstance();
-                        String rigaAggiornamento = aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + aggiornamentoMeteo.get(Calendar.MONTH) + "," + aggiornamentoMeteo.get(Calendar.YEAR) + "," + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + aggiornamentoMeteo.get(Calendar.MINUTE);
-                        try {
-                            fos.write(rigaAggiornamento.getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(meteo.getWindKmh().toString().getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(String.valueOf(meteo.getWindDirection()).getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(meteo.getWindDirectionString().getBytes());
-                            fos.write("\n".getBytes());
-                            fos.close();
-                        } catch (IOException e) {
-                            //
-                            e.printStackTrace();
-                        }
-
-                        System.out.println("");
-                    }
-                } catch (JSONException e) {
-                    //
-                    Log.d("ORARI", "dati meteo non caricati da web");
-                    if (isOnline()) Log.d("ORARI", "per mancanza di connessione");
-                    else Log.d("ORARI", "perche' ho dati abbastanza aggiornati");
-				}
-
-// COMMENTATO IL VECCHIO CODICE CHE LEGGEVA DATI METEO DA GOOGLE
-//			try {
-//				url = new URL("http://www.google.com/ig/api?weather=Procida");
-//
-//
-//				/* Get a SAXParser from the SAXPArserFactory. */
-//				SAXParserFactory spf = SAXParserFactory.newInstance();
-//				SAXParser sp = spf.newSAXParser();
-//
-//				/* Get the XMLReader of the SAXParser we created. */
-//				XMLReader xr = sp.getXMLReader();
-//				/* Create a new ContentHandler and apply it to the XML-Reader*/
-//				MeteoXMLHandler meteoXMLHandler = new MeteoXMLHandler(this);
-//				xr.setContentHandler(meteoXMLHandler);
-//
-//				/* Parse the xml-data from our URL. */
-//				xr.parse(new InputSource(url.openStream()));
-//				/* Parsing has finished. */
-//
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			} catch (ParserConfigurationException e) {
-//				e.printStackTrace();
-//			} catch (SAXException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-// FINE VECCHIO CODICE
-            } else {
-                Log.d("ORARI", "dati meteo sufficientemente aggiornati o non disponibili da web");
-                // Usa come meteo i dati da IS (o fittizi)
-                meteo.setWindKmh(windKmhFromIS);
-                meteo.setWindDirection((int) (45 * (Math.round(windDirFromIS / 45.0))) % 360);
-                meteo.setWindDirectionString(windDirectionStringFromIS);
-                meteo.setWindBeaufort(windKmhFromIS);
-            }
     }
 
 	private void setTxtOrario(Calendar c) {
@@ -594,129 +429,23 @@ public class OrariProcida2011Activity extends Activity {
     }
 
     private void riempiMezzidaWeb() {
+        //Da eseguire all'avvio
 
         //soluzione momentanea per il problema Network.OnMainThreadException
         // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-        StrictMode.setThreadPolicy(policy);
 
-        aggiornamentoOrariWeb = Calendar.getInstance();
-        aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, 1);
-        aggiornamentoOrariWeb.set(Calendar.MONTH, 11);
-        aggiornamentoOrariWeb.set(Calendar.YEAR, 2011);
-        Log.d("ORARI", "Inizio Lettura da Web");
-        String url = "http://wpage.unina.it/ptramont/orari.csv";
-        URL u = null;
-        try {
-            u = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        HttpURLConnection conn = null;
-        InputStream in = null;
-        slow = false;
-        //TODO Gestire un TimeOut
-        try {
-            //conn = Connection.connect(new URL(url));
-            conn = (HttpURLConnection) u.openConnection();
-            conn.setConnectTimeout(5000);
-        } catch (SocketTimeoutException e) {
-            Toast.makeText(getApplicationContext(), getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
-            slow = true;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-			e.printStackTrace();
-        }
-        if (!slow) {
-            try {
-                in = conn.getInputStream();
-                BufferedReader r = new BufferedReader(new InputStreamReader(in));
-                String rigaAggiornamento = r.readLine();
-                String rigaNovita = "";
-                StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-                aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariIS.clone();
-                aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-                aggiornamentoOrariWeb.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-                aggiornamentoOrariWeb.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-                ultimaLetturaOrariDaWeb = Calendar.getInstance();
-                int meseToast = aggiornamentoOrariIS.get(Calendar.MONTH);
-                if (meseToast == 0) meseToast = 12;
-                String str = getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR);
-                aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
-                Log.d("ORARI", str);
-                //if (!primoAvvio)
-                //	Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+        //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
+        new DownloadMezziTask().execute(this);
 
-                if (aggiornamentoOrariWeb.after(aggiornamentoOrariIS)) {
-                    Log.d("ORARI", "GLi orari dal Web sono pi? aggiornati");
+        //Al termine dovrebbe ricaricare la lista degli orari
 
-                    //legge riga novita da novita.csv
-                    String url2 = "http://wpage.unina.it/ptramont/novita.txt";
-                    HttpURLConnection conn2 = null;
-                    InputStream in2 = null;
-                    try {
-                        conn2 = (HttpURLConnection) new URL(url2).openConnection();
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        in2 = conn2.getInputStream();
-                        BufferedReader r2 = new BufferedReader(new InputStreamReader(in2));
-                        rigaNovita = r2.readLine();
-                        if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non ? italiano legge la seconda riga delle novita
-                            rigaNovita = r2.readLine();
-                        r2.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        //Non piu' necessario, grazie agli asynctask
 
-                    FileOutputStream fos = openFileOutput("orari.csv", Context.MODE_PRIVATE);
-                    fos.write(rigaAggiornamento.getBytes());
-                    fos.write("\n".getBytes());
-                    listMezzi.clear();
-                    for (String line = r.readLine(); line != null; line = r.readLine()) {
-                        //esamino la riga e creo un mezzo
-                        StringTokenizer st = new StringTokenizer(line, ",");
-                        listMezzi.add(new Mezzo(getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), this));
-                        fos.write(line.getBytes());
-                        fos.write("\n".getBytes());
-                    }
-                    fos.close();
-                    aggiornamentoOrariIS = aggiornamentoOrariWeb;
-                    // Aggiunto un messaggio che ricordi l'aggiornamento
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(getString(R.string.nuovoAggiornamento) + " " + rigaAggiornamento.replace(',', '/') + " \n " + getString(R.string.novita) + " \n" + rigaNovita)
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                    novitaDialog = builder.create();
-                    novitaDialog.show();
 
-                }
-                r.close();
-                Log.d("ORARI", "Orari web letti");
-                //if (!primoAvvio)
-                //	Toast.makeText(getApplicationContext(), ""+getString(R.string.aggiornamentoDaWeb), Toast.LENGTH_LONG).show();
-                Log.d("ORARI", "Orari IS aggiornati");
-
-            } catch (SocketTimeoutException e) {
-                Toast.makeText(getApplicationContext(), getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
-                slow = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
-    private boolean stessoMezzo(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
+    public boolean stessoMezzo(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
         //cal contiene l'ora scritta in cima alla schermata
         //Verifico che la distanza tra cal e l'orario fissato da data di riferimento della segnalazione e ora normale ci partenza del mezzo sia inferiore a tra 0 e 24 h
 
@@ -750,7 +479,7 @@ public class OrariProcida2011Activity extends Activity {
 		return false;
 	}
 
-	private boolean isGiornoVisualizzato(String rigaData, Calendar cal) {
+    public boolean isGiornoVisualizzato(String rigaData, Calendar cal) {
 
 		//Da semplificare, supponendo che ci interessino solo le segnalazioni di oggi
 //		StringTokenizer st = new StringTokenizer( rigaData, "," );
@@ -967,47 +696,8 @@ public class OrariProcida2011Activity extends Activity {
 	private void leggiSegnalazioniDaWeb() {
         //Leggo il file delle segnalazioni
 
-        String urlS = "http://unoprocidaresidente.altervista.org/segnalazioni.csv";
-        HttpURLConnection connS = null;
-        InputStream inS = null;
-        try {
-            connS = (HttpURLConnection) new URL(urlS).openConnection();
-        } catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			inS = connS.getInputStream();
-			BufferedReader rS = new BufferedReader(new InputStreamReader(inS));
-			String rigaData;
-			String rigaMezzo;
-			String rigaMotivo;
-			String rigaDettagli;
-            for (String line = rS.readLine(); line != null; line = rS.readLine()) {
-                rigaData = line;
-                rigaMezzo = rS.readLine();
-                rigaMotivo = rS.readLine();
-                rigaDettagli = rS.readLine();
+        new LeggiSegnalazioniTask().execute(this);
 
-                if (isGiornoVisualizzato(rigaData, c)) {
-                    //devo trovare il mezzo in list mezzi (con un equals da implementare)
-                    //una volta trovato incremento il contatore delle segnalazioni (da aggiungere come attributo)
-                    //infine nella visualizzazione dei mezzi devo metterci il valore del contatore e anche nei dettagli
-                    for (Mezzo m : listMezzi) {
-                        if (stessoMezzo(rigaData, rigaMezzo, m, c)) {
-                            m.addMotivo(rigaMotivo);
-                        }
-                    }
-
-				}
-
-
-			}
-			rS.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 	}
 
@@ -1394,4 +1084,6 @@ public class OrariProcida2011Activity extends Activity {
     	super.onDestroy();
     	Log.d("ACTIVITY","destroy");
     }
+
+
 }
