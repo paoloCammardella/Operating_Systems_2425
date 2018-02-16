@@ -70,6 +70,8 @@ public class OrariProcida2011Activity extends Activity {
     public String nave;
     public String portoPartenza;
     public String portoArrivo;
+    public String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
+    public String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
     public Calendar aggiornamentoOrariWeb;
     public Calendar aggiornamentoOrariIS;
@@ -90,7 +92,7 @@ public class OrariProcida2011Activity extends Activity {
     private AlertDialog meteoDialog;
     private DettagliMezzoDialog dettagliMezzoDialog;
     private ArrayList<Mezzo> selectMezzi;
-    private ArrayList<Mezzo> listMezzi;
+    public ArrayList<Mezzo> listMezzi;
     private ArrayList<Compagnia> listCompagnia;
     private LocationManager myManager;
 	private Criteria criteria;
@@ -594,125 +596,21 @@ public class OrariProcida2011Activity extends Activity {
     }
 
     private void riempiMezzidaWeb() {
+        //Da eseguire all'avvio
 
         //soluzione momentanea per il problema Network.OnMainThreadException
         // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
+
+        //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
+        new DownloadMezziTask().execute(this);
+
+        //Al termine dovrebbe ricaricare la lista degli orari
+
+
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
 
-        aggiornamentoOrariWeb = Calendar.getInstance();
-        aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, 1);
-        aggiornamentoOrariWeb.set(Calendar.MONTH, 11);
-        aggiornamentoOrariWeb.set(Calendar.YEAR, 2011);
-        Log.d("ORARI", "Inizio Lettura da Web");
-        String url = "http://wpage.unina.it/ptramont/orari.csv";
-        URL u = null;
-        try {
-            u = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        HttpURLConnection conn = null;
-        InputStream in = null;
-        slow = false;
-        //TODO Gestire un TimeOut
-        try {
-            //conn = Connection.connect(new URL(url));
-            conn = (HttpURLConnection) u.openConnection();
-            conn.setConnectTimeout(5000);
-        } catch (SocketTimeoutException e) {
-            Toast.makeText(getApplicationContext(), getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
-            slow = true;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-			e.printStackTrace();
-        }
-        if (!slow) {
-            try {
-                in = conn.getInputStream();
-                BufferedReader r = new BufferedReader(new InputStreamReader(in));
-                String rigaAggiornamento = r.readLine();
-                String rigaNovita = "";
-                StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-                aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariIS.clone();
-                aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-                aggiornamentoOrariWeb.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-                aggiornamentoOrariWeb.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-                ultimaLetturaOrariDaWeb = Calendar.getInstance();
-                int meseToast = aggiornamentoOrariIS.get(Calendar.MONTH);
-                if (meseToast == 0) meseToast = 12;
-                String str = getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR);
-                aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
-                Log.d("ORARI", str);
-                //if (!primoAvvio)
-                //	Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-
-                if (aggiornamentoOrariWeb.after(aggiornamentoOrariIS)) {
-                    Log.d("ORARI", "GLi orari dal Web sono pi? aggiornati");
-
-                    //legge riga novita da novita.csv
-                    String url2 = "http://wpage.unina.it/ptramont/novita.txt";
-                    HttpURLConnection conn2 = null;
-                    InputStream in2 = null;
-                    try {
-                        conn2 = (HttpURLConnection) new URL(url2).openConnection();
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        in2 = conn2.getInputStream();
-                        BufferedReader r2 = new BufferedReader(new InputStreamReader(in2));
-                        rigaNovita = r2.readLine();
-                        if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non ? italiano legge la seconda riga delle novita
-                            rigaNovita = r2.readLine();
-                        r2.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    FileOutputStream fos = openFileOutput("orari.csv", Context.MODE_PRIVATE);
-                    fos.write(rigaAggiornamento.getBytes());
-                    fos.write("\n".getBytes());
-                    listMezzi.clear();
-                    for (String line = r.readLine(); line != null; line = r.readLine()) {
-                        //esamino la riga e creo un mezzo
-                        StringTokenizer st = new StringTokenizer(line, ",");
-                        listMezzi.add(new Mezzo(getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), this));
-                        fos.write(line.getBytes());
-                        fos.write("\n".getBytes());
-                    }
-                    fos.close();
-                    aggiornamentoOrariIS = aggiornamentoOrariWeb;
-                    // Aggiunto un messaggio che ricordi l'aggiornamento
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(getString(R.string.nuovoAggiornamento) + " " + rigaAggiornamento.replace(',', '/') + " \n " + getString(R.string.novita) + " \n" + rigaNovita)
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                    novitaDialog = builder.create();
-                    novitaDialog.show();
-
-                }
-                r.close();
-                Log.d("ORARI", "Orari web letti");
-                //if (!primoAvvio)
-                //	Toast.makeText(getApplicationContext(), ""+getString(R.string.aggiornamentoDaWeb), Toast.LENGTH_LONG).show();
-                Log.d("ORARI", "Orari IS aggiornati");
-
-            } catch (SocketTimeoutException e) {
-                Toast.makeText(getApplicationContext(), getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
-                slow = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
