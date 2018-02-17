@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -24,15 +23,14 @@ public class LeggiSegnalazioniTask extends AsyncTask<OrariProcida2011Activity, I
 
         String urlS = "http://unoprocidaresidente.altervista.org/segnalazioni.csv";
         HttpURLConnection connS = null;
-        InputStream inS = null;
+        InputStream inS;
         try {
             connS = (HttpURLConnection) new URL(urlS).openConnection();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
+            assert connS != null;
             inS = connS.getInputStream();
             BufferedReader rS = new BufferedReader(new InputStreamReader(inS));
             String rigaData;

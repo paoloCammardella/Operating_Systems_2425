@@ -13,12 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -31,8 +25,7 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	private TextView txtPartenza;
 	private TextView txtArrivo;
 	private Context callingContext;
-	private Spinner spnRagioni;
-    private int ragione;
+	private int ragione;
 	private EditText txtDettagli;
 	private Calendar orarioRef;
 	
@@ -46,8 +39,8 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
         txtArrivo = findViewById(R.id.txtArrivo);
         txtDettagli = findViewById(R.id.txtDettagli);
 
-        spnRagioni = findViewById(R.id.spnRagioni);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+		Spinner spnRagioni = findViewById(R.id.spnRagioni);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context, R.array.strRagioni, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnRagioni.setAdapter(adapter);
@@ -90,10 +83,10 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 
 
 	private String scriviSegnalazione(boolean problema){
-		HttpClient Client = new DefaultHttpClient();
-        String URL = "http://unoprocidaresidente.altervista.org/segnalabeta.php?data=";
-        //Pare funzionino le segnalazioni relative al giorno successivo!        
-        if (mezzo.getGiornoSeguente())
+
+		String URL = "http://unoprocidaresidente.altervista.org/segnala.php?data=";
+		//Pare funzionino le segnalazioni relative al giorno successivo!
+		if (mezzo.getGiornoSeguente())
         	orarioRef.add(Calendar.DAY_OF_YEAR, 1);
         URL+=orarioRef.get(Calendar.DAY_OF_MONTH)+","+(1+orarioRef.get(Calendar.MONTH))+","+orarioRef.get(Calendar.YEAR)+"&s=";
         if (mezzo.getGiornoSeguente()) //rimettiamo a posto!
@@ -107,18 +100,22 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 			   +mezzo.fineEsclusione.get(Calendar.DAY_OF_MONTH)+","+mezzo.fineEsclusione.get(Calendar.MONTH)+","+mezzo.fineEsclusione.get(Calendar.YEAR)+","
 			   +mezzo.giorniSettimana), "UTF-8");
 			if (problema)
-				URL=URL+"&motivo="+ragione+"&dettagli="+URLEncoder.encode(dettagli, "UTF-8");	
+				URL = URL + "&motivo=" + ragione + "&dettagli=" + URLEncoder.encode(dettagli, "UTF-8");
 			else
 				URL=URL+"&motivo=99"; //99 convenzionalmente sta per Conferma
 		} catch (UnsupportedEncodingException e) {
-			
+
 			e.printStackTrace();
 		}
-        
-        
+
+		new ScriviSegnalazioneTask().execute(URL);
+
+/*
+
        try
         {
-             String SetServerString;
+			HttpClient Client = new DefaultHttpClient();
+			String SetServerString;
              HttpGet httpget = new HttpGet(URL);
              ResponseHandler<String> responseHandler = new BasicResponseHandler();
              SetServerString = Client.execute(httpget, responseHandler);
@@ -128,8 +125,11 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
           {
     	   return "Fail";
            }
+
+           */
+		return "ok";
 }
-	
+
 
 	public void setMezzo(Mezzo m){
 		mezzo=m;

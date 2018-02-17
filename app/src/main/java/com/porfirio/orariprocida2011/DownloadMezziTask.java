@@ -37,16 +37,14 @@ class DownloadMezziTask extends AsyncTask<OrariProcida2011Activity, Integer, Boo
             e.printStackTrace();
         }
 
-        HttpURLConnection conn = null;
-        InputStream in = null;
+        HttpURLConnection conn;
+        InputStream in;
         try {
             //conn = Connection.connect(new URL(url));
+            assert u != null;
             conn = (HttpURLConnection) u.openConnection();
             conn.setConnectTimeout(5000);
         } catch (SocketTimeoutException e) {
-            return false;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
             return false;
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,13 +74,10 @@ class DownloadMezziTask extends AsyncTask<OrariProcida2011Activity, Integer, Boo
                 Log.d("ORARI", "GLi orari dal Web sono piu' aggiornati");
 
                 //legge riga novita da novita.csv
-                HttpURLConnection conn2 = null;
-                InputStream in2 = null;
+                HttpURLConnection conn2;
+                InputStream in2;
                 try {
                     conn2 = (HttpURLConnection) new URL(act.urlNovita).openConnection();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    return false;
                 } catch (IOException e) {
                     e.printStackTrace();
                     return false;

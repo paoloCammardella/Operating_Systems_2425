@@ -1,7 +1,5 @@
 package com.porfirio.orariprocida2011;
 
-//versione 1.3 per Android Market 
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -47,6 +45,8 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 public class OrariProcida2011Activity extends Activity {
     static final int ABOUT_DIALOG_ID = 0;
     static final int METEO_DIALOG_ID = 1;
@@ -85,9 +85,7 @@ public class OrariProcida2011Activity extends Activity {
     private ArrayList<Mezzo> selectMezzi;
     private ArrayList<Compagnia> listCompagnia;
     private LocationManager myManager;
-	private Criteria criteria;
-	private String BestProvider;
-    private boolean updateWeb = true; //capacit? di fare l'upload degli orari da Web: impostata a true
+    private String BestProvider;
     private Locale locale;
     private SegnalazioneDialog segnalazioneDialog;
     private boolean slow = false;
@@ -198,7 +196,7 @@ public class OrariProcida2011Activity extends Activity {
         setContentView(R.layout.main);
 
         myManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        criteria = new Criteria();
+        Criteria criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
         BestProvider = myManager.getBestProvider(criteria, true);
@@ -503,6 +501,7 @@ public class OrariProcida2011Activity extends Activity {
 
 	public boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return (netInfo != null && netInfo.isConnectedOrConnecting());
     }
@@ -573,7 +572,7 @@ public class OrariProcida2011Activity extends Activity {
             listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 8, 10, 8, 25, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567", this));
             listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 9, 10, 9, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567", this));
             listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 12, 10, 12, 40, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567", this));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 35, 19, 00, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567", this));
+            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 35, 19, 0, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567", this));
             listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 10, 20, 10, 55, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567", this));
             listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 13, 50, 14, 20, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567", this));
             listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 19, 15, 19, 45, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567", this));
@@ -681,6 +680,7 @@ public class OrariProcida2011Activity extends Activity {
         }
 
 
+        boolean updateWeb = true;
         if (updateWeb) {
             // Carica da Web solo se non sono abbastnza aggiornati
 
@@ -975,8 +975,10 @@ public class OrariProcida2011Activity extends Activity {
         // Trova il porto pi? vicino a quello di partenza
         Location l = null;
         try {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+
+                // TODO: AGGIUNGERE CODICE ANALOGO A QUELLO DI PROCIDA IN KAYAK
                 //    Activity#requestPermissions
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -1032,8 +1034,8 @@ public class OrariProcida2011Activity extends Activity {
       }
 	}
 
-	public double calcolaDistanza(Location location, double lon, double lat) {
-		//calcola distanza da obiettivo
+    public double calcolaDistanza(Location location, double lon, double lat) {
+        //calcola distanza da obiettivo
 		double deltaLong=Math.abs(lon-location.getLongitude());
 		double deltaLat=Math.abs(lat-location.getLatitude());
 		double delta=(Math.sqrt(deltaLong*deltaLong+deltaLat*deltaLat));

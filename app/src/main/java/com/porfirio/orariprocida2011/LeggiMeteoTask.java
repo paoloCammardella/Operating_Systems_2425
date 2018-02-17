@@ -82,11 +82,7 @@ public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer,
                 windDirectionStringFromIS = s;
                 act.meteo.setWindDirectionString(windDirectionStringFromIS);
 
-            } catch (NumberFormatException e1) {
-                //
-                e1.printStackTrace();
-                return false;
-            } catch (IOException e1) {
+            } catch (NumberFormatException | IOException e1) {
                 //
                 e1.printStackTrace();
                 return false;
@@ -105,7 +101,7 @@ public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer,
         Log.d("ORARI", "vecchiaia dell'aggiornamento in millisec " + differenza.toString());
         if (act.isOnline() && (differenza > 10000000 || act.aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
             //if (isOnline() && differenza>10000) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
-            if (true) {
+//            if (true) {
                 try {
                     JSONObject jsonObject = null;
                     try {
@@ -157,6 +153,7 @@ public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer,
                         act.aggiornamentoMeteo = Calendar.getInstance();
                         String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
                         try {
+                            assert fos != null;
                             fos.write(rigaAggiornamento.getBytes());
                             fos.write("\n".getBytes());
                             fos.write(act.meteo.getWindKmh().toString().getBytes());
@@ -209,7 +206,7 @@ public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer,
 //				e.printStackTrace();
 //			}
 // FINE VECCHIO CODICE
-            } else {
+/*            } else {
                 Log.d("ORARI", "dati meteo sufficientemente aggiornati o non disponibili da web");
                 // Usa come meteo i dati da IS (o fittizi)
                 act.meteo.setWindKmh(windKmhFromIS);
@@ -217,6 +214,7 @@ public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer,
                 act.meteo.setWindDirectionString(windDirectionStringFromIS);
                 act.meteo.setWindBeaufort(windKmhFromIS);
             }
+*/
         return true;
     }
 

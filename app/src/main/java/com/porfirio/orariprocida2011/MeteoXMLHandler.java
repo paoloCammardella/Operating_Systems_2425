@@ -1,10 +1,10 @@
 package com.porfirio.orariprocida2011;
 
+import android.util.Log;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler; 
-
-import android.util.Log;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class MeteoXMLHandler extends DefaultHandler{
 
@@ -31,7 +31,7 @@ public class MeteoXMLHandler extends DefaultHandler{
 	    Attributes attributes) throws SAXException {
 //	    	Log.d("ORARI","Start element");
 	    	if (localName.equals("wind_condition")) {
-	    		/** Get attribute value */
+                /* Get attribute value */
 	    		String attr = attributes.getValue("data");
 	    		setMeteo(attr);
 	    		Log.d("ORARI", attr);

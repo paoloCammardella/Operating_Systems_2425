@@ -1,13 +1,8 @@
 package com.porfirio.orariprocida2011;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import android.app.Dialog;
 import android.content.Context;
-import android.text.Spannable;
-import android.text.util.Linkify;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -15,34 +10,27 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DettagliMezzoDialog extends Dialog implements OnClickListener{
+	public ArrayAdapter<String> aalvNumeri;
+	public ListView lvNumeri;
+	public ArrayList<String> listNumeri;
 	private Mezzo mezzo;
 	private TextView txtMezzo;
-//	private TextView txtOrario;
-//	private TextView txtOraArrivo;
-//	private TextView txtOraPartenza;
-//	private TextView txtPortoPartenza;
-//	private TextView txtPortoArrivo;
-	private TextView txtPeriodo;
-	private TextView txtGiorniSettimana;
 	private TextView txtPartenza;
 //	private TextView txtTelefonoCompagnia;
 //	private TextView txtNomeCompagnia;
 	private TextView txtArrivo;
 	private TextView txtCosto;
 	private Context callingContext;
-	
-	public ArrayAdapter<String> aalvNumeri;
-	public ListView lvNumeri;
-	public ArrayList <String> listNumeri;
     private BiglietterieDialog biglietterieDialog;
     private TaxiDialog taxiDialog;
     private SegnalazioneDialog segnalazioneDialog;
 	private TextView txtAuto;
 	private Calendar calen;
-	private ArrayList<Compagnia> lc;
 	private OrariProcida2011Activity callingActivity;
 
 
@@ -60,8 +48,10 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 //		txtOraArrivo = (TextView) findViewById(R.id.txtOraArrivo);
 //		txtPortoPartenza = (TextView) findViewById(R.id.txtPortoPartenza);
 //		txtPortoArrivo = (TextView) findViewById(R.id.txtPortoArrivo);
-		txtPeriodo = (TextView) findViewById(R.id.txtPeriodo); txtPeriodo.setText("");
-		txtGiorniSettimana = (TextView) findViewById(R.id.txtGiorniSettimana); txtGiorniSettimana.setText("");
+		TextView txtPeriodo = (TextView) findViewById(R.id.txtPeriodo);
+		txtPeriodo.setText("");
+		TextView txtGiorniSettimana = (TextView) findViewById(R.id.txtGiorniSettimana);
+		txtGiorniSettimana.setText("");
 //		txtNomeCompagnia = (TextView) findViewById(R.id.txtNomeCompagnia);
 //		txtTelefonoCompagnia = (TextView) findViewById(R.id.txtTelefonoCompagnia);
 		txtCosto= (TextView) findViewById(R.id.txtCosto);
@@ -115,7 +105,7 @@ public class DettagliMezzoDialog extends Dialog implements OnClickListener{
 
 	
 	void fill(ArrayList<Compagnia> listCompagnia) {
-		lc=listCompagnia;
+		ArrayList<Compagnia> lc = listCompagnia;
 		txtMezzo.setText("    "+mezzo.nave+"    ");
 		//String s=new String();
 		String s=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
