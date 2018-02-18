@@ -28,7 +28,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -90,6 +91,7 @@ public class OrariProcida2011Activity extends Activity {
     private SegnalazioneDialog segnalazioneDialog;
     private boolean slow = false;
     private boolean primoAvvio = true;
+    private Tracker mTracker;
 
     public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -136,6 +138,11 @@ public class OrariProcida2011Activity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
+
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.about:
@@ -182,6 +189,10 @@ public class OrariProcida2011Activity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
@@ -321,6 +332,11 @@ public class OrariProcida2011Activity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            final int arg2, long arg3) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Share")
+                        .build());
+
                 if (!isOnline())
                     Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.soloOnline), Toast.LENGTH_SHORT).show();
                 else {
@@ -1044,9 +1060,7 @@ public class OrariProcida2011Activity extends Activity {
 	}
 	protected void onStart(){
 		super.onStart();
-		Log.d("ACTIVITY","start");
-		EasyTracker.getInstance(this).activityStart(this);  //Google Analytics
-		
+
 	}
     
     protected void onRestart(){
@@ -1056,6 +1070,10 @@ public class OrariProcida2011Activity extends Activity {
 
     protected void onResume(){
     	super.onResume();
+
+        Log.i("ORARI", "Setting screen name: " + "Main Activity");
+        mTracker.setScreenName("Image~" + "Main Activity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 //        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
 //    	{
 //    	String languageToLoad  = "en";
@@ -1077,8 +1095,6 @@ public class OrariProcida2011Activity extends Activity {
 
     protected void onStop(){
     	super.onStop();
-    	Log.d("ACTIVITY","stop");
-    	EasyTracker.getInstance(this).activityStop(this);  //Google Analytics
     }
 
 

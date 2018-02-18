@@ -19,10 +19,11 @@ android {
 }
 
 dependencies {
-    implementation files('libs/json-simple-1.1.1.jar')
-    implementation files('libs/libGoogleAnalyticsServices.jar')
+    //implementation files('libs/json-simple-1.1.1.jar')
+    //implementation files('libs/libGoogleAnalyticsServices.jar')
+    compile 'com.google.android.gms:play-services-analytics:10.2.4'
 }
 
-android {
-    useLibrary 'org.apache.http.legacy'
-}
+//android {
+//    useLibrary 'org.apache.http.legacy'
+//}

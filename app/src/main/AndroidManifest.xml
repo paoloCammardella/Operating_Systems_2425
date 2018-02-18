@@ -16,6 +16,7 @@
 	android:resizeable="true" android:smallScreens="true"></supports-screens>
 
     <application
+        android:name="AnalyticsApplication"
         android:allowBackup="true"
         android:configChanges="locale"
         android:icon="@drawable/ic_launcher_traghetti"
