@@ -1,7 +1,10 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
+import com.porfirio.orariprocida2011.entity.Mezzo;
 
 import java.io.BufferedReader;
 import java.io.IOException;

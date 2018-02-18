@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.dialogs;
 
 
 import android.content.Context;
@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.entity.Compagnia;
+import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.tasks.ScriviSegnalazioneTask;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

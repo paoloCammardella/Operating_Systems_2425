@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.entity;
 
 import java.util.ArrayList;
 

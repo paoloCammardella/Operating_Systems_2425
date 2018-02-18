@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;

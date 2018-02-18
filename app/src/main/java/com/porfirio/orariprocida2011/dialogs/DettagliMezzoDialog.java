@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.dialogs;
 
 
 import android.content.Context;
@@ -14,6 +14,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
+import com.porfirio.orariprocida2011.entity.Compagnia;
+import com.porfirio.orariprocida2011.entity.Mezzo;
 
 import java.util.ArrayList;
 import java.util.Calendar;

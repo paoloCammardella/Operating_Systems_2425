@@ -1,11 +1,9 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Criteria;
@@ -31,6 +29,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.porfirio.orariprocida2011.AnalyticsApplication;
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.dialogs.DettagliMezzoDialog;
+import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
+import com.porfirio.orariprocida2011.entity.Compagnia;
+import com.porfirio.orariprocida2011.entity.Meteo;
+import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.obsolete.ConfigData;
+import com.porfirio.orariprocida2011.tasks.DownloadMezziTask;
+import com.porfirio.orariprocida2011.tasks.LeggiMeteoTask;
+import com.porfirio.orariprocida2011.tasks.LeggiSegnalazioniTask;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -78,7 +87,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 	public Button buttonPlus;
 	public TextView txtOrario;
 	public AlertDialog aboutDialog;
-	public AlertDialog novitaDialog;
+    //public AlertDialog novitaDialog;
     public ConfigData configData;
     public Meteo meteo;
     public AlertDialog meteoDialog;
@@ -148,9 +157,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.about:
-                showDialog(ABOUT_DIALOG_ID);
+                aboutDialog.show();
+                //showDialog(ABOUT_DIALOG_ID);
                 return true;
-            case R.id.finTemp:
+/*            case R.id.finTemp:
                 FinestraDialog finestraDialog = new FinestraDialog(this, configData);
                 finestraDialog.setOnDismissListener(new OnDismissListener() {
                     public void onDismiss(DialogInterface dialog) {
@@ -158,7 +168,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     }
                 });
                 finestraDialog.show();
-                return true;
+                return true;*/
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case R.id.updateWeb:
                 // Caricare da Web
@@ -173,12 +183,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 return true;
             case R.id.meteo:
                 Log.d("CONDIMETEO", "PRIMA" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
-                showDialog(METEO_DIALOG_ID);
+                meteoDialog.show();
+                //showDialog(METEO_DIALOG_ID);
                 leggiMeteo(true);
                 Log.d("CONDIMETEO", "DOPO" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 meteoDialog.setMessage(getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 this.aggiornaLista();
-                showDialog(METEO_DIALOG_ID);
+                meteoDialog.show();
+                //showDialog(METEO_DIALOG_ID);
                 return true;
             case R.id.esci:
                 OrariProcida2011Activity.this.finish();
@@ -729,7 +741,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
 	}
 
-	@Override
+/*	@Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case ABOUT_DIALOG_ID:
@@ -738,7 +750,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 return meteoDialog;
         }
         return null;
-    }
+    }*/
 
 //    // the callback received when the user "sets" the time in the dialog
 //    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {

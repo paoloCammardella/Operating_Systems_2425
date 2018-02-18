@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.entity;
 
 public class Taxi {
 	private String porto;
@@ -11,28 +11,28 @@ public class Taxi {
 		setNumero(n);
 	}
 
+	public String getPorto() {
+		return porto;
+	}
+
 	void setPorto(String porto) {
 		this.porto = porto;
 	}
 
-	String getPorto() {
-		return porto;
+	public String getCompagnia() {
+		return compagnia;
 	}
 
 	void setCompagnia(String compagnia) {
 		this.compagnia = compagnia;
 	}
 
-	String getCompagnia() {
-		return compagnia;
+	public String getNumero() {
+		return numero;
 	}
 
 	void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	String getNumero() {
-		return numero;
 	}
 	
 }

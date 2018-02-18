@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.dialogs;
 
 
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.entity.Taxi;
 
 import java.util.ArrayList;
 

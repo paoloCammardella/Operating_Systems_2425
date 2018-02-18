@@ -1,9 +1,13 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
+import com.porfirio.orariprocida2011.entity.Mezzo;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -22,7 +26,7 @@ import java.util.StringTokenizer;
  * Created by Porfirio on 16/02/2018.
  */
 
-class DownloadMezziTask extends AsyncTask<OrariProcida2011Activity, Integer, Boolean> {
+public class DownloadMezziTask extends AsyncTask<OrariProcida2011Activity, Integer, Boolean> {
     private OrariProcida2011Activity act;
 
     // Do the long-running work in here

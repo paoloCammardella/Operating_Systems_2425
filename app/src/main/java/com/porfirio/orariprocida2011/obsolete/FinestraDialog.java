@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.obsolete;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,10 +7,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.porfirio.orariprocida2011.R;
+
 public class FinestraDialog extends Dialog implements OnClickListener {
 
-		private EditText et;
 		ConfigData configData;
+	private EditText et;
 
 		public FinestraDialog(Context context, ConfigData cd) {
 		super(context);

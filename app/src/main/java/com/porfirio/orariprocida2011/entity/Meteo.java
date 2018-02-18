@@ -1,9 +1,12 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.entity;
+
+import android.app.Activity;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
 import java.util.Calendar;
 import java.util.TimeZone;
-
-import android.app.Activity;
 
 public class Meteo {
 	private double windBeaufort;
@@ -16,8 +19,8 @@ public class Meteo {
 		setWindBeaufort(wb);
 		setWindDirection(wd);
 	}
-	
-	Meteo(OrariProcida2011Activity orariProcida2011Activity){
+
+	public Meteo(OrariProcida2011Activity orariProcida2011Activity) {
 		windBeaufort=0.0;
 		windDirection=0;
 		windKmh=0.0;
@@ -25,7 +28,11 @@ public class Meteo {
 		callingActivity=orariProcida2011Activity;
 	}
 
-	void setWindBeaufort(Double wkmh)
+	public double getWindBeaufort() {
+		return windBeaufort;
+	}
+
+	public void setWindBeaufort(Double wkmh)
 {
     	if (wkmh<=1)
     		this.windBeaufort =(0.0);
@@ -54,20 +61,16 @@ public class Meteo {
     	else if (wkmh>=118)
     		this.windBeaufort =(12.0);
 }
-	
-	double getWindBeaufort() {
-		return windBeaufort;
-	}
 
-	void setWindDirection(int windDirection) {
-		this.windDirection = windDirection;
-	}
-
-	int getWindDirection() {
+	public int getWindDirection() {
 		return windDirection;
 	}
 
-	String condimeteoString(OrariProcida2011Activity orariProcida2011Activity, Mezzo mezzo) {
+	public void setWindDirection(int windDirection) {
+		this.windDirection = windDirection;
+	}
+
+	public String condimeteoString(OrariProcida2011Activity orariProcida2011Activity, Mezzo mezzo) {
 		String result;
 		Double actualBeaufort=getWindBeaufort();
 		Double limitBeaufort=0.0;
@@ -121,21 +124,25 @@ public class Meteo {
 	
 	}
 
-	String getWindDirectionString() {
+	public String getWindDirectionString() {
 		return windDirectionString;
 	}
 
-	Double getWindKmh() {
+	public void setWindDirectionString(String s) {
+		windDirectionString = s;
+	}
+
+	public Double getWindKmh() {
 		return windKmh;
 	}
 
-	void setWindKmh(double wkmh) {
+	public void setWindKmh(double wkmh) {
 		if (windKmh==0 || wkmh>0)
 			windKmh=wkmh;
 	}
 
-	void setWindDirectionString(int dir) {
-    	if (dir==0)
+	public void setWindDirectionString(int dir) {
+		if (dir==0)
 			windDirectionString=callingActivity.getString(R.string.nord);
     	else if (dir==45)
     		windDirectionString=callingActivity.getString(R.string.nordEst);
@@ -152,12 +159,8 @@ public class Meteo {
     	else if (dir==315)
     		windDirectionString=callingActivity.getString(R.string.nordOvest);
 	}
-	
-	void setWindDirectionString(String s) {
-		windDirectionString=s;
-	}
-	
-	String getWindBeaufortString(){
+
+	public String getWindBeaufortString() {
 		int forza=Double.valueOf(windBeaufort).intValue();
 		switch (forza){
 		case 0:

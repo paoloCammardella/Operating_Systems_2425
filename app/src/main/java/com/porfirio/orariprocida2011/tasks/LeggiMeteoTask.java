@@ -1,8 +1,11 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

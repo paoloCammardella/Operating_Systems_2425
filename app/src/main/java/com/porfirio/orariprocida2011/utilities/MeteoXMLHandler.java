@@ -1,6 +1,8 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.utilities;
 
 import android.util.Log;
+
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -10,9 +12,9 @@ public class MeteoXMLHandler extends DefaultHandler{
 
 	    StringBuffer buff = null;
 	    boolean buffering = false;
-		private OrariProcida2011Activity callingActivity; 
-	    
-		public MeteoXMLHandler(OrariProcida2011Activity orariProcida2011Activity) {
+	private OrariProcida2011Activity callingActivity;
+
+	public MeteoXMLHandler(OrariProcida2011Activity orariProcida2011Activity) {
 			callingActivity=orariProcida2011Activity;
 		}
 
