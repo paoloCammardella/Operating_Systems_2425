@@ -1,7 +1,6 @@
 package com.porfirio.orariprocida2011;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,6 +14,8 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,10 +49,11 @@ import java.util.TimeZone;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
-public class OrariProcida2011Activity extends Activity {
+public class OrariProcida2011Activity extends FragmentActivity {
     static final int ABOUT_DIALOG_ID = 0;
     static final int METEO_DIALOG_ID = 1;
     static final int NOVITA_DIALOG_ID = 1;
+    private static FragmentManager fm;
     /**
      * Called when the activity is first created.
      */
@@ -194,6 +196,8 @@ public class OrariProcida2011Activity extends Activity {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
+        fm = getSupportFragmentManager();
+
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
             locale = new Locale(languageToLoad);
@@ -303,8 +307,9 @@ public class OrariProcida2011Activity extends Activity {
         aalvMezzi = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
 
-        dettagliMezzoDialog = new DettagliMezzoDialog(this, this, c);
-        segnalazioneDialog = new SegnalazioneDialog(this, c);
+        dettagliMezzoDialog = new DettagliMezzoDialog();
+        dettagliMezzoDialog.setDettagliMezzoDialog(fm, this, this, c);
+        segnalazioneDialog = new SegnalazioneDialog();
         lvMezzi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //listener sul click di un item della lista
 
@@ -321,8 +326,10 @@ public class OrariProcida2011Activity extends Activity {
 //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
 //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
 //				altra soluzione: trovare il mezzo dalla stringa
-				dettagliMezzoDialog.fill(listCompagnia);
-				dettagliMezzoDialog.show();
+                //dettagliMezzoDialog.fill(listCompagnia);
+                dettagliMezzoDialog.setListCompagnia(listCompagnia);
+                dettagliMezzoDialog.show(fm, "fragment_edit_name");
+
             }
 
 
@@ -349,8 +356,13 @@ public class OrariProcida2011Activity extends Activity {
                     //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
                     //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
                     //				altra soluzione: trovare il mezzo dalla stringa
-                    segnalazioneDialog.fill(listCompagnia);
-                    segnalazioneDialog.show();
+                    segnalazioneDialog.setOrarioRef(c);
+                    segnalazioneDialog.setCallingContext(getApplicationContext());
+                    segnalazioneDialog.setListCompagnia(listCompagnia);
+
+                    //segnalazioneDialog.fill(listCompagnia);
+                    segnalazioneDialog.show(fm, "fragment_edit_name");
+                    //segnalazioneDialog.show();
                     aggiornaLista(); //TODO Capire come si fa ad aggiornare dopo una segnalazione (oppure scrivere che prossimamente verr? aggiunta)
                 }
                 return true;

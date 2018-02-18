@@ -1,10 +1,13 @@
 package com.porfirio.orariprocida2011;
 
 
-import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class SegnalazioneDialog extends Dialog implements OnClickListener{
+public class SegnalazioneDialog extends DialogFragment implements OnClickListener {
 	private Mezzo mezzo;
 	private TextView txtMezzo;
 	private TextView txtPartenza;
@@ -28,21 +31,37 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	private int ragione;
 	private EditText txtDettagli;
 	private Calendar orarioRef;
-	
-	SegnalazioneDialog(Context context, Calendar c) {
-		super(context);
-		callingContext=context;
-		orarioRef=c;
-		setContentView(R.layout.segnalazione);
-        txtMezzo = findViewById(R.id.txtMezzo);
-        txtPartenza = findViewById(R.id.txtPartenza);
-        txtArrivo = findViewById(R.id.txtArrivo);
-        txtDettagli = findViewById(R.id.txtDettagli);
+	private ArrayList<Compagnia> listCompagnia;
 
-		Spinner spnRagioni = findViewById(R.id.spnRagioni);
+	public void setCallingContext(Context callingContext) {
+		this.callingContext = callingContext;
+	}
+
+	public void setOrarioRef(Calendar orarioRef) {
+		this.orarioRef = orarioRef;
+	}
+
+	public void setListCompagnia(ArrayList<Compagnia> listCompagnia) {
+		this.listCompagnia = listCompagnia;
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+		//SegnalazioneDialog(Context context, Calendar c) {
+		//	super(context);
+		//callingContext=context;
+		//orarioRef=c;
+		View view = inflater.inflate(R.layout.segnalazione, container);
+		txtMezzo = view.findViewById(R.id.txtMezzo);
+		txtPartenza = view.findViewById(R.id.txtPartenza);
+		txtArrivo = view.findViewById(R.id.txtArrivo);
+		txtDettagli = view.findViewById(R.id.txtDettagli);
+
+		Spinner spnRagioni = view.findViewById(R.id.spnRagioni);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                context, R.array.strRagioni, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				callingContext, R.array.strRagioni, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnRagioni.setAdapter(adapter);
 
         spnRagioni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -53,8 +72,8 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
             }
         });
 
-        Button btnInvia = findViewById(R.id.btnInvia);
-        btnInvia.setOnClickListener(new View.OnClickListener() {
+		Button btnInvia = view.findViewById(R.id.btnInvia);
+		btnInvia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
@@ -64,8 +83,8 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	    	}
 	    });
 
-        Button btnConferma = findViewById(R.id.btnConferma);
-        btnConferma.setOnClickListener(new View.OnClickListener() {
+		Button btnConferma = view.findViewById(R.id.btnConferma);
+		btnConferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
@@ -75,6 +94,28 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 	    	}
 	    });
 
+		txtMezzo.setText("    " + mezzo.nave + "    ");
+		String s;
+		s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraPartenza.get(Calendar.MINUTE);
+		s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraPartenza.get(Calendar.MONTH) + 1) + "/" + mezzo.oraPartenza.get(Calendar.YEAR);
+		s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;
+		txtPartenza.setText(s);
+		//s=new String();
+		s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraArrivo.get(Calendar.MINUTE);
+		s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraArrivo.get(Calendar.MONTH) + 1) + "/" + mezzo.oraArrivo.get(Calendar.YEAR);
+		s += " " + callingContext.getString(R.string.a) + " " + mezzo.portoArrivo;
+		txtArrivo.setText(s);
+
+
+		//trova compagnia c
+		Compagnia c = null;
+		for (int i = 0; i < listCompagnia.size(); i++) {
+			if (mezzo.nave.contains(listCompagnia.get(i).nome))
+				c = listCompagnia.get(i);
+		}
+
+
+		return view;
 	}
 	
 	//Aggiunta anche la possibilita' di confermare (con un extra button)
@@ -140,30 +181,5 @@ public class SegnalazioneDialog extends Dialog implements OnClickListener{
 		this.dismiss();		
 	}
 
-
-	
-	void fill(ArrayList<Compagnia> listCompagnia) {
-		txtMezzo.setText("    "+mezzo.nave+"    ");
-		String s;
-		s=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
-		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraPartenza.get(Calendar.MONTH)+1)+"/"+mezzo.oraPartenza.get(Calendar.YEAR);
-		s+=" "+callingContext.getString(R.string.da)+" "+mezzo.portoPartenza;
-		txtPartenza.setText(s);
-		//s=new String();
-		s=callingContext.getString(R.string.arrivaAlle)+" "+mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraArrivo.get(Calendar.MINUTE);
-		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraArrivo.get(Calendar.MONTH)+1)+"/"+mezzo.oraArrivo.get(Calendar.YEAR);		
-		s+=" "+callingContext.getString(R.string.a)+" "+mezzo.portoArrivo;
-		txtArrivo.setText(s);
-		
-		
-        //trova compagnia c
-        Compagnia c=null;
-        for (int i=0;i<listCompagnia.size();i++){
-        	if (mezzo.nave.contains(listCompagnia.get(i).nome))
-        		c=listCompagnia.get(i);
-        } 
-        
-        
-	}
 
 }

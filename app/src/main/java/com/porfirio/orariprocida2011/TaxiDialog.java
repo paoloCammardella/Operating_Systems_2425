@@ -1,17 +1,18 @@
 package com.porfirio.orariprocida2011;
 
 
-import java.util.ArrayList;
-
-import android.app.Dialog;
-import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.text.util.Linkify;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class TaxiDialog extends Dialog implements OnClickListener{
+import java.util.ArrayList;
+
+public class TaxiDialog extends DialogFragment {
 	private TextView tn1;
 	private TextView tn2;
 	private TextView tn3;
@@ -19,20 +20,32 @@ public class TaxiDialog extends Dialog implements OnClickListener{
 	private TextView tn5;
 	private TextView tn6;
 	private ArrayList<Taxi> taxiList;
-	
-	public TaxiDialog(Context context) {
-		super(context);
-		setContentView(R.layout.taxi);
-		
-		tn1 = (TextView) findViewById(R.id.tn1); tn1.setText(null);
-		tn2 = (TextView) findViewById(R.id.tn2); tn2.setText(null);
-		tn3 = (TextView) findViewById(R.id.tn3); tn3.setText(null);
-		tn4 = (TextView) findViewById(R.id.tn4); tn4.setText(null);
-		tn5 = (TextView) findViewById(R.id.tn5); tn5.setText(null);
-		tn6 = (TextView) findViewById(R.id.tn6); tn6.setText(null);
-			
-	    Button btnBack = (Button)findViewById(R.id.btnBackTaxi);    
-	    btnBack.setOnClickListener(new View.OnClickListener(){
+	private String porto;
+
+	public void setPorto(String porto) {
+		this.porto = porto;
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.taxi, container);
+
+		tn1 = (TextView) view.findViewById(R.id.tn1);
+		tn1.setText(null);
+		tn2 = (TextView) view.findViewById(R.id.tn2);
+		tn2.setText(null);
+		tn3 = (TextView) view.findViewById(R.id.tn3);
+		tn3.setText(null);
+		tn4 = (TextView) view.findViewById(R.id.tn4);
+		tn4.setText(null);
+		tn5 = (TextView) view.findViewById(R.id.tn5);
+		tn5.setText(null);
+		tn6 = (TextView) view.findViewById(R.id.tn6);
+		tn6.setText(null);
+
+		Button btnBack = (Button) view.findViewById(R.id.btnBackTaxi);
+		btnBack.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
 	    		dismiss();
@@ -55,15 +68,12 @@ public class TaxiDialog extends Dialog implements OnClickListener{
 	    taxiList.add(new Taxi("Pozzuoli","Piazza della Repubblica","0815265800"));
 	    taxiList.add(new Taxi("Monte di Procida","Via Faro, Bacoli","3349003894"));
 	    taxiList.add(new Taxi("Monte di Procida","Via Faro, Bacoli","3395352014"));
-	    //TODO: Aggiungere Monte di Procida
-	}
 
-	public void fill(String porto) {
 		ArrayList<Taxi> taxiPortoList=new ArrayList<Taxi>();
 		for (int i=0;i<taxiList.size();i++)
 			if (porto.contains(taxiList.get(i).getPorto()) && !(porto.contentEquals("Monte di Procida")&&taxiList.get(i).getPorto().contentEquals("Procida")))
 				taxiPortoList.add(taxiList.get(i));
-				
+
 		if (taxiPortoList.size()>=1){
 			tn1.setText(taxiPortoList.get(0).getCompagnia()+" : "+taxiPortoList.get(0).getNumero());
 			Linkify.addLinks(tn1, Linkify.PHONE_NUMBERS);
@@ -88,15 +98,8 @@ public class TaxiDialog extends Dialog implements OnClickListener{
 			tn6.setText(taxiPortoList.get(5).getCompagnia()+" : "+taxiPortoList.get(5).getNumero());
 			Linkify.addLinks(tn6, Linkify.PHONE_NUMBERS);
 		}
-	        
-       
-        
+		return view;
 	}
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
