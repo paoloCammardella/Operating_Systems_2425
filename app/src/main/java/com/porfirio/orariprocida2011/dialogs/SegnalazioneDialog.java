@@ -99,8 +99,9 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	    	}
 	    });
 
-		txtMezzo.setText("    " + mezzo.nave + "    ");
-		String s;
+        final String text = "    " + mezzo.nave + "    ";
+        txtMezzo.setText(text);
+        String s;
 		s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraPartenza.get(Calendar.MINUTE);
 		s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraPartenza.get(Calendar.MONTH) + 1) + "/" + mezzo.oraPartenza.get(Calendar.YEAR);
 		s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;

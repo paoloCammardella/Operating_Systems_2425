@@ -423,7 +423,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
         */
-        new LeggiMeteoTask().execute(this);
+        new LeggiMeteoTask(this).execute();
 
 
     }
@@ -487,7 +487,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
 
         //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
-        new DownloadMezziTask().execute(this);
+        new DownloadMezziTask(this).execute();
 
         //Al termine dovrebbe ricaricare la lista degli orari
 
@@ -750,7 +750,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 	private void leggiSegnalazioniDaWeb() {
         //Leggo il file delle segnalazioni
 
-        new LeggiSegnalazioniTask().execute(this);
+        new LeggiSegnalazioniTask(this).execute();
 
 
 	}

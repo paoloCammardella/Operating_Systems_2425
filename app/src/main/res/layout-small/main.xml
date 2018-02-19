@@ -15,11 +15,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mezzo"
-            android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp"></TextView>
 
         <Spinner
             android:id="@+id/spnNave"
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"></Spinner>
     </LinearLayout>
@@ -34,11 +35,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/portoPartenza"
-            android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp"></TextView>
 
         <Spinner
             android:id="@+id/spnPortoPartenza"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"></Spinner>
 
@@ -47,11 +49,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/portoArrivo"
-            android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp"></TextView>
 
         <Spinner
             android:id="@+id/spnPortoArrivo"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"></Spinner>
     </LinearLayout>
@@ -72,37 +75,45 @@
             android:id="@+id/btnConfermaOSmentisci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/minusminus"></Button>
+            android:layout_weight="4"
+            android:text="@string/minusminus"
+            android:textSize="12sp"></Button>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/minus"></Button>
+            android:layout_weight="4"
+            android:text="@string/minus"
+            android:textSize="12sp"></Button>
 
         <TextView
             android:id="@+id/txtOrario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="8"
-            android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+            android:layout_weight="4"
+            android:gravity="center_horizontal"
+            android:text="@string/timeTest"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="12sp"></TextView>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/plus"></Button>
+            android:layout_weight="4"
+            android:text="@string/plus"
+            android:textSize="12sp"></Button>
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/plusplus"></Button>
+            android:layout_weight="4"
+            android:text="@string/plusplus"
+            android:textSize="12sp"></Button>
         
     </LinearLayout>
 

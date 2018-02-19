@@ -78,27 +78,33 @@ public class TaxiDialog extends DialogFragment {
 				taxiPortoList.add(taxiList.get(i));
 
 		if (taxiPortoList.size()>=1){
-			tn1.setText(taxiPortoList.get(0).getCompagnia()+" : "+taxiPortoList.get(0).getNumero());
+			final String text = taxiPortoList.get(0).getCompagnia() + " : " + taxiPortoList.get(0).getNumero();
+			tn1.setText(text);
 			Linkify.addLinks(tn1, Linkify.PHONE_NUMBERS);
 		}
 		if (taxiPortoList.size()>=2){
-			tn2.setText(taxiPortoList.get(1).getCompagnia()+" : "+taxiPortoList.get(1).getNumero());
+			final String text = taxiPortoList.get(1).getCompagnia() + " : " + taxiPortoList.get(1).getNumero();
+			tn2.setText(text);
 			Linkify.addLinks(tn2, Linkify.PHONE_NUMBERS);
 		}
 		if (taxiPortoList.size()>=3){
-			tn3.setText(taxiPortoList.get(2).getCompagnia()+" : "+taxiPortoList.get(2).getNumero());
+			final String text = taxiPortoList.get(2).getCompagnia() + " : " + taxiPortoList.get(2).getNumero();
+			tn3.setText(text);
 			Linkify.addLinks(tn3, Linkify.PHONE_NUMBERS);
 		}
 		if (taxiPortoList.size()>=4){
-			tn4.setText(taxiPortoList.get(3).getCompagnia()+" : "+taxiPortoList.get(3).getNumero());
+			final String text = taxiPortoList.get(3).getCompagnia() + " : " + taxiPortoList.get(3).getNumero();
+			tn4.setText(text);
 			Linkify.addLinks(tn4, Linkify.PHONE_NUMBERS);
 		}
 		if (taxiPortoList.size()>=5){
-			tn5.setText(taxiPortoList.get(4).getCompagnia()+" : "+taxiPortoList.get(4).getNumero());
+			final String text = taxiPortoList.get(4).getCompagnia() + " : " + taxiPortoList.get(4).getNumero();
+			tn5.setText(text);
 			Linkify.addLinks(tn5, Linkify.PHONE_NUMBERS);
 		}
 		if (taxiPortoList.size()>=6){
-			tn6.setText(taxiPortoList.get(5).getCompagnia()+" : "+taxiPortoList.get(5).getNumero());
+			final String text = taxiPortoList.get(5).getCompagnia() + " : " + taxiPortoList.get(5).getNumero();
+			tn6.setText(text);
 			Linkify.addLinks(tn6, Linkify.PHONE_NUMBERS);
 		}
 		return view;

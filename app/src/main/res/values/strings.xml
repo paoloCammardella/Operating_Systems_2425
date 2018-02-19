@@ -132,6 +132,8 @@
 		<string name="confermaOSmentisci">Confirm that the journey will take place or report a problem </string>
 		<string name="connessioneLenta">The connection is too slow: timetable updates have not been loaded</string>
 		<string name="soloOnline">This function is accessible only when the device is connected to the Internet</string>
-		    
-		</resources>
+    <string name="hintDettagli">Insert details here …</string>
+    <string name="timeTest">Dalle 88:88 del 88/88</string>
+
+</resources>
 

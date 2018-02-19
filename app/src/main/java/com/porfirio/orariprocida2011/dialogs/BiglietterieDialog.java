@@ -44,27 +44,33 @@ public class BiglietterieDialog extends DialogFragment {
 
 		int s = c.nomeNumeroTelefono.size();
 		if (s >= 1) {
-			pn1.setText(c.nomeNumeroTelefono.get(0) + " : " + c.numeroTelefono.get(0));
+			String text = c.nomeNumeroTelefono.get(0) + " : " + c.numeroTelefono.get(0);
+			pn1.setText(text);
 			Linkify.addLinks(pn1, Linkify.PHONE_NUMBERS);
 		}
 		if (s >= 2) {
-			pn2.setText(c.nomeNumeroTelefono.get(1) + " : " + c.numeroTelefono.get(1));
+			final String text = c.nomeNumeroTelefono.get(1) + " : " + c.numeroTelefono.get(1);
+			pn2.setText(text);
 			Linkify.addLinks(pn2, Linkify.PHONE_NUMBERS);
 		}
 		if (s >= 3) {
-			pn3.setText(c.nomeNumeroTelefono.get(2) + " : " + c.numeroTelefono.get(2));
+			final String text = c.nomeNumeroTelefono.get(2) + " : " + c.numeroTelefono.get(2);
+			pn3.setText(text);
 			Linkify.addLinks(pn3, Linkify.PHONE_NUMBERS);
 		}
 		if (s >= 4) {
-			pn4.setText(c.nomeNumeroTelefono.get(3) + " : " + c.numeroTelefono.get(3));
+			final String text = c.nomeNumeroTelefono.get(3) + " : " + c.numeroTelefono.get(3);
+			pn4.setText(text);
 			Linkify.addLinks(pn4, Linkify.PHONE_NUMBERS);
 		}
 		if (s >= 5) {
-			pn5.setText(c.nomeNumeroTelefono.get(4) + " : " + c.numeroTelefono.get(4));
+			final String text = c.nomeNumeroTelefono.get(4) + " : " + c.numeroTelefono.get(4);
+			pn5.setText(text);
 			Linkify.addLinks(pn5, Linkify.PHONE_NUMBERS);
 		}
 		if (s >= 6) {
-			pn6.setText(c.nomeNumeroTelefono.get(5) + " : " + c.numeroTelefono.get(5));
+			final String text = c.nomeNumeroTelefono.get(5) + " : " + c.numeroTelefono.get(5);
+			pn6.setText(text);
 			Linkify.addLinks(pn6, Linkify.PHONE_NUMBERS);
 		}
 

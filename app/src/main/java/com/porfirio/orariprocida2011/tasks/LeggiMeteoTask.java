@@ -30,12 +30,16 @@ import java.util.TimeZone;
  * Created by Porfirio on 17/02/2018.
  */
 
-public class LeggiMeteoTask extends AsyncTask<OrariProcida2011Activity, Integer, Boolean> {
+public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     private OrariProcida2011Activity act;
 
+    public LeggiMeteoTask(OrariProcida2011Activity orariProcida2011Activity) {
+        this.act = orariProcida2011Activity;
+    }
+
     // Do the long-running work in here
-    protected Boolean doInBackground(OrariProcida2011Activity... activities) {
-        act = activities[0];
+    protected Boolean doInBackground(Void... param) {
+        //act = activities[0];
 
     /* Create a URL we want to load some xml-data from. */
         URL url;

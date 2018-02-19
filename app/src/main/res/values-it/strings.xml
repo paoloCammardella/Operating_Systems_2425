@@ -131,5 +131,7 @@
 		<string name="inParticolare">in particolare</string>
 		<string name="confermaOSmentisci">Conferma la regolarita\' o segnala un problema per questa corsa </string>
 		<string name="connessioneLenta">La connessione e\' troppo lenta: gli ultimi aggiornamenti degli orari non sono stati caricati!</string>
-		<string name="soloOnline">Funzionalita\' accessibile solo in presenza di connessione a Internet</string>    
+    <string name="soloOnline">Funzionalita\' accessibile solo in presenza di connessione a Internet</string>
+    <string name="hintDettagli">Inserisci qui i dettagli del problema, se noti</string>
+    <string name="timeTest">Dalle 88:88 del 88/88</string>
 </resources>

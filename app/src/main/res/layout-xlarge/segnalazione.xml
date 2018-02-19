@@ -2,14 +2,35 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-    <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/txtMezzo" android:layout_width="wrap_content" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
-    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtPartenza" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
-    <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/txtArrivo" android:layout_width="fill_parent" android:text="@string/tampone" android:layout_weight="1" android:layout_height="0dp"></TextView>
+
+    <TextView
+        android:id="@+id/txtMezzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/tampone"
+        android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+
+    <TextView
+        android:id="@+id/txtPartenza"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/tampone"
+        android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+    <TextView
+        android:id="@+id/txtArrivo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/tampone"
+        android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/inviaSegnalazione"
         android:textAppearance="?android:attr/textAppearanceLarge" 
@@ -18,7 +39,7 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/ragione"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -26,13 +47,13 @@
     <Spinner
         android:id="@+id/spnRagioni"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/altriDettagliRagione"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -40,9 +61,10 @@
     <EditText
         android:id="@+id/txtDettagli"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
+        android:hint="@string/hintDettagli"
         android:inputType="textMultiLine" >
 
         <requestFocus />
@@ -51,7 +73,7 @@
     <Button
         android:id="@+id/btnInvia"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/invia" >
 </Button>
@@ -59,15 +81,15 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/textConferma" />
+        android:text="@string/textConferma"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/btnConferma"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1.17"
         android:text="@string/Conferma" />
     

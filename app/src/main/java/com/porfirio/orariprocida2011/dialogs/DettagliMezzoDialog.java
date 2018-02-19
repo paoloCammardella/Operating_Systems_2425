@@ -117,8 +117,9 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 			}
 	    });
 
-		txtMezzo.setText("    "+mezzo.nave+"    ");
-		//String s=new String();
+        final String text = "    " + mezzo.nave + "    ";
+        txtMezzo.setText(text);
+        //String s=new String();
 		String s=callingContext.getString(R.string.parteAlle)+" "+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+":"+mezzo.oraPartenza.get(Calendar.MINUTE);
 		s+=" "+callingContext.getString(R.string.del)+" "+mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH)+"/"+(mezzo.oraPartenza.get(Calendar.MONTH)+1)+"/"+mezzo.oraPartenza.get(Calendar.YEAR);
 		s+=" "+callingContext.getString(R.string.da)+" "+mezzo.portoPartenza;

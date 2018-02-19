@@ -26,12 +26,16 @@ import java.util.StringTokenizer;
  * Created by Porfirio on 16/02/2018.
  */
 
-public class DownloadMezziTask extends AsyncTask<OrariProcida2011Activity, Integer, Boolean> {
+public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
     private OrariProcida2011Activity act;
 
+    public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
+        act = orariProcida2011Activity;
+    }
+
     // Do the long-running work in here
-    protected Boolean doInBackground(OrariProcida2011Activity... activities) {
-        act=activities[0];
+    protected Boolean doInBackground(Void... params) {
+        //act=activities[0];
 
         //Apre una connessione con gli orari
         URL u = null;

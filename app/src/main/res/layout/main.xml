@@ -65,45 +65,48 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btnConfermaOSmentisci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/minusminus"></Button>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/minus"></Button>
 
         <TextView
             android:id="@+id/txtOrario"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="8"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/timeTest"
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/plus"></Button>
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/plusplus"></Button>
-        
+
     </LinearLayout>
 
     <ListView
