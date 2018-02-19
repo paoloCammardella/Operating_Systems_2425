@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -55,8 +56,6 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
 public class OrariProcida2011Activity extends FragmentActivity {
     static final int ABOUT_DIALOG_ID = 0;
@@ -209,6 +208,21 @@ public class OrariProcida2011Activity extends FragmentActivity {
         mTracker = application.getDefaultTracker();
 
         fm = getSupportFragmentManager();
+
+        if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //&& ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET}, 1
+            ); //Manifest.permission.ACCESS_COARSE_LOCATION,
+        }
 
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
@@ -1014,19 +1028,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private String setPortoPartenza() {
         // Trova il porto pi? vicino a quello di partenza
         Location l = null;
+
+
+        if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //System.exit(0);
+            return "Any";
+        }
+
         try {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-                // TODO: AGGIUNGERE CODICE ANALOGO A QUELLO DI PROCIDA IN KAYAK
-                //    Activity#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return "Any";
-            }
             l = myManager.getLastKnownLocation(BestProvider);
             Log.d("ACTIVITY", "Posizione:" + l.getLongitude() + "," + l.getLatitude());
         } catch (Exception e) {
