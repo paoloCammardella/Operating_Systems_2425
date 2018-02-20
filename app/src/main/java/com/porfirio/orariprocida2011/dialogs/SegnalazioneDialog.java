@@ -20,7 +20,6 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.tasks.ScriviSegnalazioneTask;
-import com.porfirio.orariprocida2011.utilities.LockDeviceRotation;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -58,8 +57,8 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		//	super(context);
 		//callingContext=context;
 		//orarioRef=c;
-		LockDeviceRotation.lock(true, callingContext);
-		View view = inflater.inflate(R.layout.segnalazione, container);
+        //LockDeviceRotation.lock(true, callingContext);
+        View view = inflater.inflate(R.layout.segnalazione, container);
 		txtMezzo = view.findViewById(R.id.txtMezzo);
 		txtPartenza = view.findViewById(R.id.txtPartenza);
 		txtArrivo = view.findViewById(R.id.txtArrivo);
