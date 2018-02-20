@@ -20,6 +20,7 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.tasks.ScriviSegnalazioneTask;
+import com.porfirio.orariprocida2011.utilities.LockDeviceRotation;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -57,6 +58,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		//	super(context);
 		//callingContext=context;
 		//orarioRef=c;
+		LockDeviceRotation.lock(true, callingContext);
 		View view = inflater.inflate(R.layout.segnalazione, container);
 		txtMezzo = view.findViewById(R.id.txtMezzo);
 		txtPartenza = view.findViewById(R.id.txtPartenza);
@@ -84,8 +86,9 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(true);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
-	    		dismiss();
-	    	}
+				//LockDeviceRotation.lock(false,callingContext);
+				dismiss();
+			}
 	    });
 
 		Button btnConferma = view.findViewById(R.id.btnConferma);
@@ -95,8 +98,9 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(false);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
-	    		dismiss();
-	    	}
+				//LockDeviceRotation.lock(false,callingContext);
+				dismiss();
+			}
 	    });
 
         final String text = "    " + mezzo.nave + "    ";
@@ -184,7 +188,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	
 	@Override
 	public void onClick(View arg0) {
-		this.dismiss();		
+		this.dismiss();
 	}
 
 

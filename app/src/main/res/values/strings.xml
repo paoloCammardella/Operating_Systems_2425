@@ -49,7 +49,7 @@
         <string name="esci">Quit</string>
         <string name="backTimetable">Back to timetable</string>
         <string name="numeriUtili">Call to ticket office</string>
-        <string name="tampone">1234567890123456789012345</string>
+    <string name="tampone">12345678901234567890</string>
         <string name="labelBackground">labelBackground</string>
         <string name="back">Back</string>
         <string name="inserisciFinestra">Size of time window</string>
