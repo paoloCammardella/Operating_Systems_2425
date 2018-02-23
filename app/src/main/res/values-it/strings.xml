@@ -8,11 +8,11 @@
         <item>Traghetto Caremar</item>
         <item>Aliscafo Caremar</item>
         <item>Aliscafo SNAV</item>
-        <item>Procida Lines</item>
         <item>Gestur</item>
         <item>Medmar</item>
         <item>Ippocampo</item>
-        <item>Traghetto Aladino</item>
+        <item>Scotto Line</item>
+        <item>Traghetto LazioMar</item>
     </string-array>
     <string-array name="strPorti">
         <item>Tutti</item>
@@ -134,4 +134,5 @@
     <string name="soloOnline">Funzionalita\' accessibile solo in presenza di connessione a Internet</string>
     <string name="hintDettagli">Inserisci qui i dettagli del problema, se noti</string>
     <string name="timeTest">Dalle 88:88 del 88/88</string>
+    <string name="NoBiglietterie">Non ci sono biglietterie in questo porto: biglietti a bordo</string>
 </resources>

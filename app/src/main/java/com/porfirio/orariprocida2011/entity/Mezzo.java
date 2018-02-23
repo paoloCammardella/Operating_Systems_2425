@@ -127,90 +127,108 @@ public class Mezzo {
 	private void calcolaCosto(String n,String p) {
 		//TODO Mettere costi precisi
 		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")){
-			costoIntero=10.0;
+			costoIntero = 7.90;
 			setCircaIntero(true);
-			costoResidente=2.40;
-			return;
-		}
-		if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")){
-			costoIntero=10.0;
-			costoResidente=2.30;
-			setCircaIntero(true);
-			return;
-		}		
-		if (n.contentEquals("Procida Lines") && p.contentEquals("Pozzuoli")){
-			costoIntero=5;
-			costoResidente=2.5;
-			setCircaIntero(true);
+			costoResidente = 2.60;
 			setCircaResidente(true);
 			return;
 		}
-		if (n.contentEquals("Gestur") && p.contentEquals("Pozzuoli")){
-			costoIntero=5;
-			costoResidente=2.5;
+		if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")){
+			costoIntero = 7.90;
 			setCircaIntero(true);
+			costoResidente = 2.60;
+			setCircaResidente(true);
+			return;
+		}
+//		if (n.contentEquals("Procida Lines") && p.contentEquals("Pozzuoli")){
+//			costoIntero=5;
+//			costoResidente=2.5;
+//			setCircaIntero(true);
+//			setCircaResidente(true);
+//			return;
+//		}
+		if ((n.contentEquals("Motonave Gestur") || n.contentEquals("Traghetto Gestur")) && p.contentEquals("Pozzuoli")) {
+			costoIntero = 7.90;
+			setCircaIntero(true);
+			costoResidente = 2.60;
+			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Napoli Porta di Massa")){
-			costoIntero=11;
+			costoIntero = 10.60;
 			costoResidente=3.10;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Napoli Beverello")){
-			costoIntero=13;
-			costoResidente=4.70;
+			costoIntero = 14.40;
+			costoResidente = 4.90;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}		
 		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Napoli Beverello")){
-			costoIntero=15;
-			costoResidente=5.0;
+			costoIntero = 14.40;
+			costoResidente = 4.90;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Ischia Porto")){
-			costoIntero=6;
-			costoResidente=1.90;
+			costoIntero = 7.80;
+			costoResidente = 2.50;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Ischia Porto")){
-			costoIntero=8;
-			costoResidente=2.4;
+			costoIntero = 8.70;
+			costoResidente = 2.70;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Casamicciola")){
-			costoIntero=8;
-			costoResidente=2.4;
+			costoIntero = 8.70;
+			costoResidente = 2.70;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Medmar") && p.contentEquals("Ischia Porto")){
-			costoIntero=6;
-			costoResidente=2.00;
+			costoIntero = 7.80;
+			costoResidente = 2.50;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Ippocampo") ){ //TODO Da verificare
-			costoIntero=8;
-			costoResidente=2.00;
+			costoIntero = 7.90;
 			setCircaIntero(true);
+			costoResidente = 2.60;
 			setCircaResidente(true);
 			return;
 		}
-		if (n.contentEquals("Aladino") ){ //TODO Da verificare
-			costoIntero=0.00;
-			costoResidente=0.00;
+		if (n.contentEquals("Scotto Line")) { //TODO Da verificare
+			costoIntero = 7.90;
 			setCircaIntero(true);
+			costoResidente = 2.60;
+			setCircaResidente(true);
+			return;
+		}
+//		if (n.contentEquals("Aladino") ){ //TODO Da verificare
+//			costoIntero=0.00;
+//			costoResidente=0.00;
+//			setCircaIntero(true);
+//			setCircaResidente(true);
+//			return;
+//		}
+
+		if (n.contentEquals("LazioMar")) { //TODO Da verificare
+			costoIntero = 7.90;
+			setCircaIntero(true);
+			costoResidente = 2.60;
 			setCircaResidente(true);
 			return;
 		}

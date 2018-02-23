@@ -70,7 +70,6 @@ public class TaxiDialog extends DialogFragment {
 	    taxiList.add(new Taxi("Ischia","Piazza Bagni (Casamicciola)","081900881"));
 	    taxiList.add(new Taxi("Pozzuoli","Piazza della Repubblica","0815265800"));
 	    taxiList.add(new Taxi("Monte di Procida","Via Faro, Bacoli","3349003894"));
-	    taxiList.add(new Taxi("Monte di Procida","Via Faro, Bacoli","3395352014"));
 
 		ArrayList<Taxi> taxiPortoList=new ArrayList<Taxi>();
 		for (int i=0;i<taxiList.size();i++)

@@ -591,9 +591,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Procida", "0818969190");
         listCompagnia.add(c);
 
-        c = new Compagnia("Procida Lines");
-        c.addTelefono("Procida", "0818960328");
-        listCompagnia.add(c);
+//        c = new Compagnia("Procida Lines");
+//        c.addTelefono("Procida", "0818960328");
+//        listCompagnia.add(c);
 
         c = new Compagnia("Ippocampo");
         c.addTelefono("Procida", "3663575751");
@@ -601,8 +601,18 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Monte di Procida", "3397585125");
         listCompagnia.add(c);
 
-        c = new Compagnia("Aladino");
-        c.addTelefono("Procida", "0818968089");
+        c = new Compagnia("Scotto Line");
+        c.addTelefono("Procida", "3343525753");
+        c.addTelefono("Procida", "0818968753");
+        c.addTelefono("Procida", "3394775523");
+        listCompagnia.add(c);
+
+//        c = new Compagnia("Aladino");
+//        c.addTelefono("Procida", "0818968089");
+//        listCompagnia.add(c);
+
+        c = new Compagnia("LazioMar");
+        c.addTelefono("Napoli", "0771700604");
         listCompagnia.add(c);
 
         try {
@@ -812,11 +822,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         String naveEspanso = nave;
         if (nave.contains(getString(R.string.traghetti)))
-            naveEspanso = "Traghetto Caremar Procida Lines Gestur Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Aladino";
+            naveEspanso = "Traghetto Caremar Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Traghetto LazioMar";
         if (nave.contains(getString(R.string.aliscafi)))
-            naveEspanso = "Aliscafo Caremar Aliscafo SNAV";
+            naveEspanso = "Aliscafo Caremar Aliscafo SNAV Scotto Line";
         if (nave.equals("Ippocampo"))
             naveEspanso = "Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella)";
+        if (nave.contains("Gestur"))
+            naveEspanso = "Motonave Gestur Traghetto Gestur";
 
         String portoPartenzaEspanso = portoPartenza;
         if (portoPartenza.equals("Napoli"))
@@ -825,6 +837,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             portoPartenzaEspanso = "Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
         if (portoPartenza.equals("Ischia"))
             portoPartenzaEspanso = "Ischia Porto o Casamicciola";
+        if (portoPartenza.equals("Monte di Procida"))
+            portoPartenzaEspanso = "Monte di Procida";
         String portoArrivoEspanso = portoArrivo;
         if (portoArrivo.equals("Napoli"))
             portoArrivoEspanso = "Napoli Porta di Massa o Napoli Beverello";
@@ -832,6 +846,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             portoArrivoEspanso = "Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
         if (portoArrivo.equals("Ischia"))
             portoArrivoEspanso = "Ischia Porto o Casamicciola";
+        if (portoArrivo.equals("Monte di Procida"))
+            portoArrivoEspanso = "Monte di Procida";
         Calendar oraLimite = (Calendar) c.clone();
         oraLimite.add(Calendar.HOUR_OF_DAY, configData.getFinestraTemporale());
 
