@@ -8,11 +8,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class MeteoXMLHandler extends DefaultHandler{
+class MeteoXMLHandler extends DefaultHandler {
 
-	    StringBuffer buff = null;
-	    boolean buffering = false;
-	private OrariProcida2011Activity callingActivity;
+    private final OrariProcida2011Activity callingActivity;
 
 	public MeteoXMLHandler(OrariProcida2011Activity orariProcida2011Activity) {
 			callingActivity=orariProcida2011Activity;

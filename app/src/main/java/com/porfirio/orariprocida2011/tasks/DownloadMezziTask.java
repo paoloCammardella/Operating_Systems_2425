@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
  */
 
 public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
-    private OrariProcida2011Activity act;
+    private final OrariProcida2011Activity act;
 
     public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
@@ -109,7 +109,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 for (String line = r.readLine(); line != null; line = r.readLine()) {
                     //esamino la riga e creo un mezzo
                     StringTokenizer st = new StringTokenizer(line, ",");
-                    act.listMezzi.add(new Mezzo(act.getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), act));
+                    act.listMezzi.add(new Mezzo(act.getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
                     fos.write(line.getBytes());
                     fos.write("\n".getBytes());
                 }

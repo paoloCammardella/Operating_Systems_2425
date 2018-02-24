@@ -3,36 +3,34 @@ package com.porfirio.orariprocida2011.entity;
 import android.content.Context;
 
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
 import java.util.Calendar;
 
 public class Mezzo {
 	//gestite nel dettaglio segnalazioni per tipologia e motivi
-	public String nave;
-	public Calendar oraPartenza;
-	public Calendar oraArrivo;
-	public String portoPartenza;
-	public String portoArrivo;
-	public Calendar inizioEsclusione;
-	public Calendar fineEsclusione;
-	public String giorniSettimana;
-	public int[] segnalazioni = new int[100];
+	public final String nave;
+	public final Calendar oraPartenza;
+	public final Calendar oraArrivo;
+	public final String portoPartenza;
+	public final String portoArrivo;
+	public final Calendar inizioEsclusione;
+	public final Calendar fineEsclusione;
+	public final String giorniSettimana;
+	private final int[] segnalazioni = new int[100];
+	private final Context callingContext;
 	public int conferme = 0;
 	public int tot = 0;
 	public boolean conc = true;
 	private boolean giornoSeguente;
 	private boolean esclusione;
 	private int orderInList;
-	private int id;
 	private double costoIntero;
 	private double costoResidente;
 	private boolean circaIntero=false;
 	private boolean circaResidente=false;
-	private Context callingContext;
 	private String[] ragioni=new String[100];
 
-	public Mezzo(Context c,String n,int op, int mp, int oa, int ma, String pp, String pa,int gie,int mie,int aie,int gfe,int mfe,int afe,String gs,OrariProcida2011Activity callingActivity){
+	public Mezzo(Context c, String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
 		callingContext=c;
 		ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
 		for (int i=0;i<100;i++)
@@ -71,7 +69,7 @@ public class Mezzo {
 
 	}
 
-	public Mezzo(Context c,String n,String op, String mp, String oa, String ma, String pp, String pa,String gie,String mie,String aie,String gfe,String mfe,String afe,String gs,OrariProcida2011Activity callingActivity){
+	public Mezzo(Context c, String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
 		callingContext=c;
 		ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
 		for (int i=0;i<100;i++)
@@ -230,7 +228,6 @@ public class Mezzo {
 			setCircaIntero(true);
 			costoResidente = 2.60;
 			setCircaResidente(true);
-			return;
 		}
 		
 	}
@@ -251,43 +248,23 @@ public class Mezzo {
 		this.orderInList = orderInList;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	public void setId(int id) {
-		this.id = id;
-	}
-
-	public boolean isEsclusione() {
-		return esclusione;
-	}
-
-	public void setEsclusione(boolean esclusione) {
-		this.esclusione = esclusione;
+		int id1 = id;
 	}
 
 	public double getCostoIntero() {
 		return costoIntero;
 	}
 
-	public void setCostoIntero(double costoIntero) {
-		this.costoIntero = costoIntero;
-	}
-
 	public double getCostoResidente() {
 		return costoResidente;
-	}
-
-	public void setCostoResidente(double costoResidente) {
-		this.costoResidente = costoResidente;
 	}
 
 	public boolean isCircaIntero() {
 		return circaIntero;
 	}
 
-	public void setCircaIntero(boolean circaIntero) {
+	private void setCircaIntero(boolean circaIntero) {
 		this.circaIntero = circaIntero;
 	}
 
@@ -295,7 +272,7 @@ public class Mezzo {
 		return circaResidente;
 	}
 
-	public void setCircaResidente(boolean circaResidente) {
+	private void setCircaResidente(boolean circaResidente) {
 		this.circaResidente = circaResidente;
 	}
 
@@ -310,8 +287,7 @@ public class Mezzo {
 			segnalazioni[motivo]++;
 			tot++;
 		}
-		return;
-		
+
 	}
 
 }

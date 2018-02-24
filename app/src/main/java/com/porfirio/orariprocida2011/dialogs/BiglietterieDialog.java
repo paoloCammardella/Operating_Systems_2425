@@ -14,12 +14,6 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 
 public class BiglietterieDialog extends DialogFragment {
-	private TextView pn1;
-	private TextView pn2;
-	private TextView pn3;
-	private TextView pn4;
-	private TextView pn5;
-	private TextView pn6;
 	private Compagnia c;
 
 	public BiglietterieDialog() {
@@ -35,12 +29,12 @@ public class BiglietterieDialog extends DialogFragment {
 							 Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.biglietterie, container);
-		pn1 = (TextView) view.findViewById(R.id.pn1);
-		pn2 = (TextView) view.findViewById(R.id.pn2);
-		pn3 = (TextView) view.findViewById(R.id.pn3);
-		pn4 = (TextView) view.findViewById(R.id.pn4);
-		pn5 = (TextView) view.findViewById(R.id.pn5);
-		pn6 = (TextView) view.findViewById(R.id.pn6);
+		TextView pn1 = view.findViewById(R.id.pn1);
+		TextView pn2 = view.findViewById(R.id.pn2);
+		TextView pn3 = view.findViewById(R.id.pn3);
+		TextView pn4 = view.findViewById(R.id.pn4);
+		TextView pn5 = view.findViewById(R.id.pn5);
+		TextView pn6 = view.findViewById(R.id.pn6);
 
 		if (c == null) {
 			pn1.setText(getString(R.string.NoBiglietterie));
@@ -77,7 +71,7 @@ public class BiglietterieDialog extends DialogFragment {
 				Linkify.addLinks(pn6, Linkify.PHONE_NUMBERS);
 			}
 		}
-		Button btnBack = (Button) view.findViewById(R.id.btnBack);
+		Button btnBack = view.findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

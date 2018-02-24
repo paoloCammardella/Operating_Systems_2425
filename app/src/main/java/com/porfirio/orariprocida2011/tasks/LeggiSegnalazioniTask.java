@@ -18,7 +18,7 @@ import java.net.URL;
  */
 
 public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
-    private OrariProcida2011Activity act;
+    private final OrariProcida2011Activity act;
 
     public LeggiSegnalazioniTask(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;

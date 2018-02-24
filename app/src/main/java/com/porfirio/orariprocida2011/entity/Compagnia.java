@@ -3,9 +3,9 @@ package com.porfirio.orariprocida2011.entity;
 import java.util.ArrayList;
 
 public class Compagnia {
-	public String nome;
-	public ArrayList<String> nomeNumeroTelefono;
-	public ArrayList<String> numeroTelefono;
+	public final String nome;
+	public final ArrayList<String> nomeNumeroTelefono;
+	public final ArrayList<String> numeroTelefono;
 	
 	
 	public Compagnia(String n){

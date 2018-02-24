@@ -29,9 +29,6 @@ import java.util.Calendar;
 
 public class SegnalazioneDialog extends DialogFragment implements OnClickListener {
 	private Mezzo mezzo;
-	private TextView txtMezzo;
-	private TextView txtPartenza;
-	private TextView txtArrivo;
 	private Context callingContext;
 	private int ragione;
 	private EditText txtDettagli;
@@ -59,9 +56,9 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		//orarioRef=c;
         //LockDeviceRotation.lock(true, callingContext);
         View view = inflater.inflate(R.layout.segnalazione, container);
-		txtMezzo = view.findViewById(R.id.txtMezzo);
-		txtPartenza = view.findViewById(R.id.txtPartenza);
-		txtArrivo = view.findViewById(R.id.txtArrivo);
+		TextView txtMezzo = view.findViewById(R.id.txtMezzo);
+		TextView txtPartenza = view.findViewById(R.id.txtPartenza);
+		TextView txtArrivo = view.findViewById(R.id.txtArrivo);
 		txtDettagli = view.findViewById(R.id.txtDettagli);
 
 		Spinner spnRagioni = view.findViewById(R.id.spnRagioni);

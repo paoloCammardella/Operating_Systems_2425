@@ -7,8 +7,8 @@ public class ConfigData {
 		return finestraTemporale;
 	}
 
-	public void setFinestraTemporale(int finestraTemporale) {
-		this.finestraTemporale = finestraTemporale;
-	}
+    public void setFinestraTemporale() {
+        this.finestraTemporale = 24;
+    }
 	
 }

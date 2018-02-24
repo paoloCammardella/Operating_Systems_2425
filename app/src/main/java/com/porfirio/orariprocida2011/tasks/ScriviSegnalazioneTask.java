@@ -3,8 +3,6 @@ package com.porfirio.orariprocida2011.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -26,7 +24,7 @@ public class ScriviSegnalazioneTask extends AsyncTask<String, Integer, Boolean> 
             //System.out.println("Response Code: " + conn.getResponseCode());
             int responseCode = conn.getResponseCode();
             Log.d("ORARI", Integer.toString(responseCode));
-            InputStream in = new BufferedInputStream(conn.getInputStream());
+            //InputStream in = new BufferedInputStream(conn.getInputStream());
             //String response = org.apache.commons.io.IOUtils.toString(in, "UTF-8");
             //System.out.println(response);
 

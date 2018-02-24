@@ -31,7 +31,7 @@ import java.util.TimeZone;
  */
 
 public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
-    private OrariProcida2011Activity act;
+    private final OrariProcida2011Activity act;
 
     public LeggiMeteoTask(OrariProcida2011Activity orariProcida2011Activity) {
         this.act = orariProcida2011Activity;
@@ -53,7 +53,6 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             Log.i("k", act.getApplicationContext().getFilesDir().getPath());
             fstream = new FileInputStream(act.getApplicationContext().getFilesDir().getPath() + "/aggiornamentoMeteo.csv");
         } catch (FileNotFoundException e1) {
-            scriviSuIS = true;
             //metto fittiziamente aggiornamento al 2001
             act.aggiornamentoMeteo = Calendar.getInstance(TimeZone.getDefault());
             act.aggiornamentoMeteo.set(Calendar.YEAR, 2001);
@@ -133,50 +132,48 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                         return false;
                     }
 //Grazie alla formattazione ottenuta con http://jsonformatter.curiousconcept.com/
-                    if (!(jsonObject == null)) {
 
-                        Integer windDir = (Integer) jsonObject.getJSONObject("current_observation").get("wind_degrees");
-                        act.meteo.setWindKmh(Double.parseDouble(jsonObject.getJSONObject("current_observation").get("wind_kph").toString()));
-                        act.meteo.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
-                        act.meteo.setWindDirectionString(act.meteo.getWindDirection());
-                        act.meteo.setWindBeaufort(act.meteo.getWindKmh());
-                        Log.d("ORARI", "letto da json");
-                        //scrivo l'aggiornamento su internal storage
-                        FileOutputStream fos = null;
-                        try {
-                            fos = act.openFileOutput("aggiornamentoMeteo.csv", Context.MODE_PRIVATE);
-                        } catch (FileNotFoundException e) {
-                            //
-                            e.printStackTrace();
-                        }
-
-                        //TODO: se il valore letto da weather underground ? troppo piccolo (oppure ? intero anzich? string) rivolgiti a openweathermap
-                        //esempio di query json verso openweathermap:
-                        //http://api.openweathermap.org/data/2.5/weather?q=Procida,it&lang=it
-
-                        //Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
-
-                        //aggiornamento del file locale con il dato meteo
-                        act.aggiornamentoMeteo = Calendar.getInstance();
-                        String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
-                        try {
-                            assert fos != null;
-                            fos.write(rigaAggiornamento.getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(act.meteo.getWindKmh().toString().getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(String.valueOf(act.meteo.getWindDirection()).getBytes());
-                            fos.write("\n".getBytes());
-                            fos.write(act.meteo.getWindDirectionString().getBytes());
-                            fos.write("\n".getBytes());
-                            fos.close();
-                        } catch (IOException e) {
-                            //
-                            e.printStackTrace();
-                        }
-
-                        System.out.println("");
+                    Integer windDir = (Integer) jsonObject.getJSONObject("current_observation").get("wind_degrees");
+                    act.meteo.setWindKmh(Double.parseDouble(jsonObject.getJSONObject("current_observation").get("wind_kph").toString()));
+                    act.meteo.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
+                    act.meteo.setWindDirectionString(act.meteo.getWindDirection());
+                    act.meteo.setWindBeaufort(act.meteo.getWindKmh());
+                    Log.d("ORARI", "letto da json");
+                    //scrivo l'aggiornamento su internal storage
+                    FileOutputStream fos = null;
+                    try {
+                        fos = act.openFileOutput("aggiornamentoMeteo.csv", Context.MODE_PRIVATE);
+                    } catch (FileNotFoundException e) {
+                        //
+                        e.printStackTrace();
                     }
+
+                    //TODO: se il valore letto da weather underground ? troppo piccolo (oppure ? intero anzich? string) rivolgiti a openweathermap
+                    //esempio di query json verso openweathermap:
+                    //http://api.openweathermap.org/data/2.5/weather?q=Procida,it&lang=it
+
+                    //Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
+
+                    //aggiornamento del file locale con il dato meteo
+                    act.aggiornamentoMeteo = Calendar.getInstance();
+                    String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
+                    try {
+                        assert fos != null;
+                        fos.write(rigaAggiornamento.getBytes());
+                        fos.write("\n".getBytes());
+                        fos.write(act.meteo.getWindKmh().toString().getBytes());
+                        fos.write("\n".getBytes());
+                        fos.write(String.valueOf(act.meteo.getWindDirection()).getBytes());
+                        fos.write("\n".getBytes());
+                        fos.write(act.meteo.getWindDirectionString().getBytes());
+                        fos.write("\n".getBytes());
+                        fos.close();
+                    } catch (IOException e) {
+                        //
+                        e.printStackTrace();
+                    }
+
+                    System.out.println("");
                 } catch (JSONException e) {
                     //
                     Log.d("ORARI", "dati meteo non caricati da web");

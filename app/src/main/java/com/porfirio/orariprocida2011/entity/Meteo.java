@@ -70,8 +70,8 @@ public class Meteo {
 		this.windDirection = windDirection;
 	}
 
-	public String condimeteoString(OrariProcida2011Activity orariProcida2011Activity, Mezzo mezzo) {
-		String result;
+    public String condimeteoString(Mezzo mezzo) {
+        String result;
 		Double actualBeaufort=getWindBeaufort();
 		Double limitBeaufort=0.0;
 		
@@ -128,19 +128,6 @@ public class Meteo {
 		return windDirectionString;
 	}
 
-	public void setWindDirectionString(String s) {
-		windDirectionString = s;
-	}
-
-	public Double getWindKmh() {
-		return windKmh;
-	}
-
-	public void setWindKmh(double wkmh) {
-		if (windKmh==0 || wkmh>0)
-			windKmh=wkmh;
-	}
-
 	public void setWindDirectionString(int dir) {
 		if (dir==0)
 			windDirectionString=callingActivity.getString(R.string.nord);
@@ -159,6 +146,19 @@ public class Meteo {
     	else if (dir==315)
     		windDirectionString=callingActivity.getString(R.string.nordOvest);
 	}
+
+    public void setWindDirectionString(String s) {
+        windDirectionString = s;
+    }
+
+    public Double getWindKmh() {
+        return windKmh;
+    }
+
+    public void setWindKmh(double wkmh) {
+        if (windKmh == 0 || wkmh > 0)
+            windKmh = wkmh;
+    }
 
 	public String getWindBeaufortString() {
 		int forza=Double.valueOf(windBeaufort).intValue();

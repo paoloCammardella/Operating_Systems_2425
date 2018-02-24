@@ -15,24 +15,24 @@ public class Taxi {
 		return porto;
 	}
 
-	void setPorto(String porto) {
-		this.porto = porto;
+    private void setPorto(String porto) {
+        this.porto = porto;
 	}
 
 	public String getCompagnia() {
 		return compagnia;
 	}
 
-	void setCompagnia(String compagnia) {
-		this.compagnia = compagnia;
+    private void setCompagnia(String compagnia) {
+        this.compagnia = compagnia;
 	}
 
 	public String getNumero() {
 		return numero;
 	}
 
-	void setNumero(String numero) {
-		this.numero = numero;
+    private void setNumero(String numero) {
+        this.numero = numero;
 	}
 	
 }

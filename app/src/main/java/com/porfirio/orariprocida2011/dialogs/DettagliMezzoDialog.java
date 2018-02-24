@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,24 +23,14 @@ import java.util.Calendar;
 
 public class DettagliMezzoDialog extends DialogFragment implements OnClickListener {
 
-	public ArrayAdapter<String> aalvNumeri;
-	public ListView lvNumeri;
-	public ArrayList<String> listNumeri;
+	private final BiglietterieDialog biglietterieDialog = new BiglietterieDialog();
 	private Mezzo mezzo;
-	private TextView txtMezzo;
-	private TextView txtPartenza;
-//	private TextView txtTelefonoCompagnia;
-//	private TextView txtNomeCompagnia;
-	private TextView txtArrivo;
-	private TextView txtCosto;
 	private Context callingContext;
     private TaxiDialog taxiDialog;
     private SegnalazioneDialog segnalazioneDialog;
-	private TextView txtAuto;
 	private Calendar calen;
 	private OrariProcida2011Activity callingActivity;
 	private FragmentManager fragmentManager;
-	private BiglietterieDialog biglietterieDialog = new BiglietterieDialog();
 	private ArrayList<Compagnia> lc;
 
 	public DettagliMezzoDialog() {
@@ -65,24 +53,24 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		View view = inflater.inflate(R.layout.dettaglimezzo, container);
 		//setContentView(R.layout.dettaglimezzo);
 
-		txtMezzo = (TextView) view.findViewById(R.id.txtMezzo);
-		txtPartenza = (TextView) view.findViewById(R.id.txtPartenza);
-		txtArrivo = (TextView) view.findViewById(R.id.txtArrivo);
+		TextView txtMezzo = view.findViewById(R.id.txtMezzo);
+		TextView txtPartenza = view.findViewById(R.id.txtPartenza);
+		TextView txtArrivo = view.findViewById(R.id.txtArrivo);
 //		txtOrario = (TextView) findViewById(R.id.txtOrario);
 //		txtOraPartenza = (TextView) findViewById(R.id.txtOraPartenza);
 //		txtOraArrivo = (TextView) findViewById(R.id.txtOraArrivo);
 //		txtPortoPartenza = (TextView) findViewById(R.id.txtPortoPartenza);
 //		txtPortoArrivo = (TextView) findViewById(R.id.txtPortoArrivo);
-		TextView txtPeriodo = (TextView) view.findViewById(R.id.txtPeriodo);
+		TextView txtPeriodo = view.findViewById(R.id.txtPeriodo);
 		txtPeriodo.setText("");
-		TextView txtGiorniSettimana = (TextView) view.findViewById(R.id.txtGiorniSettimana);
+		TextView txtGiorniSettimana = view.findViewById(R.id.txtGiorniSettimana);
 		txtGiorniSettimana.setText("");
 //		txtNomeCompagnia = (TextView) findViewById(R.id.txtNomeCompagnia);
 //		txtTelefonoCompagnia = (TextView) findViewById(R.id.txtTelefonoCompagnia);
-		txtCosto = (TextView) view.findViewById(R.id.txtCosto);
-		txtAuto = (TextView) view.findViewById(R.id.txtAuto);
+		TextView txtCosto = view.findViewById(R.id.txtCosto);
+		TextView txtAuto = view.findViewById(R.id.txtAuto);
 
-		Button btnReturnToHome = (Button) view.findViewById(R.id.btnReturnToHome);
+		Button btnReturnToHome = view.findViewById(R.id.btnReturnToHome);
 		btnReturnToHome.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
@@ -90,7 +78,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 	    	}
 	    });
 
-		Button btnTaxi = (Button) view.findViewById(R.id.btnTaxi);
+		Button btnTaxi = view.findViewById(R.id.btnTaxi);
 		btnTaxi.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
@@ -98,7 +86,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 			}
 	    });
 
-		Button btnBiglietterie = (Button) view.findViewById(R.id.btnBiglietterie);
+		Button btnBiglietterie = view.findViewById(R.id.btnBiglietterie);
 		btnBiglietterie.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
@@ -106,7 +94,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 			}
 	    });
 
-		Button btnConfermaOSmentisci = (Button) view.findViewById(R.id.btnConfermaOSmentisci);
+		Button btnConfermaOSmentisci = view.findViewById(R.id.btnConfermaOSmentisci);
 		btnConfermaOSmentisci.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
@@ -209,10 +197,6 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		this.dismiss();
 	}
 
-
-	void fill(ArrayList<Compagnia> listCompagnia) {
-
-	}
 
 	public void setListCompagnia(ArrayList<Compagnia> listCompagnia) {
 		lc = listCompagnia;
