@@ -141,12 +141,16 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory("Action")
-                .setAction("Share")
+                .setAction("Menu")
                 .build());
 
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.about:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Menu")
+                        .setAction("About")
+                        .build());
                 aboutDialog.show();
                 //showDialog(ABOUT_DIALOG_ID);
                 return true;
@@ -161,6 +165,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 return true;*/
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case R.id.updateWeb:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Menu")
+                        .setAction("Update Orari da Web")
+                        .build());
                 // Caricare da Web
                 if (isOnline()) {
                     riempiMezzidaWeb();
@@ -172,6 +180,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
                 return true;
             case R.id.meteo:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Menu")
+                        .setAction("Update Meteo")
+                        .build());
+                aboutDialog.show();
+
                 Log.d("CONDIMETEO", "PRIMA" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 meteoDialog.show();
                 //showDialog(METEO_DIALOG_ID);
@@ -183,6 +197,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 //showDialog(METEO_DIALOG_ID);
                 return true;
             case R.id.esci:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Menu")
+                        .setAction("Exit")
+                        .build());
+                aboutDialog.show();
+
                 OrariProcida2011Activity.this.finish();
                 return true;
             default:
@@ -197,6 +217,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
+        // Attiva funzioni display.
+        mTracker.enableAdvertisingIdCollection(true);
 
         fm = getSupportFragmentManager();
 
@@ -333,6 +355,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Click Dettagli Mezzo")
+                        .build());
+                aboutDialog.show();
 
                 for (int i = 0; i < aalvMezzi.getCount(); i++) {
                     if (selectMezzi.get(i).getOrderInList() == arg2)
@@ -358,7 +385,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                            final int arg2, long arg3) {
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("Action")
-                        .setAction("Share")
+                        .setAction("LongClick DettagliMezzo")
                         .build());
 
                 if (!isOnline())
@@ -1110,7 +1137,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     	super.onResume();
 
         Log.i("ORARI", "Setting screen name: " + "Main Activity");
-        mTracker.setScreenName("Image~" + "Main Activity");
+        mTracker.setScreenName("Resume" + "Main Activity");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 //        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
 //    	{
