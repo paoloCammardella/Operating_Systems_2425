@@ -184,7 +184,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setCategory("Menu")
                         .setAction("Update Meteo")
                         .build());
-                aboutDialog.show();
+                //aboutDialog.show();
 
                 Log.d("CONDIMETEO", "PRIMA" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 meteoDialog.show();
@@ -201,7 +201,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setCategory("Menu")
                         .setAction("Exit")
                         .build());
-                aboutDialog.show();
+                //aboutDialog.show();
 
                 OrariProcida2011Activity.this.finish();
                 return true;
@@ -359,7 +359,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setCategory("Action")
                         .setAction("Click Dettagli Mezzo")
                         .build());
-                aboutDialog.show();
+                //aboutDialog.show();
 
                 for (int i = 0; i < aalvMezzi.getCount(); i++) {
                     if (selectMezzi.get(i).getOrderInList() == arg2)
