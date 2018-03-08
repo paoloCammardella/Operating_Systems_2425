@@ -167,8 +167,8 @@ public class Mezzo {
 			return;
 		}		
 		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Napoli Beverello")){
-			costoIntero = 14.40;
-			costoResidente = 4.90;
+			costoIntero = 19.20;
+			costoResidente = 5.70;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
@@ -188,8 +188,8 @@ public class Mezzo {
 			return;
 		}
 		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Casamicciola")){
-			costoIntero = 8.70;
-			costoResidente = 2.70;
+			costoIntero = 9.30;
+			costoResidente = 2.60;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
