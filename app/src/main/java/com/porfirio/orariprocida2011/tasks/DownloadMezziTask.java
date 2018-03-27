@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.test.TestValues;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -27,14 +28,31 @@ import java.util.StringTokenizer;
  */
 
 public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
-    private final OrariProcida2011Activity act;
+    final OrariProcida2011Activity act;
+    int delay = 0;
 
     public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
+        delay = TestValues.getDelay(DownloadMezziTask.class);
+    }
+
+    public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity, int d) {
+        act = orariProcida2011Activity;
+        delay = d;
     }
 
     // Do the long-running work in here
     protected Boolean doInBackground(Void... params) {
+
+        delay = TestValues.getDelay(DownloadMezziTask.class);
+        if (delay > 0)
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
         //act=activities[0];
 
         //Apre una connessione con gli orari
@@ -145,6 +163,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             e.printStackTrace();
         }
 
+
         return true;
     }
 
@@ -165,5 +184,9 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             //bisogna aggiornare la GUI
         }
         //showNotification("Downloaded " + result + " bytes");
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 }
