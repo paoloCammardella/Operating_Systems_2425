@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.test.TestValues;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -55,7 +54,8 @@ public class AsyncTaskTest {
 
     @Before
     public void setup() {
-        TestValues.setDelay(1000);
+
+        //TestValues.setDelay(1000);
     }
 
     @Test

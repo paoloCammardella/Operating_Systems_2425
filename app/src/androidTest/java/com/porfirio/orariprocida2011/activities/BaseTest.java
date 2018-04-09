@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.test.TestValues;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -58,7 +57,6 @@ public class BaseTest {
         //TODO Preleva il file con i valori dei tempi di test
 
         //TODO Avvia TestValues
-        TestValues.setDelay(10000);
 
 
         //TODO: sostituire con una condizione sulla terminazione di tutti i task (eventualmente)

@@ -23,7 +23,7 @@ dependencies {
     //implementation files('libs/json-simple-1.1.1.jar')
     //implementation files('libs/libGoogleAnalyticsServices.jar')
 
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    implementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
     implementation 'com.google.android.gms:play-services-analytics:11.8.0'
     implementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

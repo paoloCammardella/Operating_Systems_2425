@@ -76,7 +76,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
      * Called when the activity is first created.
      */
 
-    public DownloadMezziTask downloadMezziTask;
+    //public DownloadMezziTask downloadMezziTask;
 
     private String nave;
     private String portoPartenza;
@@ -223,8 +223,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         fm = getSupportFragmentManager();
 
-        //TODO: creazione tasks
-        downloadMezziTask = new DownloadMezziTask(this);
 
 
         if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -510,7 +508,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
 
         //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
-        downloadMezziTask.execute();
+        new DownloadMezziTask(this).execute();
+
 
         //Al termine dovrebbe ricaricare la lista degli orari
 

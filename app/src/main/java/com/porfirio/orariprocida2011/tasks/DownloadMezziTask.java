@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.test.TestValues;
+import com.porfirio.orariprocida2011.test.TestSuiteAS;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -33,24 +33,25 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
     public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
-        delay = TestValues.getDelay(DownloadMezziTask.class);
+        delay = TestSuiteAS.getDelay(DownloadMezziTask.class.toString());
+
     }
 
-    public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity, int d) {
-        act = orariProcida2011Activity;
-        delay = d;
-    }
 
     // Do the long-running work in here
     protected Boolean doInBackground(Void... params) {
+        Log.d("TEST", "Task started");
 
-        delay = TestValues.getDelay(DownloadMezziTask.class);
-        if (delay > 0)
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (delay > 0 || true) {
+            Log.d("TEST", "Started Delay a " + System.currentTimeMillis() % 100000);
+            for (long i = 0; i < (long) 500000 * 10000; i++) ;
+            Log.d("TEST", "FInished Delay a " + System.currentTimeMillis() % 100000);
+        }
+
+        //TODO: come si fa a mettere una wait???
+
+
+
 
 
         //act=activities[0];
@@ -176,6 +177,17 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
     // This is called when doInBackground() is finished
     protected void onPostExecute(Boolean result) {
+/*
+        if (delay > 0)
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run(){
+                    Log.d("TEST","Task delayed");
+                }
+            }, 1);
+*/
+
+
         if (result){
             Log.d("ORARI", "Terminata lettura orari da web");
             act.aggiornaLista();
@@ -184,9 +196,8 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             //bisogna aggiornare la GUI
         }
         //showNotification("Downloaded " + result + " bytes");
+        Log.d("TEST", "Task finished");
     }
 
-    public void setDelay(int delay) {
-        this.delay = delay;
-    }
+
 }
