@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.concurrent.Semaphore;
 
 
 /**
@@ -32,6 +33,8 @@ import java.util.TimeZone;
 
 public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     private final OrariProcida2011Activity act;
+
+    public static Semaphore taskMeteo;
 
     public LeggiMeteoTask(OrariProcida2011Activity orariProcida2011Activity) {
         this.act = orariProcida2011Activity;
@@ -219,6 +222,19 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                 act.meteo.setWindBeaufort(windKmhFromIS);
             }
 */
+
+        Log.d("TEST", "Il task meteo si ferma su semaforo");
+
+        try {
+            taskMeteo.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("TEST", "Il task meteo riemerge da semaforo");
+        taskMeteo.release();
+        Log.d("ORDER", "Meteo task");
+
         return true;
     }
 

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.test.TestSuiteAS;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -27,32 +28,30 @@ import java.util.concurrent.Semaphore;
  * Created by Porfirio on 16/02/2018.
  */
 
-public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
+public class DownloadMezziTaskConDelay extends AsyncTask<Void, Integer, Boolean> {
+    public static final Semaphore taskDownload = new Semaphore(1, true);
     final OrariProcida2011Activity act;
-    //int delay = 0;
+    int delay = 0;
 
-    //dichiarazione del semaforo
-    public static Semaphore taskDownload;
-
-    public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
+    public DownloadMezziTaskConDelay(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
-        //delay = TestSuiteAS.getDelay(DownloadMezziTask.class.toString());
-
+        delay = TestSuiteAS.getDelay(DownloadMezziTaskConDelay.class.toString());
 
     }
 
 
     // Do the long-running work in here
     protected Boolean doInBackground(Void... params) {
-        Log.d("TEST", "Inizia il task download");
+        Log.d("TEST", "Task started");
 
-/*
         if (delay > 0 || true) {
             Log.d("TEST", "Started Delay a " + System.currentTimeMillis() % 100000);
             for (long i = 0; i < (long) 500000 * 10000; i++) ;
             Log.d("TEST", "FInished Delay a " + System.currentTimeMillis() % 100000);
         }
-*/
+
+        //TODO: come si fa a mettere una wait???
+
 
         //act=activities[0];
 
@@ -95,21 +94,8 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             Log.d("ORARI", str);
             //if (!primoAvvio)
             //Toast.makeText(act.getApplicationContext(), str, Toast.LENGTH_LONG).show();
-            if (!(act.aggiornamentoOrariWeb.after(act.aggiornamentoOrariIS))) {
-                //Wait prima della terminazione del task
-                Log.d("TEST", "Il task download si ferma su semaforo");
-
-                try {
-                    taskDownload.acquire();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Log.d("TEST", "Il task download riemerge da semaforo");
-                taskDownload.release();
-                Log.d("ORDER", "Download task");
+            if (!(act.aggiornamentoOrariWeb.after(act.aggiornamentoOrariIS)))
                 return false;
-            }
             else {
                 Log.d("ORARI", "GLi orari dal Web sono piu' aggiornati");
 
@@ -171,25 +157,21 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             //	Toast.makeText(getApplicationContext(), ""+getString(R.string.aggiornamentoDaWeb), Toast.LENGTH_LONG).show();
             Log.d("ORARI", "Orari IS aggiornati");
 
-
         } catch (SocketTimeoutException e) {
             Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //Wait prima della terminazione del task
+        //TODO: Aggiungo una wait
         Log.d("TEST", "Il task download si ferma su semaforo");
-
         try {
-            taskDownload.acquire();
+            taskDownload.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         Log.d("TEST", "Il task download riemerge da semaforo");
-        taskDownload.release();
-        Log.d("ORDER", "Download task");
+
         return true;
     }
 
@@ -213,7 +195,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 */
 
 
-        if (result){
+        if (result) {
             Log.d("ORARI", "Terminata lettura orari da web");
             act.aggiornaLista();
             Log.d("ORARI", "Terminato aggiornamento orari su GUI");
@@ -221,7 +203,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             //bisogna aggiornare la GUI
         }
         //showNotification("Downloaded " + result + " bytes");
-        Log.d("TEST", "Eseguita post execution dopo il task download");
+        Log.d("TEST", "Task finished");
     }
 
 

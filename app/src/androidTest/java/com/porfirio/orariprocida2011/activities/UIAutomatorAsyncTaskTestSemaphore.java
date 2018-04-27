@@ -10,6 +10,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.Until;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -27,6 +28,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.Semaphore;
+
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -35,6 +38,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.porfirio.orariprocida2011.tasks.DownloadMezziTask.taskDownload;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -42,7 +46,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class UIAutomatorAsyncTaskTest {
+public class UIAutomatorAsyncTaskTestSemaphore {
 
     private static final String BASIC_SAMPLE_PACKAGE
             = "com.porfirio.orariprocida2011";
@@ -87,12 +91,19 @@ public class UIAutomatorAsyncTaskTest {
 
 
     @Before
-    public void startMainActivityFromHomeScreen() {
-/*        TestSuiteAS.addTest(0);
-        TestSuiteAS.setDelay(DownloadMezziTask.class.toString(),1000);
-        TestSuiteAS.setDelay(LeggiSegnalazioniTask.class.toString(),2000);
-        TestSuiteAS.setDelay(LeggiMeteoTask.class.toString(),3000);
-        TestSuiteAS.testNumber=-1;*/
+    public void startMainActivityFromHomeScreen() throws InterruptedException {
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1, true);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1, true);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        LeggiMeteoTask.taskMeteo.acquire();
+        Log.d("TEST", "Inizia il test, acquisisce i semafori");
+
         //QUI SETTO IL NUMERO DEL TEST
         TestSuiteAS.testNumber++;
 
@@ -116,35 +127,36 @@ public class UIAutomatorAsyncTaskTest {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
 
+        Log.d("TEST", "Avvio la activity");
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT);
+                LAUNCH_TIMEOUT * 100);
 
+        //La app è stata avviata
     }
 
     @Test
-    public void IllegalStateExceptionTest() {
+    public void IllegalStateExceptionTest() throws InterruptedException {
 
-        //TODO: Dovrei prima di tutto assicurarmi di stare eseguendo proprio OrariProcida2011Activity
-        //TODO: Poi dovrei trovare il modo di iniettare gli opportuni rallentamenti negli AsyncTask
-        //TODO: Infine mi potrebbero andare bene le attuali asserzioni
+        //L'avvio dell'app ha comportato anche l'avvio dei tre task
 
-
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-/*        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        //TODO: Il test:
+        //TODO: 1)	 avvia l’operazione sul thread principale
+        //TODO: 2)	scatena la terminazione dei task a tempi prefissati con release dopo Timer
 
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //dopo un tempo di attesa termina il task download
+
+        Thread.sleep(10000);
+        Log.d("TEST", "Il test considera finito il task e rilascia il semaforo download");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "Rilasciato il semaforo download");
+
+        Thread.sleep(2000);
+        Log.d("TEST", "Il test considera finito il task e rilascia il semaforo meteo");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "Rilasciato il semaforo meteo");
+
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
@@ -158,8 +170,21 @@ public class UIAutomatorAsyncTaskTest {
                         isDisplayed()));
         textView.perform(click());
 
-        //OrariProcida2011Activity currentActivity = (OrariProcida2011Activity) getInstrumentation().waitForMonitorWithTimeout(getInstrumentation().addMonitor("com.porfirio.OrariProcida2011Activity", null, false), 3000);
-        //currentActivity.downloadMezziTask=null;
+        Thread.sleep(2000);
+        Log.d("TEST", "Il test considera finito il task e rilascia il semaforo");
+        taskDownload.release();
+        Log.d("TEST", "Rilasciato il semaforo");
+
+        /*Thread.sleep(1000);
+        taskMeteo.release();
+        Log.d("TEST","Terminato meteo");
+
+        Thread.sleep(5000);
+        taskSegnalazioni.release();
+        Log.d("TEST","Terminato segnalazioni");
+*/
+//        OrariProcida2011Activity currentActivity = (OrariProcida2011Activity) getInstrumentation().waitForMonitorWithTimeout(getInstrumentation().addMonitor("com.porfirio.OrariProcida2011Activity", null, false), 3000);
+//        currentActivity.downloadMezziTask=null;
 
     }
 }
