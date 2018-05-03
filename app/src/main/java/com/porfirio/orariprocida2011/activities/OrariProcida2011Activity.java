@@ -59,6 +59,7 @@ import java.util.TimeZone;
 
 public class OrariProcida2011Activity extends FragmentActivity {
     private static FragmentManager fm;
+
     public final String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
     public final String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
@@ -509,8 +510,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
 
         //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
-        (downloadMezziTask = new DownloadMezziTask(this)).execute();
-        //new DownloadMezziTask(this).execute();
+        //(downloadMezziTask = new DownloadMezziTask(this)).execute();
+        new DownloadMezziTask(this).execute();
 
 
         //Al termine dovrebbe ricaricare la lista degli orari

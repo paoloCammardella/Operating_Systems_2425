@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -35,6 +36,7 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     private final OrariProcida2011Activity act;
 
     public static Semaphore taskMeteo;
+    public static Semaphore taskMeteoStart;
 
     public LeggiMeteoTask(OrariProcida2011Activity orariProcida2011Activity) {
         this.act = orariProcida2011Activity;
@@ -44,7 +46,16 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     protected Boolean doInBackground(Void... param) {
         //act = activities[0];
 
-    /* Create a URL we want to load some xml-data from. */
+        try {
+            taskMeteoStart.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("TEST", "TASK: Inizia il task meteo");
+        taskMeteoStart.release();
+
+
+        /* Create a URL we want to load some xml-data from. */
         URL url;
         Double windKmhFromIS = 0.0;
         Integer windDirFromIS = 0;
@@ -223,15 +234,17 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             }
 */
 
-        Log.d("TEST", "Il task meteo si ferma su semaforo");
+        Log.d("TEST", "TASK: Il task meteo pronto a terminare");
 
         try {
-            taskMeteo.acquire();
+            if (!taskMeteo.tryAcquire(20L, TimeUnit.SECONDS))
+                Log.d("TEST", "TASK: TIMEOUT task meteo ");
+            //act.finish();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        Log.d("TEST", "Il task meteo riemerge da semaforo");
+        Log.d("TEST", "TASK: Il task meteo termina");
         taskMeteo.release();
         Log.d("ORDER", "Meteo task");
 
@@ -257,6 +270,7 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             //gli orari del web erano piu' aggiornati
             //bisogna aggiornare la GUI
         }
+        Log.d("TEST", "Eseguita post execution dopo il task meteo");
         //showNotification("Downloaded " + result + " bytes");
     }
 }
