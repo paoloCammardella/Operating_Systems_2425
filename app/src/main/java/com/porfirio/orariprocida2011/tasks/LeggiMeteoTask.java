@@ -45,15 +45,15 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     // Do the long-running work in here
     protected Boolean doInBackground(Void... param) {
         //act = activities[0];
-
-        try {
-            taskMeteoStart.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (taskMeteoStart != null) {
+            try {
+                taskMeteoStart.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d("TEST", "TASK: Inizia il task meteo");
+            taskMeteoStart.release();
         }
-        Log.d("TEST", "TASK: Inizia il task meteo");
-        taskMeteoStart.release();
-
 
         /* Create a URL we want to load some xml-data from. */
         URL url;
@@ -234,20 +234,21 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             }
 */
 
-        Log.d("TEST", "TASK: Il task meteo pronto a terminare");
+        if (taskMeteo != null) {
+            Log.d("TEST", "TASK: Il task meteo pronto a terminare");
 
-        try {
-            if (!taskMeteo.tryAcquire(20L, TimeUnit.SECONDS))
-                Log.d("TEST", "TASK: TIMEOUT task meteo ");
-            //act.finish();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                if (!taskMeteo.tryAcquire(20L, TimeUnit.SECONDS))
+                    Log.d("TEST", "TASK: TIMEOUT task meteo ");
+                //act.finish();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("TEST", "TASK: Il task meteo termina");
+            taskMeteo.release();
+            Log.d("ORDER", "Meteo task");
         }
-
-        Log.d("TEST", "TASK: Il task meteo termina");
-        taskMeteo.release();
-        Log.d("ORDER", "Meteo task");
-
         return true;
     }
 
