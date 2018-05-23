@@ -797,7 +797,7 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         Thread.sleep(1000);
         mDevice.pressRecentApps();
 
-
+        Thread.sleep(1000);
         mDevice.pressMenu();
 
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
@@ -1013,6 +1013,724 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //LeggiMeteoTask.taskMeteoStart.acquire();
         Log.d("TEST", "TEST: Fine del test");
     }
+
+    @Test
+    public void OttavoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI | START DOWNLOAD ) -> PAUSE -> RESUME -> FINE DOWNLOAD
+        // 0 - Avvio l'app (che carica la UI e tenta di iniziare i task meteo e download, bloccando la terminazione di entrambi)
+        // pause
+        // resume
+        // 6 - Termino il task download dopo altri 10 sec
+        // 7 - Termino il task meteo dopo altri 10 sec
+        // PROBLEMA: I task lasciati appesi terminano senza poter comunicare i risultati, gisutamente
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        LeggiMeteoTask.taskMeteo.acquire();
+        //DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+        // PERCHE' IL TEST FINISCE QUI?
+        Thread.sleep(10000);
+
+
+        mDevice.pressHome();
+        Log.d("TEST", "TEST: Pause app");
+        Thread.sleep(2000);
+        mDevice.pressRecentApps();
+        Thread.sleep(1000);
+        mDevice.pressRecentApps();
+        Log.d("TEST", "TEST: Resume app");
+
+
+        Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task meteo Terminato");
+
+        Log.d("TEST", "TEST: Fine del test");
+    }
+
+    @Test
+    public void NonoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI) -> START DOWNLOAD 1 --> START DOWNLOAD 2 --> END DOWNLOAD 2 --> END DOWNLOAD 1
+        // 0 - Avvio l'app (che carica la UI e tenta di iniziare i task meteo bloccando il task download)
+        // 1 - avvio un altro task download
+        // 2 - termino l'ultimo task download
+        // 6 - Termino il primo task download
+        // PROBLEMA: I task lasciati appesi terminano senza poter comunicare i risultati, gisutamente
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        //LeggiMeteoTask.taskMeteo.acquire();
+        DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+        // PERCHE' IL TEST FINISCE QUI?
+        Thread.sleep(2000);
+        Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 1");
+        DownloadMezziTask.taskDownloadStart.release();
+        //Log.d("TEST", "TEST: Rilasciato il semaforo download");
+
+        Thread.sleep(1000);
+        Log.d("TEST", "Click su aggiorna orari da web");
+
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
+        ui.click();
+
+        Thread.sleep(2000);
+        Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 2");
+        DownloadMezziTask.taskDownloadStart.release();
+        //Log.d("TEST", "TEST: Rilasciato il semaforo download");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+    }
+
+    @Test
+    public void DecimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI | START DOWNLOAD | START METEO) -> START DOWNLOAD 2 --> START METEO 2 --> PAUSE -> RESUME -> FINE METEO --> FINE DOWNLOAD --> FINE DOWNLOAD --> FINE METEO
+        // 0 - Avvio l'app (che carica la UI e tenta di iniziare i task meteo e download, bloccando la terminazione di entrambi)
+        // 1 - Avvio un altro download da UI
+        // 2 - Avvio un altro meteo da UI
+        // pause
+        // resume
+        // 7 - Termino il task meteo dopo altri 10 sec
+        // 6 - Termino il task download dopo altri 10 sec
+        // 6 - Termino il task download dopo altri 10 sec
+        // 7 - Termino il task meteo dopo altri 10 sec
+        // PROBLEMA: Va in crash su start download la app, a causa della coesistenza di due task download
+        //java.lang.NullPointerException: Attempt to invoke virtual method 'int java.util.Calendar.get(int)' on a null object reference
+        //at com.porfirio.orariprocida2011.activities.OrariProcida2011Activity.onOptionsItemSelected(OrariProcida2011Activity.java:177)
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        LeggiMeteoTask.taskMeteo.acquire();
+        //DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+        //AVVIO UN DOWNLOAD DA UI
+        Thread.sleep(3000);
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
+        ui.click();
+        Thread.sleep(1000);
+        DownloadMezziTask.taskDownloadStart.release();
+
+
+        //AVVIO UN METEO DA UI
+        Thread.sleep(1000);
+        mDevice.pressMenu();
+        UiObject ui2 = mDevice.findObject(new UiSelector().text("Aggiorna dati meteo"));
+        ui2.click();
+        LeggiMeteoTask.taskMeteoStart.release();
+
+        mDevice.pressHome();
+        Log.d("TEST", "TEST: Pause app");
+        Thread.sleep(2000);
+        mDevice.pressRecentApps();
+        Thread.sleep(1000);
+        mDevice.pressRecentApps();
+        Log.d("TEST", "TEST: Resume app");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task meteo Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task meteo Terminato");
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
+    @Test
+    public void UndecimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI ) -> DOWNLOAD 2 DA UI -->  START DOWNLOAD 1 --> START DOWNLOAD 2 --> FINE DOWNLOAD --> FINE DOWNLOAD
+        // 0 - Avvio l'app (che carica la UI ma blocca l'inizio del download)
+        // 1 - Avvio un altro download da UI
+        // 2 - Termino il task download dopo altri 10 sec
+        // 3 - Termino il task download dopo altri 10 sec
+        // PROBLEMA: Va in crash su start download la app per la contemporanea presenza di due task download attivi
+        //java.lang.NullPointerException: Attempt to invoke virtual method 'int java.util.Calendar.get(int)' on a null object reference
+        //at com.porfirio.orariprocida2011.activities.OrariProcida2011Activity.onOptionsItemSelected(OrariProcida2011Activity.java:177)
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        //LeggiMeteoTask.taskMeteo.acquire();
+        DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+        //SELEZIONO UN DOWNLOAD DA UI
+        Thread.sleep(3000);
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
+        ui.click();
+
+        // AVVIO IL PRIMO DOWNLOAD
+        Thread.sleep(1000);
+        DownloadMezziTask.taskDownloadStart.release();
+
+        // AVVIO L'ALTRO DOWNLOAD
+        Thread.sleep(1000);
+        DownloadMezziTask.taskDownloadStart.release();
+
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
+    @Test
+    public void DodicesimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI ) -> meteo 2 DA UI -->  START meteo 1 --> START meteo 2 --> FINE meteo --> FINE meteo
+        // 0 - Avvio l'app (che carica la UI ma blocca l'inizio del meteo)
+        // 1 - Avvio un altro meteo da UI
+        // 2 - Termino il task meteo dopo altri 10 sec
+        // 3 - Termino il task meteo dopo altri 10 sec
+        // PROBLEMA: Va in crash su start meteo la app per la contemporanea presenza di due task meteo attivi
+        //java.lang.NullPointerException: Attempt to invoke virtual method 'int java.util.Calendar.get(int)' on a null object reference
+        //at com.porfirio.orariprocida2011.activities.OrariProcida2011Activity.setSpinner(OrariProcida2011Activity.java:989)
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        //DownloadMezziTask.taskDownload.acquire();
+        LeggiMeteoTask.taskMeteo.acquire();
+        //DownloadMezziTask.taskDownloadStart.acquire();
+        LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+        //SELEZIONO UN meteo DA UI
+        Thread.sleep(3000);
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna dati meteo"));
+        ui.click();
+
+        // AVVIO IL PRIMO METEO
+        Thread.sleep(1000);
+        LeggiMeteoTask.taskMeteoStart.release();
+
+        // AVVIO L'ALTRO METEO
+        Thread.sleep(1000);
+        LeggiMeteoTask.taskMeteoStart.release();
+
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task meteo Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task Meteo Terminato");
+
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
+    @Test
+    public void QuindicesimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI | START DOWNLOAD ) --> PAUSE --> FINE DOWNLOAD -> RESUME --> START DOWNLOAD DA UI --> FINE DOWNLOAD
+        // 0 - Avvio l'app
+        // 1 - Sblocco un altro download da UI
+        // pause
+        // 6 - Termino il task download dopo altri 10 sec
+        // resume
+        // PROBLEMA: No dà crash ma è da valutare l'esito rispetto a quello atteso
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        //LeggiMeteoTask.taskMeteo.acquire();
+        //DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+
+        mDevice.pressHome();
+        Log.d("TEST", "TEST: Pause app");
+        Thread.sleep(2000);
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        mDevice.pressRecentApps();
+        Thread.sleep(1000);
+        mDevice.pressRecentApps();
+        Log.d("TEST", "TEST: Resume app");
+
+        //SELEZIONO UN DOWNLOAD DA UI
+        Thread.sleep(3000);
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
+        ui.click();
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownloadStart.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
+    @Test
+    public void QuattordicesimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI | START METEO ) --> PAUSE --> FINE METEO -> RESUME
+        // 0 - Avvio l'app
+        // 1 - Sblocco un altro meteo da UI
+        // pause
+        // 6 - Termino il task meteo dopo altri 10 sec
+        // resume
+        // PROBLEMA: No dà crash ma è da valutare l'esito rispetto a quello atteso, probabilmente con un log
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        //DownloadMezziTask.taskDownload.acquire();
+        LeggiMeteoTask.taskMeteo.acquire();
+        //DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+
+        mDevice.pressHome();
+        Log.d("TEST", "TEST: Pause app");
+        Thread.sleep(2000);
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
+        LeggiMeteoTask.taskMeteo.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        mDevice.pressRecentApps();
+        Thread.sleep(1000);
+        mDevice.pressRecentApps();
+        Log.d("TEST", "TEST: Resume app");
+
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
+    @Test
+    public void TredicesimoTest() throws InterruptedException, UiObjectNotFoundException, RemoteException {
+        // SEQUENZA (UI ) --> PAUSE --> START DOWNLOAD --> FINE DOWNLOAD -> RESUME --> DOWNLOAD DA UI --> FINE DOWNLOAD --> FINE DOWNLOAD
+        // 0 - Avvio l'app
+        // 1 - Sblocco un altro download da UI
+        // pause
+        // 6 - Termino il task download dopo altri 10 sec
+        // resume
+        // PROBLEMA: Da notare il toast in sovraimpressione sulla Home, ma nessun crash
+
+        // Definisco i semafori, uno per ogni task, eventualmente settando il numero di task possibili
+        DownloadMezziTask.taskDownload = new Semaphore(1);
+        DownloadMezziTask.taskDownloadStart = new Semaphore(1);
+        LeggiMeteoTask.taskMeteo = new Semaphore(1);
+        LeggiMeteoTask.taskMeteoStart = new Semaphore(1);
+
+
+        //Il test mette rosso i semafori, in modo da poterne determinare autonomamente lo sblocco
+        Log.d("TEST", "Il test prova ad acquisire i semafori");
+        DownloadMezziTask.taskDownload.acquire();
+        //LeggiMeteoTask.taskMeteo.acquire();
+        DownloadMezziTask.taskDownloadStart.acquire();
+        //LeggiMeteoTask.taskMeteoStart.acquire();
+
+        Log.d("TEST", "Inizia il test, valori dei semafori: Download=" + DownloadMezziTask.taskDownload.availablePermits() + " meteo=" + LeggiMeteoTask.taskMeteo.availablePermits());
+
+
+        // Initialize UiDevice instance
+        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        // Start from the home screen
+        mDevice.pressHome();
+
+        // Wait for launcher
+        final String launcherPackage = mDevice.getLauncherPackageName();
+        assertThat(launcherPackage, notNullValue());
+        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                LAUNCH_TIMEOUT);
+
+        // Launch the app
+        Context context = InstrumentationRegistry.getContext();
+        final Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+        // Clear out any previous instances
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+
+        Log.d("TEST", "TEST: Avvio la activity");
+        //Log.d("TEST","TEST: valori dei semafori: Download="+DownloadMezziTask.taskDownload.availablePermits()+" meteo="+LeggiMeteoTask.taskMeteo.availablePermits());
+        //Thread.sleep(5000);
+        // Wait for the app to appear
+        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                LAUNCH_TIMEOUT * 1000);
+        Log.d("TEST", "TEST: Fine before");
+        //La app è stata avviata
+
+
+        mDevice.pressHome();
+        Log.d("TEST", "TEST: Pause app");
+        Thread.sleep(2000);
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca l'avvio del task download ");
+        DownloadMezziTask.taskDownloadStart.release();
+        Log.d("TEST", "TEST: Task Download Avviato");
+
+        mDevice.pressRecentApps();
+        Thread.sleep(1000);
+        mDevice.pressRecentApps();
+        Log.d("TEST", "TEST: Resume app");
+
+        //SELEZIONO UN DOWNLOAD DA UI
+        Thread.sleep(3000);
+        mDevice.pressMenu();
+        UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
+        ui.click();
+        Thread.sleep(3000);
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca l'avvio del task download ");
+        DownloadMezziTask.taskDownloadStart.release();
+        Log.d("TEST", "TEST: Task Download Avviato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Thread.sleep(3000);
+        Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
+        DownloadMezziTask.taskDownload.release();
+        Log.d("TEST", "TEST: Task Download Terminato");
+
+        Log.d("TEST", "TEST: Fine del test");
+
+    }
+
 
 
 }
