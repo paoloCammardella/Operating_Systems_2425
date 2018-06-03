@@ -957,7 +957,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         Spinner spnNave = findViewById(R.id.spnNave);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.strMezzi, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         spnNave.setAdapter(adapter);
 
         nave = getString(R.string.tutti);
@@ -977,7 +977,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         final Spinner spnPortoPartenza = findViewById(R.id.spnPortoPartenza);
         final ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                 this, R.array.strPorti, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(R.layout.spinner_item);
         spnPortoPartenza.setAdapter(adapter2);
 
         //controllo e setto tramite algoritmo di set con gps
@@ -995,7 +995,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         final Spinner spnPortoArrivo = findViewById(R.id.spnPortoArrivo);
         final ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(
                 this, R.array.strPorti, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter3.setDropDownViewResource(R.layout.spinner_item);
         spnPortoArrivo.setAdapter(adapter3);
 
         if (!(portoPartenza.contentEquals("Procida") || portoPartenza.contentEquals(getString(R.string.tutti)))) {
