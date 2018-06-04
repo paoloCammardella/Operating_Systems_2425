@@ -174,10 +174,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 // Caricare da Web
                 if (isOnline()) {
                     riempiMezzidaWeb();
-                    int meseToast = aggiornamentoOrariWeb.get(Calendar.MONTH);
-                    if (meseToast == 0) meseToast = 12;
-                    if (!primoAvvio)
-                        Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DATE) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
+                    if (aggiornamentoOrariWeb != null) {
+                        int meseToast = aggiornamentoOrariWeb.get(Calendar.MONTH);
+                        if (meseToast == 0) meseToast = 12;
+                        if (!primoAvvio)
+                            Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DATE) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
+                    }
                 } else
                     Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
                 return true;
@@ -189,12 +191,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 //aboutDialog.show();
 
                 //Log.d("CONDIMETEO", "PRIMA" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
-                meteoDialog.show();
+                //meteoDialog.show();
                 //showDialog(METEO_DIALOG_ID);
                 leggiMeteo(true);
                 //Log.d("CONDIMETEO", "DOPO" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 if (aggiornamentoMeteo!=null){
-                    meteoDialog.setMessage(getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
+                    String s = getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE);
+                    meteoDialog.setMessage(s);
                     meteoDialog.show();
                 }
                     this.aggiornaLista();
@@ -989,9 +992,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
             int mese = aggiornamentoOrariIS.get(Calendar.MONTH);
             if (mese == 0) mese = 12;
             meteo.setWindBeaufort(meteo.getWindKmh());
-            String s=new String (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n" + getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n" + getString(R.string.updated) + " ");
+            String s = new String(getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n" + getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n");
             if (aggiornamentoMeteo!=null)
-                s+=(aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE) + " " + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n");
+                s += (getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE) + " " + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n");
             Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
 

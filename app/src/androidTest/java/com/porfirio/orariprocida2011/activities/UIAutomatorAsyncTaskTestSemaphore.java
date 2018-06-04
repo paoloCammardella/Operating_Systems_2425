@@ -56,6 +56,9 @@ public class UIAutomatorAsyncTaskTestSemaphore {
     private static final int LAUNCH_TIMEOUT = 5000;
     private static final String STRING_TO_BE_TYPED = "UiAutomator";
     private UiDevice mDevice;
+    private static final int SLOW = 100;
+    private static final int FAST = 100;
+    private static final int VERYSLOW = 5000;
 
 
     private static Matcher<View> childAtPosition(
@@ -81,13 +84,13 @@ public class UIAutomatorAsyncTaskTestSemaphore {
     public static void setTestValues() {
         //TODO Leggere i valori dei delay da file
         TestSuiteAS.addTest(0);
-        TestSuiteAS.setDelay(DownloadMezziTask.class.toString(), 10000);
-        TestSuiteAS.setDelay(LeggiSegnalazioniTask.class.toString(), 2000);
-        TestSuiteAS.setDelay(LeggiMeteoTask.class.toString(), 3000);
+        TestSuiteAS.setDelay(DownloadMezziTask.class.toString(), VERYSLOW);
+        TestSuiteAS.setDelay(LeggiSegnalazioniTask.class.toString(), SLOW);
+        TestSuiteAS.setDelay(LeggiMeteoTask.class.toString(), SLOW);
         TestSuiteAS.addTest(1);
-        TestSuiteAS.setDelay(DownloadMezziTask.class.toString(), 10000);
-        TestSuiteAS.setDelay(LeggiSegnalazioniTask.class.toString(), 2000);
-        TestSuiteAS.setDelay(LeggiMeteoTask.class.toString(), 1000);
+        TestSuiteAS.setDelay(DownloadMezziTask.class.toString(), VERYSLOW);
+        TestSuiteAS.setDelay(LeggiSegnalazioniTask.class.toString(), SLOW);
+        TestSuiteAS.setDelay(LeggiMeteoTask.class.toString(), SLOW);
         TestSuiteAS.testNumber = -1;
         return;
     }
@@ -164,22 +167,22 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //La app è stata avviata
 
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task meteo");
         LeggiMeteoTask.taskMeteoStart.release();
         Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
@@ -245,12 +248,12 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //La app è stata avviata
 
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task meteo");
         LeggiMeteoTask.taskMeteoStart.release();
         Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
@@ -318,12 +321,12 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
@@ -389,18 +392,17 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //La app è stata avviata
 
 
-
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(10000);
+        Thread.sleep(VERYSLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
@@ -467,17 +469,17 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //La app è stata avviata
 
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
@@ -495,19 +497,19 @@ public class UIAutomatorAsyncTaskTestSemaphore {
 
         Log.d("TEST", "Click su aggiorna orari da web");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(10000);
+        Thread.sleep(VERYSLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
 
     }
 
-    @Test
+    //    @Test
     public void QuartoTest() throws InterruptedException {
         // SEQUENZA (UI | METEO START) -> TERMINA METEO -> START DOWNLOAD -> UI -> START DOWNLOAD 2 -> FINE DOWNLOAD -> FINE DOWNLOAD 2
         // 0 - Avvio l'app (che carica la UI e tenta di iniziare i task meteo e download, bloccando solo download e la terminazione di meteo)
@@ -569,18 +571,18 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //La app è stata avviata
 
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
@@ -598,16 +600,16 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download");
         DownloadMezziTask.taskDownload.release();
 
@@ -669,23 +671,23 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 1");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
@@ -697,18 +699,18 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 2");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download 1");
         DownloadMezziTask.taskDownload.release();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download 2");
         DownloadMezziTask.taskDownload.release();
 
@@ -771,33 +773,33 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo");
         LeggiMeteoTask.taskMeteo.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo meteo");
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 1");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
         mDevice.pressHome();
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
 
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
@@ -806,18 +808,18 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download (1)");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download (2)");
         DownloadMezziTask.taskDownload.release();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download (3)");
         DownloadMezziTask.taskDownload.release();
 
@@ -887,11 +889,11 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
@@ -899,12 +901,12 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         mDevice.findObject(new UiSelector().text("Aggiorna orari da Web")).click();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 2");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
 
@@ -912,23 +914,23 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         mDevice.findObject(new UiSelector().text("Aggiorna orari da Web")).click();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 2");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download 1");
         DownloadMezziTask.taskDownload.release();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download 2");
         DownloadMezziTask.taskDownload.release();
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download 2");
         DownloadMezziTask.taskDownload.release();
 
@@ -987,25 +989,25 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         // PERCHE' IL TEST FINISCE QUI?
-        Thread.sleep(10000);
+        Thread.sleep(VERYSLOW);
 
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
 
@@ -1066,30 +1068,30 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         // PERCHE' IL TEST FINISCE QUI?
-        Thread.sleep(10000);
+        Thread.sleep(VERYSLOW);
 
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
 
         Log.d("TEST", "TEST: valori dei semafori: StartDownload=" + DownloadMezziTask.taskDownloadStart.availablePermits() + " download=" + DownloadMezziTask.taskDownload.availablePermits());
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task meteo Terminato");
@@ -1148,34 +1150,34 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         // PERCHE' IL TEST FINISCE QUI?
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 1");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "Click su aggiorna orari da web");
 
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
         ui.click();
 
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download 2");
         DownloadMezziTask.taskDownloadStart.release();
         //Log.d("TEST", "TEST: Rilasciato il semaforo download");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
@@ -1240,21 +1242,21 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         //AVVIO UN DOWNLOAD DA UI
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
         ui.click();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         DownloadMezziTask.taskDownloadStart.release();
 
 
         //AVVIO UN METEO DA UI
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui2 = mDevice.findObject(new UiSelector().text("Aggiorna dati meteo"));
         ui2.click();
@@ -1262,28 +1264,28 @@ public class UIAutomatorAsyncTaskTestSemaphore {
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task meteo Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task meteo Terminato");
@@ -1345,31 +1347,31 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         //SELEZIONO UN DOWNLOAD DA UI
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
         ui.click();
 
         // AVVIO IL PRIMO DOWNLOAD
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         DownloadMezziTask.taskDownloadStart.release();
 
         // AVVIO L'ALTRO DOWNLOAD
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         DownloadMezziTask.taskDownloadStart.release();
 
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
@@ -1432,31 +1434,31 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
         //SELEZIONO UN meteo DA UI
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna dati meteo"));
         ui.click();
 
         // AVVIO IL PRIMO METEO
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         LeggiMeteoTask.taskMeteoStart.release();
 
         // AVVIO L'ALTRO METEO
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         LeggiMeteoTask.taskMeteoStart.release();
 
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task meteo Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task Meteo Terminato");
@@ -1518,37 +1520,37 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
         //SELEZIONO UN DOWNLOAD DA UI
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
         ui.click();
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownloadStart.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
@@ -1610,22 +1612,22 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task meteo ");
         LeggiMeteoTask.taskMeteo.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
@@ -1686,43 +1688,43 @@ public class UIAutomatorAsyncTaskTestSemaphore {
         //Thread.sleep(5000);
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                LAUNCH_TIMEOUT * 1000);
+                LAUNCH_TIMEOUT * SLOW);
         Log.d("TEST", "TEST: Fine before");
         //La app è stata avviata
 
 
         mDevice.pressHome();
         Log.d("TEST", "TEST: Pause app");
-        Thread.sleep(2000);
+        Thread.sleep(SLOW);
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download ");
         DownloadMezziTask.taskDownloadStart.release();
         Log.d("TEST", "TEST: Task Download Avviato");
 
         mDevice.pressRecentApps();
-        Thread.sleep(1000);
+        Thread.sleep(SLOW);
         mDevice.pressRecentApps();
         Log.d("TEST", "TEST: Resume app");
 
         //SELEZIONO UN DOWNLOAD DA UI
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         mDevice.pressMenu();
         UiObject ui = mDevice.findObject(new UiSelector().text("Aggiorna orari da Web"));
         ui.click();
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca l'avvio del task download ");
         DownloadMezziTask.taskDownloadStart.release();
         Log.d("TEST", "TEST: Task Download Avviato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
 
-        Thread.sleep(3000);
+        Thread.sleep(SLOW);
         Log.d("TEST", "TEST: Il test sblocca la terminazione del task download ");
         DownloadMezziTask.taskDownload.release();
         Log.d("TEST", "TEST: Task Download Terminato");
