@@ -3,6 +3,7 @@ package com.porfirio.orariprocida2011.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 
@@ -27,7 +28,10 @@ public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
     // Do the long-running work in here
     protected Boolean doInBackground(Void... params) {
         //act = activities[0];
-
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Leggi Segnalazioni Task")
+                .build());
         String urlS = "http://unoprocidaresidente.altervista.org/segnalazioni.csv";
         HttpURLConnection connS = null;
         InputStream inS;
@@ -69,7 +73,10 @@ public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
             e.printStackTrace();
         }
 
-
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Terminated Leggi Segnalazioni Task")
+                .build());
         return true;
     }
 

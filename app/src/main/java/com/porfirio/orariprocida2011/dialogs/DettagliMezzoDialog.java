@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Compagnia;
@@ -82,6 +83,10 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		btnTaxi.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
+                callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("App Event")
+                        .setAction("Click Taxi Dialog")
+                        .build());
 				taxiDialog.show(fragmentManager, "fragment_edit_name");
 			}
 	    });
@@ -90,6 +95,10 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		btnBiglietterie.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
+                callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("App Event")
+                        .setAction("Click Biglietterie Dialog")
+                        .build());
 				biglietterieDialog.show(fragmentManager, "fragment_edit_name");
 			}
 	    });
@@ -100,8 +109,13 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 	    	public void onClick(View v) {
 	    	    if (!callingActivity.isOnline())
 	    	    	Toast.makeText(getContext(), callingActivity.getString(R.string.soloOnline), Toast.LENGTH_SHORT).show();
-	    		else
-					segnalazioneDialog.show(fragmentManager, "fragment_edit_name");
+                else {
+                    callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("App Event")
+                            .setAction("Click Segnalazione Dialog")
+                            .build());
+                    segnalazioneDialog.show(fragmentManager, "fragment_edit_name");
+                }
 			}
 	    });
 
@@ -173,6 +187,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		segnalazioneDialog.setOrarioRef(calen);
 		segnalazioneDialog.setMezzo(mezzo);
 		segnalazioneDialog.setCallingContext(this.getContext());
+        segnalazioneDialog.setCallingActivity(callingActivity);
 		segnalazioneDialog.setListCompagnia(lc);
 		//segnalazioneDialog.fill(lc);
 

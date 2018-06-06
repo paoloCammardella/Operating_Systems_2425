@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
@@ -64,7 +65,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 */
 
         //act=activities[0];
-
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Download Mezzi Task")
+                .build());
         //Apre una connessione con gli orari
         URL u = null;
         try {
@@ -159,6 +163,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                     fos.write(line.getBytes());
                     fos.write("\n".getBytes());
                 }
+                act.mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("App Event")
+                        .setAction("Updated Timetable")
+                        .build());
                 fos.close();
                 act.aggiornamentoOrariIS = act.aggiornamentoOrariWeb;
 
@@ -210,6 +218,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             taskDownload.release();
             Log.d("ORDER", "Download task");
         }
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Download Terminated")
+                .build());
         return true;
     }
 

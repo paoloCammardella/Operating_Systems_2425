@@ -16,7 +16,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.tasks.ScriviSegnalazioneTask;
@@ -34,6 +36,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	private EditText txtDettagli;
 	private Calendar orarioRef;
 	private ArrayList<Compagnia> listCompagnia;
+	private OrariProcida2011Activity callingActivity;
 
 	public void setCallingContext(Context callingContext) {
 		this.callingContext = callingContext;
@@ -79,7 +82,11 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		btnInvia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
+				callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+						.setCategory("App Event")
+						.setAction("Segnala Avaria")
+						.build());
+				//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(true);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
 				//LockDeviceRotation.lock(false,callingContext);
@@ -91,6 +98,10 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		btnConferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+				callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+						.setCategory("App Event")
+						.setAction("Conferma Corsa")
+						.build());
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(false);
 	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
@@ -188,4 +199,8 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	}
 
 
+	public void setCallingActivity(OrariProcida2011Activity c) {
+		callingActivity = c;
+		return;
+	}
 }

@@ -77,8 +77,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
      * Called when the activity is first created.
      */
 
-    public DownloadMezziTask downloadMezziTask;
-
     private String nave;
     private String portoPartenza;
     private String portoArrivo;
@@ -94,7 +92,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private Locale locale;
     private SegnalazioneDialog segnalazioneDialog;
     private boolean primoAvvio = true;
-    private Tracker mTracker;
+    public Tracker mTracker;
+    private OrariProcida2011Activity act;
 
     public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -134,6 +133,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("UI Event")
+                .setAction("Open Menu")
+                .build());
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
@@ -141,16 +144,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Action")
-                .setAction("Menu")
-                .build());
-
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.about:
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Menu")
+                        .setCategory("UI Event")
                         .setAction("About")
                         .build());
                 aboutDialog.show();
@@ -168,8 +166,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case R.id.updateWeb:
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Menu")
-                        .setAction("Update Orari da Web")
+                        .setCategory("UI Event")
+                        .setAction("Update Orari da Web da Menu")
                         .build());
                 // Caricare da Web
                 if (isOnline()) {
@@ -185,8 +183,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 return true;
             case R.id.meteo:
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Menu")
-                        .setAction("Update Meteo")
+                        .setCategory("UI Event")
+                        .setAction("Update Meteo da Menu")
                         .build());
                 //aboutDialog.show();
 
@@ -206,8 +204,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 return true;
             case R.id.esci:
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Menu")
-                        .setAction("Exit")
+                        .setCategory("UI Event")
+                        .setAction("Exit da Menu")
                         .build());
                 //aboutDialog.show();
 
@@ -221,16 +219,19 @@ public class OrariProcida2011Activity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         // Attiva funzioni display.
         mTracker.enableAdvertisingIdCollection(true);
 
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onCreate")
+                .build());
+
         fm = getSupportFragmentManager();
-
-
+        act = this;
 
         if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //&& ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -241,6 +242,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("App Event")
+                    .setAction("Request Permission")
+                    .build());
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET}, 1
@@ -309,6 +314,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             public void onClick(View v) {
 
 //        		orario.setHours(orario.getHours()-1);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("UI Event")
+                        .setAction("Button --")
+                        .build());
                 c.add(Calendar.HOUR, -1);
                 setTxtOrario(c);
                 aggiornaLista();
@@ -320,6 +329,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 //        		orario.setMinutes(orario.getMinutes()-15);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("UI Event")
+                        .setAction("Button -")
+                        .build());
                 c.add(Calendar.MINUTE, -15);
                 setTxtOrario(c);
                 aggiornaLista();
@@ -332,6 +345,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             public void onClick(View v) {
                 //TODO L'unico problema residuo ? che problemi correttamente segnalati con pi? di 24 ore di anticipo vengono visualizzati solo a meno di 24h
                 //Forse potrebbe essere risolto forzando un refresh quando si avanza di 24h rispetto all'orario corrente
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("UI Event")
+                        .setAction("Button +")
+                        .build());
                 c.add(Calendar.MINUTE, 15);
                 setTxtOrario(c);
                 aggiornaLista();
@@ -343,6 +360,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 //        		orario.setHours(orario.getHours()+1);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("UI Event")
+                        .setAction("Button ++")
+                        .build());
                 c.add(Calendar.HOUR, 1);
                 setTxtOrario(c);
                 aggiornaLista();
@@ -366,7 +387,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Action")
+                        .setCategory("UI Event")
                         .setAction("Click Dettagli Mezzo")
                         .build());
                 //aboutDialog.show();
@@ -394,7 +415,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            final int arg2, long arg3) {
                 mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Action")
+                        .setCategory("UI Event")
                         .setAction("LongClick DettagliMezzo")
                         .build());
 
@@ -412,6 +433,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     //				altra soluzione: trovare il mezzo dalla stringa
                     segnalazioneDialog.setOrarioRef(c);
                     segnalazioneDialog.setCallingContext(getApplicationContext());
+                    segnalazioneDialog.setCallingActivity(act);
                     segnalazioneDialog.setListCompagnia(listCompagnia);
 
                     //segnalazioneDialog.fill(listCompagnia);
@@ -472,6 +494,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void riempiMezzidaInternalStorage(FileInputStream fstream) {
         try {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("App Event")
+                    .setAction("Riempi Mezzi da Internal Storage")
+                    .build());
             // Open the file that is the first
             // command line parameter
             Log.d("ORARI", "Inizio caricamento orari da IS");
@@ -650,6 +676,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             FileInputStream fstream = new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/orari.csv");
             riempiMezzidaInternalStorage(fstream);
         } catch (FileNotFoundException e) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("App Event")
+                    .setAction("Riempi Lista da Codice")
+                    .build());
             Log.d("ORARI", "File non trovato su IS. Leggo da codice");
             // convenzione giorni settimana:
             // DOMENICA =1 LUNEDI=2 MARTEDI=3 MERCOLEDI=4 GIOVEDI=5 VENERDI=6 SABATO=7
@@ -816,7 +846,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     public void aggiornaLista() {
         //NOn ? chiaro perch? il controllo del locale debba essere fatto proprio qui!!!
-
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Aggiorna Lista")
+                .build());
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
             locale = new Locale(languageToLoad);
@@ -1095,41 +1128,86 @@ public class OrariProcida2011Activity extends FragmentActivity {
         if (l == null)
             return getString(R.string.tutti);
         //Coordinate angoli Procida
-        if ((l.getLatitude() > 40.7374) && (l.getLatitude() < 40.7733) && (l.getLongitude() > 13.9897) && (l.getLongitude() < 14.0325))
+        if ((l.getLatitude() > 40.7374) && (l.getLatitude() < 40.7733) && (l.getLongitude() > 13.9897) && (l.getLongitude() < 14.0325)) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("User")
+                    .setAction("From Procida")
+                    .build());
             return "Procida";
+        }
         //Coordinate angoli Isola d'Ischia
-        if ((l.getLatitude() > 40.6921) && (l.getLatitude() < 40.7626) && (l.getLongitude() > 13.8465) && (l.getLongitude() < 13.9722)) {
+        if ((l.getLatitude() > 40.6921) && (l.getLatitude() < 40.7626) && (l.getLongitude() > 13.8465) && (l.getLongitude() < 13.9722))
             //Isola d'Ischia
-            if (calcolaDistanza(l, 13.9063, 40.7496) > calcolaDistanza(l, 13.9602, 40.7319))
+            if (calcolaDistanza(l, 13.9063, 40.7496) > calcolaDistanza(l, 13.9602, 40.7319)) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("User")
+                        .setAction("From Ischia")
+                        .build());
                 return "Ischia";
-            else
-        		return "Casamicciola";
+            } else {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("User")
+                        .setAction("From Casamicciola")
+                        .build());
+                return "Casamicciola";
         } 
       //Inserire coordinate Napoli (media porti) e Pozzuoli
       double distNapoli=calcolaDistanza(l,14.2575,40.84); Log.d("OrariProcida","d(Napoli)="+distNapoli);
       double distPozzuoli=calcolaDistanza(l,14.1179,40.8239); Log.d("OrariProcida","d(Pozzuoli)="+distPozzuoli);
       double distMonteProcida=calcolaDistanza(l,14.05,40.8);
-      if (distMonteProcida<1500)
-    	  return "Monte di Procida";
+        if (distMonteProcida < 1500) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("User")
+                    .setAction("From Monte di Procida")
+                    .build());
+            return "Monte di Procida";
+        }
       if (distPozzuoli<distNapoli){
-    	  if (distPozzuoli<15000)
-      		return "Pozzuoli";
-    	  else
-    		return "Napoli o Pozzuoli";
+          if (distPozzuoli < 15000) {
+              mTracker.send(new HitBuilders.EventBuilder()
+                      .setCategory("User")
+                      .setAction("From Pozzuoli")
+                      .build());
+              return "Pozzuoli";
+          } else {
+              mTracker.send(new HitBuilders.EventBuilder()
+                      .setCategory("User")
+                      .setAction("From Napoli o Pozzuoli")
+                      .build());
+              return "Napoli o Pozzuoli";
+          }
       }
       else { 
     	  if (distNapoli<15000){
-    		  if (distNapoli>1000)
-    			  return "Napoli";
+              if (distNapoli > 1000) {
+                  mTracker.send(new HitBuilders.EventBuilder()
+                          .setCategory("User")
+                          .setAction("From Napoli")
+                          .build());
+                  return "Napoli";
+              }
     		  else{
-    	        	if (calcolaDistanza(l,14.2548,40.8376)<calcolaDistanza(l,14.2602,40.8424))
-    	        		return "Napoli Beverello";
-    	        	else
-    	        		return "Napoli Porta di Massa";
-    		  }    			  
-    	  }        		
-      	  else
-      		return "Napoli o Pozzuoli";
+                  if (calcolaDistanza(l, 14.2548, 40.8376) < calcolaDistanza(l, 14.2602, 40.8424)) {
+                      mTracker.send(new HitBuilders.EventBuilder()
+                              .setCategory("User")
+                              .setAction("From Napoli Beverello")
+                              .build());
+                      return "Napoli Beverello";
+                  } else {
+                      mTracker.send(new HitBuilders.EventBuilder()
+                              .setCategory("User")
+                              .setAction("From Napoli Porta di Massa")
+                              .build());
+                      return "Napoli Porta di Massa";
+                  }
+              }
+          } else {
+              mTracker.send(new HitBuilders.EventBuilder()
+                      .setCategory("User")
+                      .setAction("From Napoli o Pozzuoli")
+                      .build());
+              return "Napoli o Pozzuoli";
+          }
       }
 	}
 
@@ -1143,21 +1221,29 @@ public class OrariProcida2011Activity extends FragmentActivity {
 	}
 	protected void onStart(){
 		super.onStart();
-
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onStart")
+                .build());
 	}
     
     protected void onRestart(){
     	super.onRestart();
-    	Log.d("ACTIVITY","restart");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onRestart")
+                .build());
+        Log.d("ACTIVITY", "restart");
     }
 
     protected void onResume(){
     	super.onResume();
-
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onResume")
+                .build());
         Log.i("ORARI", "Setting screen name: " + "Main Activity");
-        mTracker.setScreenName("Resume" + "Main Activity");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))        	
+//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))
 //    	{
 //    	String languageToLoad  = "en";
 //    	locale = new Locale(languageToLoad);        	
@@ -1173,16 +1259,28 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     protected void onPause(){
     	super.onPause();
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onPause")
+                .build());
     	Log.d("ACTIVITY","pause");
     }
 
     protected void onStop(){
     	super.onStop();
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onStop")
+                .build());
     }
 
 
     protected void onDestroy(){
     	super.onDestroy();
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("onDestroy")
+                .build());
     	Log.d("ACTIVITY","destroy");
     }
 

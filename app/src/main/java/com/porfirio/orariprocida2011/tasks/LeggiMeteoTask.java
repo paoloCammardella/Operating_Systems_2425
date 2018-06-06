@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
@@ -54,6 +55,11 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             Log.d("TEST", "TASK: Inizia il task meteo");
             taskMeteoStart.release();
         }
+
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Leggi Meteo Task")
+                .build());
 
         /* Create a URL we want to load some xml-data from. */
         URL url;
@@ -136,7 +142,10 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                         } finally {
                             is.close();
                         }
-
+                        act.mTracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("App Event")
+                                .setAction("Updated Meteo")
+                                .build());
                     } catch (SocketTimeoutException e) {
                         //Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
                         return false;
@@ -249,6 +258,10 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
             taskMeteo.release();
             Log.d("ORDER", "Meteo task");
         }
+        act.mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("App Event")
+                .setAction("Task Meteo Terminated")
+                .build());
         return true;
     }
 
