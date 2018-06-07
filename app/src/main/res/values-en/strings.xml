@@ -58,7 +58,7 @@
         <string name="updateWeb">Update timetable from Web</string>
         <string name="numeriTaxi">Call for a taxi</string>
         <string name="noUpdateWeb">Don\'t update timetable from Web</string>
-        <string name="disclaimer">Timetables are originally published by navigation companies. The author is not responsible for timetable variations. </string>
+    <string name="disclaimer">Timetables are originally published by navigation companies. The author is not responsible for timetable variations.  This application collects some personal data of its users, such as their geographical position (not contnuously), saves some data on the internal storage (timetables and meteo infos), send some data to Google Analytics for statistical purposes. The complete GPDR is accessible at: http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm</string>
         <string name="condimeteo">Meteorological conditions:</string>
         <string name="dalle">As of </string>
         <string name="orariAggiornatiAl">Last timetable update: </string>
