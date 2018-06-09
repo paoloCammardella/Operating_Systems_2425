@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.porfirio.orariprocida2011"
-    android:versionCode="36"
-    android:versionName="1.2.2beta">
+    android:versionCode="38"
+    android:versionName="1.2.2beta3">
     <!-- <uses-sdk android:minSdkVersion="4" /> -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
-	android:resizeable="true" android:smallScreens="true"></supports-screens>
+        android:resizeable="true"
+        android:smallScreens="true" />
 
     <application
         android:name="AnalyticsApplication"
@@ -25,8 +26,8 @@
         android:theme="@android:style/Theme.Holo">
         <activity
             android:name=".activities.OrariProcida2011Activity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
-            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,40 +43,6 @@
                     android:scheme="http" />
                 <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-                <data
-                    android:host="www.unoprocidaresidente.it"
-                    android:scheme="http" />
-                <!-- note that the leading "/" is required for pathPrefix-->
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-                <data
-                    android:host="unoprocidaresidente.com"
-                    android:scheme="http" />
-                <!-- note that the leading "/" is required for pathPrefix-->
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-                <data
-                    android:host="unoprocidaresidente.it"
-                    android:scheme="http" />
-                <!-- note that the leading "/" is required for pathPrefix-->
-            </intent-filter>
-
         </activity>
 	
 	

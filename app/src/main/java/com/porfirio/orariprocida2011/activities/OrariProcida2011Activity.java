@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Criteria;
@@ -262,6 +263,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     getBaseContext().getResources().getDisplayMetrics());
         }
         Log.d("ACTIVITY", "create");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
 
         myManager = (LocationManager) getSystemService(LOCATION_SERVICE);

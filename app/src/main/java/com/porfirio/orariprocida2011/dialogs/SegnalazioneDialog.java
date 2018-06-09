@@ -67,7 +67,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		Spinner spnRagioni = view.findViewById(R.id.spnRagioni);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				callingContext, R.array.strRagioni, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter.setDropDownViewResource(R.layout.spinner_item);
         spnRagioni.setAdapter(adapter);
 
         spnRagioni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
