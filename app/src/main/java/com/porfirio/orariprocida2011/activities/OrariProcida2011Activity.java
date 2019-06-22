@@ -13,9 +13,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +25,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -374,7 +375,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // spostato in avanti setSpinner();
 
 
-        listMezzi = new ArrayList<Mezzo>();
+        listMezzi = new ArrayList<>();
         ListView lvMezzi = findViewById(R.id.listMezzi);
         aalvMezzi = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
@@ -616,7 +617,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert cm != null;
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return (netInfo != null && netInfo.isConnectedOrConnecting());
+        return (netInfo != null && netInfo.isConnected());
     }
 
     private void riempiLista() {

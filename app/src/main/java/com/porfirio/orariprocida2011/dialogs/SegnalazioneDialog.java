@@ -3,7 +3,6 @@ package com.porfirio.orariprocida2011.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
