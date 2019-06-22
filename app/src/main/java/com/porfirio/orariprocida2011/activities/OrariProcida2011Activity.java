@@ -62,8 +62,8 @@ import java.util.TimeZone;
 public class OrariProcida2011Activity extends FragmentActivity {
     private static FragmentManager fm;
 
-    public final String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
-    public final String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
+    //public final String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
+    //public final String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
     public Calendar aggiornamentoOrariWeb;
     public Calendar aggiornamentoOrariIS;
@@ -75,9 +75,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public AlertDialog meteoDialog;
     public ArrayList<Mezzo> listMezzi;
     public boolean aggiorna;
-    /**
-     * Called when the activity is first created.
-     */
+    private String[] ragioni = new String[100];
 
     private String nave;
     private String portoPartenza;
@@ -156,15 +154,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 aboutDialog.show();
                 //showDialog(ABOUT_DIALOG_ID);
                 return true;
-/*            case R.id.finTemp:
-                FinestraDialog finestraDialog = new FinestraDialog(this, configData);
-                finestraDialog.setOnDismissListener(new OnDismissListener() {
-                    public void onDismiss(DialogInterface dialog) {
-                        aggiornaLista();
-                    }
-                });
-                finestraDialog.show();
-                return true;*/
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case R.id.updateWeb:
                 mTracker.send(new HitBuilders.EventBuilder()
@@ -179,6 +168,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         if (meseToast == 0) meseToast = 12;
                         if (!primoAvvio)
                             Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DATE) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
+                        //TODO: Forzare aggiornamento
                     }
                 } else
                     Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
@@ -188,21 +178,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setCategory("UI Event")
                         .setAction("Update Meteo da Menu")
                         .build());
-                //aboutDialog.show();
-
-                //Log.d("CONDIMETEO", "PRIMA" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
-                //meteoDialog.show();
-                //showDialog(METEO_DIALOG_ID);
                 leggiMeteo(true);
-                //Log.d("CONDIMETEO", "DOPO" + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE));
                 if (aggiornamentoMeteo!=null){
                     String s = getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE);
                     meteoDialog.setMessage(s);
                     meteoDialog.show();
+                    //TODO: Forzare aggiornamento
                 }
                     this.aggiornaLista();
 
-                //showDialog(METEO_DIALOG_ID);
                 return true;
             case R.id.esci:
                 mTracker.send(new HitBuilders.EventBuilder()
@@ -236,14 +220,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         act = this;
 
         if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //&& ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("App Event")
                     .setAction("Request Permission")
@@ -251,9 +227,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET}, 1
-            ); //Manifest.permission.ACCESS_COARSE_LOCATION,
+            );
         }
 
+        //TODO: Necessario?
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
             locale = new Locale(languageToLoad);
@@ -264,6 +241,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     getBaseContext().getResources().getDisplayMetrics());
         }
         Log.d("ACTIVITY", "create");
+        //TODO: Sempre necessario?
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
 
@@ -283,8 +261,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 });
         aboutDialog = builder.create();
 
+
+        ragioni = getResources().getStringArray(R.array.strRagioni);
+
         meteo = new Meteo(this);
         leggiMeteo(false);
+        //TODO: Forzare aggiornamento
 
         //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
 
@@ -316,7 +298,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 
-//        		orario.setHours(orario.getHours()-1);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("UI Event")
                         .setAction("Button --")
@@ -331,7 +312,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//        		orario.setMinutes(orario.getMinutes()-15);
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("UI Event")
                         .setAction("Button -")
@@ -472,10 +452,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         this.aggiorna = aggiorna;
         //TODO Provare a mettere anche la lettura dei dati meteo in un task
 
-/*        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-        StrictMode.setThreadPolicy(policy);
-        */
         new LeggiMeteoTask(this).execute();
 
 
@@ -520,7 +496,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 //esamino la riga e creo un mezzo
                 StringTokenizer st = new StringTokenizer(line, ",");
-                listMezzi.add(new Mezzo(getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
+                listMezzi.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
             }
 
             //Close the input stream
@@ -691,120 +667,115 @@ public class OrariProcida2011Activity extends FragmentActivity {
             aggiornamentoOrariIS.set(2011, 11, 1); //Orari aggiornato all'1/11/2011
             aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
 
-//		    	listMezzi.add(new Mezzo(getApplicationContext(),("Prova",0,20,8,25,"Prova","Prova",2,10,2011,6,10,2011,"1234567",this));
-//		    	listMezzi.add(new Mezzo(getApplicationContext(),"Prova-",0,20,8,25,"Prova","Prova",6,10,2011,7,10,2011,"1234567",this));
-//		    	listMezzi.add(new Mezzo(getApplicationContext(),"Prova1",0,40,8,25,"Prova","Prova",0,0,0,0,0,0,"12345"));
-//		    	listMezzi.add(new Mezzo(getApplicationContext(),"Prova2",0,50,8,25,"Prova","Prova",0,0,0,0,0,0,"5"));
-//		    	listMezzi.add(new Mezzo(getApplicationContext(),"Prova3",0,55,8,25,"Prova","Prova",0,0,0,0,0,0,"67"));
-////
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 8, 10, 8, 25, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 9, 10, 9, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 12, 10, 12, 40, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 35, 19, 0, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 10, 20, 10, 55, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 13, 50, 14, 20, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 19, 15, 19, 45, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 8, 55, 9, 15, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 7, 30, 8, 10, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 8, 50, 9, 30, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 11, 45, 12, 25, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 13, 10, 13, 50, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 15, 10, 15, 50, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 17, 30, 18, 10, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 18, 15, 18, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 8, 10, 8, 25, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 9, 10, 9, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 12, 10, 12, 40, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 18, 35, 19, 0, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 10, 20, 10, 55, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 13, 50, 14, 20, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 19, 15, 19, 45, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 8, 55, 9, 15, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 7, 30, 8, 10, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 8, 50, 9, 30, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 11, 45, 12, 25, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 13, 10, 13, 50, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 15, 10, 15, 50, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 17, 30, 18, 10, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 18, 15, 18, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
             //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",0,15,1,15,"Napoli Porta di Massa","Procida",0,0,0,0,0,0,"1234567",this));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 6, 25, 7, 25, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 9, 10, 10, 10, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 10, 45, 11, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 15, 15, 16, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 17, 45, 18, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 19, 30, 20, 30, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 22, 15, 23, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 6, 25, 7, 25, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 9, 10, 10, 10, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 10, 45, 11, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 15, 15, 16, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 17, 45, 18, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 19, 30, 20, 30, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 22, 15, 23, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
             //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",2,20,3,20,"Procida","Napoli Porta di Massa",0,0,0,0,0,0,"1234567",this));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 7, 40, 8, 40, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 13, 35, 14, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 14, 35, 15, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 16, 15, 17, 15, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 5, 19, 0, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 20, 30, 21, 30, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 7, 40, 8, 40, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 13, 35, 14, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 14, 35, 15, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 16, 15, 17, 15, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 18, 5, 19, 0, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 20, 30, 21, 30, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
             //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",22,55,23,55,"Procida","Napoli Porta di Massa",0,0,0,0,0,0,"1234567",this));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 6, 35, 7, 15, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 7, 55, 8, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 9, 25, 10, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 10, 35, 11, 15, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 13, 30, 14, 10, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 14, 55, 15, 35, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 16, 55, 17, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 6, 50, 7, 30, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 9, 40, 10, 20, "Procida", "Pozzuoli", 19, 10, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 11, 30, 12, 10, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 14, 5, 14, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 17, 5, 17, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 8, 25, 9, 5, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 10, 40, 11, 20, "Pozzuoli", "Procida", 19, 10, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 13, 0, 13, 40, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 15, 30, 16, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Gestur", 17, 55, 18, 35, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 8, 25, 9, 0, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 12, 20, 12, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 16, 20, 16, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 19, 0, 19, 35, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 7, 30, 8, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 10, 10, 10, 45, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 14, 15, 14, 50, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 18, 5, 18, 40, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 4, 10, 4, 50, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 20, 30, 21, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 3, 10, 3, 50, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "23456"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 19, 40, 20, 20, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 5, 0, 5, 20, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "23456"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 21, 20, 21, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 2, 30, 2, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 6, 25, 6, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Medmar", 10, 35, 10, 55, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 6, 35, 7, 15, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 7, 55, 8, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 9, 25, 10, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 10, 35, 11, 15, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 13, 30, 14, 10, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 14, 55, 15, 35, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 16, 55, 17, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 6, 50, 7, 30, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 9, 40, 10, 20, "Procida", "Pozzuoli", 19, 10, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 11, 30, 12, 10, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 14, 5, 14, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 17, 5, 17, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 8, 25, 9, 5, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 10, 40, 11, 20, "Pozzuoli", "Procida", 19, 10, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 13, 0, 13, 40, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 15, 30, 16, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Gestur", 17, 55, 18, 35, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 8, 25, 9, 0, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 12, 20, 12, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 16, 20, 16, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 19, 0, 19, 35, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 7, 30, 8, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 10, 10, 10, 45, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 14, 15, 14, 50, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 18, 5, 18, 40, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Medmar", 4, 10, 4, 50, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
+            listMezzi.add(new Mezzo("Medmar", 20, 30, 21, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Medmar", 3, 10, 3, 50, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "23456"));
+            listMezzi.add(new Mezzo("Medmar", 19, 40, 20, 20, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Medmar", 5, 0, 5, 20, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "23456"));
+            listMezzi.add(new Mezzo("Medmar", 21, 20, 21, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Medmar", 2, 30, 2, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
+            listMezzi.add(new Mezzo("Medmar", 6, 25, 6, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Medmar", 10, 35, 10, 55, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 7, 35, 7, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 10, 20, 10, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 11, 5, 11, 25, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 11, 55, 12, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 14, 30, 14, 50, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 16, 25, 18, 45, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 55, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 19, 50, 20, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 20, 35, 20, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 23, 20, 23, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 7, 35, 7, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 10, 20, 10, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 11, 5, 11, 25, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 11, 55, 12, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 14, 30, 14, 50, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 16, 25, 18, 45, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 18, 55, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 19, 50, 20, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 20, 35, 20, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 23, 20, 23, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 7, 0, 7, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 8, 30, 8, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 11, 30, 11, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 12, 55, 13, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 13, 55, 14, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 15, 30, 15, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 17, 25, 17, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 18, 0, 18, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Traghetto Caremar", 19, 55, 20, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 7, 0, 7, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 8, 30, 8, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 11, 30, 11, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 12, 55, 13, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 13, 55, 14, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 15, 30, 15, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 17, 25, 17, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 18, 0, 18, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Traghetto Caremar", 19, 55, 20, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 9, 35, 9, 50, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 12, 30, 12, 45, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 13, 55, 14, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 15, 55, 16, 10, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 19, 0, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 9, 35, 9, 50, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 12, 30, 12, 45, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 13, 55, 14, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 15, 55, 16, 10, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 19, 0, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 7, 30, 7, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 10, 10, 10, 25, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 13, 5, 13, 20, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 14, 30, 14, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo Caremar", 16, 30, 16, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 7, 30, 7, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 10, 10, 10, 25, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 13, 5, 13, 20, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 14, 30, 14, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo Caremar", 16, 30, 16, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 7, 10, 7, 25, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 9, 45, 10, 0, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 13, 50, 14, 10, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 17, 40, 17, 55, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 7, 10, 7, 25, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 9, 45, 10, 0, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 13, 50, 14, 10, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 17, 40, 17, 55, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
 
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 9, 0, 9, 15, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 13, 15, 13, 30, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 17, 5, 17, 20, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            listMezzi.add(new Mezzo(getApplicationContext(), "Aliscafo SNAV", 19, 45, 10, 0, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 9, 0, 9, 15, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 13, 15, 13, 30, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 17, 5, 17, 20, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
+            listMezzi.add(new Mezzo("Aliscafo SNAV", 19, 45, 10, 0, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
         }
 
 
@@ -827,32 +798,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
 	}
 
-/*	@Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case ABOUT_DIALOG_ID:
-                return aboutDialog;
-            case METEO_DIALOG_ID:
-                return meteoDialog;
-        }
-        return null;
-    }*/
-
-//    // the callback received when the user "sets" the time in the dialog
-//    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//            	orario.setHours(hourOfDay);
-//                orario.setMinutes(minute);
-//            }
-//        };
-
-
     public void aggiornaLista() {
         //NOn ? chiaro perch? il controllo del locale debba essere fatto proprio qui!!!
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory("App Event")
                 .setAction("Aggiorna Lista")
                 .build());
+/*
         if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
             String languageToLoad = "en";
             locale = new Locale(languageToLoad);
@@ -862,6 +814,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             getBaseContext().getResources().updateConfiguration(config,
                     getBaseContext().getResources().getDisplayMetrics());
         }
+*/
 
         selectMezzi = new ArrayList<Mezzo>();
         Comparator<Mezzo> comparator = new Comparator<Mezzo>() {
@@ -960,7 +913,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             // Qui aggiungo l'indicazione meteo eventuale
             s += meteo.condimeteoString(selectMezzi.get(i));
             //Qui aggiungo le segnalazioni
-            String spc = selectMezzi.get(i).segnalazionePiuComune();
+
+            String spc = "";
+            if (selectMezzi.get(i).segnalazionePiuComune() > -1)
+                spc = ragioni[selectMezzi.get(i).segnalazionePiuComune()];
             if (selectMezzi.get(i).tot > 0 || selectMezzi.get(i).conferme > 0) {
                 //Trasformato con resources
                 if (selectMezzi.get(i).tot > 0) { //c'? qualcosa
@@ -1035,7 +991,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
 
             primoAvvio = false;
-//        	Toast.makeText(getApplicationContext(), getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza, Toast.LENGTH_LONG).show();
+//        	Toast.makeText(getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza, Toast.LENGTH_LONG).show();
         }
         setSpnPortoPartenza(spnPortoPartenza, adapter2);
 

@@ -1,9 +1,5 @@
 package com.porfirio.orariprocida2011.entity;
 
-import android.content.Context;
-
-import com.porfirio.orariprocida2011.R;
-
 import java.util.Calendar;
 
 public class Mezzo {
@@ -17,7 +13,7 @@ public class Mezzo {
 	public final Calendar fineEsclusione;
 	public final String giorniSettimana;
 	private final int[] segnalazioni = new int[100];
-	private final Context callingContext;
+	//private final Context callingContext;
 	public int conferme = 0;
 	public int tot = 0;
 	public boolean conc = true;
@@ -30,9 +26,10 @@ public class Mezzo {
 	private boolean circaResidente=false;
 	private String[] ragioni=new String[100];
 
-	public Mezzo(Context c, String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
-		callingContext=c;
-		ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
+
+	public Mezzo(String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
+		//callingContext=c;
+		//ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
 		for (int i=0;i<100;i++)
 			segnalazioni[i] = 0;
 		nave = n;
@@ -69,9 +66,9 @@ public class Mezzo {
 
 	}
 
-	public Mezzo(Context c, String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
-		callingContext=c;
-		ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
+	public Mezzo(String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
+		//callingContext=c;
+		//ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
 		for (int i=0;i<100;i++)
 			segnalazioni[i] = 0;
 		nave = n;
@@ -107,7 +104,7 @@ public class Mezzo {
 
 	}
 
-	public String segnalazionePiuComune() {
+	public int segnalazionePiuComune() {
 		int max = 0;
 		int spc = -1;
 		for (int i = 0; i < segnalazioni.length; i++) {
@@ -117,9 +114,9 @@ public class Mezzo {
 			}
 		}
 		if (spc >= 0)
-			return ragioni[spc];
+			return spc;
 		else
-			return "";
+			return -1;
 	}
 
 	private void calcolaCosto(String n,String p) {

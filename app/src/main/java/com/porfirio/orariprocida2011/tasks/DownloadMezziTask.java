@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -36,9 +37,13 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
     //dichiarazione del semaforo
     public static Semaphore taskDownload;
     public static Semaphore taskDownloadStart;
+    private Calendar aggiornamentoOrariWeb;
+    private ArrayList<Mezzo> listMezzi;
+    private Calendar aggiornamentoOrariIS = null;
 
     public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
+        listMezzi = new ArrayList<Mezzo>();
         //delay = TestSuiteAS.getDelay(DownloadMezziTask.class.toString());
 
 
@@ -72,7 +77,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
         //Apre una connessione con gli orari
         URL u = null;
         try {
-            u = new URL(act.urlOrari);
+            u = new URL(act.getApplicationContext().getString(R.string.urlOrari));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -96,19 +101,13 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             String rigaAggiornamento = r.readLine();
             String rigaNovita = "";
             StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            act.aggiornamentoOrariWeb = (Calendar) act.aggiornamentoOrariIS.clone();
-            act.aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoOrariWeb.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoOrariWeb.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-            act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
-            int meseToast = act.aggiornamentoOrariIS.get(Calendar.MONTH);
-            if (meseToast == 0) meseToast = 12;
-            String str = act.getString(R.string.orariAggiornatiAl) + " " + act.aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + act.aggiornamentoOrariWeb.get(Calendar.YEAR);
-            act.aboutDialog.setMessage("" + act.getString(R.string.disclaimer) + "\n" + act.getString(R.string.credits));
-            Log.d("ORARI", str);
+            aggiornamentoOrariWeb = (Calendar) act.aggiornamentoOrariIS.clone();
+            aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
+            aggiornamentoOrariWeb.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
+            aggiornamentoOrariWeb.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
             //if (!primoAvvio)
             //Toast.makeText(act.getApplicationContext(), str, Toast.LENGTH_LONG).show();
-            if (!(act.aggiornamentoOrariWeb.after(act.aggiornamentoOrariIS))) {
+            if (!(aggiornamentoOrariWeb.after(act.aggiornamentoOrariIS))) {
                 //Wait prima della terminazione del task
                 Log.d("TEST", "TASK: Il task download pronto a terminare");
 
@@ -135,7 +134,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 HttpURLConnection conn2;
                 InputStream in2;
                 try {
-                    conn2 = (HttpURLConnection) new URL(act.urlNovita).openConnection();
+                    conn2 = (HttpURLConnection) new URL(act.getApplicationContext().getString(R.string.urlNovita)).openConnection();
                 } catch (IOException e) {
                     e.printStackTrace();
                     return false;
@@ -155,11 +154,11 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE);
                 fos.write(rigaAggiornamento.getBytes());
                 fos.write("\n".getBytes());
-                act.listMezzi.clear();
+                listMezzi.clear();
                 for (String line = r.readLine(); line != null; line = r.readLine()) {
                     //esamino la riga e creo un mezzo
                     StringTokenizer st = new StringTokenizer(line, ",");
-                    act.listMezzi.add(new Mezzo(act.getApplicationContext(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
+                    listMezzi.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
                     fos.write(line.getBytes());
                     fos.write("\n".getBytes());
                 }
@@ -168,22 +167,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                         .setAction("Updated Timetable")
                         .build());
                 fos.close();
-                act.aggiornamentoOrariIS = act.aggiornamentoOrariWeb;
-
-
-                // Aggiunto un messaggio che ricordi l'aggiornamento
-                    /*
-                    AlertDialog.Builder builder = new AlertDialog.Builder(act);
-                    builder.setMessage(act.getString(R.string.nuovoAggiornamento) + " " + rigaAggiornamento.replace(',', '/') + " \n " + act.getString(R.string.novita) + " \n" + rigaNovita)
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //dialog.cancel();
-                                }
-                            });
-                    act.novitaDialog = builder.create();
-                    act.novitaDialog.show();
-                    */
+                aggiornamentoOrariIS = act.aggiornamentoOrariWeb;
 
 
             }
@@ -234,20 +218,24 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
     // This is called when doInBackground() is finished
     protected void onPostExecute(Boolean result) {
-/*
-        if (delay > 0)
-            new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run(){
-                    Log.d("TEST","Task delayed");
-                }
-            }, 1);
-*/
-
-
         if (result){
-            Log.d("ORARI", "Terminata lettura orari da web");
+            act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariWeb.clone();
+            act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
+            int meseToast = act.aggiornamentoOrariIS.get(Calendar.MONTH);
+            if (meseToast == 0) meseToast = 12;
+            String str = act.getString(R.string.orariAggiornatiAl) + " " + act.aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + act.aggiornamentoOrariWeb.get(Calendar.YEAR);
+            act.aboutDialog.setMessage("" + act.getString(R.string.disclaimer) + "\n" + act.getString(R.string.credits));
+            Log.d("ORARI", str);
+            if (aggiornamentoOrariIS != null)
+                act.aggiornamentoOrariIS = (Calendar) aggiornamentoOrariIS.clone();
+            //TODO: Ho aggiornato la listMezzi locale; ora devo propagare a quella globale e scatenare il refresh
+
+            act.listMezzi.clear();
+            act.listMezzi.addAll(listMezzi);
             act.aggiornaLista();
+
+
+            Log.d("ORARI", "Terminata lettura orari da web");
             Log.d("ORARI", "Terminato aggiornamento orari su GUI");
             //gli orari del web erano piu' aggiornati
             //bisogna aggiornare la GUI
