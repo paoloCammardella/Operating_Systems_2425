@@ -8,6 +8,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -134,7 +135,10 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                         //jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Procida.json");
                         //jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json");
 
-                        InputStream is = new URL("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json").openStream();
+                        //VECCHIA STRINGA WUNDERGROUND
+                        // InputStream is = new URL("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json").openStream();
+                        InputStream is = new URL("http://api.openweathermap.org/data/2.5/forecast?id=3169807&APPID=dc8cfde44c4955e792406e26a562945e&units=metric").openStream();
+
                         try {
                             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                             String jsonText = OrariProcida2011Activity.readAll(rd);
@@ -152,15 +156,29 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                     } catch (IOException e) {
                         //
                         Log.d("ORARI", "dati meteo non caricati da web");
+                        e.printStackTrace();
                         return false;
                     }
 //Grazie alla formattazione ottenuta con http://jsonformatter.curiousconcept.com/
+                    String controlCode = (String) jsonObject.get("cod");
+                    Double windDir = 0.0;
+                    Double windMs = 0.0;
 
-                    Integer windDir = (Integer) jsonObject.getJSONObject("current_observation").get("wind_degrees");
-                    act.meteo.setWindKmh(Double.parseDouble(jsonObject.getJSONObject("current_observation").get("wind_kph").toString()));
+                    if (controlCode.equals("200")) {
+                        //200 = OK
+                        // windDir = Double.parseDouble((String) jsonObject.getJSONObject("wind").get("deg"));
+                        JSONArray list = jsonObject.getJSONArray("list");
+                        JSONObject cond = list.getJSONObject(0);
+                        windDir = cond.getJSONObject("wind").getDouble("deg");
+                        // = Double.parseDouble(strWindDir);
+                        windMs = cond.getJSONObject("wind").getDouble("speed");
+                    }
+                    Double windKmh = windMs * 3.6;
+                    act.meteo.setWindKmh(windKmh);
                     act.meteo.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
                     act.meteo.setWindDirectionString(act.meteo.getWindDirection());
                     act.meteo.setWindBeaufort(act.meteo.getWindKmh());
+
                     Log.d("ORARI", "letto da json");
                     //scrivo l'aggiornamento su internal storage
                     FileOutputStream fos = null;
@@ -199,9 +217,11 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                     System.out.println("");
                 } catch (JSONException e) {
                     //
+                    e.printStackTrace();
                     Log.d("ORARI", "dati meteo non caricati da web");
                     if (act.isOnline()) Log.d("ORARI", "per mancanza di connessione");
                     else Log.d("ORARI", "perche' ho dati abbastanza aggiornati");
+
                 }
 
 // COMMENTATO IL VECCHIO CODICE CHE LEGGEVA DATI METEO DA GOOGLE
