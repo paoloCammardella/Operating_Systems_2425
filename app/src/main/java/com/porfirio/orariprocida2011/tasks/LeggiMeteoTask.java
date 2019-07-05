@@ -126,7 +126,8 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
 
         Long differenza = Calendar.getInstance().getTimeInMillis() - act.aggiornamentoMeteo.getTimeInMillis();
         Log.d("ORARI", "vecchiaia dell'aggiornamento in millisec " + differenza.toString());
-        if (act.isOnline() && (differenza > 10000000 || act.aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
+        if (act.isOnline()) //VALUTA SEMPRE UN NUOVO METEO
+            //if (act.isOnline() && (differenza > 10000000 || act.aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
             //if (isOnline() && differenza>10000) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
 //            if (true) {
                 try {
@@ -298,8 +299,10 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
 
             act.meteoDialog.setMessage(act.getString(R.string.condimeteo) + act.meteo.getWindBeaufortString() + " (" + act.meteo.getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getWindDirectionString()
                     + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
+            //TODO Altri dettagli sulle condizioni meteorologiche
 
             act.aggiornaLista();
+            act.setMsgToast();
             Log.d("ORARI", "Terminato aggiornamento orari su GUI");
             //gli orari del web erano piu' aggiornati
             //bisogna aggiornare la GUI
