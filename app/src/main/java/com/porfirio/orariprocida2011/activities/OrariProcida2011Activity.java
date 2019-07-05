@@ -94,6 +94,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private boolean primoAvvio = true;
     public Tracker mTracker;
     private OrariProcida2011Activity act;
+    public String msgToast;
 
     public static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -444,6 +445,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         riempiLista();
         setSpinner();
         aggiornaLista();
+        setMsgToast();
 
 
     }
@@ -968,7 +970,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 aggiornaLista();
             }
 
-			public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -980,19 +982,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         //controllo e setto tramite algoritmo di set con gps
         portoPartenza = setPortoPartenza();
-        if (!(portoPartenza.equals(getString(R.string.tutti)))) {
-            int mese = aggiornamentoOrariIS.get(Calendar.MONTH);
-            if (mese == 0) mese = 12;
-            meteo.setWindBeaufort(meteo.getWindKmh());
-            String s = new String(getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n" + getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n");
-            if (aggiornamentoMeteo!=null)
-                s += (getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE) + " " + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n");
-            Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
-
-            primoAvvio = false;
-//        	Toast.makeText(getString(R.string.secondoMeVuoiPartireDa)+" "+portoPartenza, Toast.LENGTH_LONG).show();
-        }
         setSpnPortoPartenza(spnPortoPartenza, adapter2);
 
         final Spinner spnPortoArrivo = findViewById(R.id.spnPortoArrivo);
@@ -1046,7 +1036,25 @@ public class OrariProcida2011Activity extends FragmentActivity {
         });
     }
 
-	private void setSpnPortoArrivo(Spinner spnPortoArrivo,
+    public void setMsgToast() {
+        primoAvvio = false;
+        msgToast = new String("");
+        if (!(portoPartenza.equals(getString(R.string.tutti))))
+            msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n");
+        if (aggiornamentoOrariIS != null) {
+            int mese = aggiornamentoOrariIS.get(Calendar.MONTH);
+            if (mese == 0) mese = 12;
+            msgToast += getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n";
+        }
+        if (aggiornamentoMeteo != null) {
+            meteo.setWindBeaufort(meteo.getWindKmh());
+            msgToast += (getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE) + " " + getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString() + "\n");
+        }
+
+        Toast.makeText(getApplicationContext(), msgToast, Toast.LENGTH_LONG).show();
+    }
+
+    private void setSpnPortoArrivo(Spinner spnPortoArrivo,
                                    final ArrayAdapter<CharSequence> adapter3) {
         //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoArrivo.getCount(); i++) {

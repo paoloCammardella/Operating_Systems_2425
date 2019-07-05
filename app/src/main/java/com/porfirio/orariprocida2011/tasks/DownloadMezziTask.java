@@ -157,6 +157,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 listMezzi.clear();
                 for (String line = r.readLine(); line != null; line = r.readLine()) {
                     //esamino la riga e creo un mezzo
+                    Log.d("RIGA", line);
                     StringTokenizer st = new StringTokenizer(line, ",");
                     listMezzi.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
                     fos.write(line.getBytes());
@@ -233,6 +234,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             act.listMezzi.clear();
             act.listMezzi.addAll(listMezzi);
             act.aggiornaLista();
+            act.setMsgToast();
 
 
             Log.d("ORARI", "Terminata lettura orari da web");

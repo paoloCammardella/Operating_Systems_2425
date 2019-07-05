@@ -8,28 +8,28 @@
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable-xhdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\layout-large\\segnalazione.xml"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge_biglietterie.xml.flat",
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\layout-xlarge\\biglietterie.xml"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\layout-large_segnalazione.xml.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\layout-large\\segnalazione.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_googleg_standard_color_18.png.flat",
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable-mdpi-v4\\googleg_standard_color_18.png"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light_normal.xml.flat",
-        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_traghetti.png.flat",
+        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher_traghetti.png"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable-hdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_traghetti.png.flat",
-        "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher_traghetti.png"
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light_normal.xml.flat",
+        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_traghetti.png.flat",
@@ -40,12 +40,12 @@
         "source": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\src\\main\\res\\layout-small\\main.xml"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_googleg_disabled_color_18.png.flat",
-        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable-mdpi-v4\\googleg_disabled_color_18.png"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\bee10b45a31d27cd42a289fe1520c434\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_googleg_disabled_color_18.png.flat",
+        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable-mdpi-v4\\googleg_disabled_color_18.png"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_time.xml.flat",
@@ -88,12 +88,12 @@
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\bee10b45a31d27cd42a289fe1520c434\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
     },
     {
-        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light.xml.flat",
-        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable\\common_google_signin_btn_text_light.xml"
-    },
-    {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_notification_action_background.xml.flat",
         "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\bee10b45a31d27cd42a289fe1520c434\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light.xml.flat",
+        "source": "C:\\Users\\Porfirio\\.gradle\\caches\\transforms-2\\files-2.1\\e1510a9550d4cb4a7c7eeb828ffa9ea9\\res\\drawable\\common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "C:\\Users\\Porfirio\\StudioProjects\\OrariProcida2011-2017-2019\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_dark.xml.flat",
