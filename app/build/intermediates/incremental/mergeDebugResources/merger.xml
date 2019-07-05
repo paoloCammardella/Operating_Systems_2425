@@ -220,6 +220,7 @@
         <item>Medmar</item>
         <item>Ippocampo</item>
         <item>Scotto Line</item>
+        <item>Aliscafo Alilauro</item>
         <item>Traghetto LazioMar</item>
     </string-array><string-array name="strPorti">
         <item>Any</item>
@@ -254,6 +255,7 @@
         <item>Medmar</item>
         <item>Ippocampo</item>
         <item>Scotto Line</item>
+        <item>Aliscafo Alilauro</item>
         <item>Traghetto LazioMar</item>
     </string-array><string-array name="strPorti">
         <item>Any</item>
@@ -288,6 +290,7 @@
         <item>Medmar</item>
         <item>Ippocampo</item>
         <item>Scotto Line</item>
+        <item>Aliscafo Alilauro</item>
         <item>Traghetto LazioMar</item>
     </string-array><string-array name="strPorti">
         <item>Tutti</item>

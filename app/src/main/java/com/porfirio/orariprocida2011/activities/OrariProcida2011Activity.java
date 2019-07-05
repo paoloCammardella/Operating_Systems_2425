@@ -653,6 +653,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Napoli", "0771700604");
         listCompagnia.add(c);
 
+        c = new Compagnia("Alilauro");
+        c.addTelefono("Napoli", "0814972252");
+        c.addTelefono("Call Center", "0814972222");
+        listCompagnia.add(c);
+
         try {
             FileInputStream fstream = new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/orari.csv");
             riempiMezzidaInternalStorage(fstream);
@@ -844,7 +849,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         if (nave.contains(getString(R.string.traghetti)))
             naveEspanso = "Traghetto Caremar Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Traghetto LazioMar";
         if (nave.contains(getString(R.string.aliscafi)))
-            naveEspanso = "Aliscafo Caremar Aliscafo SNAV Scotto Line";
+            naveEspanso = "Aliscafo Caremar Aliscafo SNAV Scotto Line Aliscafo Alilauro";
         if (nave.equals("Ippocampo"))
             naveEspanso = "Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella)";
         if (nave.contains("Gestur"))
