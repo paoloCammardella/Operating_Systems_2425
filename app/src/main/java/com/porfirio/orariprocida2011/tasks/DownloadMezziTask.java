@@ -220,7 +220,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
     // This is called when doInBackground() is finished
     protected void onPostExecute(Boolean result) {
         if (result){
-            act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariWeb.clone();
+            if (aggiornamentoOrariWeb != null)
+                act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariWeb.clone();
+            else
+                act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariIS.clone();
             act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
             int meseToast = act.aggiornamentoOrariIS.get(Calendar.MONTH);
             if (meseToast == 0) meseToast = 12;
