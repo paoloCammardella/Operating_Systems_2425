@@ -222,8 +222,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
         if (result){
             if (aggiornamentoOrariWeb != null)
                 act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariWeb.clone();
-            else
-                act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariIS.clone();
+            else {
+                act.aggiornamentoOrariWeb = (Calendar.getInstance());
+                act.aggiornamentoOrariWeb.set(2001, 1, 1);
+            }
             act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
             int meseToast = act.aggiornamentoOrariIS.get(Calendar.MONTH);
             if (meseToast == 0) meseToast = 12;
