@@ -113,7 +113,7 @@
         <string name="updated">Meteo info refreshed at </string>
         <string name="meteo">Refresh meteo data</string>        
         <string name="ore">hour </string>
-		<string name="credits">By Porfirio Tramontana 2011,2012. GPL3 license. Credits: Prof.Tramontana for the metheorological algorithm, Maria for the application name, for the icon, for the international publicity and for the usability discussions, Angela for english version support, Gilda for continuous criticism, Google and Weather Underground for meteo data, the navigation companies for the continuous timetable changes and the procidan voyagers for the broadcasting of timetable changes information.</string>
+    <string name="credits">By Porfirio Tramontana 2011,2012. GPL3 license. Credits: Prof.Tramontana for the metheorological algorithm, Maria for the application name, for the icon, for the international publicity and for the usability discussions, Angela for english version support, Gilda for continuous criticism, Google and Open Weather Map for meteo data, the navigation companies for the continuous timetable changes and the procidan voyagers for the broadcasting of timetable changes information.</string>
 		<string name="inviaSegnalazione">Do you want to report that this journey will not be made?</string>
 		<string name="ragione">Reason :</string>
 		<string name="altriDettagliRagione">"Other Details : "</string>
@@ -136,6 +136,8 @@
     <string name="timeTest">Dalle 88:88 del 88/88</string>
     <string name="NoBiglietterie">Tickets can be bought only on board</string>
     <string name="disclaimer">Timetables are originally published by navigation companies. The author is not responsible for timetable variations.  This application collects some personal data of its users, such as their geographical position (not contnuously), saves some data on the internal storage (timetables and meteo infos), send some data to Google Analytics for statistical purposes. The complete GPDR is accessible at: http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm  This application collects some personal data of its users, such as their geographical position (not contnuously), saves some data on the internal storage (timetables and meteo infos), send some data to Google Analytics for statistical purposes. The complete GPDR is accessible at: http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm</string>
+    <string name="alleOre">alle ore</string>
+    <string name="previsioni">Previsioni :</string>
 
 </resources>
 

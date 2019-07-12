@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UnoProcidaResidenteTheme" parent="@android:style/Theme.Holo">
+
+        <item name="android:actionMenuTextColor">@color/bianco</item>
+    </style>
+
+    <color name="bianco">#FFFFFF</color>
+    <color name="nero">#000000</color>
+</resources>

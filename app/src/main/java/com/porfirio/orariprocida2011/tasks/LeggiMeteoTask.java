@@ -7,14 +7,13 @@ import android.util.Log;
 import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
+import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,9 +22,8 @@ import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -67,6 +65,9 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
         Double windKmhFromIS = 0.0;
         Integer windDirFromIS = 0;
         String windDirectionStringFromIS = act.getString(R.string.nord);
+
+//TODO: Non leggo piu' da IS
+/*
         boolean scriviSuIS = false;
         //Prova a leggere da Internal Storage il valore di aggiornamentoMeteoIS
         FileInputStream fstream = null;
@@ -126,6 +127,7 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
 
         Long differenza = Calendar.getInstance().getTimeInMillis() - act.aggiornamentoMeteo.getTimeInMillis();
         Log.d("ORARI", "vecchiaia dell'aggiornamento in millisec " + differenza.toString());
+*/
         if (act.isOnline()) //VALUTA SEMPRE UN NUOVO METEO
             //if (act.isOnline() && (differenza > 10000000 || act.aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
             //if (isOnline() && differenza>10000) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
@@ -162,23 +164,35 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                     }
 //Grazie alla formattazione ottenuta con http://jsonformatter.curiousconcept.com/
                     String controlCode = (String) jsonObject.get("cod");
-                    Double windDir = 0.0;
-                    Double windMs = 0.0;
 
                     if (controlCode.equals("200")) {
                         //200 = OK
                         // windDir = Double.parseDouble((String) jsonObject.getJSONObject("wind").get("deg"));
                         JSONArray list = jsonObject.getJSONArray("list");
-                        JSONObject cond = list.getJSONObject(0);
-                        windDir = cond.getJSONObject("wind").getDouble("deg");
-                        // = Double.parseDouble(strWindDir);
-                        windMs = cond.getJSONObject("wind").getDouble("speed");
+                        for (int i = 0; i < 8; i++) { //8 osservazioni, una ogni tre ore
+
+                            JSONObject cond = list.getJSONObject(i);
+                            Osservazione o = new Osservazione();
+                            Double windDir = cond.getJSONObject("wind").getDouble("deg");
+                            // = Double.parseDouble(strWindDir);
+                            Double windMs = cond.getJSONObject("wind").getDouble("speed");
+                            Double windKmh = windMs * 3.6;
+                            o.setWindKmh(windKmh);
+                            o.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
+                            o.setWindDirectionString(o.getWindDirection(), act);
+                            o.setWindBeaufort(o.getWindKmh());
+                            //LEGGI TEMPO
+                            String tempo = cond.getString("dt_txt");
+                            Timestamp timestamp = Timestamp.valueOf(tempo);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(timestamp.getTime());
+                            o.setTempo(calendar);
+                            act.meteo.getOsservazione().add(o);
+                        }
+
                     }
-                    Double windKmh = windMs * 3.6;
-                    act.meteo.setWindKmh(windKmh);
-                    act.meteo.setWindDirection((int) (45 * (Math.round(windDir / 45.0))) % 360);
-                    act.meteo.setWindDirectionString(act.meteo.getWindDirection());
-                    act.meteo.setWindBeaufort(act.meteo.getWindKmh());
+
+
 
                     Log.d("ORARI", "letto da json");
                     //scrivo l'aggiornamento su internal storage
@@ -197,8 +211,11 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                     //Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
 
                     //aggiornamento del file locale con il dato meteo
+
+                    //NON SCRIVO PIU SU IS
                     act.aggiornamentoMeteo = Calendar.getInstance();
-                    String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
+
+/*                    String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
                     try {
                         assert fos != null;
                         fos.write(rigaAggiornamento.getBytes());
@@ -215,7 +232,7 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                         e.printStackTrace();
                     }
 
-                    System.out.println("");
+                    System.out.println("");*/
                 } catch (JSONException e) {
                     //
                     e.printStackTrace();
@@ -295,11 +312,29 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
     // This is called when doInBackground() is finished
     protected void onPostExecute(Boolean result) {
         if (result) {
-            Log.d("CONDIMETEO", "AVVIO" + act.getString(R.string.condimeteo) + act.meteo.getWindBeaufortString() + " (" + act.meteo.getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getWindDirectionString() + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
+            Log.d("CONDIMETEO", "AVVIO" + act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString() + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
 
-            act.meteoDialog.setMessage(act.getString(R.string.condimeteo) + act.meteo.getWindBeaufortString() + " (" + act.meteo.getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getWindDirectionString()
-                    + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
+//            act.meteoDialog.setMessage(act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString()
+//                    + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
             //TODO Altri dettagli sulle condizioni meteorologiche
+
+            if (!act.meteo.getOsservazione().isEmpty()) {
+                //String s = getString(R.string.condimeteo) + meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getOsservazione().get(0).getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE);
+                String s = new String();
+                s += act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString() + "\n";
+                s += act.getString(R.string.updated) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MONTH)) + "/" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.HOUR_OF_DAY) + ":" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MINUTE) + "\n";
+
+                s += act.getString(R.string.previsioni) + "\n";
+                for (int i = 1; i < 8; i++) {
+                    //s+=act.meteo.getOsservazione().get(i).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
+                    //PIUU BREVE
+                    s += act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
+                    s += " " + act.getString(R.string.alleOre) + " " + act.meteo.getOsservazione().get(i).getTempo().get(Calendar.HOUR_OF_DAY) + "\n";
+                }
+                act.meteoDialog.setMessage(s);
+
+            }
+
 
             act.aggiornaLista();
             act.setMsgToast();

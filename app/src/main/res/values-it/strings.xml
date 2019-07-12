@@ -114,8 +114,8 @@ Questa Applicazione raccoglie la geolocalizzazione degli utenti (non continuativ
         <string name="costoInteroNonNoto">Non conosco il prezzo del biglietto intero</string>
         <string name="updated">Meteo aggiornato al  </string>
         <string name="meteo">Aggiorna dati meteo</string>
-        <string name="ore">ore </string>   
-        <string name="credits">By Porfirio Tramontana 2011,2012. Licenza GPL3. Si ringraziano il Prof.Tramontana per l\'algoritmo meteorologico, Maria per il nome Uno Procida Residente, l\'icona, la pubblicita\' a livello internazionale e le critiche sull\'interfaccia, Angela per il supporto linguistico, Gilda per le continue critiche, Google e Weather Underground per i dati meteorologici, le compagnie di navigazione per i continui cambiamenti degli orari e i pendolari procidani per le continue segnalazioni di cambiamento.</string>
+        <string name="ore">ore </string>
+    <string name="credits">By Porfirio Tramontana 2011,2012. Licenza GPL3. Si ringraziano il Prof.Tramontana per l\'algoritmo meteorologico, Maria per il nome Uno Procida Residente, l\'icona, la pubblicita\' a livello internazionale e le critiche sull\'interfaccia, Angela per il supporto linguistico, Gilda per le continue critiche, Google e Open Weather Map per i dati meteorologici, le compagnie di navigazione per i continui cambiamenti degli orari e i pendolari procidani per le continue segnalazioni di cambiamento.</string>
 		<string name="inviaSegnalazione">Vuoi segnalare una avvenuta soppressione o modifica di questa corsa oggi?</string>
 		<string name="ragione">Motivo :</string>
 		<string name="altriDettagliRagione">"Altri dettagli : "</string>
@@ -137,4 +137,6 @@ Questa Applicazione raccoglie la geolocalizzazione degli utenti (non continuativ
     <string name="hintDettagli">Inserisci qui i dettagli del problema, se noti</string>
     <string name="timeTest">Dalle 88:88 del 88/88</string>
     <string name="NoBiglietterie">Non ci sono biglietterie in questo porto: biglietti a bordo</string>
+    <string name="alleOre">alle ore</string>
+    <string name="previsioni">Previsioni :</string>
 </resources>

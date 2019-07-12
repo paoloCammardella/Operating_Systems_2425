@@ -136,6 +136,8 @@
     <string name="hintDettagli">Insert details here …</string>
     <string name="timeTest">Dalle 88:88 del 88/88</string>
     <string name="NoBiglietterie">Tickets can be bought only on board</string>
+    <string name="alleOre">at</string>
+    <string name="previsioni">Forecast :</string>
 
 </resources>
 
