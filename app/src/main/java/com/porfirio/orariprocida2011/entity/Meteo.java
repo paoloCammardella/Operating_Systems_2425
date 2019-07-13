@@ -23,9 +23,17 @@ public class Meteo {
 
     public String condimeteoString(Mezzo mezzo) {
         String result;
-        Double actualBeaufort = osservazione.get(0).getWindBeaufort();
+		//Double actualBeaufort = osservazione.get(0).getWindBeaufort();
+		//CERCA OSSERVAZIONE PIU' CORRETTA
+		long delta = (mezzo.oraPartenza.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		delta = (long) Math.floor((double) delta / (1000 * 60 * 60));
+		//if (mezzo.oraPartenza.get(Calendar.DAY_OF_YEAR)>Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
+		if (delta < 0)
+			delta += 24;
+		delta /= 3;
+		int previsione = (int) delta;
+		Double actualBeaufort = osservazione.get(previsione).getWindBeaufort();
 		Double limitBeaufort=0.0;
-		
 		//Penalizzazione per le brezze estive
 		if ((Calendar.getInstance(TimeZone.getDefault()).get(Calendar.MONTH)>=5)&&(Calendar.getInstance(TimeZone.getDefault()).get(Calendar.MONTH)<=8))
 			limitBeaufort+=2;
@@ -45,17 +53,17 @@ public class Meteo {
 		//Non metto aggiustamenti per l'orario perche' ho dati solo su base giornaliera
 		//Non metto aggiustamenti in base ai porti perche' ho dati per tutto il golfo
 
-        if ((osservazione.get(0).getWindDirection() == 0 || osservazione.get(0).getWindDirection() == 315) && (mezzo.portoArrivo.contains("Ischia") || mezzo.portoPartenza.contains("Ischia") || mezzo.portoArrivo.contains("Casamicciola") || mezzo.portoPartenza.contains("Casamicciola")))
+		if ((osservazione.get(previsione).getWindDirection() == 0 || osservazione.get(previsione).getWindDirection() == 315) && (mezzo.portoArrivo.contains("Ischia") || mezzo.portoPartenza.contains("Ischia") || mezzo.portoArrivo.contains("Casamicciola") || mezzo.portoPartenza.contains("Casamicciola")))
 			limitBeaufort+=4;
-        else if ((osservazione.get(0).getWindDirection() == 0 || osservazione.get(0).getWindDirection() == 315) && (mezzo.portoArrivo.contains("Napoli") || mezzo.portoPartenza.contains("Napoli") || mezzo.portoArrivo.contentEquals("Pozzuoli") || mezzo.portoPartenza.contentEquals("Pozzuoli")))
+		else if ((osservazione.get(previsione).getWindDirection() == 0 || osservazione.get(previsione).getWindDirection() == 315) && (mezzo.portoArrivo.contains("Napoli") || mezzo.portoPartenza.contains("Napoli") || mezzo.portoArrivo.contentEquals("Pozzuoli") || mezzo.portoPartenza.contentEquals("Pozzuoli")))
 			limitBeaufort+=5;
-        else if ((osservazione.get(0).getWindDirection() == 45 || osservazione.get(0).getWindDirection() == 90))
+		else if ((osservazione.get(previsione).getWindDirection() == 45 || osservazione.get(previsione).getWindDirection() == 90))
 			limitBeaufort+=4;
-        else if ((osservazione.get(0).getWindDirection() == 135 || osservazione.get(0).getWindDirection() == 180 || osservazione.get(0).getWindDirection() == 225) && (!(mezzo.nave.contains("Aliscafo"))))
+		else if ((osservazione.get(previsione).getWindDirection() == 135 || osservazione.get(previsione).getWindDirection() == 180 || osservazione.get(previsione).getWindDirection() == 225) && (!(mezzo.nave.contains("Aliscafo"))))
 			limitBeaufort+=4;
-        else if ((osservazione.get(0).getWindDirection() == 135 || osservazione.get(0).getWindDirection() == 180 || osservazione.get(0).getWindDirection() == 225) && (mezzo.nave.contains("Aliscafo")))
+		else if ((osservazione.get(previsione).getWindDirection() == 135 || osservazione.get(previsione).getWindDirection() == 180 || osservazione.get(previsione).getWindDirection() == 225) && (mezzo.nave.contains("Aliscafo")))
 			limitBeaufort+=3;
-        else if ((osservazione.get(0).getWindDirection() == 270))
+		else if ((osservazione.get(previsione).getWindDirection() == 270))
 			limitBeaufort+=3;
 		else if (mezzo.portoPartenza.contentEquals("Monte di Procida")||mezzo.portoArrivo.contentEquals("Monte di Procida"))
 			limitBeaufort+=4; //TODO Metto valore standard per il porto di Monte di Procida
@@ -71,6 +79,8 @@ public class Meteo {
 			result=" - "+callingActivity.getString(R.string.corsaQuasi);
 		else
 			result=" - "+callingActivity.getString(R.string.corsaImpossibile);
+		//result +=String.valueOf(actualBeaufort);
+		//result +=String.valueOf(extraWind);
 		return result;
 	
 	}

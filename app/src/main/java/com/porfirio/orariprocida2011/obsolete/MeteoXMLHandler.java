@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011.utilities;
+package com.porfirio.orariprocida2011.obsolete;
 //OBSOLETA
 import android.util.Log;
 
