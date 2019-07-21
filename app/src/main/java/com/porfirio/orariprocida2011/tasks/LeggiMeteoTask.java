@@ -317,22 +317,23 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
 //            act.meteoDialog.setMessage(act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString()
 //                    + "\n" + act.getString(R.string.updated) + " " + act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + act.aggiornamentoMeteo.get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + act.aggiornamentoMeteo.get(Calendar.MINUTE));
             //TODO Altri dettagli sulle condizioni meteorologiche
+            if (act.meteo.getOsservazione() != null) {
+                if (!act.meteo.getOsservazione().isEmpty()) {
+                    //String s = getString(R.string.condimeteo) + meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getOsservazione().get(0).getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE);
+                    String s = new String();
+                    s += act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString() + "\n";
+                    s += act.getString(R.string.updated) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MONTH)) + "/" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.HOUR_OF_DAY) + ":" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MINUTE) + "\n";
 
-            if (!act.meteo.getOsservazione().isEmpty()) {
-                //String s = getString(R.string.condimeteo) + meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getOsservazione().get(0).getWindDirectionString() + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE);
-                String s = new String();
-                s += act.getString(R.string.condimeteo) + act.meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(0).getWindDirectionString() + "\n";
-                s += act.getString(R.string.updated) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.DAY_OF_MONTH) + "/" + (1 + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MONTH)) + "/" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.YEAR) + " " + act.getString(R.string.ore) + " " + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.HOUR_OF_DAY) + ":" + act.meteo.getOsservazione().get(0).getTempo().get(Calendar.MINUTE) + "\n";
+                    s += act.getString(R.string.previsioni) + "\n";
+                    for (int i = 1; i < 8; i++) {
+                        //s+=act.meteo.getOsservazione().get(i).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
+                        //PIUU BREVE
+                        s += act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
+                        s += " " + act.getString(R.string.alleOre) + " " + act.meteo.getOsservazione().get(i).getTempo().get(Calendar.HOUR_OF_DAY) + "\n";
+                    }
+                    act.meteoDialog.setMessage(s);
 
-                s += act.getString(R.string.previsioni) + "\n";
-                for (int i = 1; i < 8; i++) {
-                    //s+=act.meteo.getOsservazione().get(i).getWindBeaufortString(act) + " (" + act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h) " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
-                    //PIUU BREVE
-                    s += act.meteo.getOsservazione().get(i).getWindKmh().intValue() + " km/h " + act.getString(R.string.da) + " " + act.meteo.getOsservazione().get(i).getWindDirectionString();
-                    s += " " + act.getString(R.string.alleOre) + " " + act.meteo.getOsservazione().get(i).getTempo().get(Calendar.HOUR_OF_DAY) + "\n";
                 }
-                act.meteoDialog.setMessage(s);
-
             }
 
 

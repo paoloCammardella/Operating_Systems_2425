@@ -71,6 +71,8 @@ public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
             rS.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         act.mTracker.send(new HitBuilders.EventBuilder()
