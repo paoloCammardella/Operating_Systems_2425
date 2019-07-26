@@ -34,7 +34,8 @@ public class Meteo {
 		int previsione = (int) delta;
 		Double actualBeaufort = 0.0;
 		if (!osservazione.isEmpty())
-			actualBeaufort = osservazione.get(previsione).getWindBeaufort();
+            if (osservazione.size() > previsione)
+                actualBeaufort = osservazione.get(previsione).getWindBeaufort();
 		Double limitBeaufort=0.0;
 		//Penalizzazione per le brezze estive
 		if ((Calendar.getInstance(TimeZone.getDefault()).get(Calendar.MONTH)>=5)&&(Calendar.getInstance(TimeZone.getDefault()).get(Calendar.MONTH)<=8))
