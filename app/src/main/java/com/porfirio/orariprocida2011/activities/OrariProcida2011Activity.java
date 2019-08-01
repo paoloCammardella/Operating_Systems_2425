@@ -556,8 +556,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                     //TODO Qua devo controllare le 24 ore)
                                     if (calMezzo.after(cal)) {
                                         calMezzo.add(Calendar.DAY_OF_YEAR, -1);
-                                        if (calMezzo.before(cal))
-                                            return true;
+                                        return calMezzo.before(cal);
                                     }
                                 }
 
@@ -1040,7 +1039,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     public void setMsgToast() {
         primoAvvio = false;
-        msgToast = new String("");
+        msgToast = "";
         if (!(portoPartenza.equals(getString(R.string.tutti))))
             msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n");
         if (aggiornamentoOrariIS != null) {
