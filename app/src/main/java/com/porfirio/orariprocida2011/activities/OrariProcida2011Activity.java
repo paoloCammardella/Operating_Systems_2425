@@ -891,7 +891,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                         listMezzi.get(i).setGiornoSeguente(true);
                                     else
                                         listMezzi.get(i).setGiornoSeguente(false);
-                                    listMezzi.get(i).setId(i);
+                                    //listMezzi.get(i).setId(i);
                                     selectMezzi.add(listMezzi.get(i));
                                 }
                     }
