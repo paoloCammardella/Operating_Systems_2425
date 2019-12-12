@@ -4,43 +4,42 @@ ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\m
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
-MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9229b28f46c4e2cf9e7497a8f5b493aa\AndroidManifest.xml:17:1-22:12
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:17:1-47:12
-MERGED from [com.android.support.test.espresso:espresso-core:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03419ae581f32544bbde6bdfe7bd01cd\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cb6352d90ea1459fba62c8328d6dac98\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:17:1-31:12
-MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:17:1-29:12
-MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\35257347e2d334f4e254d0f838da6cb3\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9dabc96d8d5525928d67d0c92e7a70e5\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\855e4e3682d0bd02abab7391c212569d\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support.test:rules:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d13a17145a8e984890f8c039918008e5\AndroidManifest.xml:2:1-9:12
-MERGED from [com.android.support.test:runner:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2761459a471cdfd4efb3829a7658996\AndroidManifest.xml:17:1-26:12
-MERGED from [com.android.support.test.espresso:espresso-idling-resource:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fea772d799921b4695f978eb4949f81e\AndroidManifest.xml:17:1-26:12
-MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0c51dd00c37e99d274204eb260d5f5e3\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2b68fbaa190af14a612462923aa148fb\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2a761c5d97271d9dc126d7323938213e\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5fb9435eabce64b681504e2c744d389a\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b5a10b766cd33e9c56338e77deff75f1\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f57ed055fb14e761c40e13a3c827be01\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\38ff30acaa35bad7a0de399ef3e6dcc5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\624c27ee0b56609559582bdc140b872d\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2558f072fbb4591152f30434228da3ad\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\aa39cae1a325aa021492e392d0d772b2\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\15335d6b4214d9133697ee474c84924c\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9781658a3f332c2a5372ece13425ee32\AndroidManifest.xml:17:1-25:12
-MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2bc8848b4100c6c9d72123946b152b72\AndroidManifest.xml:17:1-26:12
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\414058b1449b847f435e3b9efb456cf1\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4a659ecffe9227ea6606e77f6e7b2ddf\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\32540e00b4a037603ac9e9dd5d11ce96\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ebe9a1ce8109e14c73d18a7d4b0506\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4786b0ab2f576efb3daecbfe87e9ebf5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\425ac37475ffaca69db404c632d604ba\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0369c78b4fad181a0d1bd1267a53872c\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\bbfef2dd50a63aedc9c29811422891e5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5d15805bb2a206af7a346cd1ea179b3d\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\37cfa85af51b6b5d58af52d8bc3b9fee\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f7d239eedb855a56cbf209f76931c1d4\uiautomator-v18-2.1.3\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:17:1-47:12
+MERGED from [com.android.support.test.espresso:espresso-core:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f4a0102d1b9c8b67d0bc2e425a8f9d06\espresso-core-3.0.2\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fc4c0e09ff3a67e48b1459448b73a89c\play-services-tagmanager-v4-impl-17.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:17:1-31:12
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\6f7233366af148cce95526c5d9ac79b8\play-services-stats-17.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\e055f5388f1892ee8d0fea9c655e2ceb\play-services-ads-identifier-17.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\347d093b4866ae5849c02fd8f1005fc5\play-services-tasks-17.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support.test:runner:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ba6721f18bcfd332a7fbe337c3df95\runner-1.0.2\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support.test.espresso:espresso-idling-resource:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\883259931be7d073947f1b77073c2b62\espresso-idling-resource-3.0.2\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\be16218c4676115d04af7c7778e9d261\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d952dacac5d158ab2771111daf5baa0\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\babd80cf0c5a42baca0a751e3e95804e\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a378df699db9ad3b8f4afb1b3be7f1bf\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\de23cc7e0e4281e9299f572fee7efc72\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8d2350e3f16c4d7b339498e7712270a9\coordinatorlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3aeee324d82948745615a4b52a57c151\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2e96e83b807723fccae22bfe0463a5c\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d90c9ab55934629fab9324d040e1dce\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8639f4770e58c6ab4ee7dd519fc54ce\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4e6a3c9a72755c0a3029649648b932d1\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4db6a868cfcb3d4d376a4444a114484f\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support.test:monitor:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4ca430dccb08787bad84b47b1a3c9ad6\monitor-1.0.2\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03cb66b45cffe1173a2f702c3044ce2d\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1f91670ad85a1c293ada6dfbb654d198\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\90cd93d8152c72597254e1c54e14a6f4\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4cfd28d989f1c5b47bd5df152908b3d5\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\57c93e9363456163f99b2537ed5b306f\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cd0e73e0a9211fb4f76633d593e77988\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b518820dab527b4ab0b6d672fec02bd9\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\972d610a6c9796c8addd91e2b6b4eceb\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0358b948de244e414615a55e8d2872b9\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\99601b6bba105b006ebc43320935ac43\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:2:1-51:12
@@ -68,18 +67,18 @@ ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\m
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:8:22-76
 uses-permission#android.permission.INTERNET
 ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:9:5-67
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:23:5-67
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:23:5-67
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:23:5-67
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:23:5-67
 	android:name
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:9:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:10:5-78
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:24:5-79
 	android:name
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:10:22-76
 supports-screens
@@ -96,36 +95,30 @@ ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\m
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:13:9-34
 application
 ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:19:5-50:19
-MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9229b28f46c4e2cf9e7497a8f5b493aa\AndroidManifest.xml:21:3-17
-MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9229b28f46c4e2cf9e7497a8f5b493aa\AndroidManifest.xml:21:3-17
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:29:5-45:19
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:29:5-45:19
-MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cb6352d90ea1459fba62c8328d6dac98\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cb6352d90ea1459fba62c8328d6dac98\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:29:5-20
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:29:5-20
-MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\35257347e2d334f4e254d0f838da6cb3\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\35257347e2d334f4e254d0f838da6cb3\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9dabc96d8d5525928d67d0c92e7a70e5\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9dabc96d8d5525928d67d0c92e7a70e5\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\855e4e3682d0bd02abab7391c212569d\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\855e4e3682d0bd02abab7391c212569d\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:22:5-26:19
-MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support.test:runner:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2761459a471cdfd4efb3829a7658996\AndroidManifest.xml:24:5-20
-MERGED from [com.android.support.test:runner:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2761459a471cdfd4efb3829a7658996\AndroidManifest.xml:24:5-20
-MERGED from [com.android.support.test.espresso:espresso-idling-resource:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fea772d799921b4695f978eb4949f81e\AndroidManifest.xml:24:5-20
-MERGED from [com.android.support.test.espresso:espresso-idling-resource:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fea772d799921b4695f978eb4949f81e\AndroidManifest.xml:24:5-20
-MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:22:5-89
-MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:22:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9781658a3f332c2a5372ece13425ee32\AndroidManifest.xml:22:5-23:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9781658a3f332c2a5372ece13425ee32\AndroidManifest.xml:22:5-23:19
-MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2bc8848b4100c6c9d72123946b152b72\AndroidManifest.xml:24:5-20
-MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2bc8848b4100c6c9d72123946b152b72\AndroidManifest.xml:24:5-20
+MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f7d239eedb855a56cbf209f76931c1d4\uiautomator-v18-2.1.3\AndroidManifest.xml:21:3-17
+MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f7d239eedb855a56cbf209f76931c1d4\uiautomator-v18-2.1.3\AndroidManifest.xml:21:3-17
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:29:5-45:19
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:29:5-45:19
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fc4c0e09ff3a67e48b1459448b73a89c\play-services-tagmanager-v4-impl-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fc4c0e09ff3a67e48b1459448b73a89c\play-services-tagmanager-v4-impl-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:29:5-20
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:29:5-20
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\6f7233366af148cce95526c5d9ac79b8\play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\6f7233366af148cce95526c5d9ac79b8\play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\e055f5388f1892ee8d0fea9c655e2ceb\play-services-ads-identifier-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\e055f5388f1892ee8d0fea9c655e2ceb\play-services-ads-identifier-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\347d093b4866ae5849c02fd8f1005fc5\play-services-tasks-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\347d093b4866ae5849c02fd8f1005fc5\play-services-tasks-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4db6a868cfcb3d4d376a4444a114484f\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4db6a868cfcb3d4d376a4444a114484f\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:22:18-86
+		ADDED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:22:18-86
 	android:supportsRtl
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:26:9-36
 	android:label
@@ -184,80 +177,78 @@ uses-sdk
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
-MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9229b28f46c4e2cf9e7497a8f5b493aa\AndroidManifest.xml:19:3-41
-MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9229b28f46c4e2cf9e7497a8f5b493aa\AndroidManifest.xml:19:3-41
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support.test.espresso:espresso-core:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03419ae581f32544bbde6bdfe7bd01cd\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.test.espresso:espresso-core:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03419ae581f32544bbde6bdfe7bd01cd\AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cb6352d90ea1459fba62c8328d6dac98\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cb6352d90ea1459fba62c8328d6dac98\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\35257347e2d334f4e254d0f838da6cb3\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\35257347e2d334f4e254d0f838da6cb3\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9dabc96d8d5525928d67d0c92e7a70e5\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9dabc96d8d5525928d67d0c92e7a70e5\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\855e4e3682d0bd02abab7391c212569d\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\855e4e3682d0bd02abab7391c212569d\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support.test:rules:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d13a17145a8e984890f8c039918008e5\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.test:rules:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d13a17145a8e984890f8c039918008e5\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.test:runner:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2761459a471cdfd4efb3829a7658996\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.test:runner:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2761459a471cdfd4efb3829a7658996\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.test.espresso:espresso-idling-resource:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fea772d799921b4695f978eb4949f81e\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.test.espresso:espresso-idling-resource:2.2.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fea772d799921b4695f978eb4949f81e\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0c51dd00c37e99d274204eb260d5f5e3\AndroidManifest.xml:20:5-44
-MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0c51dd00c37e99d274204eb260d5f5e3\AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2b68fbaa190af14a612462923aa148fb\AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2b68fbaa190af14a612462923aa148fb\AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2a761c5d97271d9dc126d7323938213e\AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2a761c5d97271d9dc126d7323938213e\AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5fb9435eabce64b681504e2c744d389a\AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5fb9435eabce64b681504e2c744d389a\AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b5a10b766cd33e9c56338e77deff75f1\AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b5a10b766cd33e9c56338e77deff75f1\AndroidManifest.xml:20:5-44
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f57ed055fb14e761c40e13a3c827be01\AndroidManifest.xml:20:5-44
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f57ed055fb14e761c40e13a3c827be01\AndroidManifest.xml:20:5-44
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\38ff30acaa35bad7a0de399ef3e6dcc5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\38ff30acaa35bad7a0de399ef3e6dcc5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\624c27ee0b56609559582bdc140b872d\AndroidManifest.xml:20:5-44
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\624c27ee0b56609559582bdc140b872d\AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2558f072fbb4591152f30434228da3ad\AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2558f072fbb4591152f30434228da3ad\AndroidManifest.xml:20:5-44
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\aa39cae1a325aa021492e392d0d772b2\AndroidManifest.xml:20:5-44
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\aa39cae1a325aa021492e392d0d772b2\AndroidManifest.xml:20:5-44
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\15335d6b4214d9133697ee474c84924c\AndroidManifest.xml:20:5-44
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\15335d6b4214d9133697ee474c84924c\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2e2e88edb17e828e0551a5f95c614644\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9781658a3f332c2a5372ece13425ee32\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9781658a3f332c2a5372ece13425ee32\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2bc8848b4100c6c9d72123946b152b72\AndroidManifest.xml:20:5-22:41
-MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\2bc8848b4100c6c9d72123946b152b72\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\414058b1449b847f435e3b9efb456cf1\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\414058b1449b847f435e3b9efb456cf1\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4a659ecffe9227ea6606e77f6e7b2ddf\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4a659ecffe9227ea6606e77f6e7b2ddf\AndroidManifest.xml:20:5-44
-MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\32540e00b4a037603ac9e9dd5d11ce96\AndroidManifest.xml:20:5-44
-MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\32540e00b4a037603ac9e9dd5d11ce96\AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ebe9a1ce8109e14c73d18a7d4b0506\AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ebe9a1ce8109e14c73d18a7d4b0506\AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4786b0ab2f576efb3daecbfe87e9ebf5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4786b0ab2f576efb3daecbfe87e9ebf5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\425ac37475ffaca69db404c632d604ba\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\425ac37475ffaca69db404c632d604ba\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0369c78b4fad181a0d1bd1267a53872c\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0369c78b4fad181a0d1bd1267a53872c\AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\bbfef2dd50a63aedc9c29811422891e5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\bbfef2dd50a63aedc9c29811422891e5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5d15805bb2a206af7a346cd1ea179b3d\AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\5d15805bb2a206af7a346cd1ea179b3d\AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\37cfa85af51b6b5d58af52d8bc3b9fee\AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\37cfa85af51b6b5d58af52d8bc3b9fee\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f7d239eedb855a56cbf209f76931c1d4\uiautomator-v18-2.1.3\AndroidManifest.xml:19:3-41
+MERGED from [com.android.support.test.uiautomator:uiautomator-v18:2.1.3] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f7d239eedb855a56cbf209f76931c1d4\uiautomator-v18-2.1.3\AndroidManifest.xml:19:3-41
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.test.espresso:espresso-core:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f4a0102d1b9c8b67d0bc2e425a8f9d06\espresso-core-3.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.test.espresso:espresso-core:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\f4a0102d1b9c8b67d0bc2e425a8f9d06\espresso-core-3.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fc4c0e09ff3a67e48b1459448b73a89c\play-services-tagmanager-v4-impl-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\fc4c0e09ff3a67e48b1459448b73a89c\play-services-tagmanager-v4-impl-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\6f7233366af148cce95526c5d9ac79b8\play-services-stats-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\6f7233366af148cce95526c5d9ac79b8\play-services-stats-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\e055f5388f1892ee8d0fea9c655e2ceb\play-services-ads-identifier-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\e055f5388f1892ee8d0fea9c655e2ceb\play-services-ads-identifier-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\347d093b4866ae5849c02fd8f1005fc5\play-services-tasks-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\347d093b4866ae5849c02fd8f1005fc5\play-services-tasks-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.test:runner:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ba6721f18bcfd332a7fbe337c3df95\runner-1.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.test:runner:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\25ba6721f18bcfd332a7fbe337c3df95\runner-1.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.test.espresso:espresso-idling-resource:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\883259931be7d073947f1b77073c2b62\espresso-idling-resource-3.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.test.espresso:espresso-idling-resource:3.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\883259931be7d073947f1b77073c2b62\espresso-idling-resource-3.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\be16218c4676115d04af7c7778e9d261\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\be16218c4676115d04af7c7778e9d261\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d952dacac5d158ab2771111daf5baa0\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d952dacac5d158ab2771111daf5baa0\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\babd80cf0c5a42baca0a751e3e95804e\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\babd80cf0c5a42baca0a751e3e95804e\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a378df699db9ad3b8f4afb1b3be7f1bf\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a378df699db9ad3b8f4afb1b3be7f1bf\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\de23cc7e0e4281e9299f572fee7efc72\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\de23cc7e0e4281e9299f572fee7efc72\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8d2350e3f16c4d7b339498e7712270a9\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8d2350e3f16c4d7b339498e7712270a9\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3aeee324d82948745615a4b52a57c151\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3aeee324d82948745615a4b52a57c151\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2e96e83b807723fccae22bfe0463a5c\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\c2e96e83b807723fccae22bfe0463a5c\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d90c9ab55934629fab9324d040e1dce\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0d90c9ab55934629fab9324d040e1dce\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8639f4770e58c6ab4ee7dd519fc54ce\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8639f4770e58c6ab4ee7dd519fc54ce\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4e6a3c9a72755c0a3029649648b932d1\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4e6a3c9a72755c0a3029649648b932d1\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9bfdf62e63796b54ef11c7b9576258b6\core-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4db6a868cfcb3d4d376a4444a114484f\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4db6a868cfcb3d4d376a4444a114484f\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.test:monitor:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4ca430dccb08787bad84b47b1a3c9ad6\monitor-1.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support.test:monitor:1.0.2] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4ca430dccb08787bad84b47b1a3c9ad6\monitor-1.0.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03cb66b45cffe1173a2f702c3044ce2d\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\03cb66b45cffe1173a2f702c3044ce2d\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1f91670ad85a1c293ada6dfbb654d198\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1f91670ad85a1c293ada6dfbb654d198\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\90cd93d8152c72597254e1c54e14a6f4\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\90cd93d8152c72597254e1c54e14a6f4\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4cfd28d989f1c5b47bd5df152908b3d5\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\4cfd28d989f1c5b47bd5df152908b3d5\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\57c93e9363456163f99b2537ed5b306f\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\57c93e9363456163f99b2537ed5b306f\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cd0e73e0a9211fb4f76633d593e77988\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\cd0e73e0a9211fb4f76633d593e77988\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b518820dab527b4ab0b6d672fec02bd9\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b518820dab527b4ab0b6d672fec02bd9\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\972d610a6c9796c8addd91e2b6b4eceb\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\972d610a6c9796c8addd91e2b6b4eceb\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0358b948de244e414615a55e8d2872b9\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\0358b948de244e414615a55e8d2872b9\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\99601b6bba105b006ebc43320935ac43\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\99601b6bba105b006ebc43320935ac43\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
@@ -269,48 +260,48 @@ INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\sr
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.WAKE_LOCK
-ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:27:5-68
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:27:5-68
-MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\3db6142e25f4e04843b60e890e0c2969\AndroidManifest.xml:27:5-68
+ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:27:5-68
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:27:5-68
+MERGED from [com.google.android.gms:play-services-analytics-impl:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\1a01c30121f04cbb2bd9cbe6a7429a4c\play-services-analytics-impl-17.0.0\AndroidManifest.xml:27:5-68
 	android:name
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:27:22-65
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:27:22-65
 receiver#com.google.android.gms.analytics.AnalyticsReceiver
-ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:30:9-34:20
+ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:30:9-34:20
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:32:13-35
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:32:13-35
 	android:exported
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:33:13-37
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:33:13-37
 	android:name
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:31:13-78
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:31:13-78
 service#com.google.android.gms.analytics.AnalyticsService
-ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:36:9-39:40
+ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:36:9-39:40
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:38:13-35
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:38:13-35
 	android:exported
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:39:13-37
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:39:13-37
 	android:name
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:37:13-77
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:37:13-77
 service#com.google.android.gms.analytics.AnalyticsJobService
-ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:40:9-44:72
+ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:40:9-44:72
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:42:13-35
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:42:13-35
 	android:exported
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:43:13-37
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:43:13-37
 	android:permission
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:44:13-69
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:44:13-69
 	android:name
-		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\9115a46908ae4adef4869661b9b4d329\AndroidManifest.xml:41:13-80
+		ADDED from [com.google.android.gms:play-services-analytics:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\8df794f2869bbbed4ded14ce6fbb5772\play-services-analytics-17.0.0\AndroidManifest.xml:41:13-80
 activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:23:9-26:75
+ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
 	android:exported
-		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:25:13-37
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
 	android:theme
-		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:26:13-72
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\d4229f41f7528b7c3a1433ed17702873\AndroidManifest.xml:24:13-79
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\a8e9fa57f949d031b7bf2b16e0aacb45\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:23:9-25:69
+ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
 	android:value
-		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:25:13-66
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\02f7b0434988336e7eb0da56c33bc3b4\AndroidManifest.xml:24:13-58
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Porfirio\.gradle\caches\transforms-2\files-2.1\b1e93c15a818cfeb4db45acea8a4a32b\play-services-basement-17.0.0\AndroidManifest.xml:24:13-58

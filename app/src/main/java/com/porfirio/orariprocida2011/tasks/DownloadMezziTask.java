@@ -3,7 +3,6 @@ package com.porfirio.orariprocida2011.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
@@ -180,7 +179,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
 
         } catch (SocketTimeoutException e) {
-            Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
+            //Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
