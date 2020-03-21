@@ -190,7 +190,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Po
 activity#com.porfirio.orariprocida2011.activities.OrariProcida2011Activity
 ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:28:9-47:20
 	android:screenOrientation
-		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:30:13-49
+		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:30:13-51
 	android:label
 		ADDED from C:\Users\Porfirio\StudioProjects\OrariProcida2011-2017-2019\app\src\main\AndroidManifest.xml:31:13-45
 	android:name

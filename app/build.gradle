@@ -35,3 +35,9 @@ dependencies {
 //android {
 //    useLibrary 'org.apache.http.legacy'
 //}
+
+android {
+    lintOptions {
+        abortOnError false
+    }
+}
