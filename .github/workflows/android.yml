@@ -231,4 +231,4 @@ jobs:
         run: |
           echo "Costruisco apk."
           ./gradlew assembleDebug
-          python .github/scripts/richiestapython.py "https://143.225.229.45:443/start" "porfirio.tramontana@gmail.com" "app/build/outputs/apk/debug/app-debug.apk" 27 1 1 1 1 1 1 1 1 1 1 1 1 si si si
+          python .github/scripts/richiestapython.py "https://143.225.229.45:443/start" "porfirio.tramontana@gmail.com" "app/build/outputs/apk/debug/app-debug.apk" 27 1 0 0 0 0 0 1 0 0 0 0 0 si si si
