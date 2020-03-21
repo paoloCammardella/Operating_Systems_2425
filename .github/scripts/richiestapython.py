@@ -2,8 +2,8 @@ import requests
 import sys
 def main(argv):
     for i in range(5,17):
-        if int(argv[i])<1 or int(argv[i])>15 or not argv[i].isnumeric():
-            argv[i]=1
+        if int(argv[i])<0 or int(argv[i])>15 or not argv[i].isnumeric():
+            argv[i]=0
         argv[i]=int(argv[i])
 
     if int(argv[4])<25 or int(argv[4])>29:
