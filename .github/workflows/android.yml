@@ -18,7 +18,7 @@ jobs:
 
 
   LintTest:
-    runs-on: macos
+    runs-on: [macos]
     steps:
 
       - name: checkout
@@ -213,7 +213,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Installo Python
+      - name: Installo Python 
         uses: actions/setup-python@v1
         with:
           python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
