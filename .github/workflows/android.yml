@@ -16,7 +16,6 @@ env:
 
 jobs:
 
-
   LintTest:
     runs-on: [macos]
     steps:
