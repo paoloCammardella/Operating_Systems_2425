@@ -41,7 +41,7 @@ jobs:
           path: risultatiLintTest
 
   UnitTest:
-    runs-on: macos
+    runs-on: ubuntu-latest
     steps:
 
       - name: checkout
@@ -55,7 +55,7 @@ jobs:
           ./gradlew test
 
   InstrumentedTest:
-    runs-on: macos
+    runs-on: ubuntu-latest
     steps:
 
       - name: checkout
@@ -107,7 +107,7 @@ jobs:
           path: risultatiIstruInstrumentedTest
 
   MonkeyTest:
-    runs-on: macos
+    runs-on: ubuntu-latest
     steps:
 
       - name: checkout
@@ -154,7 +154,7 @@ jobs:
         run: adb shell monkey -p $packagename -v 100
 
   FunesDroidTest:
-    runs-on: macos
+    runs-on: ubuntu-latest
     steps:
 
       - name: checkout
@@ -206,7 +206,7 @@ jobs:
           path: FunesDroid-master/Results
 
   FunesDroidTestInvioRichiesta:
-    runs-on: macos
+    runs-on: ubuntu-latest
     steps:
 
       - name: checkout
