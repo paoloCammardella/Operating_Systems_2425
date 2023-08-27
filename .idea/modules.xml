@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/OrariProcida2011-2017-2019.iml" filepath="$PROJECT_DIR$/OrariProcida2011-2017-2019.iml" group="OrariProcida2011-2017-2019" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="OrariProcida2011-2017-2019/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OrariProcida2011-2017.iml" filepath="$PROJECT_DIR$/.idea/modules/OrariProcida2011-2017.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017.app.unitTest.iml" />
     </modules>
   </component>
 </project>

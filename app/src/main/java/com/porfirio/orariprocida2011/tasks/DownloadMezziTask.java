@@ -180,6 +180,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
         } catch (SocketTimeoutException e) {
             //Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
