@@ -80,9 +80,9 @@ class MeteoXMLHandler extends DefaultHandler {
 	    	int pos2=attr.indexOf("mph");
 	    	String wind=attr.substring(pos+4, pos2-1);
 	    	double wkmh=Integer.parseInt(wind)*1.609;
-            callingActivity.meteo.getOsservazione().get(0).setWindKmh(wkmh);
-	    	if (wkmh<=1)
-                callingActivity.meteo.getOsservazione().get(0).setWindBeaufort(0.0);
+			callingActivity.meteo.getOsservazione().get(0).setWindKmh(wkmh);
+			if (wkmh<=1)
+				callingActivity.meteo.getOsservazione().get(0).setWindBeaufort(0.0);
 	    	else if (wkmh>1 && wkmh<6)
                 callingActivity.meteo.getOsservazione().get(0).setWindBeaufort(1 + (wkmh - 3) / (5 - 1));
 	    	else if (wkmh>=6 && wkmh<12)
@@ -107,7 +107,7 @@ class MeteoXMLHandler extends DefaultHandler {
                 callingActivity.meteo.getOsservazione().get(0).setWindBeaufort(11 + (wkmh - 110) / (117 - 103));
 	    	else if (wkmh>=118)
                 callingActivity.meteo.getOsservazione().get(0).setWindBeaufort(12.0);
-            Log.d("ORARI", "Vento forza " + callingActivity.meteo.getOsservazione().get(0).getWindBeaufort());
+			Log.d("ORARI", "Vento forza " + callingActivity.meteo.getOsservazione().get(0).getWindBeaufort());
 		}
 
 		@Override

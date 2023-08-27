@@ -124,14 +124,14 @@ public class Mezzo {
 		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")){
 			costoIntero = 7.90;
 			setCircaIntero(true);
-            costoResidente = 2.70;
+			costoResidente = 2.70;
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")){
 			costoIntero = 7.90;
 			setCircaIntero(true);
-            costoResidente = 2.70;
+			costoResidente = 2.70;
 			setCircaResidente(true);
 			return;
 		}
@@ -145,7 +145,7 @@ public class Mezzo {
 		if ((n.contentEquals("Motonave Gestur") || n.contentEquals("Traghetto Gestur")) && p.contentEquals("Pozzuoli")) {
 			costoIntero = 7.90;
 			setCircaIntero(true);
-            costoResidente = 2.70;
+			costoResidente = 2.70;
 			setCircaResidente(true);
 			return;
 		}
@@ -193,7 +193,7 @@ public class Mezzo {
 		}
 		if (n.contentEquals("Medmar") && p.contentEquals("Ischia Porto")){
 			costoIntero = 7.80;
-            costoResidente = 2.70;
+			costoResidente = 2.70;
 			setCircaIntero(true);
 			setCircaResidente(true);
 			return;
@@ -201,14 +201,14 @@ public class Mezzo {
 		if (n.contentEquals("Ippocampo") ){ //TODO Da verificare
 			costoIntero = 7.90;
 			setCircaIntero(true);
-            costoResidente = 2.50;
+			costoResidente = 2.50;
 			setCircaResidente(true);
 			return;
 		}
 		if (n.contentEquals("Scotto Line")) { //TODO Da verificare
 			costoIntero = 7.90;
 			setCircaIntero(true);
-            costoResidente = 2.50;
+			costoResidente = 2.50;
 			setCircaResidente(true);
 			return;
 		}

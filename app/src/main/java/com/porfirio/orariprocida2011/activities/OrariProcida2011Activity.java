@@ -285,10 +285,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
         // get the current time
 
         c = Calendar.getInstance(TimeZone.getDefault());
-
         txtOrario = findViewById(R.id.txtOrario);
-
-		setTxtOrario(c);
+        setTxtOrario(c);
 
         Button buttonMinusMinus = findViewById(R.id.btnConfermaOSmentisci);
         buttonMinusMinus.setOnClickListener(new View.OnClickListener() {
@@ -559,9 +557,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                         return calMezzo.before(cal);
                                     }
                                 }
-
-
-		return false;
+        return false;
 	}
 
     public boolean isGiornoVisualizzato(String rigaData, Calendar cal) {
@@ -1221,8 +1217,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 //        getBaseContext().getResources().updateConfiguration(config, 
 //        getBaseContext().getResources().getDisplayMetrics());
 //    }
-
-    	Log.d("ACTIVITY","resume");
+//    Log.d("ACTIVITY","resume");
     }
 
     protected void onPause(){
@@ -1231,7 +1226,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 .setCategory("App Event")
                 .setAction("onPause")
                 .build());
-    	Log.d("ACTIVITY","pause");
+        Log.d("ACTIVITY","pause");
     }
 
     protected void onStop(){
@@ -1249,7 +1244,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 .setCategory("App Event")
                 .setAction("onDestroy")
                 .build());
-    	Log.d("ACTIVITY","destroy");
+        Log.d("ACTIVITY","destroy");
     }
 
 

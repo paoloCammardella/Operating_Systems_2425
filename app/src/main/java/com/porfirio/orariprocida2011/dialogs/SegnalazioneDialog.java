@@ -89,7 +89,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 						.build());
 				//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(true);
-	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
+				Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
 				//LockDeviceRotation.lock(false,callingContext);
 				dismiss();
 			}
@@ -105,7 +105,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 						.build());
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(false);
-	    		Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
+				Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
 				//LockDeviceRotation.lock(false,callingContext);
 				dismiss();
 			}
@@ -147,11 +147,11 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		//Pare funzionino le segnalazioni relative al giorno successivo!
 		if (mezzo.getGiornoSeguente())
         	orarioRef.add(Calendar.DAY_OF_YEAR, 1);
-        URL+=orarioRef.get(Calendar.DAY_OF_MONTH)+","+(1+orarioRef.get(Calendar.MONTH))+","+orarioRef.get(Calendar.YEAR)+"&s=";
-        if (mezzo.getGiornoSeguente()) //rimettiamo a posto!
+		URL+=orarioRef.get(Calendar.DAY_OF_MONTH)+","+(1+orarioRef.get(Calendar.MONTH))+","+orarioRef.get(Calendar.YEAR)+"&s=";
+		if (mezzo.getGiornoSeguente()) //rimettiamo a posto!
         	orarioRef.add(Calendar.DAY_OF_YEAR, -1);
         String dettagli=txtDettagli.getText().toString().replaceAll ("\r\n|\r|\n", " ");
-        try {
+		try {
 			URL+=URLEncoder.encode((mezzo.nave+","+mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY)+","+mezzo.oraPartenza.get(Calendar.MINUTE)
 			   +","+mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY)+","+mezzo.oraArrivo.get(Calendar.MINUTE)+","
 			   +mezzo.portoPartenza+","+mezzo.portoArrivo+","
@@ -166,7 +166,6 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 
 			e.printStackTrace();
 		}
-
 		new ScriviSegnalazioneTask().execute(URL);
 
 /*

@@ -84,7 +84,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		btnTaxi.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
-                callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+				callingActivity.mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("App Event")
                         .setAction("Click Taxi Dialog")
                         .build());
@@ -96,7 +96,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		btnBiglietterie.setOnClickListener(new View.OnClickListener(){
 	    	@Override
 	    	public void onClick(View v) {
-                callingActivity.mTracker.send(new HitBuilders.EventBuilder()
+				callingActivity.mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("App Event")
                         .setAction("Click Biglietterie Dialog")
                         .build());
@@ -188,7 +188,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		segnalazioneDialog.setOrarioRef(calen);
 		segnalazioneDialog.setMezzo(mezzo);
 		segnalazioneDialog.setCallingContext(this.getContext());
-        segnalazioneDialog.setCallingActivity(callingActivity);
+		segnalazioneDialog.setCallingActivity(callingActivity);
 		segnalazioneDialog.setListCompagnia(lc);
 		//segnalazioneDialog.fill(lc);
 

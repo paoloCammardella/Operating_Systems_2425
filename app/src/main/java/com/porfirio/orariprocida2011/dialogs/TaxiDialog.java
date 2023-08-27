@@ -66,10 +66,9 @@ public class TaxiDialog extends DialogFragment {
 	    taxiList.add(new Taxi("Monte di Procida","Via Faro, Bacoli","3349003894"));
 
 		ArrayList<Taxi> taxiPortoList=new ArrayList<Taxi>();
-        for (int i = 0; i < taxiList.size(); i++)
+		for (int i = 0; i < taxiList.size(); i++)
             if (porto.contains(taxiList.get(i).getPorto()) && !(porto.contentEquals("Monte di Procida") && taxiList.get(i).getPorto().contentEquals("Procida")))
                 taxiPortoList.add(taxiList.get(i));
-
 		if (taxiPortoList.size()>=1){
 			final String text = taxiPortoList.get(0).getCompagnia() + " : " + taxiPortoList.get(0).getNumero();
 			tn1.setText(text);
