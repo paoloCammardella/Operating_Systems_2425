@@ -4,7 +4,7 @@ android {
     defaultConfig {
         applicationId "com.porfirio.orariprocida2011"
         compileSdkVersion 34
-        minSdkVersion 24
+        minSdkVersion 33
         targetSdkVersion 34
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
