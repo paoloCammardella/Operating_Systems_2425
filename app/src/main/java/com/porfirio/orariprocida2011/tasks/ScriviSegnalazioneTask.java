@@ -21,20 +21,9 @@ public class ScriviSegnalazioneTask extends AsyncTask<String, Integer, Boolean> 
             conn.setRequestMethod("GET");
 
 // read the response
-            //System.out.println("Response Code: " + conn.getResponseCode());
             int responseCode = conn.getResponseCode();
             Log.d("ORARI", Integer.toString(responseCode));
-            //InputStream in = new BufferedInputStream(conn.getInputStream());
-            //String response = org.apache.commons.io.IOUtils.toString(in, "UTF-8");
-            //System.out.println(response);
 
-
-/*            new DefaultHttpClient();
-            String SetServerString;
-            HttpGet httpget = new HttpGet(URL);
-            ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            SetServerString = Client.execute(httpget, responseHandler);
-            return SetServerString;*/
             conn.disconnect();
         } catch (Exception ex) {
             return false;

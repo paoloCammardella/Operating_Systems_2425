@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Created by Porfirio on 17/02/2018.
+ * TODO Aggiornare la lettura asincrona aggiornando i metodi deprecati
  */
 
 public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
@@ -66,81 +66,12 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
         Integer windDirFromIS = 0;
         String windDirectionStringFromIS = act.getString(R.string.nord);
 
-//TODO: Non leggo piu' da IS
-/*
-        boolean scriviSuIS = false;
-        //Prova a leggere da Internal Storage il valore di aggiornamentoMeteoIS
-        FileInputStream fstream = null;
-        try {
-            Log.i("k", act.getApplicationContext().getFilesDir().getPath());
-            fstream = new FileInputStream(act.getApplicationContext().getFilesDir().getPath() + "/aggiornamentoMeteo.csv");
-        } catch (FileNotFoundException e1) {
-            //metto fittiziamente aggiornamento al 2001
-            act.aggiornamentoMeteo = Calendar.getInstance(TimeZone.getDefault());
-            act.aggiornamentoMeteo.set(Calendar.YEAR, 2001);
-        }
 
-        if (!(fstream == null)) {
-            Log.d("ORARI", "legge da IS il valore di aggiornamentoMeteoIS");
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String rigaAggiornamento = null;
-            try {
-                rigaAggiornamento = br.readLine();
-            } catch (IOException e) {
-                //
-                e.printStackTrace();
-            }
-            Log.d("ORARI", "aggiornamento al " + rigaAggiornamento);
-            StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            act.aggiornamentoMeteo = Calendar.getInstance(TimeZone.getDefault());
-            act.aggiornamentoMeteo.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoMeteo.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoMeteo.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoMeteo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(st0.nextToken()));
-            act.aggiornamentoMeteo.set(Calendar.MINUTE, Integer.parseInt(st0.nextToken()));
-            try {
-                String s = br.readLine();
-                windKmhFromIS = Double.parseDouble(s);
-                act.meteo.setWindKmh(windKmhFromIS);
-                s = br.readLine();
-                windDirFromIS = Integer.parseInt(s);
-                act.meteo.setWindDirection(windDirFromIS);
-                s = br.readLine();
-                windDirectionStringFromIS = s;
-                act.meteo.setWindDirectionString(windDirectionStringFromIS);
-
-            } catch (NumberFormatException | IOException e1) {
-                //
-                e1.printStackTrace();
-                return false;
-            }
-            try {
-                in.close();
-            } catch (IOException e) {
-                //
-                e.printStackTrace();
-                return false;
-            }
-        }
-
-
-        Long differenza = Calendar.getInstance().getTimeInMillis() - act.aggiornamentoMeteo.getTimeInMillis();
-        Log.d("ORARI", "vecchiaia dell'aggiornamento in millisec " + differenza.toString());
-*/
         if (act.isOnline()) //VALUTA SEMPRE UN NUOVO METEO
-            //if (act.isOnline() && (differenza > 10000000 || act.aggiorna)) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
-            //if (isOnline() && differenza>10000) //Valuta un nuovo meteo ogni 10000 secondi (quasi tre ore)
-//            if (true) {
                 try {
                     JSONObject jsonObject = null;
                     try {
-                        //jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Procida.json");
-                        //jsonObject = readJsonFromUrl("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json");
-
-                        //VECCHIA STRINGA WUNDERGROUND
-                        // InputStream is = new URL("http://api.wunderground.com/api/7a2bedc35ab44ecb/geolookup/conditions/q/IA/Pozzuoli.json").openStream();
-                        InputStream is = new URL("http://api.openweathermap.org/data/2.5/forecast?id=3169807&APPID=dc8cfde44c4955e792406e26a562945e&units=metric").openStream();
+                          InputStream is = new URL("http://api.openweathermap.org/data/2.5/forecast?id=3169807&APPID=dc8cfde44c4955e792406e26a562945e&units=metric").openStream();
 
                         try {
                             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -204,35 +135,9 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                         e.printStackTrace();
                     }
 
-                    //TODO: se il valore letto da weather underground ? troppo piccolo (oppure ? intero anzich? string) rivolgiti a openweathermap
-                    //esempio di query json verso openweathermap:
-                    //http://api.openweathermap.org/data/2.5/weather?q=Procida,it&lang=it
-
-                    //Pare che il problema sia nei dati di weather underground, che li prende da procidameteo ... per ora setto come riferimento pozzuoli
-
-                    //aggiornamento del file locale con il dato meteo
-
-                    //NON SCRIVO PIU SU IS
                     act.aggiornamentoMeteo = Calendar.getInstance();
 
-/*                    String rigaAggiornamento = act.aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.MONTH) + "," + act.aggiornamentoMeteo.get(Calendar.YEAR) + "," + act.aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + "," + act.aggiornamentoMeteo.get(Calendar.MINUTE);
-                    try {
-                        assert fos != null;
-                        fos.write(rigaAggiornamento.getBytes());
-                        fos.write("\n".getBytes());
-                        fos.write(act.meteo.getWindKmh().toString().getBytes());
-                        fos.write("\n".getBytes());
-                        fos.write(String.valueOf(act.meteo.getWindDirection()).getBytes());
-                        fos.write("\n".getBytes());
-                        fos.write(act.meteo.getWindDirectionString().getBytes());
-                        fos.write("\n".getBytes());
-                        fos.close();
-                    } catch (IOException e) {
-                        //
-                        e.printStackTrace();
-                    }
 
-                    System.out.println("");*/
                 } catch (JSONException e) {
                     //
                     e.printStackTrace();
@@ -241,45 +146,6 @@ public class LeggiMeteoTask extends AsyncTask<Void, Integer, Boolean> {
                     else Log.d("ORARI", "perche' ho dati abbastanza aggiornati");
 
                 }
-
-// COMMENTATO IL VECCHIO CODICE CHE LEGGEVA DATI METEO DA GOOGLE
-//			try {
-//				url = new URL("http://www.google.com/ig/api?weather=Procida");
-//
-//
-//				/* Get a SAXParser from the SAXPArserFactory. */
-//				SAXParserFactory spf = SAXParserFactory.newInstance();
-//				SAXParser sp = spf.newSAXParser();
-//
-//				/* Get the XMLReader of the SAXParser we created. */
-//				XMLReader xr = sp.getXMLReader();
-//				/* Create a new ContentHandler and apply it to the XML-Reader*/
-//				MeteoXMLHandler meteoXMLHandler = new MeteoXMLHandler(this);
-//				xr.setContentHandler(meteoXMLHandler);
-//
-//				/* Parse the xml-data from our URL. */
-//				xr.parse(new InputSource(url.openStream()));
-//				/* Parsing has finished. */
-//
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			} catch (ParserConfigurationException e) {
-//				e.printStackTrace();
-//			} catch (SAXException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-// FINE VECCHIO CODICE
-/*            } else {
-                Log.d("ORARI", "dati meteo sufficientemente aggiornati o non disponibili da web");
-                // Usa come meteo i dati da IS (o fittizi)
-                act.meteo.setWindKmh(windKmhFromIS);
-                act.meteo.setWindDirection((int) (45 * (Math.round(windDirFromIS / 45.0))) % 360);
-                act.meteo.setWindDirectionString(windDirectionStringFromIS);
-                act.meteo.setWindBeaufort(windKmhFromIS);
-            }
-*/
 
         if (taskMeteo != null) {
             Log.d("TEST", "TASK: Il task meteo pronto a terminare");

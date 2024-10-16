@@ -54,7 +54,7 @@ public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
                 rigaMotivo = rS.readLine();
                 rigaDettagli = rS.readLine();
 
-                if (act.isGiornoVisualizzato(rigaData, act.c)) {
+                //if (act.isGiornoVisualizzato(rigaData, act.c)) {
                     //devo trovare il mezzo in list mezzi (con un equals da implementare)
                     //una volta trovato incremento il contatore delle segnalazioni (da aggiungere come attributo)
                     //infine nella visualizzazione dei mezzi devo metterci il valore del contatore e anche nei dettagli
@@ -64,7 +64,7 @@ public class LeggiSegnalazioniTask extends AsyncTask<Void, Integer, Boolean> {
                         }
                     }
 
-                }
+                //}
 
 
             }

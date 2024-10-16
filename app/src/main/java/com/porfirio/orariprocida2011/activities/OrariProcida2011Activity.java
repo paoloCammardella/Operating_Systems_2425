@@ -39,7 +39,6 @@ import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.obsolete.ConfigData;
 import com.porfirio.orariprocida2011.tasks.DownloadMezziTask;
 import com.porfirio.orariprocida2011.tasks.LeggiMeteoTask;
 import com.porfirio.orariprocida2011.tasks.LeggiSegnalazioniTask;
@@ -83,7 +82,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private ArrayAdapter<String> aalvMezzi;
     private TextView txtOrario;
     //public AlertDialog novitaDialog;
-    private ConfigData configData;
     private DettagliMezzoDialog dettagliMezzoDialog;
     private ArrayList<Mezzo> selectMezzi;
     private ArrayList<Compagnia> listCompagnia;
@@ -104,32 +102,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         }
         return sb.toString();
     }
-
-/*    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            return new JSONObject(jsonText);
-        } finally {
-            is.close();
-        }
-    }*/
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//    //language hack here.
-//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))
-//    	{
-//    	String languageToLoad  = "en";
-//    	locale = new Locale(languageToLoad);
-//    	Locale.setDefault(locale);
-//        Configuration config = new Configuration();
-//        config.locale = locale;
-//        getBaseContext().getResources().updateConfiguration(config,
-//        getBaseContext().getResources().getDisplayMetrics());
-//    }
-//    }
 
     //Menu
     @Override
@@ -278,9 +250,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     }
                 });
         meteoDialog = builder.create();
-
-        configData = new ConfigData();
-        configData.setFinestraTemporale();
 
         // get the current time
 
@@ -446,7 +415,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void leggiMeteo(boolean aggiorna) {
         this.aggiorna = aggiorna;
-        //TODO Provare a mettere anche la lettura dei dati meteo in un task
+        //Provare a mettere anche la lettura dei dati meteo in un task
 
         new LeggiMeteoTask(this).execute();
 
@@ -560,28 +529,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return false;
 	}
 
-    public boolean isGiornoVisualizzato(String rigaData, Calendar cal) {
-
-		//Da semplificare, supponendo che ci interessino solo le segnalazioni di oggi
-//		StringTokenizer st = new StringTokenizer( rigaData, "," );
-//		Integer giorno=Integer.valueOf(st.nextToken());
-//		Integer mese=Integer.valueOf(st.nextToken());
-//		Integer anno=Integer.valueOf(st.nextToken());
-//
-//		if ((giorno==cal.get(Calendar.DAY_OF_MONTH) )&&(mese==1+cal.get(Calendar.MONTH))&&(anno==cal.get(Calendar.YEAR)))
-//				return true;
-//		else{
-//			Calendar calDomani=Calendar.getInstance();
-//			calDomani.set(Calendar.DATE, cal.get(Calendar.DATE));
-//			calDomani.add(Calendar.DAY_OF_YEAR, 1);
-//			if ((giorno==calDomani.get(Calendar.DAY_OF_MONTH) )&&(mese==1+calDomani.get(Calendar.MONTH))&&(anno==calDomani.get(Calendar.YEAR)))
-        return true;
-//
-//		}
-//
-//			return false;
-	}
-
 	public boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert cm != null;
@@ -590,6 +537,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void riempiLista() {
+        //TODO Questi dati andrebbero letti da un file o risorsa su FireBase
+
         listCompagnia = new ArrayList<Compagnia>();
 
         Compagnia c = new Compagnia("Caremar");
@@ -665,6 +614,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             aggiornamentoOrariIS.set(2011, 11, 1); //Orari aggiornato all'1/11/2011
             aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
 
+            //TODO Questa lista di dati è per il caso di prima esecuzione senza connessione. Essendo un caso ormai remoto ed essendo questi orari
+            // ormai obsoleti, sarebbe meglio eliminare questo codice e far scaricare sempre da web, con un messaggio di errore se non c'è connessione
 
             listMezzi.add(new Mezzo("Aliscafo Caremar", 8, 10, 8, 25, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
             listMezzi.add(new Mezzo("Traghetto Caremar", 9, 10, 9, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
@@ -802,17 +753,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 .setCategory("App Event")
                 .setAction("Aggiorna Lista")
                 .build());
-/*
-        if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
-            String languageToLoad = "en";
-            locale = new Locale(languageToLoad);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config,
-                    getBaseContext().getResources().getDisplayMetrics());
-        }
-*/
 
         selectMezzi = new ArrayList<Mezzo>();
         Comparator<Mezzo> comparator = new Comparator<Mezzo>() {
@@ -865,7 +805,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         if (portoArrivo.equals("Monte di Procida"))
             portoArrivoEspanso = "Monte di Procida";
         Calendar oraLimite = (Calendar) c.clone();
-        oraLimite.add(Calendar.HOUR_OF_DAY, configData.getFinestraTemporale());
+        oraLimite.add(Calendar.HOUR_OF_DAY, 24);
 
         //qui riempio aalvMezzi in base agli input e ai dati di listMezzi
         for (int i = 0; i < listMezzi.size(); i++) {
@@ -1082,6 +1022,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             return "Any";
         }
 
+        // l'accesso al GPS potrebbe non essere garantito per ragioni legate a Google Play
+        // Bisogna gestire l'eccezione e restituire un valore di default che si potrà settare in altro punto dell'app
         try {
             l = myManager.getLastKnownLocation(BestProvider);
             Log.d("ACTIVITY", "Posizione:" + l.getLongitude() + "," + l.getLatitude());
@@ -1207,17 +1149,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 .setAction("onResume")
                 .build());
         Log.i("ORARI", "Setting screen name: " + "Main Activity");
-//        if (!((Locale.getDefault().getLanguage().contentEquals("en"))||	(Locale.getDefault().getLanguage().contentEquals("it"))))
-//    	{
-//    	String languageToLoad  = "en";
-//    	locale = new Locale(languageToLoad);        	
-//    	Locale.setDefault(locale);
-//        Configuration config = new Configuration();
-//        config.locale = locale;
-//        getBaseContext().getResources().updateConfiguration(config, 
-//        getBaseContext().getResources().getDisplayMetrics());
-//    }
-//    Log.d("ACTIVITY","resume");
     }
 
     protected void onPause(){

@@ -26,7 +26,9 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Porfirio on 16/02/2018.
+ * TODO Migrare da lettura da file a lettura da risorsa Firebase
+ * TODO Mantenere possibilmente la lettura da file locale per la modalità offline
+ * TODO Aggiornare la lettura asincrona aggiornando i metodi deprecati
  */
 
 public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
@@ -60,13 +62,6 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             Log.d("TEST", "TASK: Inizia il task download");
             taskDownloadStart.release();
         }
-/*
-        if (delay > 0 || true) {
-            Log.d("TEST", "Started Delay a " + System.currentTimeMillis() % 100000);
-            for (long i = 0; i < (long) 500000 * 10000; i++) ;
-            Log.d("TEST", "FInished Delay a " + System.currentTimeMillis() % 100000);
-        }
-*/
 
         //act=activities[0];
         act.mTracker.send(new HitBuilders.EventBuilder()

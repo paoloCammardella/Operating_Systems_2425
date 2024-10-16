@@ -54,11 +54,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		//SegnalazioneDialog(Context context, Calendar c) {
-		//	super(context);
-		//callingContext=context;
-		//orarioRef=c;
-        //LockDeviceRotation.lock(true, callingContext);
+
         View view = inflater.inflate(R.layout.segnalazione, container);
 		TextView txtMezzo = view.findViewById(R.id.txtMezzo);
 		TextView txtPartenza = view.findViewById(R.id.txtPartenza);
@@ -90,7 +86,6 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 				//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(true);
 				Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
-				//LockDeviceRotation.lock(false,callingContext);
 				dismiss();
 			}
 	    });
@@ -106,7 +101,6 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	    		//Qui il codice per salvare la segnalazione in coda al file delle segnalazioni
 	    		String resp=scriviSegnalazione(false);
 				Toast.makeText(v.getContext(),R.string.ringraziamentoSegnalazione, Toast.LENGTH_SHORT).show();
-				//LockDeviceRotation.lock(false,callingContext);
 				dismiss();
 			}
 	    });
@@ -137,7 +131,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 	}
 	
 	//Aggiunta anche la possibilita' di confermare (con un extra button)
-//TODO SOstituire con la nuova HTTPUrlConnection
+//SOstituire con la nuova HTTPUrlConnection
     // https://developer.android.com/reference/java/net/HttpURLConnection.html
 
 
@@ -168,23 +162,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 		}
 		new ScriviSegnalazioneTask().execute(URL);
 
-/*
 
-       try
-        {
-			HttpClient Client = new DefaultHttpClient();
-			String SetServerString;
-             HttpGet httpget = new HttpGet(URL);
-             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-             SetServerString = Client.execute(httpget, responseHandler);
-             return SetServerString;
-         }
-       catch(Exception ex)
-          {
-    	   return "Fail";
-           }
-
-           */
 		return "ok";
 }
 

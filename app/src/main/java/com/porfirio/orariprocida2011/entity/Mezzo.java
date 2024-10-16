@@ -120,7 +120,7 @@ public class Mezzo {
 	}
 
 	private void calcolaCosto(String n,String p) {
-		//TODO Mettere costi precisi
+		//TODO Anche questi dati andrebbero messi in un file esterno o su una risorsa web tipo Firebase
 		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")){
 			costoIntero = 7.90;
 			setCircaIntero(true);

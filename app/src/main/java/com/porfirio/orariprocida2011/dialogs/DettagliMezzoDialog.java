@@ -193,13 +193,6 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 		//segnalazioneDialog.fill(lc);
 
 
-//
-//        for (int i=0;i<c.nomeNumeroTelefono.size();i++){
-//        	aalvNumeri.add(c.nomeNumeroTelefono.get(i)+" : "+c.numeroTelefono.get(i));
-////        	Linkify.addLinks( (TextView) lvNumeri.getChildAt(i), Linkify.PHONE_NUMBERS);
-//        }
-
-
 		return view;
 	}
 

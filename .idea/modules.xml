@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OrariProcida2011-2017-2024.iml" filepath="$PROJECT_DIR$/.idea/modules/OrariProcida2011-2017-2024.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OrariProcida2011-2017-2024.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UnoProcidaResidente.iml" filepath="$PROJECT_DIR$/.idea/modules/UnoProcidaResidente.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UnoProcidaResidente.app.unitTest.iml" />
     </modules>
   </component>
 </project>
