@@ -139,4 +139,5 @@ Questa Applicazione raccoglie la geolocalizzazione degli utenti (non continuativ
     <string name="NoBiglietterie">Non ci sono biglietterie in questo porto: biglietti a bordo</string>
     <string name="alleOre">alle ore</string>
     <string name="previsioni">Previsioni :</string>
+    <string name="pippo">Pippo</string>
 </resources>

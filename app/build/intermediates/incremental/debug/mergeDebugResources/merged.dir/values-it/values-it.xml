@@ -121,6 +121,7 @@ Questa Applicazione raccoglie la geolocalizzazione degli utenti (non continuativ
     <string name="ore">ore </string>
     <string name="ovest">Ovest</string>
     <string name="parteAlle">Parte alle </string>
+    <string name="pippo">Pippo</string>
     <string name="plus">></string>
     <string name="plusplus">>></string>
     <string name="pocoProbabile">Poco probabile rischio Maltempo!!!</string>

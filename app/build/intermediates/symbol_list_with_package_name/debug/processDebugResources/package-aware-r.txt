@@ -330,6 +330,7 @@ string orariAggiornatiAl
 string ore
 string ovest
 string parteAlle
+string pippo
 string plus
 string plusplus
 string pocoProbabile

@@ -4,7 +4,7 @@
             "outputFile": "com.porfirio.orariprocida2011.app-mergeDebugResources-8:/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\prude\\.gradle\\caches\\8.9\\transforms\\2dea88134744b5979dc5b08f08f16905\\transformed\\core-1.9.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\utente\\.gradle\\caches\\8.9\\transforms\\f9305d1cc1f92b5ddf0deb043587cdf4\\transformed\\core-1.9.0\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -11,150 +11,150 @@
 11    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
 12    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
 13    <uses-permission android:name="android.permission.INTERNET" />
-13-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:9:5-67
-13-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:9:22-64
+13-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:9:5-67
+13-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:9:22-64
 14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-14-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:10:5-78
-14-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:10:22-76
+14-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:10:5-78
+14-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:10:22-76
 15
 16    <supports-screens
-16-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:12:5-17:39
+16-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:12:5-17:39
 17        android:anyDensity="true"
-17-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:13:9-34
+17-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:13:9-34
 18        android:largeScreens="true"
-18-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:14:9-36
+18-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:14:9-36
 19        android:normalScreens="true"
-19-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:15:9-37
+19-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:15:9-37
 20        android:resizeable="true"
-20-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:16:9-34
+20-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:16:9-34
 21        android:smallScreens="true" />
-21-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:17:9-36
+21-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:17:9-36
 22
 23    <uses-permission android:name="android.permission.WAKE_LOCK" />
-23-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:11:5-68
-23-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:11:22-65
+23-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:11:5-68
+23-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:11:22-65
 24    <uses-permission android:name="com.porfirio.orariprocida2011.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-24-->[com.google.android.gms:play-services-analytics-impl:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\37837ebbba21b77efb203b06f01291d2\transformed\play-services-analytics-impl-18.1.0\AndroidManifest.xml:12:5-97
-24-->[com.google.android.gms:play-services-analytics-impl:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\37837ebbba21b77efb203b06f01291d2\transformed\play-services-analytics-impl-18.1.0\AndroidManifest.xml:12:22-94
+24-->[com.google.android.gms:play-services-analytics-impl:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\53f7e96734e1a136d15aaddf8da85cdd\transformed\play-services-analytics-impl-18.1.0\AndroidManifest.xml:12:5-97
+24-->[com.google.android.gms:play-services-analytics-impl:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\53f7e96734e1a136d15aaddf8da85cdd\transformed\play-services-analytics-impl-18.1.0\AndroidManifest.xml:12:22-94
 25    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-25-->[com.google.android.gms:play-services-ads-identifier:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\c0edb0e1bf852202dc1f0f511a0193dd\transformed\play-services-ads-identifier-18.1.0\AndroidManifest.xml:7:5-79
-25-->[com.google.android.gms:play-services-ads-identifier:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\c0edb0e1bf852202dc1f0f511a0193dd\transformed\play-services-ads-identifier-18.1.0\AndroidManifest.xml:7:22-76
+25-->[com.google.android.gms:play-services-ads-identifier:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\a95f8032e8690ab4e8219cd042894de8\transformed\play-services-ads-identifier-18.1.0\AndroidManifest.xml:7:5-79
+25-->[com.google.android.gms:play-services-ads-identifier:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\a95f8032e8690ab4e8219cd042894de8\transformed\play-services-ads-identifier-18.1.0\AndroidManifest.xml:7:22-76
 26
 27    <permission
-27-->[androidx.core:core:1.9.0] C:\Users\prude\.gradle\caches\8.9\transforms\2dea88134744b5979dc5b08f08f16905\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+27-->[androidx.core:core:1.9.0] C:\Users\utente\.gradle\caches\8.9\transforms\f9305d1cc1f92b5ddf0deb043587cdf4\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 28        android:name="com.porfirio.orariprocida2011.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-28-->[androidx.core:core:1.9.0] C:\Users\prude\.gradle\caches\8.9\transforms\2dea88134744b5979dc5b08f08f16905\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+28-->[androidx.core:core:1.9.0] C:\Users\utente\.gradle\caches\8.9\transforms\f9305d1cc1f92b5ddf0deb043587cdf4\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 29        android:protectionLevel="signature" />
-29-->[androidx.core:core:1.9.0] C:\Users\prude\.gradle\caches\8.9\transforms\2dea88134744b5979dc5b08f08f16905\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+29-->[androidx.core:core:1.9.0] C:\Users\utente\.gradle\caches\8.9\transforms\f9305d1cc1f92b5ddf0deb043587cdf4\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 30
 31    <application
-31-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:19:5-52:19
+31-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:19:5-52:19
 32        android:name="com.porfirio.orariprocida2011.AnalyticsApplication"
-32-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:20:9-44
+32-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:20:9-44
 33        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-33-->[androidx.core:core:1.9.0] C:\Users\prude\.gradle\caches\8.9\transforms\2dea88134744b5979dc5b08f08f16905\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+33-->[androidx.core:core:1.9.0] C:\Users\utente\.gradle\caches\8.9\transforms\f9305d1cc1f92b5ddf0deb043587cdf4\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 34        android:configChanges="locale"
-34-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:21:9-39
+34-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:21:9-39
 35        android:debuggable="true"
 36        android:extractNativeLibs="false"
 37        android:icon="@drawable/ic_launcher_traghetti"
-37-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:22:9-55
+37-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:22:9-55
 38        android:label="@string/app_name"
-38-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:23:9-41
+38-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:23:9-41
 39        android:networkSecurityConfig="@xml/network_security_config"
-39-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:27:9-69
+39-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:27:9-69
 40        android:supportsRtl="false"
-40-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:24:9-36
+40-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:24:9-36
 41        android:testOnly="true"
 42        android:theme="@android:style/Theme.Holo"
-42-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:25:9-50
+42-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:25:9-50
 43        android:usesCleartextTraffic="true" >
-43-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:26:9-44
+43-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:26:9-44
 44        <activity
-44-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:28:9-49:20
+44-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:28:9-49:20
 45            android:name="com.porfirio.orariprocida2011.activities.OrariProcida2011Activity"
-45-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:29:13-64
+45-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:29:13-64
 46            android:exported="true"
-46-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:31:13-36
+46-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:31:13-36
 47            android:label="@string/app_name" >
-47-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:30:13-45
+47-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:30:13-45
 48            <intent-filter>
-48-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:32:13-35:29
+48-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:32:13-35:29
 49                <action android:name="android.intent.action.MAIN" />
-49-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:33:17-69
-49-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:33:25-66
+49-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:33:17-69
+49-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:33:25-66
 50
 51                <category android:name="android.intent.category.LAUNCHER" />
-51-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:34:17-77
-51-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:34:27-74
+51-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:34:17-77
+51-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:34:27-74
 52            </intent-filter>
 53            <intent-filter>
-53-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:36:13-46:29
+53-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:36:13-46:29
 54                <action android:name="android.intent.action.VIEW" />
-54-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:37:17-69
-54-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:37:25-66
+54-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:37:17-69
+54-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:37:25-66
 55
 56                <category android:name="android.intent.category.DEFAULT" />
-56-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:39:17-76
-56-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:39:27-73
+56-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:39:17-76
+56-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:39:27-73
 57                <category android:name="android.intent.category.BROWSABLE" />
-57-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:40:17-78
-57-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:40:27-75
-58                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+57-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:40:17-78
+57-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:40:27-75
+58                <!-- Accepts URIs that begin with "http://www.unoprocidaresidente.com” -->
 59                <data
-59-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:42:17-44:45
+59-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:42:17-44:45
 60                    android:host="www.unoprocidaresidente.com"
-60-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:43:21-63
+60-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:43:21-63
 61                    android:scheme="http" />
-61-->C:\Users\prude\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:44:21-42
+61-->C:\Users\utente\AndroidStudioProjects\UnoProcidaResidente\app\src\main\AndroidManifest.xml:44:21-42
 62                <!-- note that the leading "/" is required for pathPrefix -->
 63            </intent-filter>
 64        </activity>
 65
 66        <receiver
-66-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:9-15:20
+66-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:9-15:20
 67            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-67-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:19-84
+67-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:19-84
 68            android:enabled="true"
-68-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:85-107
+68-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:85-107
 69            android:exported="false" >
-69-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:108-132
+69-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:14:108-132
 70        </receiver>
 71
 72        <service
-72-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:9-133
+72-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:9-133
 73            android:name="com.google.android.gms.analytics.AnalyticsService"
-73-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:18-82
+73-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:18-82
 74            android:enabled="true"
-74-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:83-105
+74-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:83-105
 75            android:exported="false" />
-75-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:106-130
+75-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:17:106-130
 76        <service
-76-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:9-193
+76-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:9-193
 77            android:name="com.google.android.gms.analytics.AnalyticsJobService"
-77-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:18-85
+77-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:18-85
 78            android:enabled="true"
-78-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:86-108
+78-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:86-108
 79            android:exported="false"
-79-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:109-133
+79-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:109-133
 80            android:permission="android.permission.BIND_JOB_SERVICE" />
-80-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\prude\.gradle\caches\8.9\transforms\bcc658fbce1cae70f66c7e4617e08018\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:134-190
+80-->[com.google.android.gms:play-services-analytics:18.1.0] C:\Users\utente\.gradle\caches\8.9\transforms\c04b3d0e2be9d80da7cbb5ac70c1d110\transformed\play-services-analytics-18.1.0\AndroidManifest.xml:18:134-190
 81
 82        <activity
-82-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\prude\.gradle\caches\8.9\transforms\3d53295a5c5204211cabf1cedd9a4d0c\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+82-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\utente\.gradle\caches\8.9\transforms\7569f01b8313d8eeb8eb61b472058b8a\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
 83            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-83-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\prude\.gradle\caches\8.9\transforms\3d53295a5c5204211cabf1cedd9a4d0c\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+83-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\utente\.gradle\caches\8.9\transforms\7569f01b8313d8eeb8eb61b472058b8a\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
 84            android:exported="false"
-84-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\prude\.gradle\caches\8.9\transforms\3d53295a5c5204211cabf1cedd9a4d0c\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+84-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\utente\.gradle\caches\8.9\transforms\7569f01b8313d8eeb8eb61b472058b8a\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
 85            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-85-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\prude\.gradle\caches\8.9\transforms\3d53295a5c5204211cabf1cedd9a4d0c\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+85-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\utente\.gradle\caches\8.9\transforms\7569f01b8313d8eeb8eb61b472058b8a\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
 86
 87        <meta-data
-87-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\prude\.gradle\caches\8.9\transforms\fc110504769feb2adf0f228cfd08f107\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+87-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\utente\.gradle\caches\8.9\transforms\d03276cb85f0e9bddeacf47d30126bb2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
 88            android:name="com.google.android.gms.version"
-88-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\prude\.gradle\caches\8.9\transforms\fc110504769feb2adf0f228cfd08f107\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+88-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\utente\.gradle\caches\8.9\transforms\d03276cb85f0e9bddeacf47d30126bb2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
 89            android:value="@integer/google_play_services_version" />
-89-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\prude\.gradle\caches\8.9\transforms\fc110504769feb2adf0f228cfd08f107\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+89-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\utente\.gradle\caches\8.9\transforms\d03276cb85f0e9bddeacf47d30126bb2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
 90    </application>
 91
 92</manifest>

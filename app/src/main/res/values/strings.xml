@@ -138,6 +138,7 @@
     <string name="disclaimer">Timetables are originally published by navigation companies. The author is not responsible for timetable variations.  This application collects some personal data of its users, such as their geographical position (not contnuously), saves some data on the internal storage (timetables and meteo infos), send some data to Google Analytics for statistical purposes. The complete GPDR is accessible at: http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm  This application collects some personal data of its users, such as their geographical position (not contnuously), saves some data on the internal storage (timetables and meteo infos), send some data to Google Analytics for statistical purposes. The complete GPDR is accessible at: http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm</string>
     <string name="alleOre">alle ore</string>
     <string name="previsioni">Previsioni :</string>
+    <string name="pippo">Goofy</string>
 
 </resources>
 
