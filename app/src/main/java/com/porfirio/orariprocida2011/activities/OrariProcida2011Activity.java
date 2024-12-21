@@ -34,13 +34,14 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.porfirio.orariprocida2011.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
+import com.porfirio.orariprocida2011.WeatherDAO;
 import com.porfirio.orariprocida2011.dialogs.DettagliMezzoDialog;
 import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.entity.Osservazione;
 import com.porfirio.orariprocida2011.tasks.DownloadMezziTask;
-import com.porfirio.orariprocida2011.tasks.LeggiMeteoTask;
 import com.porfirio.orariprocida2011.tasks.LeggiSegnalazioniTask;
 
 import java.io.BufferedReader;
@@ -50,10 +51,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
@@ -69,7 +72,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     // Introdotto il concetto di ultima lettura degli orari da Web
     public Calendar ultimaLetturaOrariDaWeb;
     public Calendar aggiornamentoMeteo;
-	public AlertDialog aboutDialog;
+    public AlertDialog aboutDialog;
     public Meteo meteo;
     public AlertDialog meteoDialog;
     public ArrayList<Mezzo> listMezzi;
@@ -152,8 +155,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setAction("Update Meteo da Menu")
                         .build());
                 leggiMeteo(true);
+
                 if (!meteo.getOsservazione().isEmpty())
                     meteoDialog.show();
+
                 this.aggiornaLista();
 
                 return true;
@@ -417,13 +422,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
         this.aggiorna = aggiorna;
         //Provare a mettere anche la lettura dei dati meteo in un task
 
-        new LeggiMeteoTask(this).execute();
-
+//        new LeggiMeteoTask(this).execute();
 
 
     }
 
-	private void setTxtOrario(Calendar c) {
+    private void setTxtOrario(Calendar c) {
         String s = getString(R.string.dalle) + " ";
         if (c.get(Calendar.HOUR_OF_DAY) < 10)
             s += "0";
@@ -495,7 +499,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         //Non piu' necessario, grazie agli asynctask
 
 
-
     }
 
     public boolean stessoMezzo(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
@@ -527,9 +530,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                     }
                                 }
         return false;
-	}
+    }
 
-	public boolean isOnline() {
+    public boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert cm != null;
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -737,15 +740,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
             Log.d("ORARI", "Non c'? connessione o non c'? bisogno di aggiornamento: non carico orari da Web");
         if (isOnline())
             leggiSegnalazioniDaWeb();
-	}
+    }
 
-	private void leggiSegnalazioniDaWeb() {
+    private void leggiSegnalazioniDaWeb() {
         //Leggo il file delle segnalazioni
 
         new LeggiSegnalazioniTask(this).execute();
 
 
-	}
+    }
 
     public void aggiornaLista() {
         //NOn ? chiaro perch? il controllo del locale debba essere fatto proprio qui!!!
@@ -836,7 +839,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
 
         }
-        Collections.sort(selectMezzi, comparator);
+
+        selectMezzi.sort(comparator);
+
         for (int i = 0; i < selectMezzi.size(); i++) {
             selectMezzi.get(i).setOrderInList(i);
             String s = selectMezzi.get(i).nave + " - " + selectMezzi.get(i).portoPartenza + " - " + selectMezzi.get(i).portoArrivo + " - ";
@@ -849,8 +854,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
             s += selectMezzi.get(i).oraPartenza.get(Calendar.MINUTE) + " ";
 //    		s+=selectMezzi.get(i).getGiornoSeguente()+" ";
             // Qui aggiungo l'indicazione meteo eventuale
-            if (!meteo.getOsservazione().isEmpty())
-                s += meteo.condimeteoString(selectMezzi.get(i));
+
+            if (!meteo.getOsservazione().isEmpty()) {
+                s += getWeatherConditionsString(selectMezzi.get(i));
+            }
+
             //Qui aggiungo le segnalazioni
 
             String spc = "";
@@ -983,10 +991,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
             if (mese == 0) mese = 12;
             msgToast += getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n";
         }
-        if (aggiornamentoMeteo != null) {
-            meteo.getOsservazione().get(0).setWindBeaufort(meteo.getOsservazione().get(0).getWindKmh());
-            msgToast += (getString(R.string.updated) + " " + meteo.getOsservazione().get(0).getTempo().get(Calendar.DAY_OF_MONTH) + "/" + (1 + meteo.getOsservazione().get(0).getTempo().get(Calendar.MONTH)) + "/" + meteo.getOsservazione().get(0).getTempo().get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + meteo.getOsservazione().get(0).getTempo().get(Calendar.HOUR_OF_DAY) + ":" + meteo.getOsservazione().get(0).getTempo().get(Calendar.MINUTE) + " " + getString(R.string.condimeteo) + meteo.getOsservazione().get(0).getWindBeaufortString(act) + " (" + meteo.getOsservazione().get(0).getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getOsservazione().get(0).getWindDirectionString() + "\n");
+
+        if (aggiornamentoMeteo != null && !meteo.getOsservazione().isEmpty()) {
+            Osservazione report = meteo.getOsservazione().get(0);
+            LocalDateTime time = report.getTime();
+
+            msgToast += (getString(R.string.updated) + " " + time.getDayOfMonth() + "/" + time.getMonthValue() + "/" + time.getYear() + " " + getString(R.string.ore) + " " + time.getHour() + ":" + time.getMinute() + " " + getString(R.string.condimeteo) + getWindBeaufortString((int) report.getWindBeaufort()) + " (" + report.getWindSpeed().intValue() + " km/h) " + getString(R.string.da) + " " + getWindDirectionString(report.getWindDirection()) + "\n");
         }
+
         if (!aggiorna)
             Toast.makeText(getApplicationContext(), msgToast, Toast.LENGTH_LONG).show();
     }
@@ -999,9 +1011,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 spnPortoArrivo.setSelection(i);
             }
         }
-	}
+    }
 
-	private void setSpnPortoPartenza(Spinner spnPortoPartenza,
+    private void setSpnPortoPartenza(Spinner spnPortoPartenza,
                                      ArrayAdapter<CharSequence> adapter2) {
         //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoPartenza.getCount(); i++) {
@@ -1056,11 +1068,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .setAction("From Casamicciola")
                         .build());
                 return "Casamicciola";
-        } 
-      //Inserire coordinate Napoli (media porti) e Pozzuoli
-      double distNapoli=calcolaDistanza(l,14.2575,40.84); Log.d("OrariProcida","d(Napoli)="+distNapoli);
-      double distPozzuoli=calcolaDistanza(l,14.1179,40.8239); Log.d("OrariProcida","d(Pozzuoli)="+distPozzuoli);
-      double distMonteProcida=calcolaDistanza(l,14.05,40.8);
+            }
+        //Inserire coordinate Napoli (media porti) e Pozzuoli
+        double distNapoli = calcolaDistanza(l, 14.2575, 40.84);
+        Log.d("OrariProcida", "d(Napoli)=" + distNapoli);
+        double distPozzuoli = calcolaDistanza(l, 14.1179, 40.8239);
+        Log.d("OrariProcida", "d(Pozzuoli)=" + distPozzuoli);
+        double distMonteProcida = calcolaDistanza(l, 14.05, 40.8);
         if (distMonteProcida < 1500) {
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("User")
@@ -1068,114 +1082,194 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     .build());
             return "Monte di Procida";
         }
-      if (distPozzuoli<distNapoli){
-          if (distPozzuoli < 15000) {
-              mTracker.send(new HitBuilders.EventBuilder()
-                      .setCategory("User")
-                      .setAction("From Pozzuoli")
-                      .build());
-              return "Pozzuoli";
-          } else {
-              mTracker.send(new HitBuilders.EventBuilder()
-                      .setCategory("User")
-                      .setAction("From Napoli o Pozzuoli")
-                      .build());
-              return "Napoli o Pozzuoli";
-          }
-      }
-      else { 
-    	  if (distNapoli<15000){
-              if (distNapoli > 1000) {
-                  mTracker.send(new HitBuilders.EventBuilder()
-                          .setCategory("User")
-                          .setAction("From Napoli")
-                          .build());
-                  return "Napoli";
-              }
-    		  else{
-                  if (calcolaDistanza(l, 14.2548, 40.8376) < calcolaDistanza(l, 14.2602, 40.8424)) {
-                      mTracker.send(new HitBuilders.EventBuilder()
-                              .setCategory("User")
-                              .setAction("From Napoli Beverello")
-                              .build());
-                      return "Napoli Beverello";
-                  } else {
-                      mTracker.send(new HitBuilders.EventBuilder()
-                              .setCategory("User")
-                              .setAction("From Napoli Porta di Massa")
-                              .build());
-                      return "Napoli Porta di Massa";
-                  }
-              }
-          } else {
-              mTracker.send(new HitBuilders.EventBuilder()
-                      .setCategory("User")
-                      .setAction("From Napoli o Pozzuoli")
-                      .build());
-              return "Napoli o Pozzuoli";
-          }
-      }
-	}
+        if (distPozzuoli < distNapoli) {
+            if (distPozzuoli < 15000) {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("User")
+                        .setAction("From Pozzuoli")
+                        .build());
+                return "Pozzuoli";
+            } else {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("User")
+                        .setAction("From Napoli o Pozzuoli")
+                        .build());
+                return "Napoli o Pozzuoli";
+            }
+        } else {
+            if (distNapoli < 15000) {
+                if (distNapoli > 1000) {
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("User")
+                            .setAction("From Napoli")
+                            .build());
+                    return "Napoli";
+                } else {
+                    if (calcolaDistanza(l, 14.2548, 40.8376) < calcolaDistanza(l, 14.2602, 40.8424)) {
+                        mTracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("User")
+                                .setAction("From Napoli Beverello")
+                                .build());
+                        return "Napoli Beverello";
+                    } else {
+                        mTracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("User")
+                                .setAction("From Napoli Porta di Massa")
+                                .build());
+                        return "Napoli Porta di Massa";
+                    }
+                }
+            } else {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("User")
+                        .setAction("From Napoli o Pozzuoli")
+                        .build());
+                return "Napoli o Pozzuoli";
+            }
+        }
+    }
 
     private double calcolaDistanza(Location location, double lon, double lat) {
         //calcola distanza da obiettivo
-		double deltaLong=Math.abs(lon-location.getLongitude());
-		double deltaLat=Math.abs(lat-location.getLatitude());
-		double delta=(Math.sqrt(deltaLong*deltaLong+deltaLat*deltaLat));
-		delta=delta*60*1852;		
-		return Math.ceil(delta);
-	}
-	protected void onStart(){
-		super.onStart();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onStart")
-                .build());
-	}
-    
-    protected void onRestart(){
-    	super.onRestart();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onRestart")
-                .build());
-        Log.d("ACTIVITY", "restart");
+        double deltaLong = Math.abs(lon - location.getLongitude());
+        double deltaLat = Math.abs(lat - location.getLatitude());
+        double delta = (Math.sqrt(deltaLong * deltaLong + deltaLat * deltaLat));
+        delta = delta * 60 * 1852;
+        return Math.ceil(delta);
     }
 
-    protected void onResume(){
-    	super.onResume();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onResume")
-                .build());
-        Log.i("ORARI", "Setting screen name: " + "Main Activity");
+    /*** WEATHER ***/
+
+    private final WeatherDAO weatherDAO = new WeatherDAO(this, this);
+
+    protected void onStart() {
+        super.onStart();
+        weatherDAO.setOnDataReceived(this::onWeatherUpdate);
+        weatherDAO.setOnError(null);
+        weatherDAO.start();
     }
 
-    protected void onPause(){
-    	super.onPause();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onPause")
-                .build());
-        Log.d("ACTIVITY","pause");
+    protected void onStop() {
+        super.onStop();
+        weatherDAO.stop();
     }
 
-    protected void onStop(){
-    	super.onStop();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onStop")
-                .build());
+    private void onWeatherUpdate(List<Osservazione> forecasts) {
+        aggiornamentoMeteo = Calendar.getInstance();
+        meteo.setOsservazione(forecasts);
+
+        if (!forecasts.isEmpty()) {
+            StringBuilder s = new StringBuilder();
+
+            Osservazione firstForecast = forecasts.get(0);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault());
+
+            s.append(getString(R.string.condimeteo))
+                    .append("\n")
+                    .append(getWindBeaufortString(firstForecast))
+                    .append(" (").append(firstForecast.getWindSpeed().intValue()).append(" km/h) ")
+                    .append(getString(R.string.da)).append(" ").append(getWindDirectionString(firstForecast)).append("\n")
+                    .append(getString(R.string.updated)).append(" ")
+                    .append(dateFormatter.format(firstForecast.getTime()))
+                    .append("\n");
+
+            s.append(getString(R.string.previsioni)).append("\n");
+
+            for (int i = 1; i < 8; i++) {
+                Osservazione weatherReport = forecasts.get(i);
+
+                s.append(weatherReport.getWindSpeed().intValue()).append(" km/h ")
+                        .append(getString(R.string.da)).append(" ")
+                        .append(getWindDirectionString(weatherReport.getWindDirection()))
+                        .append(" ").append(getString(R.string.alleOre))
+                        .append(" ").append(weatherReport.getTime().getHour())
+                        .append("\n");
+            }
+
+            meteoDialog.setMessage(s.toString());
+        }
+
+        aggiornaLista();
+        setMsgToast();
     }
 
+    private String getWindBeaufortString(Osservazione forecast) {
+        return getWindBeaufortString((int) forecast.getWindBeaufort());
+    }
 
-    protected void onDestroy(){
-    	super.onDestroy();
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onDestroy")
-                .build());
-        Log.d("ACTIVITY","destroy");
+    private String getWindBeaufortString(int force) {
+        switch (force) {
+            case 0:
+                return getString(R.string.calma);
+            case 1:
+                return getString(R.string.bavaDiVento);
+            case 2:
+                return getString(R.string.brezzaLeggera);
+            case 3:
+                return getString(R.string.brezzaTesa);
+            case 4:
+                return getString(R.string.ventoModerato);
+            case 5:
+                return getString(R.string.ventoTeso);
+            case 6:
+                return getString(R.string.ventoFresco);
+            case 7:
+                return getString(R.string.ventoForte);
+            case 8:
+                return getString(R.string.burrasca);
+            case 9:
+                return getString(R.string.burrascaForte);
+            case 10:
+                return getString(R.string.tempesta);
+            case 11:
+                return getString(R.string.fortunale);
+            case 12:
+                return getString(R.string.uragano);
+        }
+
+        return getString(R.string.errore);
+    }
+
+    private String getWindDirectionString(Osservazione forecast) {
+        return getWindDirectionString(forecast.getWindDirection());
+    }
+
+    private String getWindDirectionString(Osservazione.Direction direction) {
+        switch (direction) {
+            case N:
+                return getString(R.string.nord);
+            case NW:
+                return getString(R.string.nordOvest);
+            case NE:
+                return getString(R.string.nordEst);
+            case E:
+                return getString(R.string.est);
+            case SE:
+                return getString(R.string.sudEst);
+            case S:
+                return getString(R.string.sud);
+            case SW:
+                return getString(R.string.sudOvest);
+            case W:
+                return getString(R.string.ovest);
+            default:
+                return null; // NOTE: it can't happen, here just to make the compiler happy
+        }
+    }
+
+    private String getWeatherConditionsString(Mezzo route) {
+        double extraWind = meteo.getForecast(route);
+
+        if (extraWind <= 0)
+            return "";
+        else if (extraWind <= 1)
+            return " - " + getString(R.string.pocoProbabile);
+        else if (extraWind <= 2)
+            return " - " + getString(R.string.aRischio);
+        else if (extraWind <= 3)
+            return " - " + getString(R.string.corsaQuasi);
+        else
+            return " - " + getString(R.string.corsaImpossibile);
     }
 
 
