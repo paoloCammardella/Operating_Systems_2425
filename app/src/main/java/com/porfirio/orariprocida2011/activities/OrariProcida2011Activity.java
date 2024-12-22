@@ -34,7 +34,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.porfirio.orariprocida2011.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.WeatherDAO;
+import com.porfirio.orariprocida2011.OnRequestWeatherDAO;
+import com.porfirio.orariprocida2011.WeatherUpdate;
 import com.porfirio.orariprocida2011.dialogs.DettagliMezzoDialog;
 import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
 import com.porfirio.orariprocida2011.entity.Compagnia;
@@ -48,9 +49,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -96,15 +95,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public Tracker mTracker;
     private OrariProcida2011Activity act;
     public String msgToast;
-
-    public static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
 
     //Menu
     @Override
@@ -156,7 +146,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                         .build());
                 leggiMeteo(true);
 
-                if (!meteo.getOsservazione().isEmpty())
+                if (!meteo.getForecasts().isEmpty())
                     meteoDialog.show();
 
                 this.aggiornaLista();
@@ -240,6 +230,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         meteo = new Meteo(this);
         leggiMeteo(false);
+
         //TODO: Forzare aggiornamento
 
         //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
@@ -263,18 +254,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
         setTxtOrario(c);
 
         Button buttonMinusMinus = findViewById(R.id.btnConfermaOSmentisci);
-        buttonMinusMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Button --")
-                        .build());
-                c.add(Calendar.HOUR, -1);
-                setTxtOrario(c);
-                aggiornaLista();
-            }
+        buttonMinusMinus.setOnClickListener(v -> {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("UI Event")
+                    .setAction("Button --")
+                    .build());
+            c.add(Calendar.HOUR, -1);
+            setTxtOrario(c);
+            aggiornaLista();
         });
 
         Button buttonMinus = findViewById(R.id.button2);
@@ -420,11 +407,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void leggiMeteo(boolean aggiorna) {
         this.aggiorna = aggiorna;
-        //Provare a mettere anche la lettura dei dati meteo in un task
-
-//        new LeggiMeteoTask(this).execute();
-
-
+        weatherDAO.requestUpdate();
     }
 
     private void setTxtOrario(Calendar c) {
@@ -507,16 +490,16 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         StringTokenizer st = new StringTokenizer(rigaMezzo, ",");
         if (st.nextToken().equals(m.nave))
-            if (Integer.valueOf(st.nextToken()) == m.oraPartenza.get(Calendar.HOUR_OF_DAY))
-                if (Integer.valueOf(st.nextToken()) == m.oraPartenza.get(Calendar.MINUTE))
-                    if (Integer.valueOf(st.nextToken()) == m.oraArrivo.get(Calendar.HOUR_OF_DAY))
-                        if (Integer.valueOf(st.nextToken()) == m.oraArrivo.get(Calendar.MINUTE))
+            if (Integer.parseInt(st.nextToken()) == m.oraPartenza.get(Calendar.HOUR_OF_DAY))
+                if (Integer.parseInt(st.nextToken()) == m.oraPartenza.get(Calendar.MINUTE))
+                    if (Integer.parseInt(st.nextToken()) == m.oraArrivo.get(Calendar.HOUR_OF_DAY))
+                        if (Integer.parseInt(st.nextToken()) == m.oraArrivo.get(Calendar.MINUTE))
                             if (st.nextToken().equals(m.portoPartenza))
                                 if (st.nextToken().equals(m.portoArrivo)) {
                                     StringTokenizer st2 = new StringTokenizer(rigaData, ",");
-                                    Integer giorno = Integer.valueOf(st2.nextToken());
-                                    Integer mese = Integer.valueOf(st2.nextToken());
-                                    Integer anno = Integer.valueOf(st2.nextToken());
+                                    int giorno = Integer.parseInt(st2.nextToken());
+                                    int mese = Integer.parseInt(st2.nextToken());
+                                    int anno = Integer.parseInt(st2.nextToken());
                                     Calendar calMezzo = (Calendar) cal.clone();
                                     calMezzo.set(Calendar.DAY_OF_MONTH, giorno);
                                     calMezzo.set(Calendar.MONTH, mese - 1);
@@ -843,49 +826,49 @@ public class OrariProcida2011Activity extends FragmentActivity {
         selectMezzi.sort(comparator);
 
         for (int i = 0; i < selectMezzi.size(); i++) {
-            selectMezzi.get(i).setOrderInList(i);
-            String s = selectMezzi.get(i).nave + " - " + selectMezzi.get(i).portoPartenza + " - " + selectMezzi.get(i).portoArrivo + " - ";
-//    		s += selectMezzi.get(i).getOrderInList()+" - ";
-            if (selectMezzi.get(i).oraPartenza.get(Calendar.HOUR_OF_DAY) < 10)
-                s += "0";
-            s += selectMezzi.get(i).oraPartenza.get(Calendar.HOUR_OF_DAY) + ":";
-            if (selectMezzi.get(i).oraPartenza.get(Calendar.MINUTE) < 10)
-                s += "0";
-            s += selectMezzi.get(i).oraPartenza.get(Calendar.MINUTE) + " ";
-//    		s+=selectMezzi.get(i).getGiornoSeguente()+" ";
-            // Qui aggiungo l'indicazione meteo eventuale
+            Mezzo route = selectMezzi.get(i);
 
-            if (!meteo.getOsservazione().isEmpty()) {
-                s += getWeatherConditionsString(selectMezzi.get(i));
-            }
+            route.setOrderInList(i);
+            String s = route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ";
+            if (route.oraPartenza.get(Calendar.HOUR_OF_DAY) < 10)
+                s += "0";
+
+            s += route.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":";
+
+            if (route.oraPartenza.get(Calendar.MINUTE) < 10)
+                s += "0";
+
+            s += route.oraPartenza.get(Calendar.MINUTE) + " ";
+
+            s += getWeatherConditionsString(route);
 
             //Qui aggiungo le segnalazioni
 
             String spc = "";
-            if (selectMezzi.get(i).segnalazionePiuComune() > -1)
-                spc = ragioni[selectMezzi.get(i).segnalazionePiuComune()];
-            if (selectMezzi.get(i).tot > 0 || selectMezzi.get(i).conferme > 0) {
+            if (route.segnalazionePiuComune() > -1)
+                spc = ragioni[route.segnalazionePiuComune()];
+            if (route.tot > 0 || route.conferme > 0) {
                 //Trasformato con resources
-                if (selectMezzi.get(i).tot > 0) { //c'? qualcosa
-                    if (selectMezzi.get(i).conc) {
-                        s += " -  " + selectMezzi.get(i).tot;
-                        if (selectMezzi.get(i).tot == 1)
+                if (route.tot > 0) { //c'? qualcosa
+                    if (route.conc) {
+                        s += " -  " + route.tot;
+                        if (route.tot == 1)
                             s += " " + getString(R.string.segnalazione);
                         else
                             s += " " + getString(R.string.segnalazioni);
                         s += " " + getString(R.string.diProblemi) + " (" + spc + ")";
                     } else {
-                        s += " - " + getString(R.string.possibiliProblemi) + " (" + selectMezzi.get(i).tot;
-                        if (selectMezzi.get(i).tot == 1)
+                        s += " - " + getString(R.string.possibiliProblemi) + " (" + route.tot;
+                        if (route.tot == 1)
                             s += " " + getString(R.string.segnalazione) + ")";
                         else
                             s += " " + getString(R.string.segnalazioni) + ")";
                         s += ", " + getString(R.string.inParticolare) + " " + spc;
                     }
                 }
-                if (selectMezzi.get(i).conferme > 0) {
-                    s += " - " + selectMezzi.get(i).conferme;
-                    if (selectMezzi.get(i).conferme == 1)
+                if (route.conferme > 0) {
+                    s += " - " + route.conferme;
+                    if (route.conferme == 1)
                         s += " " + getString(R.string.utenteDice);
                     else
                         s += " " + getString(R.string.utentiDicono);
@@ -992,15 +975,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
             msgToast += getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR) + "\n";
         }
 
-        if (aggiornamentoMeteo != null && !meteo.getOsservazione().isEmpty()) {
-            Osservazione report = meteo.getOsservazione().get(0);
+        if (aggiornamentoMeteo != null && !meteo.getForecasts().isEmpty()) {
+            Osservazione report = meteo.getForecasts().get(0);
             LocalDateTime time = report.getTime();
 
             msgToast += (getString(R.string.updated) + " " + time.getDayOfMonth() + "/" + time.getMonthValue() + "/" + time.getYear() + " " + getString(R.string.ore) + " " + time.getHour() + ":" + time.getMinute() + " " + getString(R.string.condimeteo) + getWindBeaufortString((int) report.getWindBeaufort()) + " (" + report.getWindSpeed().intValue() + " km/h) " + getString(R.string.da) + " " + getWindDirectionString(report.getWindDirection()) + "\n");
         }
 
         if (!aggiorna)
-            Toast.makeText(getApplicationContext(), msgToast, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, msgToast, Toast.LENGTH_LONG).show();
     }
 
     private void setSpnPortoArrivo(Spinner spnPortoArrivo,
@@ -1140,25 +1123,26 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     /*** WEATHER ***/
 
-    private final WeatherDAO weatherDAO = new WeatherDAO(this, this);
+    private final OnRequestWeatherDAO weatherDAO = new OnRequestWeatherDAO();
 
     protected void onStart() {
         super.onStart();
-        weatherDAO.setOnDataReceived(this::onWeatherUpdate);
-        weatherDAO.setOnError(null);
-        weatherDAO.start();
+        weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
+        weatherDAO.requestUpdate();
     }
 
     protected void onStop() {
         super.onStop();
-        weatherDAO.stop();
+        weatherDAO.getUpdates().removeObservers(this);
     }
 
-    private void onWeatherUpdate(List<Osservazione> forecasts) {
-        aggiornamentoMeteo = Calendar.getInstance();
-        meteo.setOsservazione(forecasts);
+    private void onWeatherUpdate(WeatherUpdate update) {
+        if (update.isValid()) {
+            List<Osservazione> forecasts = update.getForecasts();
 
-        if (!forecasts.isEmpty()) {
+            aggiornamentoMeteo = Calendar.getInstance();
+            meteo.setForecasts(forecasts);
+
             StringBuilder s = new StringBuilder();
 
             Osservazione firstForecast = forecasts.get(0);
@@ -1171,9 +1155,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     .append(getString(R.string.da)).append(" ").append(getWindDirectionString(firstForecast)).append("\n")
                     .append(getString(R.string.updated)).append(" ")
                     .append(dateFormatter.format(firstForecast.getTime()))
-                    .append("\n");
-
-            s.append(getString(R.string.previsioni)).append("\n");
+                    .append("\n")
+                    .append(getString(R.string.previsioni)).append("\n");
 
             for (int i = 1; i < 8; i++) {
                 Osservazione weatherReport = forecasts.get(i);
@@ -1187,10 +1170,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
             }
 
             meteoDialog.setMessage(s.toString());
-        }
 
-        aggiornaLista();
-        setMsgToast();
+            aggiornaLista();
+            setMsgToast();
+        } else {
+            // TODO: handle exception
+            Log.e("MainActivity", "OnWeatherUpdate: ", update.getError());
+        }
     }
 
     private String getWindBeaufortString(Osservazione forecast) {
