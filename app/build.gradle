@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     defaultConfig {
         applicationId "com.porfirio.orariprocida2011"
-        compileSdkVersion 34
-        minSdkVersion 33
+        minSdkVersion 29
+        compileSdk 34
         targetSdkVersion 34
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
