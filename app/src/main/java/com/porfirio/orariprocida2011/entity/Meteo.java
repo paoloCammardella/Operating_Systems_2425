@@ -1,9 +1,8 @@
 package com.porfirio.orariprocida2011.entity;
 
-import android.app.Activity;
+import android.content.Context;
 
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -14,15 +13,9 @@ import java.util.List;
 
 public class Meteo {
 
-    private final Activity callingActivity;
-    private List<Osservazione> forecasts;
+    private List<Osservazione> forecasts = new ArrayList<>();
 
-    public Meteo(OrariProcida2011Activity orariProcida2011Activity) {
-        callingActivity = orariProcida2011Activity;
-        forecasts = new ArrayList<>();
-    }
-
-    public double getForecast(Mezzo route) {
+    public double getForecast(Context context, Mezzo route) {
         if (forecasts.isEmpty())
             return 0;
 
@@ -43,12 +36,14 @@ public class Meteo {
             actualBeaufort = forecasts.get(forecastIndex).getWindBeaufort();
 
         // summer breeze penalty
-        if (isSummer())
+        if (isSummer(now))
             limitBeaufort += 2;
+
+        // TODO: replace string comparisons?
 
         if (route.nave.equals("Procida Lines") || route.nave.equals("Gestur") || route.nave.contains("Ippocampo") || route.nave.contains("Aladino"))
             limitBeaufort -= 1; // small vehicles penalty
-        else if (route.nave.equals(callingActivity.getString(R.string.aliscafo) + " SNAV"))
+        else if (route.nave.equals(context.getString(R.string.aliscafo) + " SNAV"))
             limitBeaufort -= 0.5; // private company penalty
         if (departureTime.getHour() == 7 && departureTime.getMinute() == 40)
             limitBeaufort += 1; // critical route bonus
@@ -92,8 +87,8 @@ public class Meteo {
         this.forecasts = forecasts;
     }
 
-    private boolean isSummer() {
-        int month = LocalDateTime.now().getMonthValue();
+    private boolean isSummer(LocalDateTime time) {
+        int month = time.getMonthValue();
         return month >= 5 && month <= 8;
     }
 

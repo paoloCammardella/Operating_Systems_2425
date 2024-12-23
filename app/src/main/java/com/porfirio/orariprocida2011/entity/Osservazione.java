@@ -2,6 +2,8 @@ package com.porfirio.orariprocida2011.entity;
 
 import java.time.LocalDateTime;
 
+// NOTE: this class should be renamed to "Forecast" probably
+
 public class Osservazione {
 
     public enum Direction {
@@ -70,7 +72,7 @@ public class Osservazione {
         this.windDirection = direction;
     }
 
-    public Double getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
