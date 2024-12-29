@@ -269,7 +269,7 @@ public class Mezzo {
 		this.circaResidente = circaResidente;
 	}
 
-	public void addMotivo(String rigaMotivo) {
+	public void addReason(String rigaMotivo) {
 		Integer motivo=Integer.parseInt(rigaMotivo);
 		if (motivo==99){
 			conferme++;

@@ -233,8 +233,8 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 act.aggiornamentoOrariIS = (Calendar) aggiornamentoOrariIS.clone();
             //TODO: Ho aggiornato la listMezzi locale; ora devo propagare a quella globale e scatenare il refresh
 
-            act.listMezzi.clear();
-            act.listMezzi.addAll(listMezzi);
+            act.transportList.clear();
+            act.transportList.addAll(listMezzi);
             act.aggiornaLista();
             act.setMsgToast();
 
