@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.porfirio.orariprocida2011.threads.DownloadTransportsHandler;
 import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.dao.OnRequestWeatherDAO;
@@ -43,7 +44,6 @@ import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
-import com.porfirio.orariprocida2011.utils.DownloadTransportsHandler;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
