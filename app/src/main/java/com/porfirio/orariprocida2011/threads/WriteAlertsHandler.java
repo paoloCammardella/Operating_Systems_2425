@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011.tasks;
+package com.porfirio.orariprocida2011.threads;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +11,7 @@ import java.net.URL;
  * Created by Porfirio on 16/02/2018.
  */
 
-public class ScriviSegnalazioneTask {
+public class WriteAlertsHandler {
 
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
 

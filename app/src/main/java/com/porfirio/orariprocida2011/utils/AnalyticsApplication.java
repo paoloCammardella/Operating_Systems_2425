@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.utils;
 
 /*
  * Copyright Google Inc. All Rights Reserved.
@@ -20,6 +20,7 @@ import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.porfirio.orariprocida2011.R;
 
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as

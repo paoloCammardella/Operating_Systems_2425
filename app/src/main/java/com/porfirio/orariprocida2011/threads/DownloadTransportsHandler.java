@@ -1,4 +1,5 @@
-package com.porfirio.orariprocida2011.tasks;
+
+package com.porfirio.orariprocida2011.threads;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -31,23 +32,19 @@ import java.util.concurrent.TimeUnit;
  * TODO Aggiornare la lettura asincrona aggiornando i metodi deprecati
  */
 
-public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
+public class DownloadTransportsHandler extends AsyncTask<Void, Integer, Boolean> {
     final OrariProcida2011Activity act;
-    //int delay = 0;
 
     //dichiarazione del semaforo
     public static Semaphore taskDownload;
     public static Semaphore taskDownloadStart;
-    private Calendar aggiornamentoOrariWeb;
-    private ArrayList<Mezzo> listMezzi;
-    private Calendar aggiornamentoOrariIS = null;
+    private Calendar UpdateWebTimes;
+    private ArrayList<Mezzo> trasportList;
+    private Calendar updateTimesIS = null;
 
-    public DownloadMezziTask(OrariProcida2011Activity orariProcida2011Activity) {
+    public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
-        listMezzi = new ArrayList<Mezzo>();
-        //delay = TestSuiteAS.getDelay(DownloadMezziTask.class.toString());
-
-
+        trasportList = new ArrayList<Mezzo>();
     }
 
 
@@ -63,7 +60,6 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             taskDownloadStart.release();
         }
 
-        //act=activities[0];
         act.mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory("App Event")
                 .setAction("Download Mezzi Task")
@@ -79,7 +75,6 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
         HttpURLConnection conn;
         InputStream in;
         try {
-            //conn = Connection.connect(new URL(url));
             assert u != null;
             conn = (HttpURLConnection) u.openConnection();
             conn.setConnectTimeout(5000);
@@ -92,16 +87,15 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
         try {
             in = conn.getInputStream();
             BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            String rigaAggiornamento = r.readLine();
-            String rigaNovita = "";
-            StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            aggiornamentoOrariWeb = (Calendar) act.aggiornamentoOrariIS.clone();
-            aggiornamentoOrariWeb.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoOrariWeb.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoOrariWeb.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-            //if (!primoAvvio)
-            //Toast.makeText(act.getApplicationContext(), str, Toast.LENGTH_LONG).show();
-            if (!(aggiornamentoOrariWeb.after(act.aggiornamentoOrariIS))) {
+            String updateLine = r.readLine();
+            String newsLine = "";
+            StringTokenizer st0 = new StringTokenizer(updateLine, ",");
+            UpdateWebTimes = (Calendar) act.updateTimesIS.clone();
+            UpdateWebTimes.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
+            UpdateWebTimes.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
+            UpdateWebTimes.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
+
+            if (!(UpdateWebTimes.after(act.updateTimesIS))) {
                 //Wait prima della terminazione del task
                 Log.d("TEST", "TASK: Il task download pronto a terminare");
 
@@ -124,11 +118,10 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             else {
                 Log.d("ORARI", "GLi orari dal Web sono piu' aggiornati");
 
-                //legge riga novita da novita.csv
                 HttpURLConnection conn2;
                 InputStream in2;
                 try {
-                    conn2 = (HttpURLConnection) new URL(act.getApplicationContext().getString(R.string.urlNovita)).openConnection();
+                    conn2 = (HttpURLConnection) new URL(act.getApplicationContext().getString(R.string.urlNews)).openConnection();
                 } catch (IOException e) {
                     e.printStackTrace();
                     return false;
@@ -136,9 +129,9 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                 try {
                     in2 = conn2.getInputStream();
                     BufferedReader r2 = new BufferedReader(new InputStreamReader(in2));
-                    rigaNovita = r2.readLine();
+                    newsLine = r2.readLine();
                     if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non ? italiano legge la seconda riga delle novita
-                        rigaNovita = r2.readLine();
+                        newsLine = r2.readLine();
                     r2.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -146,14 +139,13 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
 
                 //Scrive gli orari web sul file interno
                 FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE);
-                fos.write(rigaAggiornamento.getBytes());
+                fos.write(updateLine.getBytes());
                 fos.write("\n".getBytes());
-                listMezzi.clear();
+                trasportList.clear();
                 for (String line = r.readLine(); line != null; line = r.readLine()) {
-                    //esamino la riga e creo un mezzo
                     Log.d("RIGA", line);
                     StringTokenizer st = new StringTokenizer(line, ",");
-                    listMezzi.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
+                    trasportList.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
                     fos.write(line.getBytes());
                     fos.write("\n".getBytes());
                 }
@@ -162,19 +154,16 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
                         .setAction("Updated Timetable")
                         .build());
                 fos.close();
-                aggiornamentoOrariIS = act.aggiornamentoOrariWeb;
+                updateTimesIS = act.updateWebTimes;
 
 
             }
             r.close();
             Log.d("ORARI", "Orari web letti");
-            //if (!primoAvvio)
-            //	Toast.makeText(getApplicationContext(), ""+getString(R.string.aggiornamentoDaWeb), Toast.LENGTH_LONG).show();
             Log.d("ORARI", "Orari IS aggiornati");
 
 
         } catch (SocketTimeoutException e) {
-            //Toast.makeText(act.getApplicationContext(), act.getString(R.string.connessioneLenta), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -217,24 +206,24 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
     // This is called when doInBackground() is finished
     protected void onPostExecute(Boolean result) {
         if (result){
-            if (aggiornamentoOrariWeb != null)
-                act.aggiornamentoOrariWeb = (Calendar) aggiornamentoOrariWeb.clone();
+            if (UpdateWebTimes != null)
+                act.updateWebTimes = (Calendar) UpdateWebTimes.clone();
             else {
-                act.aggiornamentoOrariWeb = (Calendar.getInstance());
-                act.aggiornamentoOrariWeb.set(2001, 1, 1);
+                act.updateWebTimes = (Calendar.getInstance());
+                act.updateWebTimes.set(2001, 1, 1);
             }
             act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
-            int meseToast = act.aggiornamentoOrariIS.get(Calendar.MONTH);
+            int meseToast = act.updateTimesIS.get(Calendar.MONTH);
             if (meseToast == 0) meseToast = 12;
-            String str = act.getString(R.string.orariAggiornatiAl) + " " + act.aggiornamentoOrariWeb.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + act.aggiornamentoOrariWeb.get(Calendar.YEAR);
+            String str = act.getString(R.string.orariAggiornatiAl) + " " + act.updateWebTimes.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + act.updateWebTimes.get(Calendar.YEAR);
             act.aboutDialog.setMessage("" + act.getString(R.string.disclaimer) + "\n" + act.getString(R.string.credits));
             Log.d("ORARI", str);
-            if (aggiornamentoOrariIS != null)
-                act.aggiornamentoOrariIS = (Calendar) aggiornamentoOrariIS.clone();
+            if (updateTimesIS != null)
+                act.updateTimesIS = (Calendar) updateTimesIS.clone();
             //TODO: Ho aggiornato la listMezzi locale; ora devo propagare a quella globale e scatenare il refresh
 
             act.transportList.clear();
-            act.transportList.addAll(listMezzi);
+            act.transportList.addAll(trasportList);
             act.aggiornaLista();
             act.setMsgToast();
 
@@ -244,9 +233,7 @@ public class DownloadMezziTask extends AsyncTask<Void, Integer, Boolean> {
             //gli orari del web erano piu' aggiornati
             //bisogna aggiornare la GUI
         }
-        //showNotification("Downloaded " + result + " bytes");
         Log.d("TEST", "Eseguita post execution dopo il task download");
     }
-
-
 }
+

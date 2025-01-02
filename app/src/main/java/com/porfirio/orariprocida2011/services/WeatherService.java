@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,6 +6,10 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import androidx.lifecycle.LiveData;
+
+import com.porfirio.orariprocida2011.dao.ScheduledWeatherDAO;
+import com.porfirio.orariprocida2011.dao.WeatherDAO;
+import com.porfirio.orariprocida2011.utils.WeatherUpdate;
 
 import java.util.concurrent.TimeUnit;
 

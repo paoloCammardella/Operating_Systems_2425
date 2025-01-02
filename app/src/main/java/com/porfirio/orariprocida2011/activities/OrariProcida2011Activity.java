@@ -32,18 +32,18 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.porfirio.orariprocida2011.AnalyticsApplication;
+import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
-import com.porfirio.orariprocida2011.OnRequestWeatherDAO;
-import com.porfirio.orariprocida2011.WeatherUpdate;
+import com.porfirio.orariprocida2011.dao.OnRequestWeatherDAO;
+import com.porfirio.orariprocida2011.threads.ReadAlertsHandler;
+import com.porfirio.orariprocida2011.utils.WeatherUpdate;
 import com.porfirio.orariprocida2011.dialogs.DettagliMezzoDialog;
 import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
-import com.porfirio.orariprocida2011.tasks.DownloadMezziTask;
-import com.porfirio.orariprocida2011.Threads.ReadAlertsThread;
+import com.porfirio.orariprocida2011.utils.DownloadTransportsHandler;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -65,8 +65,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     //public final String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
     //public final String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
-    public Calendar aggiornamentoOrariWeb;
-    public Calendar aggiornamentoOrariIS;
+    public Calendar updateWebTimes;
+    public Calendar updateTimesIS;
     // Introdotto il concetto di ultima lettura degli orari da Web
     public Calendar ultimaLetturaOrariDaWeb;
     public Calendar aggiornamentoMeteo;
@@ -128,11 +128,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 // Caricare da Web
                 if (isOnline()) {
                     riempiMezzidaWeb();
-                    if (aggiornamentoOrariWeb != null) {
-                        int meseToast = aggiornamentoOrariWeb.get(Calendar.MONTH);
+                    if (updateWebTimes != null) {
+                        int meseToast = updateWebTimes.get(Calendar.MONTH);
                         if (meseToast == 0) meseToast = 12;
                         if (!primoAvvio)
-                            Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariWeb.get(Calendar.DATE) + "/" + meseToast + "/" + aggiornamentoOrariWeb.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + updateWebTimes.get(Calendar.DATE) + "/" + meseToast + "/" + updateWebTimes.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
                         //TODO: Forzare aggiornamento
                     }
                 } else
@@ -427,10 +427,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String rigaAggiornamento = br.readLine();
             StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            aggiornamentoOrariIS = Calendar.getInstance(TimeZone.getDefault());
-            aggiornamentoOrariIS.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoOrariIS.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            aggiornamentoOrariIS.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
+            updateTimesIS = Calendar.getInstance(TimeZone.getDefault());
+            updateTimesIS.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
+            updateTimesIS.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
+            updateTimesIS.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
             //aboutDialog.setMessage(R.string.credits+"+aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.YEAR)+");
             aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
 
@@ -443,9 +443,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
             //Close the input stream
             in.close();
             Log.d("ORARI", "Fine caricamento orari da IS");
-            int meseToast = aggiornamentoOrariIS.get(Calendar.MONTH);
+            int meseToast = updateTimesIS.get(Calendar.MONTH);
             if (meseToast == 0) meseToast = 12;
-            String str = getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + aggiornamentoOrariIS.get(Calendar.YEAR);
+            String str = getString(R.string.orariAggiornatiAl) + " " + updateTimesIS.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + updateTimesIS.get(Calendar.YEAR);
             Log.d("ORARI", str);
             if (!primoAvvio)
                 Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
@@ -463,7 +463,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
         //(downloadMezziTask = new DownloadMezziTask(this)).execute();
-        new DownloadMezziTask(this).execute();
+        new DownloadTransportsHandler(this).execute();
 
 
         //Al termine dovrebbe ricaricare la lista degli orari
@@ -585,8 +585,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             // convenzione giorni settimana:
             // DOMENICA =1 LUNEDI=2 MARTEDI=3 MERCOLEDI=4 GIOVEDI=5 VENERDI=6 SABATO=7
 
-            aggiornamentoOrariIS = Calendar.getInstance(TimeZone.getDefault());
-            aggiornamentoOrariIS.set(2011, 11, 1); //Orari aggiornato all'1/11/2011
+            updateTimesIS = Calendar.getInstance(TimeZone.getDefault());
+            updateTimesIS.set(2011, 11, 1); //Orari aggiornato all'1/11/2011
             aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
 
             //TODO Questa lista di dati è per il caso di prima esecuzione senza connessione. Essendo un caso ormai remoto ed essendo questi orari
@@ -716,7 +716,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void leggiSegnalazioniDaWeb() {
         //Leggo il file delle segnalazioni
-        new ReadAlertsThread(this).start();
+        new ReadAlertsHandler(this).start();
     }
 
     public void aggiornaLista() {
@@ -952,10 +952,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
         msgToast = "";
         if (!(portoPartenza.equals(getString(R.string.tutti))))
             msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n");
-        if (aggiornamentoOrariIS != null) {
-            int mese = aggiornamentoOrariIS.get(Calendar.MONTH);
+        if (updateTimesIS != null) {
+            int mese = updateTimesIS.get(Calendar.MONTH);
             if (mese == 0) mese = 12;
-            msgToast += getString(R.string.orariAggiornatiAl) + " " + aggiornamentoOrariIS.get(Calendar.DATE) + "/" + mese + "/" + aggiornamentoOrariIS.get(Calendar.YEAR);
+            msgToast += getString(R.string.orariAggiornatiAl) + " " + updateTimesIS.get(Calendar.DATE) + "/" + mese + "/" + updateTimesIS.get(Calendar.YEAR);
         }
 
         if (!aggiorna)

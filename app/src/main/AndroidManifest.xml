@@ -18,7 +18,7 @@
         android:smallScreens="true" />
 
     <application
-        android:name=".AnalyticsApplication"
+        android:name=".utils.AnalyticsApplication"
         android:configChanges="locale"
         android:icon="@drawable/ic_launcher_traghetti"
         android:label="@string/app_name"
@@ -27,7 +27,7 @@
         android:theme="@android:style/Theme.Holo"
         android:usesCleartextTraffic="true">
         <service
-            android:name=".WeatherService"
+            android:name=".services.WeatherService"
             android:enabled="true"
             android:exported="false"></service>
 

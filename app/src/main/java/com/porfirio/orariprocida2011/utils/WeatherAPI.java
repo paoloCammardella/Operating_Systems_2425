@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.utils;
 
 import com.porfirio.orariprocida2011.entity.Osservazione;
 

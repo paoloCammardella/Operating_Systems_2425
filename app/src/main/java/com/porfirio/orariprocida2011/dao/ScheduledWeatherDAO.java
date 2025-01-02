@@ -1,8 +1,10 @@
-package com.porfirio.orariprocida2011;
+package com.porfirio.orariprocida2011.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.porfirio.orariprocida2011.utils.WeatherAPI;
+import com.porfirio.orariprocida2011.utils.WeatherUpdate;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.io.Closeable;

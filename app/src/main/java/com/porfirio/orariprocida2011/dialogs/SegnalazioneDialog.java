@@ -22,7 +22,7 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.tasks.ScriviSegnalazioneTask;
+import com.porfirio.orariprocida2011.threads.WriteAlertsHandler;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -160,7 +160,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 
 			e.printStackTrace();
 		}
-		new ScriviSegnalazioneTask().execute(URL);
+		new WriteAlertsHandler().execute(URL);
 
 
 		return "ok";
