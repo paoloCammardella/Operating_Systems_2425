@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -33,21 +33,23 @@ public class DownloadTransportsHandler extends Handler {
     public static Semaphore taskDownloadStart;
     private Calendar updateWebTimes;
     private final ArrayList<Mezzo> transportList;
-    private Calendar updateTimesIS = null;
+
+    private Analytics analytics;
 
     public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
         transportList = new ArrayList<>();
     }
 
+    public void setAnalytics(Analytics analytics) {
+        this.analytics = analytics;
+    }
+
     public void fetchTransports() {
         new Thread(() -> {
             handleSemaphore(taskDownloadStart, true);
 
-            act.mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("App Event")
-                    .setAction("Download Mezzi Task")
-                    .build());
+            analytics.send("App Event", "Download Mezzi Task");
 
             try {
                 URL url = new URL(act.getApplicationContext().getString(R.string.urlOrari));
@@ -58,10 +60,7 @@ public class DownloadTransportsHandler extends Handler {
                 handleSemaphore(taskDownload, false);
             }
 
-            act.mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("App Event")
-                    .setAction("Download Terminated")
-                    .build());
+            analytics.send("App Event", "Download Terminated");
         }).start();
     }
 
@@ -121,8 +120,7 @@ public class DownloadTransportsHandler extends Handler {
                  BufferedReader newsReader = new BufferedReader(new InputStreamReader(in));
                  FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE)) {
 
-                String newsLine = Locale.getDefault().getLanguage().equals("it") ?
-                        newsReader.readLine() : newsReader.readLine();
+                String newsLine = newsReader.readLine();
 
                 fos.write(updateLine.getBytes());
                 fos.write("\n".getBytes());

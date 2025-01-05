@@ -3,7 +3,6 @@ package com.porfirio.orariprocida2011.activities;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -30,9 +29,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.porfirio.orariprocida2011.threads.DownloadTransportsHandler;
+import com.porfirio.orariprocida2011.utils.Analytics;
 import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.dao.OnRequestWeatherDAO;
@@ -60,10 +58,13 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 public class OrariProcida2011Activity extends FragmentActivity {
+
+    private static final String ANALYTICS_CATEGORY_APP_EVENT = "App Event";
+    private static final String ANALYTICS_CATEGORY_UI_EVENT = "UI Event";
+    private static final String ANALYTICS_CATEGORY_USER_EVENT = "User";
+
     private static FragmentManager fm;
 
-    //public final String urlOrari = "http://wpage.unina.it/ptramont/orari.csv";
-    //public final String urlNovita = "http://wpage.unina.it/ptramont/novita.txt";
     public Calendar c;
     public Calendar updateWebTimes;
     public Calendar updateTimesIS;
@@ -91,17 +92,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private Locale locale;
     private SegnalazioneDialog segnalazioneDialog;
     private boolean primoAvvio = true;
-    public Tracker mTracker;
-    private OrariProcida2011Activity act;
     public String msgToast;
+
+    private Analytics analytics;
 
     //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("UI Event")
-                .setAction("Open Menu")
-                .build());
+        analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Open Menu");
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
@@ -111,20 +110,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.about:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("About")
-                        .build());
+            case (R.id.about):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "About");
                 aboutDialog.show();
-                //showDialog(ABOUT_DIALOG_ID);
                 return true;
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
-            case R.id.updateWeb:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Update Orari da Web da Menu")
-                        .build());
+            case (R.id.updateWeb):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Orari da Web da Menu");
                 // Caricare da Web
                 if (isOnline()) {
                     riempiMezzidaWeb();
@@ -138,23 +130,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 } else
                     Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
                 return true;
-            case R.id.meteo:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Update Meteo da Menu")
-                        .build());
-
+            case (R.id.meteo):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Meteo da Menu");
                 weatherDAO.requestUpdate();
-
                 return true;
-            case R.id.esci:
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Exit da Menu")
-                        .build());
-                //aboutDialog.show();
-
-                OrariProcida2011Activity.this.finish();
+            case (R.id.esci):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Exit da Menu");
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -164,25 +146,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Obtain the shared Tracker instance.
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-        // Attiva funzioni display.
-        mTracker.enableAdvertisingIdCollection(true);
 
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("onCreate")
-                .build());
+        analytics = new Analytics((AnalyticsApplication) getApplication());
+        analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "onCreate");
 
         fm = getSupportFragmentManager();
-        act = this;
 
         if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("App Event")
-                    .setAction("Request Permission")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Request Permission");
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.INTERNET}, 1
@@ -213,11 +184,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.disclaimer) + "\n" + getString(R.string.credits))
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
         aboutDialog = builder.create();
 
 
@@ -230,15 +197,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
         //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
 
         builder = new AlertDialog.Builder(this);
-/*        builder.setMessage(getString(R.string.condimeteo) + meteo.getWindBeaufortString() + " (" + meteo.getWindKmh().intValue() + " km/h) " + getString(R.string.da) + " " + meteo.getWindDirectionString()
-                + "\n" + getString(R.string.updated) + " " + aggiornamentoMeteo.get(Calendar.DAY_OF_MONTH) + "/" + (1 + aggiornamentoMeteo.get(Calendar.MONTH)) + "/" + aggiornamentoMeteo.get(Calendar.YEAR) + " " + getString(R.string.ore) + " " + aggiornamentoMeteo.get(Calendar.HOUR_OF_DAY) + ":" + aggiornamentoMeteo.get(Calendar.MINUTE))
-*/
         builder.setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
         meteoDialog = builder.create();
 
         // get the current time
@@ -249,133 +209,97 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         Button buttonMinusMinus = findViewById(R.id.btnConfermaOSmentisci);
         buttonMinusMinus.setOnClickListener(v -> {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("UI Event")
-                    .setAction("Button --")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Button --");
             c.add(Calendar.HOUR, -1);
             setTxtOrario(c);
             aggiornaLista();
         });
 
         Button buttonMinus = findViewById(R.id.button2);
-        buttonMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Button -")
-                        .build());
-                c.add(Calendar.MINUTE, -15);
-                setTxtOrario(c);
-                aggiornaLista();
-            }
+        buttonMinus.setOnClickListener(v -> {
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Button -");
+            c.add(Calendar.MINUTE, -15);
+            setTxtOrario(c);
+            aggiornaLista();
         });
 
         Button buttonPlus = findViewById(R.id.button3);
-        buttonPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO L'unico problema residuo ? che problemi correttamente segnalati con pi? di 24 ore di anticipo vengono visualizzati solo a meno di 24h
-                //Forse potrebbe essere risolto forzando un refresh quando si avanza di 24h rispetto all'orario corrente
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Button +")
-                        .build());
-                c.add(Calendar.MINUTE, 15);
-                setTxtOrario(c);
-                aggiornaLista();
-            }
+        buttonPlus.setOnClickListener(v -> {
+            //TODO L'unico problema residuo ? che problemi correttamente segnalati con pi? di 24 ore di anticipo vengono visualizzati solo a meno di 24h
+            //Forse potrebbe essere risolto forzando un refresh quando si avanza di 24h rispetto all'orario corrente
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Button +");
+            c.add(Calendar.MINUTE, 15);
+            setTxtOrario(c);
+            aggiornaLista();
         });
 
         Button buttonPlusPlus = findViewById(R.id.button4);
-        buttonPlusPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//        		orario.setHours(orario.getHours()+1);
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Button ++")
-                        .build());
-                c.add(Calendar.HOUR, 1);
-                setTxtOrario(c);
-                aggiornaLista();
-            }
+        buttonPlusPlus.setOnClickListener(v -> {
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Button ++");
+            c.add(Calendar.HOUR, 1);
+            setTxtOrario(c);
+            aggiornaLista();
         });
+
         // spostato in avanti setSpinner();
 
 
         transportList = new ArrayList<>();
         ListView lvMezzi = findViewById(R.id.listMezzi);
-        aalvMezzi = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        aalvMezzi = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
 
         dettagliMezzoDialog = new DettagliMezzoDialog();
         dettagliMezzoDialog.setDettagliMezzoDialog(fm, this, this, c);
+        dettagliMezzoDialog.setAnalytics(analytics);
+
         segnalazioneDialog = new SegnalazioneDialog();
-        lvMezzi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            //listener sul click di un item della lista
+        //listener sul click di un item della lista
+        lvMezzi.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Click Dettagli Mezzo");
+            //aboutDialog.show();
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("Click Dettagli Mezzo")
-                        .build());
-                //aboutDialog.show();
-
-                for (int i = 0; i < aalvMezzi.getCount(); i++) {
-                    if (selectMezzi.get(i).getOrderInList() == arg2)
-                        dettagliMezzoDialog.setMezzo(selectMezzi.get(i));
-                }
+            for (int i = 0; i < aalvMezzi.getCount(); i++) {
+                if (selectMezzi.get(i).getOrderInList() == arg2)
+                    dettagliMezzoDialog.setMezzo(selectMezzi.get(i));
+            }
 
 
 //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
 //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
 //				altra soluzione: trovare il mezzo dalla stringa
-                //dettagliMezzoDialog.fill(listCompagnia);
-                dettagliMezzoDialog.setListCompagnia(listCompagnia);
-                dettagliMezzoDialog.show(fm, "fragment_edit_name");
-
-            }
-
+            //dettagliMezzoDialog.fill(listCompagnia);
+            dettagliMezzoDialog.setListCompagnia(listCompagnia);
+            dettagliMezzoDialog.show(fm, "fragment_edit_name");
 
         });
         lvMezzi.setLongClickable(true);
-        lvMezzi.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           final int arg2, long arg3) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("UI Event")
-                        .setAction("LongClick DettagliMezzo")
-                        .build());
+        lvMezzi.setOnItemLongClickListener((arg0, arg1, arg2, arg3) -> {
+            analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "LongClick DettagliMezzo");
 
-                if (!isOnline())
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.soloOnline), Toast.LENGTH_SHORT).show();
-                else {
-                    for (int i = 0; i < aalvMezzi.getCount(); i++) {
-                        if (selectMezzi.get(i).getOrderInList() == arg2)
-                            segnalazioneDialog.setMezzo(selectMezzi.get(i));
-                    }
-
-
-                    //				problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
-                    //				soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
-                    //				altra soluzione: trovare il mezzo dalla stringa
-                    segnalazioneDialog.setOrarioRef(c);
-                    segnalazioneDialog.setCallingContext(getApplicationContext());
-                    segnalazioneDialog.setCallingActivity(act);
-                    segnalazioneDialog.setListCompagnia(listCompagnia);
-
-                    //segnalazioneDialog.fill(listCompagnia);
-                    segnalazioneDialog.show(fm, "fragment_edit_name");
-                    //segnalazioneDialog.show();
-                    aggiornaLista(); //TODO Capire come si fa ad aggiornare dopo una segnalazione (oppure scrivere che prossimamente verr? aggiunta)
+            if (!isOnline())
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.soloOnline), Toast.LENGTH_SHORT).show();
+            else {
+                for (int i = 0; i < aalvMezzi.getCount(); i++) {
+                    if (selectMezzi.get(i).getOrderInList() == arg2)
+                        segnalazioneDialog.setMezzo(selectMezzi.get(i));
                 }
-                return true;
+
+
+                // problema: clicco sulla lista ma ho solo la stringa, non il mezzo corrispondente
+                // soluzione: mantenere una variabile ordine che abbini lvMezzi con Mezzi
+                // altra soluzione: trovare il mezzo dalla stringa
+                segnalazioneDialog.setOrarioRef(c);
+                segnalazioneDialog.setCallingContext(getApplicationContext());
+                segnalazioneDialog.setAnalytics(analytics);
+                segnalazioneDialog.setListCompagnia(listCompagnia);
+
+                //segnalazioneDialog.fill(listCompagnia);
+                segnalazioneDialog.show(fm, "fragment_edit_name");
+                //segnalazioneDialog.show();
+                aggiornaLista(); //TODO Capire come si fa ad aggiornare dopo una segnalazione (oppure scrivere che prossimamente verr? aggiunta)
             }
+            return true;
         });
 
 
@@ -414,10 +338,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void riempiMezzidaInternalStorage(FileInputStream fstream) {
         try {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("App Event")
-                    .setAction("Riempi Mezzi da Internal Storage")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Riempi Mezzi da Internal Storage");
             // Open the file that is the first
             // command line parameter
             Log.d("ORARI", "Inizio caricamento orari da IS");
@@ -432,7 +353,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             updateTimesIS.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
             updateTimesIS.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
             //aboutDialog.setMessage(R.string.credits+"+aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.YEAR)+");
-            aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
+            aboutDialog.setMessage(getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
 
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 //esamino la riga e creo un mezzo
@@ -456,21 +377,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void riempiMezzidaWeb() {
-        //Da eseguire all'avvio
-
-        //soluzione momentanea per il problema Network.OnMainThreadException
-        // https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html
-
-        //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
-        //(downloadMezziTask = new DownloadMezziTask(this)).execute();
-        new DownloadTransportsHandler(this).fetchTransports();
-
-
-        //Al termine dovrebbe ricaricare la lista degli orari
-
-        //Non piu' necessario, grazie agli asynctask
-
-
+        DownloadTransportsHandler handler = new DownloadTransportsHandler(this);
+        handler.setAnalytics(analytics);
+        handler.fetchTransports();
     }
 
     public boolean sameTransport(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
@@ -577,10 +486,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             FileInputStream fstream = new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/orari.csv");
             riempiMezzidaInternalStorage(fstream);
         } catch (FileNotFoundException e) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("App Event")
-                    .setAction("Riempi Lista da Codice")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Riempi Lista da Codice");
             Log.d("ORARI", "File non trovato su IS. Leggo da codice");
             // convenzione giorni settimana:
             // DOMENICA =1 LUNEDI=2 MARTEDI=3 MERCOLEDI=4 GIOVEDI=5 VENERDI=6 SABATO=7
@@ -716,15 +622,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private void leggiSegnalazioniDaWeb() {
         //Leggo il file delle segnalazioni
-        new ReadAlertsHandler(this).start();
+        ReadAlertsHandler handler = new ReadAlertsHandler(this);
+        handler.setAnalytics(analytics);
+        handler.start();
     }
 
     public void aggiornaLista() {
-        //NOn ? chiaro perch? il controllo del locale debba essere fatto proprio qui!!!
-        mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("Aggiorna Lista")
-                .build());
+        //Non è chiaro perchè il controllo del locale debba essere fatto proprio qui!!!
+        analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
         selectMezzi = new ArrayList<>();
         Comparator<Mezzo> comparator = (m1, m2) -> {
@@ -962,8 +867,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             Toast.makeText(this, msgToast, Toast.LENGTH_LONG).show();
     }
 
-    private void setSpnPortoArrivo(Spinner spnPortoArrivo,
-                                   final ArrayAdapter<CharSequence> adapter3) {
+    private void setSpnPortoArrivo(Spinner spnPortoArrivo, final ArrayAdapter<CharSequence> adapter3) {
         //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoArrivo.getCount(); i++) {
             if (adapter3.getItem(i).equals(portoArrivo)) {
@@ -972,8 +876,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         }
     }
 
-    private void setSpnPortoPartenza(Spinner spnPortoPartenza,
-                                     ArrayAdapter<CharSequence> adapter2) {
+    private void setSpnPortoPartenza(Spinner spnPortoPartenza, ArrayAdapter<CharSequence> adapter2) {
         //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoPartenza.getCount(); i++) {
             if (adapter2.getItem(i).equals(portoPartenza)) {
@@ -1006,26 +909,17 @@ public class OrariProcida2011Activity extends FragmentActivity {
             return getString(R.string.tutti);
         //Coordinate angoli Procida
         if ((l.getLatitude() > 40.7374) && (l.getLatitude() < 40.7733) && (l.getLongitude() > 13.9897) && (l.getLongitude() < 14.0325)) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("User")
-                    .setAction("From Procida")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Procida");
             return "Procida";
         }
         //Coordinate angoli Isola d'Ischia
         if ((l.getLatitude() > 40.6921) && (l.getLatitude() < 40.7626) && (l.getLongitude() > 13.8465) && (l.getLongitude() < 13.9722))
             //Isola d'Ischia
             if (calcolaDistanza(l, 13.9063, 40.7496) > calcolaDistanza(l, 13.9602, 40.7319)) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("User")
-                        .setAction("From Ischia")
-                        .build());
+                analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Ischia");
                 return "Ischia";
             } else {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("User")
-                        .setAction("From Casamicciola")
-                        .build());
+                analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Casamicciola");
                 return "Casamicciola";
             }
         //Inserire coordinate Napoli (media porti) e Pozzuoli
@@ -1035,54 +929,33 @@ public class OrariProcida2011Activity extends FragmentActivity {
         Log.d("OrariProcida", "d(Pozzuoli)=" + distPozzuoli);
         double distMonteProcida = calcolaDistanza(l, 14.05, 40.8);
         if (distMonteProcida < 1500) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("User")
-                    .setAction("From Monte di Procida")
-                    .build());
+            analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Monte di Procida");
             return "Monte di Procida";
         }
         if (distPozzuoli < distNapoli) {
             if (distPozzuoli < 15000) {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("User")
-                        .setAction("From Pozzuoli")
-                        .build());
+                analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Pozzuoli");
                 return "Pozzuoli";
             } else {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("User")
-                        .setAction("From Napoli o Pozzuoli")
-                        .build());
+                analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Napoli o Pozzuoli");
                 return "Napoli o Pozzuoli";
             }
         } else {
             if (distNapoli < 15000) {
                 if (distNapoli > 1000) {
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("User")
-                            .setAction("From Napoli")
-                            .build());
+                    analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Napoli");
                     return "Napoli";
                 } else {
                     if (calcolaDistanza(l, 14.2548, 40.8376) < calcolaDistanza(l, 14.2602, 40.8424)) {
-                        mTracker.send(new HitBuilders.EventBuilder()
-                                .setCategory("User")
-                                .setAction("From Napoli Beverello")
-                                .build());
+                        analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Napoli Beverello");
                         return "Napoli Beverello";
                     } else {
-                        mTracker.send(new HitBuilders.EventBuilder()
-                                .setCategory("User")
-                                .setAction("From Napoli Porta di Massa")
-                                .build());
+                        analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Napoli Porta di Massa");
                         return "Napoli Porta di Massa";
                     }
                 }
             } else {
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("User")
-                        .setAction("From Napoli o Pozzuoli")
-                        .build());
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "From Napoli o Pozzuoli");
                 return "Napoli o Pozzuoli";
             }
         }
