@@ -50,8 +50,8 @@
 31
 32    <application
 32-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:20:5-54:19
-33        android:name="com.porfirio.orariprocida2011.AnalyticsApplication"
-33-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:21:9-45
+33        android:name="com.porfirio.orariprocida2011.utils.AnalyticsApplication"
+33-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:21:9-51
 34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 34-->[androidx.core:core:1.9.0] /home/paolo-pc/.gradle/caches/8.9/transforms/f9305d1cc1f92b5ddf0deb043587cdf4/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
 35        android:configChanges="locale"
@@ -73,8 +73,8 @@
 44-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:28:9-44
 45        <service
 45-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:29:9-32:48
-46            android:name="com.porfirio.orariprocida2011.WeatherService"
-46-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:30:13-43
+46            android:name="com.porfirio.orariprocida2011.services.WeatherService"
+46-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:30:13-52
 47            android:enabled="true"
 47-->/home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:31:13-35
 48            android:exported="false" />

@@ -30,7 +30,7 @@
         android:protectionLevel="signature" />
 
     <application
-        android:name="com.porfirio.orariprocida2011.AnalyticsApplication"
+        android:name="com.porfirio.orariprocida2011.utils.AnalyticsApplication"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:configChanges="locale"
         android:debuggable="true"
@@ -43,7 +43,7 @@
         android:theme="@android:style/Theme.Holo"
         android:usesCleartextTraffic="true" >
         <service
-            android:name="com.porfirio.orariprocida2011.WeatherService"
+            android:name="com.porfirio.orariprocida2011.services.WeatherService"
             android:enabled="true"
             android:exported="false" />
 

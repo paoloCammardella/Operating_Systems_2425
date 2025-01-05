@@ -1,8 +1,7 @@
-
 package com.porfirio.orariprocida2011.threads;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -26,214 +25,168 @@ import java.util.StringTokenizer;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-/**
- * TODO Migrare da lettura da file a lettura da risorsa Firebase
- * TODO Mantenere possibilmente la lettura da file locale per la modalità offline
- * TODO Aggiornare la lettura asincrona aggiornando i metodi deprecati
- */
+public class DownloadTransportsHandler extends Handler {
+    private final OrariProcida2011Activity act;
 
-public class DownloadTransportsHandler extends AsyncTask<Void, Integer, Boolean> {
-    final OrariProcida2011Activity act;
-
-    //dichiarazione del semaforo
+    // Semaphore declarations
     public static Semaphore taskDownload;
     public static Semaphore taskDownloadStart;
-    private Calendar UpdateWebTimes;
-    private ArrayList<Mezzo> trasportList;
+    private Calendar updateWebTimes;
+    private final ArrayList<Mezzo> transportList;
     private Calendar updateTimesIS = null;
 
     public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
-        trasportList = new ArrayList<Mezzo>();
+        transportList = new ArrayList<>();
     }
 
+    public void fetchTransports() {
+        new Thread(() -> {
+            handleSemaphore(taskDownloadStart, true);
 
-    // Do the long-running work in here
-    protected Boolean doInBackground(Void... params) {
-        if (taskDownloadStart != null) {
+            act.mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("App Event")
+                    .setAction("Download Mezzi Task")
+                    .build());
+
             try {
-                taskDownloadStart.acquire();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                URL url = new URL(act.getApplicationContext().getString(R.string.urlOrari));
+                processTransportData(url);
+            } catch (MalformedURLException e) {
+                Log.e("DownloadHandler", "Invalid URL: " + e.getMessage(), e);
+            } finally {
+                handleSemaphore(taskDownload, false);
             }
-            Log.d("TEST", "TASK: Inizia il task download");
-            taskDownloadStart.release();
-        }
 
-        act.mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("Download Mezzi Task")
-                .build());
-        //Apre una connessione con gli orari
-        URL u = null;
-        try {
-            u = new URL(act.getApplicationContext().getString(R.string.urlOrari));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+            act.mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("App Event")
+                    .setAction("Download Terminated")
+                    .build());
+        }).start();
+    }
 
-        HttpURLConnection conn;
-        InputStream in;
+    private void processTransportData(URL url) {
+        HttpURLConnection conn = null;
         try {
-            assert u != null;
-            conn = (HttpURLConnection) u.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
-        } catch (SocketTimeoutException e) {
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        try {
-            in = conn.getInputStream();
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            String updateLine = r.readLine();
-            String newsLine = "";
-            StringTokenizer st0 = new StringTokenizer(updateLine, ",");
-            UpdateWebTimes = (Calendar) act.updateTimesIS.clone();
-            UpdateWebTimes.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            UpdateWebTimes.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            UpdateWebTimes.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
 
-            if (!(UpdateWebTimes.after(act.updateTimesIS))) {
-                //Wait prima della terminazione del task
-                Log.d("TEST", "TASK: Il task download pronto a terminare");
+            try (InputStream in = conn.getInputStream();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
 
-                if (taskDownload != null) {
-                    try {
-                        if (!taskDownload.tryAcquire(15L, TimeUnit.SECONDS)) {
-                            Log.d("TEST", "TASK: TIMEOUT task download");
-                            act.finish();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                String updateLine = reader.readLine();
+                if (updateLine == null) return;
 
-                    Log.d("TEST", "TASK: Finisce il task download");
-                    taskDownload.release();
-                    Log.d("ORDER", "Download task");
+                updateWebTimes = parseUpdateTimes(updateLine);
+
+                if (!updateWebTimes.after(act.updateTimesIS)) {
+                    Log.d("DownloadHandler", "No new updates available.");
+                    return;
                 }
-                return false;
+
+                Log.d("DownloadHandler", "Found newer schedule from the web.");
+                downloadAndSaveData(updateLine, reader);
+                updateGui();
+
+            } catch (IOException e) {
+                Log.e("DownloadHandler", "Error reading transport data: " + e.getMessage(), e);
             }
-            else {
-                Log.d("ORARI", "GLi orari dal Web sono piu' aggiornati");
+        } catch (SocketTimeoutException e) {
+            Log.e("DownloadHandler", "Connection timed out: " + e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("DownloadHandler", "Error opening connection: " + e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+    }
 
-                HttpURLConnection conn2;
-                InputStream in2;
-                try {
-                    conn2 = (HttpURLConnection) new URL(act.getApplicationContext().getString(R.string.urlNews)).openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-                try {
-                    in2 = conn2.getInputStream();
-                    BufferedReader r2 = new BufferedReader(new InputStreamReader(in2));
-                    newsLine = r2.readLine();
-                    if (!(Locale.getDefault().getLanguage().contentEquals("it"))) //se non ? italiano legge la seconda riga delle novita
-                        newsLine = r2.readLine();
-                    r2.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    private Calendar parseUpdateTimes(String updateLine) {
+        StringTokenizer st = new StringTokenizer(updateLine, ",");
+        Calendar calendar = (Calendar) act.updateTimesIS.clone();
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st.nextToken()));
+        calendar.set(Calendar.MONTH, Integer.parseInt(st.nextToken()));
+        calendar.set(Calendar.YEAR, Integer.parseInt(st.nextToken()));
+        return calendar;
+    }
 
-                //Scrive gli orari web sul file interno
-                FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE);
+    private void downloadAndSaveData(String updateLine, BufferedReader reader) throws IOException {
+        HttpURLConnection conn2 = null;
+        try {
+            URL newsUrl = new URL(act.getApplicationContext().getString(R.string.urlNews));
+            conn2 = (HttpURLConnection) newsUrl.openConnection();
+
+            try (InputStream in = conn2.getInputStream();
+                 BufferedReader newsReader = new BufferedReader(new InputStreamReader(in));
+                 FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE)) {
+
+                String newsLine = Locale.getDefault().getLanguage().equals("it") ?
+                        newsReader.readLine() : newsReader.readLine();
+
                 fos.write(updateLine.getBytes());
                 fos.write("\n".getBytes());
-                trasportList.clear();
-                for (String line = r.readLine(); line != null; line = r.readLine()) {
-                    Log.d("RIGA", line);
-                    StringTokenizer st = new StringTokenizer(line, ",");
-                    trasportList.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
+                transportList.clear();
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Mezzo mezzo = parseMezzo(line);
+                    transportList.add(mezzo);
                     fos.write(line.getBytes());
                     fos.write("\n".getBytes());
                 }
-                act.mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("App Event")
-                        .setAction("Updated Timetable")
-                        .build());
-                fos.close();
-                updateTimesIS = act.updateWebTimes;
-
-
             }
-            r.close();
-            Log.d("ORARI", "Orari web letti");
-            Log.d("ORARI", "Orari IS aggiornati");
-
-
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            if (conn2 != null) {
+                conn2.disconnect();
+            }
         }
+    }
 
-        if (taskDownload != null) {
-            //Wait prima della terminazione del task
-            Log.d("TEST", "TASK: Il task download è pronto a terminare");
+    private Mezzo parseMezzo(String line) {
+        StringTokenizer st = new StringTokenizer(line, ",");
+        return new Mezzo(
+                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
+                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
+                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
+                st.nextToken(), st.nextToken()
+        );
+    }
 
+    private void updateGui() {
+        act.updateWebTimes = (Calendar) updateWebTimes.clone();
+        act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
+
+        String str = String.format(Locale.getDefault(), "%s %d/%d/%d",
+                act.getString(R.string.orariAggiornatiAl),
+                act.updateWebTimes.get(Calendar.DAY_OF_MONTH),
+                act.updateWebTimes.get(Calendar.MONTH) + 1,
+                act.updateWebTimes.get(Calendar.YEAR)
+        );
+
+        act.transportList.clear();
+        act.transportList.addAll(transportList);
+        act.aggiornaLista();
+        act.setMsgToast();
+
+        Log.d("DownloadHandler", str);
+        Log.d("DownloadHandler", "Transport data updated in the GUI.");
+    }
+
+    private void handleSemaphore(Semaphore semaphore, boolean acquire) {
+        if (semaphore != null) {
             try {
-                if (!taskDownload.tryAcquire(15L, TimeUnit.SECONDS)) {
-                    Log.d("TEST", "TASK: TIMEOUT task download");
+                if (acquire) {
+                    semaphore.acquire();
+                } else if (!semaphore.tryAcquire(15L, TimeUnit.SECONDS)) {
+                    Log.e("DownloadHandler", "Semaphore timeout.");
                     act.finish();
                 }
-
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.e("DownloadHandler", "Semaphore operation interrupted: " + e.getMessage(), e);
+            } finally {
+                semaphore.release();
             }
-
-            Log.d("TEST", "TASK: Finisce il task download");
-            taskDownload.release();
-            Log.d("ORDER", "Download task");
         }
-        act.mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("App Event")
-                .setAction("Download Terminated")
-                .build());
-        return true;
-    }
-
-
-    // This is called each time you call publishProgress()
-    protected void onProgressUpdate(Integer... progress) {
-        //setProgressPercent(progress[0]);
-    }
-
-
-    // This is called when doInBackground() is finished
-    protected void onPostExecute(Boolean result) {
-        if (result){
-            if (UpdateWebTimes != null)
-                act.updateWebTimes = (Calendar) UpdateWebTimes.clone();
-            else {
-                act.updateWebTimes = (Calendar.getInstance());
-                act.updateWebTimes.set(2001, 1, 1);
-            }
-            act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
-            int meseToast = act.updateTimesIS.get(Calendar.MONTH);
-            if (meseToast == 0) meseToast = 12;
-            String str = act.getString(R.string.orariAggiornatiAl) + " " + act.updateWebTimes.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + act.updateWebTimes.get(Calendar.YEAR);
-            act.aboutDialog.setMessage("" + act.getString(R.string.disclaimer) + "\n" + act.getString(R.string.credits));
-            Log.d("ORARI", str);
-            if (updateTimesIS != null)
-                act.updateTimesIS = (Calendar) updateTimesIS.clone();
-            //TODO: Ho aggiornato la listMezzi locale; ora devo propagare a quella globale e scatenare il refresh
-
-            act.transportList.clear();
-            act.transportList.addAll(trasportList);
-            act.aggiornaLista();
-            act.setMsgToast();
-
-
-            Log.d("ORARI", "Terminata lettura orari da web");
-            Log.d("ORARI", "Terminato aggiornamento orari su GUI");
-            //gli orari del web erano piu' aggiornati
-            //bisogna aggiornare la GUI
-        }
-        Log.d("TEST", "Eseguita post execution dopo il task download");
     }
 }
-

@@ -463,7 +463,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         //in background legge gli orari dal web; se sono piu' aggiornati li scrive sul file interno
         //(downloadMezziTask = new DownloadMezziTask(this)).execute();
-        new DownloadTransportsHandler(this).execute();
+        new DownloadTransportsHandler(this).fetchTransports();
 
 
         //Al termine dovrebbe ricaricare la lista degli orari

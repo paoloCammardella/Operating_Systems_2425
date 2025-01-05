@@ -125,15 +125,15 @@ MERGED from [com.android.support.test:exposed-instrumentation-api-publish:0.5] /
 	android:usesCleartextTraffic
 		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:28:9-44
 	android:name
-		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:21:9-45
-service#com.porfirio.orariprocida2011.WeatherService
+		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:21:9-51
+service#com.porfirio.orariprocida2011.services.WeatherService
 ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:29:9-32:48
 	android:enabled
 		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:31:13-35
 	android:exported
 		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:32:13-37
 	android:name
-		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:30:13-43
+		ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:30:13-52
 activity#com.porfirio.orariprocida2011.activities.OrariProcida2011Activity
 ADDED from /home/paolo-pc/Programmazione/Magistrale/Operating_Systems_2425/app/src/main/AndroidManifest.xml:34:9-53:20
 	android:exported

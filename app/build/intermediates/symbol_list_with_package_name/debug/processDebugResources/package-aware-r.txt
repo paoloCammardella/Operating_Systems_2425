@@ -361,7 +361,7 @@ string tutti
 string updateWeb
 string updated
 string uragano
-string urlNovita
+string urlNews
 string urlOrari
 string utenteDice
 string utentiDicono

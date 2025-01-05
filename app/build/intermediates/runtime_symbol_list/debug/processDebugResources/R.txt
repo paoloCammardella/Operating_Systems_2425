@@ -360,7 +360,7 @@ int string tutti 0x7f0b006e
 int string updateWeb 0x7f0b006f
 int string updated 0x7f0b0070
 int string uragano 0x7f0b0071
-int string urlNovita 0x7f0b0072
+int string urlNews 0x7f0b007b
 int string urlOrari 0x7f0b0073
 int string utenteDice 0x7f0b0074
 int string utentiDicono 0x7f0b0075
