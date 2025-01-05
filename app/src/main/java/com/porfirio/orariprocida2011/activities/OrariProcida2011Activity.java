@@ -89,7 +89,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private ArrayList<Compagnia> listCompagnia;
     private LocationManager myManager;
     private String BestProvider;
-    private Locale locale;
     private SegnalazioneDialog segnalazioneDialog;
     private boolean primoAvvio = true;
     public String msgToast;
@@ -160,17 +159,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
             );
         }
 
-        //TODO: Necessario?
-        if (!((Locale.getDefault().getLanguage().contentEquals("en")) || (Locale.getDefault().getLanguage().contentEquals("it")))) {
-            String languageToLoad = "en";
-            locale = new Locale(languageToLoad);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config,
-                    getBaseContext().getResources().getDisplayMetrics());
-        }
-        Log.d("ACTIVITY", "create");
         //TODO: Sempre necessario?
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
@@ -902,8 +890,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             l = myManager.getLastKnownLocation(BestProvider);
             Log.d("ACTIVITY", "Posizione:" + l.getLongitude() + "," + l.getLatitude());
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("ACTIVITY", "Problema con GPS");
+            Log.e("Activity", "GPS: ", e);
         }
         if (l == null)
             return getString(R.string.tutti);
@@ -955,7 +942,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     }
                 }
             } else {
-                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "From Napoli o Pozzuoli");
+                analytics.send(ANALYTICS_CATEGORY_USER_EVENT, "From Napoli o Pozzuoli");
                 return "Napoli o Pozzuoli";
             }
         }

@@ -26,6 +26,9 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class DownloadTransportsHandler extends Handler {
+
+    private static final String NEWS_URL = "http://wpage.unina.it/ptramont/orari.csv";
+
     private final OrariProcida2011Activity act;
 
     // Semaphore declarations
@@ -52,7 +55,7 @@ public class DownloadTransportsHandler extends Handler {
             analytics.send("App Event", "Download Mezzi Task");
 
             try {
-                URL url = new URL(act.getApplicationContext().getString(R.string.urlOrari));
+                URL url = new URL(NEWS_URL);
                 processTransportData(url);
             } catch (MalformedURLException e) {
                 Log.e("DownloadHandler", "Invalid URL: " + e.getMessage(), e);
