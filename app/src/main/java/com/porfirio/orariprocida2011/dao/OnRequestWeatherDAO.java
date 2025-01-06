@@ -10,18 +10,25 @@ import com.porfirio.orariprocida2011.utils.WeatherUpdate;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class OnRequestWeatherDAO implements WeatherDAO {
 
     private static final String TAG = "OnRequestWeatherDAO";
     private static final int UPDATE_MIN_DELAY = 30; // What should the minimum delay be?
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final MutableLiveData<WeatherUpdate> updates = new MutableLiveData<>();
-
+    private ExecutorService executorService;
     private long lastUpdateTime = -1;
+
+    public OnRequestWeatherDAO(ExecutorService executorService) {
+        setExecutorService(executorService);
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = Objects.requireNonNull(executorService);
+    }
 
     public void requestUpdate() {
         long now = System.currentTimeMillis() / 1000;
@@ -35,10 +42,10 @@ public class OnRequestWeatherDAO implements WeatherDAO {
         executorService.submit(() -> {
             try {
                 List<Osservazione> forecasts = WeatherAPI.getForecasts();
-                updates.postValue(WeatherUpdate.createSuccessUpdate(forecasts));
+                updates.postValue(new WeatherUpdate(forecasts));
                 lastUpdateTime = System.currentTimeMillis();
             } catch (Exception e) {
-                updates.postValue(WeatherUpdate.createErrorUpdate(e));
+                updates.postValue(new WeatherUpdate(e));
             }
         });
     }

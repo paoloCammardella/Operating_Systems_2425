@@ -7,12 +7,18 @@ import java.util.List;
 public class WeatherUpdate {
 
     private final boolean isValid;
-    private final List<Osservazione> forecasts;
+    private final List<Osservazione> data;
     private final Exception error;
 
-    public WeatherUpdate(boolean isValid, List<Osservazione> forecasts, Exception error) {
-        this.isValid = isValid;
-        this.forecasts = forecasts;
+    public WeatherUpdate(List<Osservazione> data) {
+        this.isValid = true;
+        this.data = data;
+        this.error = null;
+    }
+
+    public WeatherUpdate(Exception error) {
+        this.isValid = false;
+        this.data = null;
         this.error = error;
     }
 
@@ -20,24 +26,12 @@ public class WeatherUpdate {
         return isValid;
     }
 
-    public List<Osservazione> getForecasts() {
-        return forecasts;
+    public List<Osservazione> getData() {
+        return data;
     }
 
     public Exception getError() {
         return error;
-    }
-
-    public static WeatherUpdate createSuccessUpdate(List<Osservazione> forecasts) {
-        return new WeatherUpdate(true, forecasts, null);
-    }
-
-    public static WeatherUpdate createErrorUpdate(Exception e) {
-        return createErrorUpdate(e, null);
-    }
-
-    public static WeatherUpdate createErrorUpdate(Exception e, List<Osservazione> backupData) {
-        return new WeatherUpdate(false, backupData, e);
     }
 
 }

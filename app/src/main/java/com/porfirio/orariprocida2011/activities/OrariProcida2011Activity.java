@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -56,6 +55,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class OrariProcida2011Activity extends FragmentActivity {
 
@@ -93,9 +94,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private boolean primoAvvio = true;
     public String msgToast;
 
+    private OnRequestWeatherDAO weatherDAO;
+    private ExecutorService executorService;
+
     private Analytics analytics;
 
-    //Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Open Menu");
@@ -308,7 +311,20 @@ public class OrariProcida2011Activity extends FragmentActivity {
         aggiornaLista();
         setMsgToast();
 
+        executorService = Executors.newSingleThreadExecutor();
 
+        weatherDAO = new OnRequestWeatherDAO(executorService);
+        weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
+        weatherDAO.requestUpdate();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        weatherDAO.getUpdates().removeObservers(this);
+
+        executorService.shutdown();
     }
 
     private void setTxtOrario(Calendar c) {
@@ -957,24 +973,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return Math.ceil(delta);
     }
 
-    /*** WEATHER ***/
-
-    private final OnRequestWeatherDAO weatherDAO = new OnRequestWeatherDAO();
-
-    protected void onStart() {
-        super.onStart();
-        weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
-        weatherDAO.requestUpdate();
-    }
-
-    protected void onStop() {
-        super.onStop();
-        weatherDAO.getUpdates().removeObservers(this);
-    }
-
     private void onWeatherUpdate(WeatherUpdate update) {
         if (update.isValid()) {
-            List<Osservazione> forecasts = update.getForecasts();
+            List<Osservazione> forecasts = update.getData();
 
             aggiornamentoMeteo = Calendar.getInstance();
             meteo.setForecasts(forecasts);

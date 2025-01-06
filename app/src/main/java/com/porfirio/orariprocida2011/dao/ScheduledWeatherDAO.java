@@ -22,9 +22,9 @@ public class ScheduledWeatherDAO implements WeatherDAO, Closeable {
         service.schedule(() -> {
             try {
                 List<Osservazione> forecasts = WeatherAPI.getForecasts();
-                updates.postValue(WeatherUpdate.createSuccessUpdate(forecasts));
+                updates.postValue(new WeatherUpdate(forecasts));
             } catch (Exception e) {
-                updates.postValue(WeatherUpdate.createErrorUpdate(e));
+                updates.postValue(new WeatherUpdate(e));
             }
         }, delay, timeUnit);
     }
