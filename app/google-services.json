@@ -1,37 +1,27 @@
 {
   "project_info": {
-    "project_number": "714058007326",
-    "firebase_url": "https://unoprocidaresidente-8c7b2.firebaseio.com",
-    "project_id": "unoprocidaresidente-8c7b2",
-    "storage_bucket": "unoprocidaresidente-8c7b2.appspot.com"
+    "project_number": "697095108047",
+    "firebase_url": "https://os-android-d463a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "os-android-d463a",
+    "storage_bucket": "os-android-d463a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714058007326:android:fa12c9a732fe1d17a5bf0f",
+        "mobilesdk_app_id": "1:697095108047:android:e8183e228714f898000eba",
         "android_client_info": {
           "package_name": "com.porfirio.orariprocida2011"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "714058007326-kb8r3cn1sfaqb4ic368vpro9pvq35re0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBO857KxvOrTN3L5OwLjcj7OUqfmm5GcPc"
+          "current_key": "AIzaSyANDl-5bjI1Y3RFotd-61Sp1D5vEFVX7tg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "714058007326-kb8r3cn1sfaqb4ic368vpro9pvq35re0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

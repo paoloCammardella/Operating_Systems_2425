@@ -1,161 +1,124 @@
 package com.porfirio.orariprocida2011.threads;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class DownloadTransportsHandler extends Handler {
 
-    private static final String NEWS_URL = "http://wpage.unina.it/ptramont/orari.csv";
-
     private final OrariProcida2011Activity act;
+    private final ArrayList<Mezzo> transportList;
+
+    // Firebase references
+    private final DatabaseReference databaseReference;
+    private final FirebaseAnalytics analytics;
 
     // Semaphore declarations
     public static Semaphore taskDownload;
     public static Semaphore taskDownloadStart;
-    private Calendar updateWebTimes;
-    private final ArrayList<Mezzo> transportList;
 
-    private Analytics analytics;
+    private Analytics internalAnalytics;
 
     public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity) {
         act = orariProcida2011Activity;
         transportList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
+        analytics = FirebaseAnalytics.getInstance(act.getApplicationContext());
     }
 
     public void setAnalytics(Analytics analytics) {
-        this.analytics = analytics;
+        this.internalAnalytics = analytics;
     }
 
     public void fetchTransports() {
         new Thread(() -> {
             handleSemaphore(taskDownloadStart, true);
 
-            analytics.send("App Event", "Download Mezzi Task");
+            // Log evento Firebase Analytics: Inizio download
+            analytics.logEvent("fetch_transports_started", null);
+            internalAnalytics.send("App Event", "Download Mezzi Task");
 
             try {
-                URL url = new URL(NEWS_URL);
-                processTransportData(url);
-            } catch (MalformedURLException e) {
-                Log.e("DownloadHandler", "Invalid URL: " + e.getMessage(), e);
+                // Recupera dati da Realtime Database
+                fetchTransportDataFromRealtimeDatabase();
             } finally {
                 handleSemaphore(taskDownload, false);
             }
 
-            analytics.send("App Event", "Download Terminated");
+            // Log evento Firebase Analytics: Download terminato
+            analytics.logEvent("fetch_transports_ended", null);
+            internalAnalytics.send("App Event", "Download Terminated");
         }).start();
     }
 
-    private void processTransportData(URL url) {
-        HttpURLConnection conn = null;
-        try {
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-
-            try (InputStream in = conn.getInputStream();
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-
-                String updateLine = reader.readLine();
-                if (updateLine == null) return;
-
-                updateWebTimes = parseUpdateTimes(updateLine);
-
-                if (!updateWebTimes.after(act.updateTimesIS)) {
-                    Log.d("DownloadHandler", "No new updates available.");
-                    return;
+    //TODO cambiare effettivamente i valori nel Firebase Realtime DB con quelli reali
+    //TODO creare un backend per automatizzarre il riempimento del DB Firebase
+    private void fetchTransportDataFromRealtimeDatabase() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                transportList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Mezzo mezzo = parseMezzo(snapshot);
+                    transportList.add(mezzo);
                 }
 
-                Log.d("DownloadHandler", "Found newer schedule from the web.");
-                downloadAndSaveData(updateLine, reader);
                 updateGui();
 
-            } catch (IOException e) {
-                Log.e("DownloadHandler", "Error reading transport data: " + e.getMessage(), e);
+                analytics.logEvent("transports_updated", null);
             }
-        } catch (SocketTimeoutException e) {
-            Log.e("DownloadHandler", "Connection timed out: " + e.getMessage(), e);
-        } catch (IOException e) {
-            Log.e("DownloadHandler", "Error opening connection: " + e.getMessage(), e);
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("DownloadHandler", "Errore Realtime Database: " + databaseError.getMessage(), databaseError.toException());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("error_message", databaseError.getMessage());
+                analytics.logEvent("fetch_transports_failed", bundle);
             }
-        }
+        });
     }
 
-    private Calendar parseUpdateTimes(String updateLine) {
-        StringTokenizer st = new StringTokenizer(updateLine, ",");
-        Calendar calendar = (Calendar) act.updateTimesIS.clone();
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st.nextToken()));
-        calendar.set(Calendar.MONTH, Integer.parseInt(st.nextToken()));
-        calendar.set(Calendar.YEAR, Integer.parseInt(st.nextToken()));
-        return calendar;
-    }
-
-    private void downloadAndSaveData(String updateLine, BufferedReader reader) throws IOException {
-        HttpURLConnection conn2 = null;
-        try {
-            URL newsUrl = new URL(act.getApplicationContext().getString(R.string.urlNews));
-            conn2 = (HttpURLConnection) newsUrl.openConnection();
-
-            try (InputStream in = conn2.getInputStream();
-                 BufferedReader newsReader = new BufferedReader(new InputStreamReader(in));
-                 FileOutputStream fos = act.openFileOutput("orari.csv", Context.MODE_PRIVATE)) {
-
-                String newsLine = newsReader.readLine();
-
-                fos.write(updateLine.getBytes());
-                fos.write("\n".getBytes());
-                transportList.clear();
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Mezzo mezzo = parseMezzo(line);
-                    transportList.add(mezzo);
-                    fos.write(line.getBytes());
-                    fos.write("\n".getBytes());
-                }
-            }
-        } finally {
-            if (conn2 != null) {
-                conn2.disconnect();
-            }
-        }
-    }
-
-    private Mezzo parseMezzo(String line) {
-        StringTokenizer st = new StringTokenizer(line, ",");
+    private Mezzo parseMezzo(DataSnapshot snapshot) {
         return new Mezzo(
-                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
-                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
-                st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),
-                st.nextToken(), st.nextToken()
+                snapshot.child("attribute1").getValue(String.class),  // Nome nave
+                snapshot.child("attribute2").getValue(String.class),  // Ora partenza ora
+                snapshot.child("attribute3").getValue(String.class),  // Ora partenza minuti
+                snapshot.child("attribute4").getValue(String.class),  // Ora arrivo ora
+                snapshot.child("attribute5").getValue(String.class),  // Ora arrivo minuti
+                snapshot.child("attribute6").getValue(String.class),  // Porto partenza
+                snapshot.child("attribute7").getValue(String.class),  // Porto arrivo
+                snapshot.child("attribute8").getValue(String.class),  // Giorni inizio esclusione
+                snapshot.child("attribute9").getValue(String.class),  // Mese inizio esclusione
+                snapshot.child("attribute10").getValue(String.class), // Anno inizio esclusione
+                snapshot.child("attribute11").getValue(String.class), // Giorni fine esclusione
+                snapshot.child("attribute12").getValue(String.class), // Mese fine esclusione
+                snapshot.child("attribute13").getValue(String.class), // Anno fine esclusione
+                snapshot.child("attribute14").getValue(String.class)  // Giorni settimana
         );
     }
 
     private void updateGui() {
-        act.updateWebTimes = (Calendar) updateWebTimes.clone();
+        act.updateWebTimes = Calendar.getInstance();
         act.ultimaLetturaOrariDaWeb = Calendar.getInstance();
 
         String str = String.format(Locale.getDefault(), "%s %d/%d/%d",
