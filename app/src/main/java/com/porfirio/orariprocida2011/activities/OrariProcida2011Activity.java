@@ -65,7 +65,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public Calendar c;
     public AlertDialog aboutDialog;
     public Meteo meteo;
-    public AlertDialog meteoDialog;
+    //    public AlertDialog meteoDialog;
     public ArrayList<Mezzo> transportList;
     public boolean aggiorna;
     private String[] ragioni = new String[100];
@@ -178,10 +178,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
 
-        builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false)
-                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-        meteoDialog = builder.create();
+//        builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(false)
+//                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+//        meteoDialog = builder.create();
 
         // get the current time
 
@@ -790,6 +790,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             meteo.setForecasts(forecasts);
 
             aggiornaLista();
+
+            // TODO: before it would show a complete dialog, as of now I changed it to just display a toast
             showWeatherUpdateMessage(meteo.getForecasts().get(0));
         } else {
             // TODO: handle exception
