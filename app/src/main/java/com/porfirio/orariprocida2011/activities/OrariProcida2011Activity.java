@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.porfirio.orariprocida2011.threads.DownloadTransportsHandler;
+import com.porfirio.orariprocida2011.threads.TransportsUpdate;
 import com.porfirio.orariprocida2011.utils.Analytics;
 import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
@@ -42,11 +43,6 @@ import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,11 +63,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private static FragmentManager fm;
 
     public Calendar c;
-    public Calendar updateWebTimes;
-    public Calendar updateTimesIS;
-    // Introdotto il concetto di ultima lettura degli orari da Web
-    public Calendar ultimaLetturaOrariDaWeb;
-    public Calendar aggiornamentoMeteo;
     public AlertDialog aboutDialog;
     public Meteo meteo;
     public AlertDialog meteoDialog;
@@ -91,10 +82,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private LocationManager myManager;
     private String BestProvider;
     private SegnalazioneDialog segnalazioneDialog;
-    private boolean primoAvvio = true;
     public String msgToast;
 
     private OnRequestWeatherDAO weatherDAO;
+    private DownloadTransportsHandler transportsDAO;
+
     private ExecutorService executorService;
 
     private Analytics analytics;
@@ -119,18 +111,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case (R.id.updateWeb):
                 analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Orari da Web da Menu");
-                // Caricare da Web
-                if (isOnline()) {
-                    riempiMezzidaWeb();
-                    if (updateWebTimes != null) {
-                        int meseToast = updateWebTimes.get(Calendar.MONTH);
-                        if (meseToast == 0) meseToast = 12;
-                        if (!primoAvvio)
-                            Toast.makeText(getApplicationContext(), getString(R.string.orariAggiornatiAl) + " " + updateWebTimes.get(Calendar.DATE) + "/" + meseToast + "/" + updateWebTimes.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
-                        //TODO: Forzare aggiornamento
-                    }
-                } else
-                    Log.d("ORARI", "Non c'? la connessione: non carico orari da Web");
+                transportsDAO.requestUpdate(this);
                 return true;
             case (R.id.meteo):
                 analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Meteo da Menu");
@@ -151,6 +132,16 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         analytics = new Analytics((AnalyticsApplication) getApplication());
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "onCreate");
+
+        executorService = Executors.newCachedThreadPool();
+
+        weatherDAO = new OnRequestWeatherDAO(executorService);
+        weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
+        weatherDAO.requestUpdate();
+
+        transportsDAO = new DownloadTransportsHandler(this, analytics, executorService);
+        transportsDAO.getUpdates().observe(this, this::onTransportsUpdate);
+        transportsDAO.requestUpdate(this);
 
         fm = getSupportFragmentManager();
 
@@ -302,26 +293,17 @@ public class OrariProcida2011Activity extends FragmentActivity {
         //bisogna cambiare anche la lettura dei mezzi prevedendo la lettura di questo file con la conseguente
         //eliminazione delle corse indicate
 
-        ultimaLetturaOrariDaWeb = Calendar.getInstance();
-        ultimaLetturaOrariDaWeb.setLenient(true);
-        //setto fittiziamente ad un valore diverso da oggi
-        ultimaLetturaOrariDaWeb.set(Calendar.DATE, Calendar.getInstance().get(Calendar.DATE - 1));
         riempiLista();
         setSpinner();
         aggiornaLista();
         setMsgToast();
-
-        executorService = Executors.newSingleThreadExecutor();
-
-        weatherDAO = new OnRequestWeatherDAO(executorService);
-        weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
-        weatherDAO.requestUpdate();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
+        transportsDAO.getUpdates().removeObservers(this);
         weatherDAO.getUpdates().removeObservers(this);
 
         executorService.shutdown();
@@ -338,52 +320,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         s += c.get(Calendar.DAY_OF_MONTH) + "/";
         s += (c.get(Calendar.MONTH) + 1) + "";
         txtOrario.setText(s);
-    }
-
-    private void riempiMezzidaInternalStorage(FileInputStream fstream) {
-        try {
-            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Riempi Mezzi da Internal Storage");
-            // Open the file that is the first
-            // command line parameter
-            Log.d("ORARI", "Inizio caricamento orari da IS");
-
-            // Get the object of DataInputStream
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String rigaAggiornamento = br.readLine();
-            StringTokenizer st0 = new StringTokenizer(rigaAggiornamento, ",");
-            updateTimesIS = Calendar.getInstance(TimeZone.getDefault());
-            updateTimesIS.set(Calendar.DAY_OF_MONTH, Integer.parseInt(st0.nextToken()));
-            updateTimesIS.set(Calendar.MONTH, Integer.parseInt(st0.nextToken()));
-            updateTimesIS.set(Calendar.YEAR, Integer.parseInt(st0.nextToken()));
-            //aboutDialog.setMessage(R.string.credits+"+aggiornamentoOrariIS.get(Calendar.DAY_OF_MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.MONTH)+"/"+aggiornamentoOrariIS.get(Calendar.YEAR)+");
-            aboutDialog.setMessage(getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
-
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
-                //esamino la riga e creo un mezzo
-                StringTokenizer st = new StringTokenizer(line, ",");
-                transportList.add(new Mezzo(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
-            }
-
-            //Close the input stream
-            in.close();
-            Log.d("ORARI", "Fine caricamento orari da IS");
-            int meseToast = updateTimesIS.get(Calendar.MONTH);
-            if (meseToast == 0) meseToast = 12;
-            String str = getString(R.string.orariAggiornatiAl) + " " + updateTimesIS.get(Calendar.DAY_OF_MONTH) + "/" + meseToast + "/" + updateTimesIS.get(Calendar.YEAR);
-            Log.d("ORARI", str);
-            if (!primoAvvio)
-                Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {//Catch exception if any
-            System.err.println("Error: " + e.getMessage());
-        }
-    }
-
-    private void riempiMezzidaWeb() {
-        DownloadTransportsHandler handler = new DownloadTransportsHandler(this);
-        handler.setAnalytics(analytics);
-        handler.fetchTransports();
     }
 
     public boolean sameTransport(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
@@ -486,140 +422,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Call Center", "0814972222");
         listCompagnia.add(c);
 
-        try {
-            FileInputStream fstream = new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/orari.csv");
-            riempiMezzidaInternalStorage(fstream);
-        } catch (FileNotFoundException e) {
-            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Riempi Lista da Codice");
-            Log.d("ORARI", "File non trovato su IS. Leggo da codice");
-            // convenzione giorni settimana:
-            // DOMENICA =1 LUNEDI=2 MARTEDI=3 MERCOLEDI=4 GIOVEDI=5 VENERDI=6 SABATO=7
-
-            updateTimesIS = Calendar.getInstance(TimeZone.getDefault());
-            updateTimesIS.set(2011, 11, 1); //Orari aggiornato all'1/11/2011
-            aboutDialog.setMessage("" + getString(R.string.disclaimer) + "\n" + getString(R.string.credits));
-
-            //TODO Questa lista di dati è per il caso di prima esecuzione senza connessione. Essendo un caso ormai remoto ed essendo questi orari
-            // ormai obsoleti, sarebbe meglio eliminare questo codice e far scaricare sempre da web, con un messaggio di errore se non c'è connessione
-
-            transportList.add(new Mezzo("Aliscafo Caremar", 8, 10, 8, 25, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 9, 10, 9, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 12, 10, 12, 40, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 18, 35, 19, 0, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 10, 20, 10, 55, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 13, 50, 14, 20, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 19, 15, 19, 45, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 8, 55, 9, 15, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 7, 30, 8, 10, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 8, 50, 9, 30, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 11, 45, 12, 25, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 13, 10, 13, 50, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 15, 10, 15, 50, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 17, 30, 18, 10, "Napoli Beverello", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 18, 15, 18, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",0,15,1,15,"Napoli Porta di Massa","Procida",0,0,0,0,0,0,"1234567",this));
-            transportList.add(new Mezzo("Traghetto Caremar", 6, 25, 7, 25, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 9, 10, 10, 10, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 10, 45, 11, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 15, 15, 16, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 17, 45, 18, 45, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 19, 30, 20, 30, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 22, 15, 23, 15, "Napoli Porta di Massa", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",2,20,3,20,"Procida","Napoli Porta di Massa",0,0,0,0,0,0,"1234567",this));
-            transportList.add(new Mezzo("Traghetto Caremar", 7, 40, 8, 40, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 13, 35, 14, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 14, 35, 15, 35, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 16, 15, 17, 15, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 18, 5, 19, 0, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 20, 30, 21, 30, "Procida", "Napoli Porta di Massa", 0, 0, 0, 0, 0, 0, "1234567"));
-            //listMezzi.add(new Mezzo(getApplicationContext(),"Traghetto Caremar",22,55,23,55,"Procida","Napoli Porta di Massa",0,0,0,0,0,0,"1234567",this));
-            transportList.add(new Mezzo("Aliscafo Caremar", 6, 35, 7, 15, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 7, 55, 8, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 9, 25, 10, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 10, 35, 11, 15, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 13, 30, 14, 10, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 14, 55, 15, 35, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 16, 55, 17, 35, "Procida", "Napoli Beverello", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Gestur", 6, 50, 7, 30, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 9, 40, 10, 20, "Procida", "Pozzuoli", 19, 10, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Gestur", 11, 30, 12, 10, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 14, 5, 14, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 17, 5, 17, 45, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 8, 25, 9, 5, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 10, 40, 11, 20, "Pozzuoli", "Procida", 19, 10, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Gestur", 13, 0, 13, 40, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 15, 30, 16, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Gestur", 17, 55, 18, 35, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 8, 25, 9, 0, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 12, 20, 12, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 16, 20, 16, 55, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 19, 0, 19, 35, "Napoli Beverello", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 7, 30, 8, 5, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 10, 10, 10, 45, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 14, 15, 14, 50, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 18, 5, 18, 40, "Procida", "Napoli Beverello", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Medmar", 4, 10, 4, 50, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
-            transportList.add(new Mezzo("Medmar", 20, 30, 21, 10, "Pozzuoli", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Medmar", 3, 10, 3, 50, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "23456"));
-            transportList.add(new Mezzo("Medmar", 19, 40, 20, 20, "Procida", "Pozzuoli", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Medmar", 5, 0, 5, 20, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "23456"));
-            transportList.add(new Mezzo("Medmar", 21, 20, 21, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Medmar", 2, 30, 2, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "23456"));
-            transportList.add(new Mezzo("Medmar", 6, 25, 6, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Medmar", 10, 35, 10, 55, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-
-            transportList.add(new Mezzo("Traghetto Caremar", 7, 35, 7, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 10, 20, 10, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 11, 5, 11, 25, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 11, 55, 12, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 14, 30, 14, 50, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 16, 25, 18, 45, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 18, 55, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 19, 50, 20, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 20, 35, 20, 55, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 23, 20, 23, 40, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-
-            transportList.add(new Mezzo("Traghetto Caremar", 7, 0, 7, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 8, 30, 8, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 11, 30, 11, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 12, 55, 13, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 13, 55, 14, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 15, 30, 15, 50, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 17, 25, 17, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 18, 0, 18, 20, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Traghetto Caremar", 19, 55, 20, 15, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-
-            transportList.add(new Mezzo("Aliscafo Caremar", 9, 35, 9, 50, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 12, 30, 12, 45, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 13, 55, 14, 10, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 15, 55, 16, 10, "Procida", "Ischia Porto", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 19, 0, 19, 15, "Procida", "Ischia Porto", 0, 0, 0, 0, 0, 0, "1234567"));
-
-            transportList.add(new Mezzo("Aliscafo Caremar", 7, 30, 7, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 10, 10, 10, 25, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 13, 5, 13, 20, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 14, 30, 14, 45, "Ischia Porto", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo Caremar", 16, 30, 16, 45, "Ischia Porto", "Procida", 1, 11, 2011, 1, 6, 2012, "1234567"));
-
-            transportList.add(new Mezzo("Aliscafo SNAV", 7, 10, 7, 25, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 9, 45, 10, 0, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 13, 50, 14, 10, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 17, 40, 17, 55, "Procida", "Casamicciola", 0, 0, 0, 0, 0, 0, "1234567"));
-
-            transportList.add(new Mezzo("Aliscafo SNAV", 9, 0, 9, 15, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 13, 15, 13, 30, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 17, 5, 17, 20, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-            transportList.add(new Mezzo("Aliscafo SNAV", 19, 45, 10, 0, "Casamicciola", "Procida", 0, 0, 0, 0, 0, 0, "1234567"));
-        }
-
-
-        boolean updateWeb = true;
-        // Carica da Web solo se non sono abbastnza aggiornati
-
-        if (isOnline() && (ultimaLetturaOrariDaWeb.get(Calendar.DAY_OF_YEAR) != Calendar.getInstance().get(Calendar.DAY_OF_YEAR)))
-            riempiMezzidaWeb();
-        else
-            Log.d("ORARI", "Non c'? connessione o non c'? bisogno di aggiornamento: non carico orari da Web");
         if (isOnline())
             leggiSegnalazioniDaWeb();
     }
@@ -857,15 +659,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     public void setMsgToast() {
-        primoAvvio = false;
         msgToast = "";
         if (!(portoPartenza.equals(getString(R.string.tutti))))
-            msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza + "\n");
-        if (updateTimesIS != null) {
-            int mese = updateTimesIS.get(Calendar.MONTH);
-            if (mese == 0) mese = 12;
-            msgToast += getString(R.string.orariAggiornatiAl) + " " + updateTimesIS.get(Calendar.DATE) + "/" + mese + "/" + updateTimesIS.get(Calendar.YEAR);
-        }
+            msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza);
 
         if (!aggiorna)
             Toast.makeText(this, msgToast, Toast.LENGTH_LONG).show();
@@ -973,11 +769,24 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return Math.ceil(delta);
     }
 
+    private void onTransportsUpdate(TransportsUpdate update) {
+        if (update.isValid()) {
+            transportList.clear();
+            transportList.addAll(update.getData());
+            aggiornaLista();
+
+            Toast.makeText(this, getString(R.string.orariAggiornatiAl) + " " + DateTimeFormatter.ISO_LOCAL_DATE.format(update.getUpdateTime()), Toast.LENGTH_LONG).show();
+        } else {
+            // TODO: handle exception
+            Log.e("MainActivity", "OnTransportsUpdate: ", update.getError());
+            Toast.makeText(this, "Could not update transports: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void onWeatherUpdate(WeatherUpdate update) {
         if (update.isValid()) {
             List<Osservazione> forecasts = update.getData();
 
-            aggiornamentoMeteo = Calendar.getInstance();
             meteo.setForecasts(forecasts);
 
             aggiornaLista();
