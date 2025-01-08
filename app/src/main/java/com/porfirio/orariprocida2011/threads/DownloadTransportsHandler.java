@@ -45,6 +45,8 @@ public class DownloadTransportsHandler implements TransportsDAO {
 
     public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity, Analytics analytics, ExecutorService executorService) {
         act = orariProcida2011Activity;
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
         this.analytics = FirebaseAnalytics.getInstance(act.getApplicationContext()); // FIXME: should we need analytics?
 
