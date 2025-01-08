@@ -82,7 +82,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private LocationManager myManager;
     private String BestProvider;
     private SegnalazioneDialog segnalazioneDialog;
-    public String msgToast;
 
     private OnRequestWeatherDAO weatherDAO;
     private DownloadTransportsHandler transportsDAO;
@@ -296,7 +295,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         riempiLista();
         setSpinner();
         aggiornaLista();
-        setMsgToast();
+
+        if (!portoPartenza.equals(getString(R.string.tutti)) && !aggiorna)
+            Toast.makeText(this, (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -658,15 +659,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         });
     }
 
-    public void setMsgToast() {
-        msgToast = "";
-        if (!(portoPartenza.equals(getString(R.string.tutti))))
-            msgToast += (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza);
-
-        if (!aggiorna)
-            Toast.makeText(this, msgToast, Toast.LENGTH_LONG).show();
-    }
-
     private void setSpnPortoArrivo(Spinner spnPortoArrivo, final ArrayAdapter<CharSequence> adapter3) {
         //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoArrivo.getCount(); i++) {
@@ -693,7 +685,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //System.exit(0);
-            return "Any";
+            return getString(R.string.tutti);
         }
 
         // l'accesso al GPS potrebbe non essere garantito per ragioni legate a Google Play
