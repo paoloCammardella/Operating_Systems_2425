@@ -29,11 +29,12 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 
+// TODO: should be renamed to something like OnRequestTransportsDAO
 public class DownloadTransportsHandler implements TransportsDAO {
 
-    private final OrariProcida2011Activity act;
+    private final OrariProcida2011Activity act; // FIXME: references to activity should be removed
 
-    private final MutableLiveData<TransportsUpdate> update = new MutableLiveData<>();
+    private final MutableLiveData<TransportsUpdate> update;
     private ExecutorService executorService;
 
     // Firebase references
@@ -45,10 +46,12 @@ public class DownloadTransportsHandler implements TransportsDAO {
     public DownloadTransportsHandler(OrariProcida2011Activity orariProcida2011Activity, Analytics analytics, ExecutorService executorService) {
         act = orariProcida2011Activity;
         databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
-        this.analytics = FirebaseAnalytics.getInstance(act.getApplicationContext());
+        this.analytics = FirebaseAnalytics.getInstance(act.getApplicationContext()); // FIXME: should we need analytics?
 
         setAnalytics(analytics);
         setExecutorService(executorService);
+
+        update = new MutableLiveData<>();
     }
 
     public void setAnalytics(Analytics analytics) {
@@ -59,6 +62,7 @@ public class DownloadTransportsHandler implements TransportsDAO {
         this.executorService = Objects.requireNonNull(executorService);
     }
 
+    // TODO: context parameter should be removed, it's there for legacy code that should be removed in the future
     public void requestUpdate(Context context) {
         executorService.submit(() -> {
             // Log evento Firebase Analytics: Inizio download
