@@ -1,8 +1,6 @@
-package com.porfirio.orariprocida2011.dao;
+package com.porfirio.orariprocida2011.threads.weather;
 
 import androidx.lifecycle.LiveData;
-
-import com.porfirio.orariprocida2011.utils.WeatherUpdate;
 
 public interface WeatherDAO {
 
