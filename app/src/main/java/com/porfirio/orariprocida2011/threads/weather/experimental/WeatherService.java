@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011.threads.weather;
+package com.porfirio.orariprocida2011.threads.weather.experimental;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import androidx.lifecycle.LiveData;
+
+import com.porfirio.orariprocida2011.threads.weather.WeatherDAO;
+import com.porfirio.orariprocida2011.threads.weather.WeatherUpdate;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +34,7 @@ public class WeatherService extends Service implements WeatherDAO {
     @Override
     public void onCreate() {
         super.onCreate();
-        weatherDAO.start(2, TimeUnit.HOURS);
+        weatherDAO.start(1, TimeUnit.HOURS);
     }
 
     @Override
