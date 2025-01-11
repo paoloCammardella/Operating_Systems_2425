@@ -100,20 +100,20 @@ public class DownloadTransportsHandler extends Handler {
 
     private Mezzo parseMezzo(DataSnapshot snapshot) {
         return new Mezzo(
-                snapshot.child("attribute1").getValue(String.class),  // Nome nave
-                snapshot.child("attribute2").getValue(String.class),  // Ora partenza ora
-                snapshot.child("attribute3").getValue(String.class),  // Ora partenza minuti
-                snapshot.child("attribute4").getValue(String.class),  // Ora arrivo ora
-                snapshot.child("attribute5").getValue(String.class),  // Ora arrivo minuti
-                snapshot.child("attribute6").getValue(String.class),  // Porto partenza
-                snapshot.child("attribute7").getValue(String.class),  // Porto arrivo
-                snapshot.child("attribute8").getValue(String.class),  // Giorni inizio esclusione
-                snapshot.child("attribute9").getValue(String.class),  // Mese inizio esclusione
-                snapshot.child("attribute10").getValue(String.class), // Anno inizio esclusione
-                snapshot.child("attribute11").getValue(String.class), // Giorni fine esclusione
-                snapshot.child("attribute12").getValue(String.class), // Mese fine esclusione
-                snapshot.child("attribute13").getValue(String.class), // Anno fine esclusione
-                snapshot.child("attribute14").getValue(String.class)  // Giorni settimana
+                snapshot.child("nomeNave").getValue(String.class),         // Nome nave
+                snapshot.child("oraPartenza").getValue(String.class),      // Ora partenza (ora)
+                snapshot.child("minutiPartenza").getValue(String.class),   // Ora partenza (minuti)
+                snapshot.child("oraArrivo").getValue(String.class),        // Ora arrivo (ora)
+                snapshot.child("minutiArrivo").getValue(String.class),     // Ora arrivo (minuti)
+                snapshot.child("portoPartenza").getValue(String.class),    // Porto di partenza
+                snapshot.child("portoArrivo").getValue(String.class),      // Porto di arrivo
+                snapshot.child("giorniInizioEsclusione").getValue(String.class), // Giorni inizio esclusione
+                snapshot.child("meseInizioEsclusione").getValue(String.class),   // Mese inizio esclusione
+                snapshot.child("annoInizioEsclusione").getValue(String.class),   // Anno inizio esclusione
+                snapshot.child("giorniFineEsclusione").getValue(String.class),   // Giorni fine esclusione
+                snapshot.child("meseFineEsclusione").getValue(String.class),     // Mese fine esclusione
+                snapshot.child("annoFineEsclusione").getValue(String.class),     // Anno fine esclusione
+                snapshot.child("giorniSettimana").getValue(String.class)         // Giorni della settimana
         );
     }
 
