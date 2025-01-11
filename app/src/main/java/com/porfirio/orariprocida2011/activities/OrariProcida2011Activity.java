@@ -110,7 +110,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
             // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
             case (R.id.updateWeb):
                 analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Orari da Web da Menu");
-                transportsDAO.requestUpdate(this);
+                transportsDAO.requestUpdate();
                 return true;
             case (R.id.meteo):
                 analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Meteo da Menu");
@@ -138,9 +138,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
         weatherDAO.requestUpdate();
 
-        transportsDAO = new DownloadTransportsHandler(this, analytics, executorService);
+        transportsDAO = new DownloadTransportsHandler(analytics, executorService);
         transportsDAO.getUpdates().observe(this, this::onTransportsUpdate);
-        transportsDAO.requestUpdate(this);
+        transportsDAO.requestUpdate();
 
         fm = getSupportFragmentManager();
 
