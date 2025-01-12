@@ -5,22 +5,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
+import java.io.Closeable;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class OnRequestWeatherDAO implements WeatherDAO {
+public class OnRequestWeatherDAO implements WeatherDAO, Closeable {
 
     private final MutableLiveData<WeatherUpdate> updates = new MutableLiveData<>();
-    private ExecutorService executorService;
-
-    public OnRequestWeatherDAO(ExecutorService executorService) {
-        setExecutorService(executorService);
-    }
-
-    public void setExecutorService(ExecutorService executorService) {
-        this.executorService = Objects.requireNonNull(executorService);
-    }
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public void requestUpdate() {
         executorService.submit(() -> {
@@ -36,6 +29,11 @@ public class OnRequestWeatherDAO implements WeatherDAO {
     @Override
     public LiveData<WeatherUpdate> getUpdates() {
         return updates;
+    }
+
+    @Override
+    public void close() {
+        executorService.shutdown();
     }
 
 }

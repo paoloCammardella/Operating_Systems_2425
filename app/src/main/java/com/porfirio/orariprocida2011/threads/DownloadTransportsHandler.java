@@ -18,52 +18,24 @@ import com.porfirio.orariprocida2011.utils.Analytics;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
 
 // TODO: should be renamed to something like OnRequestTransportsDAO
 public class DownloadTransportsHandler implements TransportsDAO {
 
+    private static final String TAG = DownloadTransportsHandler.class.getSimpleName();
+
     private final MutableLiveData<TransportsUpdate> update;
-    private ExecutorService executorService;
-
-    // Firebase references
     private final DatabaseReference databaseReference;
+    private final Analytics analytics;
 
-    private Analytics internalAnalytics;
-
-    public DownloadTransportsHandler(Analytics analytics, ExecutorService executorService) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
-
-        setAnalytics(analytics);
-        setExecutorService(executorService);
-
-        update = new MutableLiveData<>();
-    }
-
-    public void setAnalytics(Analytics analytics) {
-        this.internalAnalytics = Objects.requireNonNull(analytics);
-    }
-
-    public void setExecutorService(ExecutorService executorService) {
-        this.executorService = Objects.requireNonNull(executorService);
+    public DownloadTransportsHandler(Analytics analytics) {
+        this.update = new MutableLiveData<>();
+        this.analytics = Objects.requireNonNull(analytics);
+        this.databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
     }
 
     public void requestUpdate() {
-        executorService.submit(() -> {
-            internalAnalytics.send("App Event", "Download Mezzi Task");
-            fetchTransportDataFromRealtimeDatabase();
-            internalAnalytics.send("App Event", "Download Terminated");
-        });
-    }
-
-    @Override
-    public LiveData<TransportsUpdate> getUpdates() {
-        return update;
-    }
-
-    //TODO cambiare effettivamente i valori nel Firebase Realtime DB con quelli reali
-    //TODO creare un backend per automatizzarre il riempimento del DB Firebase
-    private void fetchTransportDataFromRealtimeDatabase() {
+        analytics.send("App Event", "Download Mezzi Task");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -77,11 +49,12 @@ public class DownloadTransportsHandler implements TransportsDAO {
                 }
 
                 update.postValue(new TransportsUpdate(transportList, LocalDateTime.now()));
+                analytics.send("App Event", "Download Terminated");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("DownloadHandler", "Errore Realtime Database: " + databaseError.getMessage(), databaseError.toException());
+                Log.e(TAG, "Firebase exception: ", databaseError.toException());
 
                 Bundle bundle = new Bundle();
                 bundle.putString("error_message", databaseError.getMessage());
@@ -90,7 +63,11 @@ public class DownloadTransportsHandler implements TransportsDAO {
             }
 
         });
+    }
 
+    @Override
+    public LiveData<TransportsUpdate> getUpdates() {
+        return update;
     }
 
     private Mezzo parseMezzo(DataSnapshot snapshot) {

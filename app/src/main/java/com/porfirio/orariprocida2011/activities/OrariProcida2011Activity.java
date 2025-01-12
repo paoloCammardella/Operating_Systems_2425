@@ -51,8 +51,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class OrariProcida2011Activity extends FragmentActivity {
 
@@ -85,9 +83,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private OnRequestWeatherDAO weatherDAO;
     private DownloadTransportsHandler transportsDAO;
-
-    private ExecutorService executorService;
-
     private Analytics analytics;
 
     @Override
@@ -132,13 +127,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
         analytics = new Analytics((AnalyticsApplication) getApplication());
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "onCreate");
 
-        executorService = Executors.newCachedThreadPool();
-
-        weatherDAO = new OnRequestWeatherDAO(executorService);
+        weatherDAO = new OnRequestWeatherDAO();
         weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
         weatherDAO.requestUpdate();
 
-        transportsDAO = new DownloadTransportsHandler(analytics, executorService);
+        transportsDAO = new DownloadTransportsHandler(analytics);
         transportsDAO.getUpdates().observe(this, this::onTransportsUpdate);
         transportsDAO.requestUpdate();
 
@@ -305,9 +298,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         super.onDestroy();
 
         transportsDAO.getUpdates().removeObservers(this);
-        weatherDAO.getUpdates().removeObservers(this);
 
-        executorService.shutdown();
+        weatherDAO.getUpdates().removeObservers(this);
+        weatherDAO.close();
     }
 
     private void setTxtOrario(Calendar c) {
