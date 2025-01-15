@@ -2,7 +2,6 @@ package com.porfirio.orariprocida2011.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,13 +19,10 @@ import androidx.fragment.app.DialogFragment;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.threads.WriteAlertsHandler;
 import com.porfirio.orariprocida2011.threads.alerts.Alert;
 import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

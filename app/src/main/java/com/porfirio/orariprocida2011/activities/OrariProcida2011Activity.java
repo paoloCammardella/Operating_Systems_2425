@@ -37,7 +37,6 @@ import com.porfirio.orariprocida2011.utils.Analytics;
 import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.threads.weather.OnRequestWeatherDAO;
-import com.porfirio.orariprocida2011.threads.ReadAlertsHandler;
 import com.porfirio.orariprocida2011.threads.weather.WeatherUpdate;
 import com.porfirio.orariprocida2011.dialogs.DettagliMezzoDialog;
 import com.porfirio.orariprocida2011.dialogs.SegnalazioneDialog;
@@ -47,7 +46,6 @@ import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -297,7 +295,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         riempiLista();
         setSpinner();
-        aggiornaLista();
+//        aggiornaLista();
 
         if (!portoPartenza.equals(getString(R.string.tutti)) && !aggiorna)
             Toast.makeText(this, (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza), Toast.LENGTH_LONG).show();
@@ -324,53 +322,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         s += c.get(Calendar.DAY_OF_MONTH) + "/";
         s += (c.get(Calendar.MONTH) + 1) + "";
         txtOrario.setText(s);
-    }
-
-    public boolean sameTransport(String rigaData, String rigaMezzo, Mezzo m, Calendar cal) {
-        //cal contiene l'ora scritta in cima alla schermata
-        //Verifico che la distanza tra cal e l'orario fissato da data di riferimento della segnalazione e ora normale ci partenza del mezzo sia inferiore a tra 0 e 24 h
-
-        StringTokenizer st = new StringTokenizer(rigaMezzo, ",");
-        if (st.nextToken().equals(m.nave))
-            if (Integer.parseInt(st.nextToken()) == m.oraPartenza.get(Calendar.HOUR_OF_DAY))
-                if (Integer.parseInt(st.nextToken()) == m.oraPartenza.get(Calendar.MINUTE))
-                    if (Integer.parseInt(st.nextToken()) == m.oraArrivo.get(Calendar.HOUR_OF_DAY))
-                        if (Integer.parseInt(st.nextToken()) == m.oraArrivo.get(Calendar.MINUTE))
-                            if (st.nextToken().equals(m.portoPartenza))
-                                if (st.nextToken().equals(m.portoArrivo)) {
-                                    StringTokenizer st2 = new StringTokenizer(rigaData, ",");
-                                    int giorno = Integer.parseInt(st2.nextToken());
-                                    int mese = Integer.parseInt(st2.nextToken());
-                                    int anno = Integer.parseInt(st2.nextToken());
-                                    Calendar calMezzo = (Calendar) cal.clone();
-                                    calMezzo.set(Calendar.DAY_OF_MONTH, giorno);
-                                    calMezzo.set(Calendar.MONTH, mese - 1);
-                                    calMezzo.set(Calendar.YEAR, anno);
-                                    calMezzo.set(Calendar.HOUR_OF_DAY, m.oraPartenza.get(Calendar.HOUR_OF_DAY));
-                                    calMezzo.set(Calendar.MINUTE, m.oraArrivo.get(Calendar.MINUTE));
-                                    //TODO Qua devo controllare le 24 ore)
-                                    if (calMezzo.after(cal)) {
-                                        calMezzo.add(Calendar.DAY_OF_YEAR, -1);
-                                        return calMezzo.before(cal);
-                                    }
-                                }
-        return false;
-    }
-
-    private boolean sameTransport(Mezzo transport, Alert alert) {
-        LocalTime transportDepartureTime = transport.getDepartureTime();
-        LocalTime transportArrivalTime = transport.getArrivalTime();
-        LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-
-        if (transport.getGiornoSeguente())
-            transportDate = transportDate.plusDays(1);
-
-        return alert.getTransport().equals(transport.nave)
-                && alert.getDepartureTime().equals(transportDepartureTime)
-                && alert.getArrivalTime().equals(transportArrivalTime)
-                && alert.getDepartureLocation().equals(transport.portoPartenza)
-                && alert.getArrivalLocation().equals(transport.portoArrivo)
-                && alert.getTransportDate().equals(transportDate);
     }
 
     public boolean isOnline() {
@@ -686,7 +637,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         }
     }
 
-
     private String setPortoPartenza() {
         // Trova il porto pi? vicino a quello di partenza
         Location l = null;
@@ -789,11 +739,27 @@ public class OrariProcida2011Activity extends FragmentActivity {
         }
     }
 
+    private boolean sameTransport(Mezzo transport, Alert alert) {
+        LocalTime transportDepartureTime = transport.getDepartureTime();
+        LocalTime transportArrivalTime = transport.getArrivalTime();
+        LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+
+        if (transport.getGiornoSeguente())
+            transportDate = transportDate.plusDays(1);
+
+        return alert.getTransport().equals(transport.nave)
+                && alert.getDepartureTime().equals(transportDepartureTime)
+                && alert.getArrivalTime().equals(transportArrivalTime)
+                && alert.getDepartureLocation().equals(transport.portoPartenza)
+                && alert.getArrivalLocation().equals(transport.portoArrivo)
+                && alert.getTransportDate().equals(transportDate);
+    }
+
     private void onTransportsUpdate(TransportsUpdate update) {
         if (update.isValid()) {
             transportList.clear();
             transportList.addAll(update.getData());
-//            aggiornaLista();
+            aggiornaLista();
 
             alertsDAO.requestUpdate();
 
