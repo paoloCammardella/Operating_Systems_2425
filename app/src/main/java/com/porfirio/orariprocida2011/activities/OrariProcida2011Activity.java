@@ -30,6 +30,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.porfirio.orariprocida2011.threads.DownloadTransportsHandler;
 import com.porfirio.orariprocida2011.threads.TransportsUpdate;
+import com.porfirio.orariprocida2011.threads.alerts.Alert;
+import com.porfirio.orariprocida2011.threads.alerts.AlertUpdate;
+import com.porfirio.orariprocida2011.threads.alerts.OnRequestAlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 import com.porfirio.orariprocida2011.utils.AnalyticsApplication;
 import com.porfirio.orariprocida2011.R;
@@ -43,6 +46,9 @@ import com.porfirio.orariprocida2011.entity.Meteo;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,6 +89,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private OnRequestWeatherDAO weatherDAO;
     private DownloadTransportsHandler transportsDAO;
+    private OnRequestAlertsDAO alertsDAO;
     private Analytics analytics;
 
     @Override
@@ -134,6 +141,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         transportsDAO = new DownloadTransportsHandler(analytics);
         transportsDAO.getUpdates().observe(this, this::onTransportsUpdate);
         transportsDAO.requestUpdate();
+
+        alertsDAO = new OnRequestAlertsDAO(analytics);
+        alertsDAO.getUpdates().observe(this, this::onAlertsUpdate);
 
         fm = getSupportFragmentManager();
 
@@ -223,11 +233,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
         aalvMezzi = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
 
-        dettagliMezzoDialog = new DettagliMezzoDialog();
+        dettagliMezzoDialog = new DettagliMezzoDialog(alertsDAO);
         dettagliMezzoDialog.setDettagliMezzoDialog(fm, this, this, c);
         dettagliMezzoDialog.setAnalytics(analytics);
 
-        segnalazioneDialog = new SegnalazioneDialog();
+        segnalazioneDialog = new SegnalazioneDialog(alertsDAO);
         //listener sul click di un item della lista
         lvMezzi.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
             analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Click Dettagli Mezzo");
@@ -297,8 +307,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        alertsDAO.getUpdates().removeObservers(this);
         transportsDAO.getUpdates().removeObservers(this);
-
         weatherDAO.getUpdates().removeObservers(this);
         weatherDAO.close();
     }
@@ -345,6 +355,22 @@ public class OrariProcida2011Activity extends FragmentActivity {
                                     }
                                 }
         return false;
+    }
+
+    private boolean sameTransport(Mezzo transport, Alert alert) {
+        LocalTime transportDepartureTime = transport.getDepartureTime();
+        LocalTime transportArrivalTime = transport.getArrivalTime();
+        LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+
+        if (transport.getGiornoSeguente())
+            transportDate = transportDate.plusDays(1);
+
+        return alert.getTransport().equals(transport.nave)
+                && alert.getDepartureTime().equals(transportDepartureTime)
+                && alert.getArrivalTime().equals(transportArrivalTime)
+                && alert.getDepartureLocation().equals(transport.portoPartenza)
+                && alert.getArrivalLocation().equals(transport.portoArrivo)
+                && alert.getTransportDate().equals(transportDate);
     }
 
     public boolean isOnline() {
@@ -415,16 +441,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Napoli", "0814972252");
         c.addTelefono("Call Center", "0814972222");
         listCompagnia.add(c);
-
-        if (isOnline())
-            leggiSegnalazioniDaWeb();
-    }
-
-    private void leggiSegnalazioniDaWeb() {
-        //Leggo il file delle segnalazioni
-        ReadAlertsHandler handler = new ReadAlertsHandler(this);
-        handler.setAnalytics(analytics);
-        handler.start();
     }
 
     public void aggiornaLista() {
@@ -754,11 +770,32 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return Math.ceil(delta);
     }
 
+    private void onAlertsUpdate(AlertUpdate update) {
+        if (update.isValid()) {
+
+            // FIXME: highly inefficient, transport list is sorted by time so it could be possible to do a binary search
+            for (Alert alert : update.getData()) {
+                for (Mezzo transport : transportList) {
+                    if (sameTransport(transport, alert))
+                        transport.addReason(alert.getReason());
+                }
+            }
+
+            aggiornaLista();
+        } else {
+            // TODO: handle exception
+            Log.e("MainActivity", "OnAlertsUpdate: ", update.getError());
+            Toast.makeText(this, "Could not update alerts: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void onTransportsUpdate(TransportsUpdate update) {
         if (update.isValid()) {
             transportList.clear();
             transportList.addAll(update.getData());
-            aggiornaLista();
+//            aggiornaLista();
+
+            alertsDAO.requestUpdate();
 
             Toast.makeText(this, getString(R.string.orariAggiornatiAl) + " " + DateTimeFormatter.ISO_LOCAL_DATE.format(update.getUpdateTime()), Toast.LENGTH_LONG).show();
         } else {

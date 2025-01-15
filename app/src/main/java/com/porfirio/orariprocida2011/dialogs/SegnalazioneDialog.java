@@ -2,6 +2,7 @@ package com.porfirio.orariprocida2011.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,12 +21,17 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.threads.WriteAlertsHandler;
+import com.porfirio.orariprocida2011.threads.alerts.Alert;
+import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class SegnalazioneDialog extends DialogFragment implements OnClickListener {
     private Mezzo mezzo;
@@ -35,8 +41,12 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
     private Calendar orarioRef;
     private ArrayList<Compagnia> listCompagnia;
 
+    private AlertsDAO alertsDAO;
     private Analytics analytics;
 
+    public SegnalazioneDialog(AlertsDAO alertsDAO) {
+        this.alertsDAO = Objects.requireNonNull(alertsDAO);
+    }
 
     public void setCallingContext(Context callingContext) {
         this.callingContext = callingContext;
@@ -122,32 +132,19 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
 
 
     private String scriviSegnalazione(boolean problema) {
-
-        String URL = "http://unoprocidaresidente.altervista.org/segnala.php?data=";
-        //Pare funzionino le segnalazioni relative al giorno successivo!
-        if (mezzo.getGiornoSeguente())
-            orarioRef.add(Calendar.DAY_OF_YEAR, 1);
-        URL += orarioRef.get(Calendar.DAY_OF_MONTH) + "," + (1 + orarioRef.get(Calendar.MONTH)) + "," + orarioRef.get(Calendar.YEAR) + "&s=";
-        if (mezzo.getGiornoSeguente()) //rimettiamo a posto!
-            orarioRef.add(Calendar.DAY_OF_YEAR, -1);
         String dettagli = txtDettagli.getText().toString().replaceAll("\r\n|\r|\n", " ");
-        try {
-            URL += URLEncoder.encode((mezzo.nave + "," + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + "," + mezzo.oraPartenza.get(Calendar.MINUTE)
-                    + "," + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + "," + mezzo.oraArrivo.get(Calendar.MINUTE) + ","
-                    + mezzo.portoPartenza + "," + mezzo.portoArrivo + ","
-                    + mezzo.inizioEsclusione.get(Calendar.DAY_OF_MONTH) + "," + mezzo.inizioEsclusione.get(Calendar.MONTH) + "," + mezzo.inizioEsclusione.get(Calendar.YEAR) + ","
-                    + mezzo.fineEsclusione.get(Calendar.DAY_OF_MONTH) + "," + mezzo.fineEsclusione.get(Calendar.MONTH) + "," + mezzo.fineEsclusione.get(Calendar.YEAR) + ","
-                    + mezzo.giorniSettimana), "UTF-8");
-            if (problema)
-                URL = URL + "&motivo=" + ragione + "&dettagli=" + URLEncoder.encode(dettagli, "UTF-8");
-            else
-                URL = URL + "&motivo=99"; //99 convenzionalmente sta per Conferma
-        } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
-        }
-        new WriteAlertsHandler().execute(URL);
+        int reason = problema ? ragione : Alert.REASON_NO_PROBLEM;
+        LocalDate transportDate = LocalDate.of(orarioRef.get(Calendar.YEAR), orarioRef.get(Calendar.MONTH) + 1, orarioRef.get(Calendar.DAY_OF_MONTH));
 
+        if (mezzo.getGiornoSeguente())
+            transportDate = transportDate.plusDays(1);
+
+        LocalTime departureTime = LocalTime.of(mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY), mezzo.oraPartenza.get(Calendar.MINUTE));
+        LocalTime arrivalTime = LocalTime.of(mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY), mezzo.oraArrivo.get(Calendar.MINUTE));
+
+        Alert alert = new Alert(mezzo.nave, reason, dettagli, mezzo.portoPartenza, departureTime, mezzo.portoArrivo, arrivalTime, transportDate);
+        alertsDAO.send(alert);
 
         return "ok";
     }

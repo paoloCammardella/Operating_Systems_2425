@@ -1,140 +1,141 @@
 package com.porfirio.orariprocida2011.entity;
 
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public class Mezzo {
-	//gestite nel dettaglio segnalazioni per tipologia e motivi
-	public final String nave;
-	public final Calendar oraPartenza;
-	public final Calendar oraArrivo;
-	public final String portoPartenza;
-	public final String portoArrivo;
-	public final Calendar inizioEsclusione;
-	public final Calendar fineEsclusione;
-	public final String giorniSettimana;
-	private final int[] segnalazioni = new int[100];
-	//private final Context callingContext;
-	public int conferme = 0;
-	public int tot = 0;
-	public boolean conc = true;
-	private boolean giornoSeguente;
-	private boolean esclusione;
-	private int orderInList;
-	private double costoIntero;
-	private double costoResidente;
-	private boolean circaIntero=false;
-	private boolean circaResidente=false;
-	private String[] ragioni=new String[100];
+    //gestite nel dettaglio segnalazioni per tipologia e motivi
+    public final String nave;
+    public final Calendar oraPartenza;
+    public final Calendar oraArrivo;
+    public final String portoPartenza;
+    public final String portoArrivo;
+    public final Calendar inizioEsclusione;
+    public final Calendar fineEsclusione;
+    public final String giorniSettimana;
+    private final int[] segnalazioni = new int[100];
+    //private final Context callingContext;
+    public int conferme = 0;
+    public int tot = 0;
+    public boolean conc = true;
+    private boolean giornoSeguente;
+    private boolean esclusione;
+    private int orderInList;
+    private double costoIntero;
+    private double costoResidente;
+    private boolean circaIntero = false;
+    private boolean circaResidente = false;
+    private String[] ragioni = new String[100];
 
 
-	public Mezzo(String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
-		//callingContext=c;
-		//ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
-		for (int i=0;i<100;i++)
-			segnalazioni[i] = 0;
-		nave = n;
-		oraPartenza=Calendar.getInstance();
-		oraPartenza.set(Calendar.HOUR_OF_DAY, op);
-		oraPartenza.set(Calendar.MINUTE, mp);
-		oraArrivo=Calendar.getInstance();
-		oraArrivo.set(Calendar.HOUR_OF_DAY, oa);
-		oraArrivo.set(Calendar.MINUTE, ma);
-		portoPartenza=pp;
-		portoArrivo=pa;
-		inizioEsclusione=Calendar.getInstance();
-		fineEsclusione=Calendar.getInstance();
-		esclusione=false;
-		if (gie!=0){
-			esclusione=true;
-			inizioEsclusione.set(Calendar.DAY_OF_MONTH, gie);
-			inizioEsclusione.set(Calendar.MONTH, mie-1); //i mesi sono contati da 0=gennaio
-			inizioEsclusione.set(Calendar.YEAR, aie); //gli anni sono contati da 0=1900
-			inizioEsclusione.set(Calendar.HOUR_OF_DAY,0);
-			inizioEsclusione.set(Calendar.MINUTE,0);
-			fineEsclusione.set(Calendar.DAY_OF_MONTH, gfe);
-			fineEsclusione.set(Calendar.MONTH, mfe-1); //i mesi sono contati da 0=gennaio
-			fineEsclusione.set(Calendar.YEAR, afe); //gli anni sono contati da 0=1900
-			fineEsclusione.set(Calendar.HOUR_OF_DAY,23);
-			fineEsclusione.set(Calendar.MINUTE,59);
-		}
-		giorniSettimana=gs;
-		if (pp.contentEquals("Procida"))
-			calcolaCosto(n,pa);
-		else
-			calcolaCosto(n,pp);
+    public Mezzo(String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
+        //callingContext=c;
+        //ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
+        for (int i = 0; i < 100; i++)
+            segnalazioni[i] = 0;
+        nave = n;
+        oraPartenza = Calendar.getInstance();
+        oraPartenza.set(Calendar.HOUR_OF_DAY, op);
+        oraPartenza.set(Calendar.MINUTE, mp);
+        oraArrivo = Calendar.getInstance();
+        oraArrivo.set(Calendar.HOUR_OF_DAY, oa);
+        oraArrivo.set(Calendar.MINUTE, ma);
+        portoPartenza = pp;
+        portoArrivo = pa;
+        inizioEsclusione = Calendar.getInstance();
+        fineEsclusione = Calendar.getInstance();
+        esclusione = false;
+        if (gie != 0) {
+            esclusione = true;
+            inizioEsclusione.set(Calendar.DAY_OF_MONTH, gie);
+            inizioEsclusione.set(Calendar.MONTH, mie - 1); //i mesi sono contati da 0=gennaio
+            inizioEsclusione.set(Calendar.YEAR, aie); //gli anni sono contati da 0=1900
+            inizioEsclusione.set(Calendar.HOUR_OF_DAY, 0);
+            inizioEsclusione.set(Calendar.MINUTE, 0);
+            fineEsclusione.set(Calendar.DAY_OF_MONTH, gfe);
+            fineEsclusione.set(Calendar.MONTH, mfe - 1); //i mesi sono contati da 0=gennaio
+            fineEsclusione.set(Calendar.YEAR, afe); //gli anni sono contati da 0=1900
+            fineEsclusione.set(Calendar.HOUR_OF_DAY, 23);
+            fineEsclusione.set(Calendar.MINUTE, 59);
+        }
+        giorniSettimana = gs;
+        if (pp.contentEquals("Procida"))
+            calcolaCosto(n, pa);
+        else
+            calcolaCosto(n, pp);
 
 
-	}
+    }
 
-	public Mezzo(String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
-		//callingContext=c;
-		//ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
-		for (int i=0;i<100;i++)
-			segnalazioni[i] = 0;
-		nave = n;
-		oraPartenza=Calendar.getInstance();
-		oraPartenza.set(Calendar.HOUR_OF_DAY, Integer.parseInt(op));
-		oraPartenza.set(Calendar.MINUTE, Integer.parseInt(mp));
-		oraArrivo=Calendar.getInstance();
-		oraArrivo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(oa));
-		oraArrivo.set(Calendar.MINUTE, Integer.parseInt(ma));
-		portoPartenza=pp;
-		portoArrivo=pa;
-		inizioEsclusione=Calendar.getInstance();
-		fineEsclusione=Calendar.getInstance();
-		esclusione=false;
-		if (Integer.parseInt(gie)!=0){
-			esclusione=true;
-			inizioEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gie));
-			inizioEsclusione.set(Calendar.MONTH, Integer.parseInt(mie)-1); //i mesi sono contati da 0=gennaio
-			inizioEsclusione.set(Calendar.YEAR, Integer.parseInt(aie)); //gli anni sono contati da 0=1900
-			inizioEsclusione.set(Calendar.HOUR_OF_DAY,0);
-			inizioEsclusione.set(Calendar.MINUTE,0);
-			fineEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gfe));
-			fineEsclusione.set(Calendar.MONTH, Integer.parseInt(mfe)-1); //i mesi sono contati da 0=gennaio
-			fineEsclusione.set(Calendar.YEAR, Integer.parseInt(afe)); //gli anni sono contati da 0=1900
-			fineEsclusione.set(Calendar.HOUR_OF_DAY,23);
-			fineEsclusione.set(Calendar.MINUTE,59);
-		}
-		giorniSettimana=gs;
-		if (pp.contentEquals("Procida"))
-			calcolaCosto(n,pa);
-		else
-			calcolaCosto(n,pp);
+    public Mezzo(String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
+        //callingContext=c;
+        //ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
+        for (int i = 0; i < 100; i++)
+            segnalazioni[i] = 0;
+        nave = n;
+        oraPartenza = Calendar.getInstance();
+        oraPartenza.set(Calendar.HOUR_OF_DAY, Integer.parseInt(op));
+        oraPartenza.set(Calendar.MINUTE, Integer.parseInt(mp));
+        oraArrivo = Calendar.getInstance();
+        oraArrivo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(oa));
+        oraArrivo.set(Calendar.MINUTE, Integer.parseInt(ma));
+        portoPartenza = pp;
+        portoArrivo = pa;
+        inizioEsclusione = Calendar.getInstance();
+        fineEsclusione = Calendar.getInstance();
+        esclusione = false;
+        if (Integer.parseInt(gie) != 0) {
+            esclusione = true;
+            inizioEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gie));
+            inizioEsclusione.set(Calendar.MONTH, Integer.parseInt(mie) - 1); //i mesi sono contati da 0=gennaio
+            inizioEsclusione.set(Calendar.YEAR, Integer.parseInt(aie)); //gli anni sono contati da 0=1900
+            inizioEsclusione.set(Calendar.HOUR_OF_DAY, 0);
+            inizioEsclusione.set(Calendar.MINUTE, 0);
+            fineEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gfe));
+            fineEsclusione.set(Calendar.MONTH, Integer.parseInt(mfe) - 1); //i mesi sono contati da 0=gennaio
+            fineEsclusione.set(Calendar.YEAR, Integer.parseInt(afe)); //gli anni sono contati da 0=1900
+            fineEsclusione.set(Calendar.HOUR_OF_DAY, 23);
+            fineEsclusione.set(Calendar.MINUTE, 59);
+        }
+        giorniSettimana = gs;
+        if (pp.contentEquals("Procida"))
+            calcolaCosto(n, pa);
+        else
+            calcolaCosto(n, pp);
 
-	}
+    }
 
-	public int segnalazionePiuComune() {
-		int max = 0;
-		int spc = -1;
-		for (int i = 0; i < segnalazioni.length; i++) {
-			if (segnalazioni[i] > max) {
-				max = segnalazioni[i];
-				spc = i;
-			}
-		}
-		if (spc >= 0)
-			return spc;
-		else
-			return -1;
-	}
+    public int segnalazionePiuComune() {
+        int max = 0;
+        int spc = -1;
+        for (int i = 0; i < segnalazioni.length; i++) {
+            if (segnalazioni[i] > max) {
+                max = segnalazioni[i];
+                spc = i;
+            }
+        }
+        if (spc >= 0)
+            return spc;
+        else
+            return -1;
+    }
 
-	private void calcolaCosto(String n,String p) {
-		//TODO Anche questi dati andrebbero messi in un file esterno o su una risorsa web tipo Firebase
-		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")){
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.70;
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")){
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.70;
-			setCircaResidente(true);
-			return;
-		}
+    private void calcolaCosto(String n, String p) {
+        //TODO Anche questi dati andrebbero messi in un file esterno o su una risorsa web tipo Firebase
+        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")) {
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.70;
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")) {
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.70;
+            setCircaResidente(true);
+            return;
+        }
 //		if (n.contentEquals("Procida Lines") && p.contentEquals("Pozzuoli")){
 //			costoIntero=5;
 //			costoResidente=2.5;
@@ -142,76 +143,76 @@ public class Mezzo {
 //			setCircaResidente(true);
 //			return;
 //		}
-		if ((n.contentEquals("Motonave Gestur") || n.contentEquals("Traghetto Gestur")) && p.contentEquals("Pozzuoli")) {
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.70;
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Napoli Porta di Massa")){
-			costoIntero = 10.60;
-			costoResidente=3.10;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Napoli Beverello")){
-			costoIntero = 14.40;
-			costoResidente = 4.90;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}		
-		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Napoli Beverello")){
-			costoIntero = 19.20;
-			costoResidente = 5.70;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Ischia Porto")){
-			costoIntero = 7.80;
-			costoResidente = 2.50;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Ischia Porto")){
-			costoIntero = 8.70;
-			costoResidente = 2.70;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Casamicciola")){
-			costoIntero = 9.30;
-			costoResidente = 2.60;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Medmar") && p.contentEquals("Ischia Porto")){
-			costoIntero = 7.80;
-			costoResidente = 2.70;
-			setCircaIntero(true);
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Ippocampo") ){ //TODO Da verificare
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.50;
-			setCircaResidente(true);
-			return;
-		}
-		if (n.contentEquals("Scotto Line")) { //TODO Da verificare
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.50;
-			setCircaResidente(true);
-			return;
-		}
+        if ((n.contentEquals("Motonave Gestur") || n.contentEquals("Traghetto Gestur")) && p.contentEquals("Pozzuoli")) {
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.70;
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Napoli Porta di Massa")) {
+            costoIntero = 10.60;
+            costoResidente = 3.10;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Napoli Beverello")) {
+            costoIntero = 14.40;
+            costoResidente = 4.90;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Napoli Beverello")) {
+            costoIntero = 19.20;
+            costoResidente = 5.70;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Ischia Porto")) {
+            costoIntero = 7.80;
+            costoResidente = 2.50;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Ischia Porto")) {
+            costoIntero = 8.70;
+            costoResidente = 2.70;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Casamicciola")) {
+            costoIntero = 9.30;
+            costoResidente = 2.60;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Medmar") && p.contentEquals("Ischia Porto")) {
+            costoIntero = 7.80;
+            costoResidente = 2.70;
+            setCircaIntero(true);
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Ippocampo")) { //TODO Da verificare
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.50;
+            setCircaResidente(true);
+            return;
+        }
+        if (n.contentEquals("Scotto Line")) { //TODO Da verificare
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.50;
+            setCircaResidente(true);
+            return;
+        }
 //		if (n.contentEquals("Aladino") ){ //TODO Da verificare
 //			costoIntero=0.00;
 //			costoResidente=0.00;
@@ -220,67 +221,79 @@ public class Mezzo {
 //			return;
 //		}
 
-		if (n.contentEquals("LazioMar")) { //TODO Da verificare
-			costoIntero = 7.90;
-			setCircaIntero(true);
-			costoResidente = 2.60;
-			setCircaResidente(true);
-		}
-		
-	}
+        if (n.contentEquals("LazioMar")) { //TODO Da verificare
+            costoIntero = 7.90;
+            setCircaIntero(true);
+            costoResidente = 2.60;
+            setCircaResidente(true);
+        }
 
-	public boolean getGiornoSeguente() {
-		return giornoSeguente;
-	}
+    }
 
-	public void setGiornoSeguente(boolean b) {
-		giornoSeguente = b;
-	}
+    public boolean getGiornoSeguente() {
+        return giornoSeguente;
+    }
 
-	public int getOrderInList() {
-		return orderInList;
-	}
+    public void setGiornoSeguente(boolean b) {
+        giornoSeguente = b;
+    }
 
-	public void setOrderInList(int orderInList) {
-		this.orderInList = orderInList;
-	}
+    public int getOrderInList() {
+        return orderInList;
+    }
 
-	public double getCostoIntero() {
-		return costoIntero;
-	}
+    public void setOrderInList(int orderInList) {
+        this.orderInList = orderInList;
+    }
 
-	public double getCostoResidente() {
-		return costoResidente;
-	}
+    public double getCostoIntero() {
+        return costoIntero;
+    }
 
-	public boolean isCircaIntero() {
-		return circaIntero;
-	}
+    public double getCostoResidente() {
+        return costoResidente;
+    }
 
-	private void setCircaIntero(boolean circaIntero) {
-		this.circaIntero = circaIntero;
-	}
+    public boolean isCircaIntero() {
+        return circaIntero;
+    }
 
-	public boolean isCircaResidente() {
-		return circaResidente;
-	}
+    private void setCircaIntero(boolean circaIntero) {
+        this.circaIntero = circaIntero;
+    }
 
-	private void setCircaResidente(boolean circaResidente) {
-		this.circaResidente = circaResidente;
-	}
+    public boolean isCircaResidente() {
+        return circaResidente;
+    }
 
-	public void addReason(String rigaMotivo) {
-		Integer motivo=Integer.parseInt(rigaMotivo);
-		if (motivo==99){
-			conferme++;
-		}
-		else {
-			if (tot>segnalazioni[motivo])
-				conc=false;
-			segnalazioni[motivo]++;
-			tot++;
-		}
+    private void setCircaResidente(boolean circaResidente) {
+        this.circaResidente = circaResidente;
+    }
 
-	}
+    public void addReason(String rigaMotivo) {
+        int motivo = Integer.parseInt(rigaMotivo);
+        addReason(motivo);
+    }
+
+    public void addReason(int motivo) {
+        if (motivo == 99) {
+            conferme++;
+        } else {
+            if (tot > segnalazioni[motivo])
+                conc = false;
+            segnalazioni[motivo]++;
+            tot++;
+        }
+    }
+
+    public LocalTime getDepartureTime() {
+        // TODO: replace old Calendar object with new LocalTime
+        return LocalTime.of(oraPartenza.get(Calendar.HOUR_OF_DAY), oraPartenza.get(Calendar.MINUTE));
+    }
+
+    public LocalTime getArrivalTime() {
+        // TODO: replace old Calendar object with new LocalTime
+        return LocalTime.of(oraArrivo.get(Calendar.HOUR_OF_DAY), oraArrivo.get(Calendar.MINUTE));
+    }
 
 }

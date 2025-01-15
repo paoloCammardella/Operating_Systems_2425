@@ -18,10 +18,12 @@ import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.activities.OrariProcida2011Activity;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
+import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class DettagliMezzoDialog extends DialogFragment implements OnClickListener {
 
@@ -35,10 +37,12 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
     private FragmentManager fragmentManager;
     private ArrayList<Compagnia> lc;
 
+    private AlertsDAO alertsDAO;
     private Analytics analytics;
 
-    public DettagliMezzoDialog() {
+    public DettagliMezzoDialog(AlertsDAO alertsDAO) {
         // Empty constructor required for DialogFragment
+        this.alertsDAO = Objects.requireNonNull(alertsDAO);
     }
 
     public void setDettagliMezzoDialog(FragmentManager fm, OrariProcida2011Activity a, Context context, Calendar cal) {
@@ -165,7 +169,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
         taxiDialog = new TaxiDialog();
         taxiDialog.setPorto(mezzo.portoPartenza);
 
-        segnalazioneDialog = new SegnalazioneDialog();
+        segnalazioneDialog = new SegnalazioneDialog(alertsDAO);
         segnalazioneDialog.setOrarioRef(calen);
         segnalazioneDialog.setMezzo(mezzo);
         segnalazioneDialog.setCallingContext(this.getContext());
