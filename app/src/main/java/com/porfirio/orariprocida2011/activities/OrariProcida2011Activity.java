@@ -28,8 +28,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.porfirio.orariprocida2011.threads.DownloadTransportsHandler;
-import com.porfirio.orariprocida2011.threads.TransportsUpdate;
+import com.porfirio.orariprocida2011.threads.transports.DownloadTransportsHandler;
+import com.porfirio.orariprocida2011.threads.transports.TransportsUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.Alert;
 import com.porfirio.orariprocida2011.threads.alerts.AlertUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.OnRequestAlertsDAO;
@@ -53,7 +53,6 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 public class OrariProcida2011Activity extends FragmentActivity {

@@ -1,7 +1,6 @@
-package com.porfirio.orariprocida2011.threads;
+package com.porfirio.orariprocida2011.threads.transports;
 
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.time.LocalDateTime;
 import java.util.List;
