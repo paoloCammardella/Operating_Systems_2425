@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class OnRequestTransportsDAO implements TransportsDAO {
 
-    private static final String TAG = OnRequestTransportsDAO.class.getSimpleName();
-
     private final MutableLiveData<TransportsUpdate> update;
     private final DatabaseReference databaseReference;
 
