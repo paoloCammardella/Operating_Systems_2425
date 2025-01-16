@@ -1,8 +1,5 @@
 package com.porfirio.orariprocida2011.threads.transports;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,30 +10,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Objects;
 
-// TODO: should be renamed to something like OnRequestTransportsDAO
-public class DownloadTransportsHandler implements TransportsDAO {
+public class OnRequestTransportsDAO implements TransportsDAO {
 
-    private static final String TAG = DownloadTransportsHandler.class.getSimpleName();
+    private static final String TAG = OnRequestTransportsDAO.class.getSimpleName();
 
     private final MutableLiveData<TransportsUpdate> update;
     private final DatabaseReference databaseReference;
-    private final Analytics analytics;
 
-    public DownloadTransportsHandler(Analytics analytics) {
+    public OnRequestTransportsDAO() {
         this.update = new MutableLiveData<>();
-        this.analytics = Objects.requireNonNull(analytics);
         this.databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
     }
 
     public void requestUpdate() {
-        analytics.send("App Event", "Download Mezzi Task");
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -49,16 +39,10 @@ public class DownloadTransportsHandler implements TransportsDAO {
                 }
 
                 update.postValue(new TransportsUpdate(transportList, LocalDateTime.now()));
-                analytics.send("App Event", "Download Terminated");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(TAG, "Firebase exception: ", databaseError.toException());
-
-                Bundle bundle = new Bundle();
-                bundle.putString("error_message", databaseError.getMessage());
-
                 update.postValue(new TransportsUpdate(databaseError.toException()));
             }
 

@@ -28,7 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.porfirio.orariprocida2011.threads.transports.DownloadTransportsHandler;
+import com.porfirio.orariprocida2011.threads.transports.OnRequestTransportsDAO;
 import com.porfirio.orariprocida2011.threads.transports.TransportsUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.Alert;
 import com.porfirio.orariprocida2011.threads.alerts.AlertUpdate;
@@ -85,7 +85,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private SegnalazioneDialog segnalazioneDialog;
 
     private OnRequestWeatherDAO weatherDAO;
-    private DownloadTransportsHandler transportsDAO;
+    private OnRequestTransportsDAO transportsDAO;
     private OnRequestAlertsDAO alertsDAO;
     private Analytics analytics;
 
@@ -135,11 +135,11 @@ public class OrariProcida2011Activity extends FragmentActivity {
         weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
         weatherDAO.requestUpdate();
 
-        transportsDAO = new DownloadTransportsHandler(analytics);
+        transportsDAO = new OnRequestTransportsDAO();
         transportsDAO.getUpdates().observe(this, this::onTransportsUpdate);
         transportsDAO.requestUpdate();
 
-        alertsDAO = new OnRequestAlertsDAO(analytics);
+        alertsDAO = new OnRequestAlertsDAO();
         alertsDAO.getUpdates().observe(this, this::onAlertsUpdate);
 
         fm = getSupportFragmentManager();
@@ -172,17 +172,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         ragioni = getResources().getStringArray(R.array.strRagioni);
 
         meteo = new Meteo();
-
-        //TODO: Forzare aggiornamento
-
-        //TODO: Problema: leggiMeteo non e' piu' bloccante, quindi bisogna togliere il meteo dal primo messaggio e aggiungerlo quando e' il momento
-
-//        builder = new AlertDialog.Builder(this);
-//        builder.setCancelable(false)
-//                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-//        meteoDialog = builder.create();
-
-        // get the current time
 
         c = Calendar.getInstance(TimeZone.getDefault());
         txtOrario = findViewById(R.id.txtOrario);
@@ -363,10 +352,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Procida", "0818969190");
         listCompagnia.add(c);
 
-//        c = new Compagnia("Procida Lines");
-//        c.addTelefono("Procida", "0818960328");
-//        listCompagnia.add(c);
-
         c = new Compagnia("Ippocampo");
         c.addTelefono("Procida", "3663575751");
         c.addTelefono("Procida", "0818967764");
@@ -378,10 +363,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         c.addTelefono("Procida", "0818968753");
         c.addTelefono("Procida", "3394775523");
         listCompagnia.add(c);
-
-//        c = new Compagnia("Aladino");
-//        c.addTelefono("Procida", "0818968089");
-//        listCompagnia.add(c);
 
         c = new Compagnia("LazioMar");
         c.addTelefono("Napoli", "0771700604");

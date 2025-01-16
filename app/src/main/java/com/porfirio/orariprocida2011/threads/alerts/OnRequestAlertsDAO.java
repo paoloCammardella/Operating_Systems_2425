@@ -1,8 +1,5 @@
 package com.porfirio.orariprocida2011.threads.alerts;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,14 +9,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class OnRequestAlertsDAO implements AlertsDAO {
 
@@ -27,17 +22,13 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
     private final MutableLiveData<AlertUpdate> update;
     private final DatabaseReference database;
-    private final Analytics analytics;
 
-    public OnRequestAlertsDAO(Analytics analytics) {
+    public OnRequestAlertsDAO() {
         this.update = new MutableLiveData<>();
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
-        this.analytics = Objects.requireNonNull(analytics);
     }
 
     public void requestUpdate() {
-        analytics.send("App Event", "Leggi Segnalazioni Task");
-
         database.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -54,13 +45,7 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("OnRequestAlertsDAO", "Realtime Database: " + databaseError.getMessage(), databaseError.toException());
-
-                Bundle bundle = new Bundle();
-                bundle.putString("error_message", databaseError.getMessage());
-
                 update.postValue(new AlertUpdate(databaseError.toException()));
-                analytics.send("App Event", "Terminated Leggi Segnalazioni Task");
             }
 
         });
