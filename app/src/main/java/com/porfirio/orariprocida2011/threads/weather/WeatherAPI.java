@@ -18,7 +18,7 @@ import java.util.List;
 
 public final class WeatherAPI {
 
-    private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/forecast?id=3169807&APPID=dc8cfde44c4955e792406e26a562945e&units=metric";
+    private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/forecast?id=3169807&APPID=dc8cfde44c4955e792406e26a562945e&units=metric";
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private WeatherAPI() {
