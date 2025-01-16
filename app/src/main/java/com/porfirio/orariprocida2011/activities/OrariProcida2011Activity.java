@@ -28,6 +28,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.porfirio.orariprocida2011.threads.companies.CompaniesUpdate;
+import com.porfirio.orariprocida2011.threads.companies.OnRequestCompaniesDAO;
 import com.porfirio.orariprocida2011.threads.transports.OnRequestTransportsDAO;
 import com.porfirio.orariprocida2011.threads.transports.TransportsUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.Alert;
@@ -68,7 +70,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     public Meteo meteo;
     //    public AlertDialog meteoDialog;
     public ArrayList<Mezzo> transportList;
-    public boolean aggiorna;
     private String[] ragioni = new String[100];
 
     private String nave;
@@ -79,11 +80,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
     //public AlertDialog novitaDialog;
     private DettagliMezzoDialog dettagliMezzoDialog;
     private ArrayList<Mezzo> selectMezzi;
-    private ArrayList<Compagnia> listCompagnia;
+    private final ArrayList<Compagnia> listCompagnia = new ArrayList<>();
     private LocationManager myManager;
     private String BestProvider;
     private SegnalazioneDialog segnalazioneDialog;
 
+    private OnRequestCompaniesDAO companiesDAO;
     private OnRequestWeatherDAO weatherDAO;
     private OnRequestTransportsDAO transportsDAO;
     private OnRequestAlertsDAO alertsDAO;
@@ -141,6 +143,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         alertsDAO = new OnRequestAlertsDAO();
         alertsDAO.getUpdates().observe(this, this::onAlertsUpdate);
+
+        companiesDAO = new OnRequestCompaniesDAO();
+        companiesDAO.getUpdate().observe(this, this::onCompaniesUpdate);
+        companiesDAO.requestUpdate();
 
         fm = getSupportFragmentManager();
 
@@ -281,11 +287,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         //bisogna cambiare anche la lettura dei mezzi prevedendo la lettura di questo file con la conseguente
         //eliminazione delle corse indicate
 
-        riempiLista();
         setSpinner();
-//        aggiornaLista();
 
-        if (!portoPartenza.equals(getString(R.string.tutti)) && !aggiorna)
+        if (!portoPartenza.equals(getString(R.string.tutti)))
             Toast.makeText(this, (getString(R.string.secondoMeVuoiPartireDa) + " " + portoPartenza), Toast.LENGTH_LONG).show();
     }
 
@@ -294,6 +298,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         super.onDestroy();
 
         alertsDAO.getUpdates().removeObservers(this);
+        companiesDAO.getUpdate().removeObservers(this);
         transportsDAO.getUpdates().removeObservers(this);
         weatherDAO.getUpdates().removeObservers(this);
         weatherDAO.close();
@@ -319,62 +324,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return (netInfo != null && netInfo.isConnected());
     }
 
-    private void riempiLista() {
-        //TODO Questi dati andrebbero letti da un file o risorsa su FireBase
-
-        listCompagnia = new ArrayList<Compagnia>();
-
-        Compagnia c = new Compagnia("Caremar");
-        c.addTelefono("Napoli (Molo Beverello)", "0815513882");
-        c.addTelefono("Pozzuoli", "0815262711");
-        c.addTelefono("Pozzuoli", "0815261335");
-        c.addTelefono("Ischia", "081984818");
-        c.addTelefono("Ischia", "081991953");
-        c.addTelefono("Procida", "0818967280");
-        listCompagnia.add(c);
-
-        c = new Compagnia("Gestur");
-        c.addTelefono("Sede", "0818531405");
-        c.addTelefono("Procida", "0818531405");
-        c.addTelefono("Pozzuoli", "0815268165");
-        listCompagnia.add(c);
-
-        c = new Compagnia("SNAV");
-        c.addTelefono("Call Center", "0814285111");
-        c.addTelefono("Napoli", "0814285111");
-        c.addTelefono("Ischia", "081984818");
-        c.addTelefono("Procida", "0818969975");
-        listCompagnia.add(c);
-
-        c = new Compagnia("Medmar");
-        c.addTelefono("Napoli", "0813334411");
-        c.addTelefono("Procida", "0818969594");
-        c.addTelefono("Procida", "0818969190");
-        listCompagnia.add(c);
-
-        c = new Compagnia("Ippocampo");
-        c.addTelefono("Procida", "3663575751");
-        c.addTelefono("Procida", "0818967764");
-        c.addTelefono("Monte di Procida", "3397585125");
-        listCompagnia.add(c);
-
-        c = new Compagnia("Scotto Line");
-        c.addTelefono("Procida", "3343525753");
-        c.addTelefono("Procida", "0818968753");
-        c.addTelefono("Procida", "3394775523");
-        listCompagnia.add(c);
-
-        c = new Compagnia("LazioMar");
-        c.addTelefono("Napoli", "0771700604");
-        listCompagnia.add(c);
-
-        c = new Compagnia("Alilauro");
-        c.addTelefono("Napoli", "0814972252");
-        c.addTelefono("Call Center", "0814972222");
-        listCompagnia.add(c);
-    }
-
-    public void aggiornaLista() {
+    private void aggiornaLista() {
         //Non è chiaro perchè il controllo del locale debba essere fatto proprio qui!!!
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
@@ -719,20 +669,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
         }
     }
 
-    private boolean sameTransport(Mezzo transport, Alert alert) {
-        LocalTime transportDepartureTime = transport.getDepartureTime();
-        LocalTime transportArrivalTime = transport.getArrivalTime();
-        LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-
-        if (transport.getGiornoSeguente())
-            transportDate = transportDate.plusDays(1);
-
-        return alert.getTransport().equals(transport.nave)
-                && alert.getDepartureTime().equals(transportDepartureTime)
-                && alert.getArrivalTime().equals(transportArrivalTime)
-                && alert.getDepartureLocation().equals(transport.portoPartenza)
-                && alert.getArrivalLocation().equals(transport.portoArrivo)
-                && alert.getTransportDate().equals(transportDate);
+    private void onCompaniesUpdate(CompaniesUpdate update) {
+        if (update.isValid()) {
+            listCompagnia.clear();
+            listCompagnia.addAll(update.getData());
+        } else {
+            // TODO: handle exception
+            Log.e("MainActivity", "OnCompaniesUpdate: ", update.getError());
+            Toast.makeText(this, "Could not update companies: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void onTransportsUpdate(TransportsUpdate update) {
@@ -857,5 +802,20 @@ public class OrariProcida2011Activity extends FragmentActivity {
             return " - " + getString(R.string.corsaImpossibile);
     }
 
+    private boolean sameTransport(Mezzo transport, Alert alert) {
+        LocalTime transportDepartureTime = transport.getDepartureTime();
+        LocalTime transportArrivalTime = transport.getArrivalTime();
+        LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+
+        if (transport.getGiornoSeguente())
+            transportDate = transportDate.plusDays(1);
+
+        return alert.getTransport().equals(transport.nave)
+                && alert.getDepartureTime().equals(transportDepartureTime)
+                && alert.getArrivalTime().equals(transportArrivalTime)
+                && alert.getDepartureLocation().equals(transport.portoPartenza)
+                && alert.getArrivalLocation().equals(transport.portoArrivo)
+                && alert.getTransportDate().equals(transportDate);
+    }
 
 }
