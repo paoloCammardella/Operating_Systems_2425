@@ -1,20 +1,21 @@
 package com.porfirio.orariprocida2011.entity;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.time.LocalDate;
 
 public class Mezzo {
-    //gestite nel dettaglio segnalazioni per tipologia e motivi
     public final String nave;
-    public final Calendar oraPartenza;
-    public final Calendar oraArrivo;
+    public final LocalTime oraPartenza;
+    public final LocalTime oraArrivo;
     public final String portoPartenza;
     public final String portoArrivo;
-    public final Calendar inizioEsclusione;
-    public final Calendar fineEsclusione;
+    public final LocalDate inizioEsclusione;
+    public final LocalDate fineEsclusione;
     public final String giorniSettimana;
     private final int[] segnalazioni = new int[100];
-    //private final Context callingContext;
     public int conferme = 0;
     public int tot = 0;
     public boolean conc = true;
@@ -25,84 +26,36 @@ public class Mezzo {
     private double costoResidente;
     private boolean circaIntero = false;
     private boolean circaResidente = false;
-    private String[] ragioni = new String[100];
 
-
-    public Mezzo(String n, int op, int mp, int oa, int ma, String pp, String pa, int gie, int mie, int aie, int gfe, int mfe, int afe, String gs) {
-        //callingContext=c;
-        //ragioni= callingContext.getResources().getStringArray(R.array.strRagioni);
-        for (int i = 0; i < 100; i++)
-            segnalazioni[i] = 0;
+    public Mezzo(String n, String partenzaIso, String arrivoIso, String esclusioneInizioIso, String esclusioneFineIso, String pp, String pa, String gs) {
         nave = n;
-        oraPartenza = Calendar.getInstance();
-        oraPartenza.set(Calendar.HOUR_OF_DAY, op);
-        oraPartenza.set(Calendar.MINUTE, mp);
-        oraArrivo = Calendar.getInstance();
-        oraArrivo.set(Calendar.HOUR_OF_DAY, oa);
-        oraArrivo.set(Calendar.MINUTE, ma);
+        Arrays.fill(segnalazioni, 0);
+
+        DateTimeFormatter isoDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        DateTimeFormatter isoTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+
+        oraPartenza = LocalTime.parse(partenzaIso, isoTimeFormatter);
+        oraArrivo = LocalTime.parse(arrivoIso, isoTimeFormatter);
+
         portoPartenza = pp;
         portoArrivo = pa;
-        inizioEsclusione = Calendar.getInstance();
-        fineEsclusione = Calendar.getInstance();
-        esclusione = false;
-        if (gie != 0) {
-            esclusione = true;
-            inizioEsclusione.set(Calendar.DAY_OF_MONTH, gie);
-            inizioEsclusione.set(Calendar.MONTH, mie - 1); //i mesi sono contati da 0=gennaio
-            inizioEsclusione.set(Calendar.YEAR, aie); //gli anni sono contati da 0=1900
-            inizioEsclusione.set(Calendar.HOUR_OF_DAY, 0);
-            inizioEsclusione.set(Calendar.MINUTE, 0);
-            fineEsclusione.set(Calendar.DAY_OF_MONTH, gfe);
-            fineEsclusione.set(Calendar.MONTH, mfe - 1); //i mesi sono contati da 0=gennaio
-            fineEsclusione.set(Calendar.YEAR, afe); //gli anni sono contati da 0=1900
-            fineEsclusione.set(Calendar.HOUR_OF_DAY, 23);
-            fineEsclusione.set(Calendar.MINUTE, 59);
+
+        esclusione = esclusioneInizioIso != null && esclusioneFineIso != null;
+        if (esclusione) {
+            inizioEsclusione = LocalDate.parse(esclusioneInizioIso, isoDateFormatter);
+            fineEsclusione = LocalDate.parse(esclusioneFineIso, isoDateFormatter);
+        } else {
+            inizioEsclusione = null;
+            fineEsclusione = null;
         }
+
         giorniSettimana = gs;
-        if (pp.contentEquals("Procida"))
+
+        if (pp.equals("Procida")) {
             calcolaCosto(n, pa);
-        else
+        } else {
             calcolaCosto(n, pp);
-
-
-    }
-
-    public Mezzo(String n, String op, String mp, String oa, String ma, String pp, String pa, String gie, String mie, String aie, String gfe, String mfe, String afe, String gs) {
-        //callingContext=c;
-        //ragioni = callingContext.getResources().getStringArray(R.array.strRagioni);
-        for (int i = 0; i < 100; i++)
-            segnalazioni[i] = 0;
-        nave = n;
-        oraPartenza = Calendar.getInstance();
-        oraPartenza.set(Calendar.HOUR_OF_DAY, Integer.parseInt(op));
-        oraPartenza.set(Calendar.MINUTE, Integer.parseInt(mp));
-        oraArrivo = Calendar.getInstance();
-        oraArrivo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(oa));
-        oraArrivo.set(Calendar.MINUTE, Integer.parseInt(ma));
-        portoPartenza = pp;
-        portoArrivo = pa;
-        inizioEsclusione = Calendar.getInstance();
-        fineEsclusione = Calendar.getInstance();
-        esclusione = false;
-        if (Integer.parseInt(gie) != 0) {
-            esclusione = true;
-            inizioEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gie));
-            inizioEsclusione.set(Calendar.MONTH, Integer.parseInt(mie) - 1); //i mesi sono contati da 0=gennaio
-            inizioEsclusione.set(Calendar.YEAR, Integer.parseInt(aie)); //gli anni sono contati da 0=1900
-            inizioEsclusione.set(Calendar.HOUR_OF_DAY, 0);
-            inizioEsclusione.set(Calendar.MINUTE, 0);
-            fineEsclusione.set(Calendar.DAY_OF_MONTH, Integer.parseInt(gfe));
-            fineEsclusione.set(Calendar.MONTH, Integer.parseInt(mfe) - 1); //i mesi sono contati da 0=gennaio
-            fineEsclusione.set(Calendar.YEAR, Integer.parseInt(afe)); //gli anni sono contati da 0=1900
-            fineEsclusione.set(Calendar.HOUR_OF_DAY, 23);
-            fineEsclusione.set(Calendar.MINUTE, 59);
         }
-        giorniSettimana = gs;
-        if (pp.contentEquals("Procida"))
-            calcolaCosto(n, pa);
-        else
-            calcolaCosto(n, pp);
-
     }
 
     public int segnalazionePiuComune() {
@@ -279,21 +232,20 @@ public class Mezzo {
         if (motivo == 99) {
             conferme++;
         } else {
-            if (tot > segnalazioni[motivo])
+            if (tot > segnalazioni[motivo]) {
                 conc = false;
+            }
             segnalazioni[motivo]++;
             tot++;
         }
     }
 
     public LocalTime getDepartureTime() {
-        // TODO: replace old Calendar object with new LocalTime
-        return LocalTime.of(oraPartenza.get(Calendar.HOUR_OF_DAY), oraPartenza.get(Calendar.MINUTE));
+        return oraPartenza;
     }
 
     public LocalTime getArrivalTime() {
-        // TODO: replace old Calendar object with new LocalTime
-        return LocalTime.of(oraArrivo.get(Calendar.HOUR_OF_DAY), oraArrivo.get(Calendar.MINUTE));
+        return oraArrivo;
     }
 
 }
