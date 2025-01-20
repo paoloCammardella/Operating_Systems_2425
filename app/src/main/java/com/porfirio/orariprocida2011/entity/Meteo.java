@@ -5,9 +5,8 @@ import android.content.Context;
 import com.porfirio.orariprocida2011.R;
 
 import java.time.Duration;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Meteo {
         if (forecasts.isEmpty())
             return 0;
 
-        LocalDateTime departureTime = Instant.ofEpochMilli(route.oraPartenza.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime departureTime = LocalDate.now().atTime(route.oraPartenza);
         LocalDateTime now = LocalDateTime.now();
 
         // NOTE: workaround because departure time doesn't save the actual day so it may be checking the next-day route

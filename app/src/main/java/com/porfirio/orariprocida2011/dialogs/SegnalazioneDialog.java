@@ -100,13 +100,13 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
         final String text = "    " + mezzo.nave + "    ";
         txtMezzo.setText(text);
         String s;
-        s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraPartenza.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraPartenza.get(Calendar.MONTH) + 1) + "/" + mezzo.oraPartenza.get(Calendar.YEAR);
+        s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.getHour() + ":" + mezzo.oraPartenza.getMinute();
+        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraPartenza).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraPartenza).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraPartenza).getYear();
         s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;
         txtPartenza.setText(s);
         //s=new String();
-        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraArrivo.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraArrivo.get(Calendar.MONTH) + 1) + "/" + mezzo.oraArrivo.get(Calendar.YEAR);
+        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.getHour() + ":" + mezzo.oraArrivo.getMinute();
+        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraArrivo).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraArrivo).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraArrivo).getYear();
         s += " " + callingContext.getString(R.string.a) + " " + mezzo.portoArrivo;
         txtArrivo.setText(s);
 
@@ -136,8 +136,8 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
         if (mezzo.getGiornoSeguente())
             transportDate = transportDate.plusDays(1);
 
-        LocalTime departureTime = LocalTime.of(mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY), mezzo.oraPartenza.get(Calendar.MINUTE));
-        LocalTime arrivalTime = LocalTime.of(mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY), mezzo.oraArrivo.get(Calendar.MINUTE));
+        LocalTime departureTime = LocalTime.of(mezzo.oraPartenza.getHour(), mezzo.oraPartenza.getMinute());
+        LocalTime arrivalTime = LocalTime.of(mezzo.oraArrivo.getHour(), mezzo.oraArrivo.getMinute());
 
         Alert alert = new Alert(mezzo.nave, reason, dettagli, mezzo.portoPartenza, departureTime, mezzo.portoArrivo, arrivalTime, transportDate);
         alertsDAO.send(alert);

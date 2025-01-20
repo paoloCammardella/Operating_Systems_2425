@@ -21,6 +21,7 @@ import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -108,13 +109,13 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
         final String text = "    " + mezzo.nave + "    ";
         txtMezzo.setText(text);
         //String s=new String();
-        String s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraPartenza.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraPartenza.get(Calendar.MONTH) + 1) + "/" + mezzo.oraPartenza.get(Calendar.YEAR);
+        String s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.getHour() + ":" + mezzo.oraPartenza.getMinute();
+        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraPartenza).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraPartenza).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraPartenza).getYear();
         s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;
         txtPartenza.setText(s);
         //s=new String();
-        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraArrivo.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraArrivo.get(Calendar.MONTH) + 1) + "/" + mezzo.oraArrivo.get(Calendar.YEAR);
+        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.getHour() + ":" + mezzo.oraArrivo.getMinute();
+        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraArrivo).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraArrivo).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraArrivo).getYear();
         s += " " + callingContext.getString(R.string.a) + " " + mezzo.portoArrivo;
         txtArrivo.setText(s);
 
