@@ -48,6 +48,7 @@ import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -325,146 +326,126 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void aggiornaLista() {
-        //Non è chiaro perchè il controllo del locale debba essere fatto proprio qui!!!
+        // Non è chiaro perché il controllo del locale debba essere fatto proprio qui!
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
         selectMezzi = new ArrayList<>();
         Comparator<Mezzo> comparator = (m1, m2) -> {
             if (m1.getGiornoSeguente() == m2.getGiornoSeguente()) {
-                if (m1.oraPartenza.before(m2.oraPartenza))
-                    return -1;
-                else if (m1.oraPartenza.after(m2.oraPartenza))
-                    return 1;
-                else
-                    return 0;
+                return m1.oraPartenza.compareTo(m2.oraPartenza);
             } else if (m1.getGiornoSeguente()) {
                 return 1;
-            } else if (m2.getGiornoSeguente()) {
+            } else {
                 return -1;
             }
-            return 0;
         };
 
         aalvMezzi.clear();
 
-        String naveEspanso = nave;
-        if (nave.contains(getString(R.string.traghetti)))
-            naveEspanso = "Traghetto Caremar Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Traghetto LazioMar";
-        if (nave.contains(getString(R.string.aliscafi)))
-            naveEspanso = "Aliscafo Caremar Aliscafo SNAV Scotto Line Aliscafo Alilauro";
-        if (nave.equals("Ippocampo"))
-            naveEspanso = "Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella)";
-        if (nave.contains("Gestur"))
-            naveEspanso = "Motonave Gestur Traghetto Gestur";
+        String naveEspanso = espandiNave(nave);
+        String portoPartenzaEspanso = espandiPorto(portoPartenza);
+        String portoArrivoEspanso = espandiPorto(portoArrivo);
 
-        String portoPartenzaEspanso = portoPartenza;
-        if (portoPartenza.equals("Napoli"))
-            portoPartenzaEspanso = "Napoli Porta di Massa o Napoli Beverello";
-        if (portoPartenza.equals("Napoli o Pozzuoli"))
-            portoPartenzaEspanso = "Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
-        if (portoPartenza.equals("Ischia"))
-            portoPartenzaEspanso = "Ischia Porto o Casamicciola";
-        if (portoPartenza.equals("Monte di Procida"))
-            portoPartenzaEspanso = "Monte di Procida";
-        String portoArrivoEspanso = portoArrivo;
-        if (portoArrivo.equals("Napoli"))
-            portoArrivoEspanso = "Napoli Porta di Massa o Napoli Beverello";
-        if (portoArrivo.equals("Napoli o Pozzuoli"))
-            portoArrivoEspanso = "Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
-        if (portoArrivo.equals("Ischia"))
-            portoArrivoEspanso = "Ischia Porto o Casamicciola";
-        if (portoArrivo.equals("Monte di Procida"))
-            portoArrivoEspanso = "Monte di Procida";
-        Calendar oraLimite = (Calendar) c.clone();
-        oraLimite.add(Calendar.HOUR_OF_DAY, 24);
+        LocalDateTime oraLimite = LocalDateTime.now().plusHours(24);
 
-        //qui riempio aalvMezzi in base agli input e ai dati di listMezzi
-        for (int i = 0; i < transportList.size(); i++) {
-            //per ogni mezzo valuta se ci interessa
-            Calendar oraNave = (Calendar) transportList.get(i).oraPartenza.clone();
-            oraNave.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
-            oraNave.set(Calendar.MONTH, c.get(Calendar.MONTH));
-            oraNave.set(Calendar.YEAR, c.get(Calendar.YEAR));
-            if ((oraNave.get(Calendar.HOUR_OF_DAY) < c.get(Calendar.HOUR_OF_DAY)) || (oraNave.get(Calendar.HOUR_OF_DAY) == c.get(Calendar.HOUR_OF_DAY)) && (oraNave.get(Calendar.MINUTE) < c.get(Calendar.MINUTE)))
-                oraNave.add(Calendar.DAY_OF_MONTH, 1);
+        for (Mezzo mezzo : transportList) {
+            LocalDateTime oraNave = LocalDate.now()
+                    .atTime(mezzo.oraPartenza);
 
-            if (naveEspanso.contains(transportList.get(i).nave) || nave.equals(getString(R.string.tutti))) {
-                if ((transportList.get(i).portoPartenza.equals((portoPartenza))) || (portoPartenzaEspanso.contains(transportList.get(i).portoPartenza)) || (portoPartenza.equals(getString(R.string.tutti)))) {
-                    if ((transportList.get(i).portoArrivo.equals((portoArrivo))) || (portoArrivoEspanso.contains(transportList.get(i).portoArrivo)) || (portoArrivo.equals(getString(R.string.tutti)))) {
-                        if (transportList.get(i).inizioEsclusione.after(oraNave) || transportList.get(i).fineEsclusione.before(oraNave))
-                            if (transportList.get(i).giorniSettimana.contains(String.valueOf(oraNave.get(Calendar.DAY_OF_WEEK))))
-                                if (oraNave.before(oraLimite)) {
-                                    if (oraNave.get(Calendar.DAY_OF_MONTH) != c.get(Calendar.DAY_OF_MONTH))
-                                        transportList.get(i).setGiornoSeguente(true);
-                                    else
-                                        transportList.get(i).setGiornoSeguente(false);
-                                    //listMezzi.get(i).setId(i);
-                                    selectMezzi.add(transportList.get(i));
-                                }
-                    }
-                }
+            if (oraNave.isBefore(LocalDateTime.now())) {
+                oraNave = oraNave.plusDays(1);
             }
 
+            if (isNaveCompatibile(naveEspanso, mezzo) &&
+                    isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
+                    isPortoCompatibile(portoArrivo, portoArrivoEspanso, mezzo.portoArrivo) &&
+                    isEsclusioneCompatibile(mezzo, oraNave) &&
+                    mezzo.giorniSettimana.contains(String.valueOf(oraNave.getDayOfWeek().getValue())) &&
+                    oraNave.isBefore(oraLimite)) {
 
+                mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(LocalDateTime.now().toLocalDate()));
+                selectMezzi.add(mezzo);
+            }
         }
 
         selectMezzi.sort(comparator);
 
         for (int i = 0; i < selectMezzi.size(); i++) {
             Mezzo route = selectMezzi.get(i);
-
             route.setOrderInList(i);
-            String s = route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ";
-            if (route.oraPartenza.get(Calendar.HOUR_OF_DAY) < 10)
-                s += "0";
 
-            s += route.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":";
-
-            if (route.oraPartenza.get(Calendar.MINUTE) < 10)
-                s += "0";
-
-            s += route.oraPartenza.get(Calendar.MINUTE) + " ";
-
-            s += getWeatherConditionsString(this, route);
-
-            //Qui aggiungo le segnalazioni
-
-            String spc = "";
-            if (route.segnalazionePiuComune() > -1)
-                spc = ragioni[route.segnalazionePiuComune()];
-            if (route.tot > 0 || route.conferme > 0) {
-                //Trasformato con resources
-                if (route.tot > 0) { //c'? qualcosa
-                    if (route.conc) {
-                        s += " -  " + route.tot;
-                        if (route.tot == 1)
-                            s += " " + getString(R.string.segnalazione);
-                        else
-                            s += " " + getString(R.string.segnalazioni);
-                        s += " " + getString(R.string.diProblemi) + " (" + spc + ")";
-                    } else {
-                        s += " - " + getString(R.string.possibiliProblemi) + " (" + route.tot;
-                        if (route.tot == 1)
-                            s += " " + getString(R.string.segnalazione) + ")";
-                        else
-                            s += " " + getString(R.string.segnalazioni) + ")";
-                        s += ", " + getString(R.string.inParticolare) + " " + spc;
-                    }
-                }
-                if (route.conferme > 0) {
-                    s += " - " + route.conferme;
-                    if (route.conferme == 1)
-                        s += " " + getString(R.string.utenteDice);
-                    else
-                        s += " " + getString(R.string.utentiDicono);
-                    s += " " + getString(R.string.cheLaCorsaERegolare);
-                }
-
-            }
+            String s = formatMezzoInfo(route);
             aalvMezzi.add(s);
         }
-
     }
+
+    private String espandiNave(String nave) {
+        if (nave.contains(getString(R.string.traghetti)))
+            return "Traghetto Caremar Medmar Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella) Traghetto LazioMar";
+        if (nave.contains(getString(R.string.aliscafi)))
+            return "Aliscafo Caremar Aliscafo SNAV Scotto Line Aliscafo Alilauro";
+        if (nave.equals("Ippocampo"))
+            return "Ippocampo Ippocampo(da Chiaiolella) Ippocampo(a Chiaiolella)";
+        if (nave.contains("Gestur"))
+            return "Motonave Gestur Traghetto Gestur";
+        return nave;
+    }
+
+    private String espandiPorto(String porto) {
+        switch (porto) {
+            case "Napoli":
+                return "Napoli Porta di Massa o Napoli Beverello";
+            case "Napoli o Pozzuoli":
+                return "Napoli Porta di Massa o Napoli Beverello o Pozzuoli";
+            case "Ischia":
+                return "Ischia Porto o Casamicciola";
+            case "Monte di Procida":
+                return "Monte di Procida";
+            default:
+                return porto;
+        }
+    }
+
+    private boolean isNaveCompatibile(String naveEspanso, Mezzo mezzo) {
+        return naveEspanso.contains(mezzo.nave) || nave.equals(getString(R.string.tutti));
+    }
+
+    private boolean isPortoCompatibile(String porto, String portoEspanso, String portoMezzo) {
+        return portoMezzo.equals(porto) || portoEspanso.contains(portoMezzo) || porto.equals(getString(R.string.tutti));
+    }
+
+    private boolean isEsclusioneCompatibile(Mezzo mezzo, LocalDateTime oraNave) {
+        return mezzo.inizioEsclusione == null || mezzo.fineEsclusione == null ||
+                oraNave.isBefore(mezzo.inizioEsclusione.atStartOfDay()) || oraNave.isAfter(mezzo.fineEsclusione.atStartOfDay());
+    }
+
+    private String formatMezzoInfo(Mezzo route) {
+        StringBuilder s = new StringBuilder(route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ");
+        s.append(route.oraPartenza.format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        String spc = "";
+        if (route.segnalazionePiuComune() > -1)
+            spc = ragioni[route.segnalazionePiuComune()];
+        if (route.tot > 0 || route.conferme > 0) {
+            if (route.tot > 0) {
+                if (route.conc) {
+                    s.append(" - ").append(route.tot).append(route.tot == 1 ? " " + getString(R.string.segnalazione) : " " + getString(R.string.segnalazioni));
+                    s.append(" ").append(getString(R.string.diProblemi)).append(" (").append(spc).append(")");
+                } else {
+                    s.append(" - ").append(getString(R.string.possibiliProblemi)).append(" (").append(route.tot);
+                    s.append(route.tot == 1 ? " " + getString(R.string.segnalazione) + ")" : " " + getString(R.string.segnalazioni) + ")");
+                    s.append(", ").append(getString(R.string.inParticolare)).append(" ").append(spc);
+                }
+            }
+            if (route.conferme > 0) {
+                s.append(" - ").append(route.conferme).append(route.conferme == 1 ? " " + getString(R.string.utenteDice) : " " + getString(R.string.utentiDicono));
+                s.append(" ").append(getString(R.string.cheLaCorsaERegolare));
+            }
+        }
+
+        return s.toString();
+    }
+
 
     private void setSpinner() {
         Spinner spnNave = findViewById(R.id.spnNave);
