@@ -8,7 +8,6 @@ public class Compagnia {
     public final ArrayList<String> nomeNumeroTelefono;
     public final ArrayList<String> numeroTelefono;
 
-
     public Compagnia(String n) {
         nome = n;
         nomeNumeroTelefono = new ArrayList<>();

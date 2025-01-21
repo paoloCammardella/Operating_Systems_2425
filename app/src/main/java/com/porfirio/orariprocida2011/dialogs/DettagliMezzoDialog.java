@@ -21,6 +21,10 @@ import com.porfirio.orariprocida2011.entity.Mezzo;
 import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -37,11 +41,10 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
     private FragmentManager fragmentManager;
     private ArrayList<Compagnia> lc;
 
-    private AlertsDAO alertsDAO;
+    private final AlertsDAO alertsDAO;
     private Analytics analytics;
 
     public DettagliMezzoDialog(AlertsDAO alertsDAO) {
-        // Empty constructor required for DialogFragment
         this.alertsDAO = Objects.requireNonNull(alertsDAO);
     }
 
@@ -107,14 +110,22 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 
         final String text = "    " + mezzo.nave + "    ";
         txtMezzo.setText(text);
-        //String s=new String();
-        String s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraPartenza.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraPartenza.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraPartenza.get(Calendar.MONTH) + 1) + "/" + mezzo.oraPartenza.get(Calendar.YEAR);
+
+        LocalDate departureDate = LocalDateTime.ofInstant(callingActivity.c.toInstant(), callingActivity.c.getTimeZone().toZoneId()).toLocalDate();
+        LocalDate arrivalDate = LocalDateTime.ofInstant(callingActivity.c.toInstant(), callingActivity.c.getTimeZone().toZoneId()).toLocalDate();
+
+        if (mezzo.getGiornoSeguente()) {
+            departureDate = departureDate.plusDays(1);
+            arrivalDate = arrivalDate.plusDays(1);
+        }
+
+        String s = callingContext.getString(R.string.parteAlle) + " " + DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(mezzo.getDepartureTime());
+        s += " " + callingContext.getString(R.string.del) + " " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(departureDate);
         s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;
         txtPartenza.setText(s);
         //s=new String();
-        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.get(Calendar.HOUR_OF_DAY) + ":" + mezzo.oraArrivo.get(Calendar.MINUTE);
-        s += " " + callingContext.getString(R.string.del) + " " + mezzo.oraArrivo.get(Calendar.DAY_OF_MONTH) + "/" + (mezzo.oraArrivo.get(Calendar.MONTH) + 1) + "/" + mezzo.oraArrivo.get(Calendar.YEAR);
+        s = callingContext.getString(R.string.arrivaAlle) + " " + DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(mezzo.getArrivalTime());
+        s += " " + callingContext.getString(R.string.del) + " " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(arrivalDate);
         s += " " + callingContext.getString(R.string.a) + " " + mezzo.portoArrivo;
         txtArrivo.setText(s);
 
@@ -136,10 +147,10 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
         } else
             //s+=callingContext.getString(R.string.costoResidenteNonNoto)+" ";
             s += " ";
-        if (mezzo.getCostoIntero() > 0.0) {
+        if (mezzo.getFullPrice() > 0.0) {
             if (mezzo.isCircaIntero())
                 s += callingContext.getString(R.string.circa) + " ";
-            s += callingContext.getString(R.string.residenteO) + " " + mezzo.getCostoIntero() + " euro ";
+            s += callingContext.getString(R.string.residenteO) + " " + mezzo.getFullPrice() + " euro ";
             s += " " + callingContext.getString(R.string.intero);
         } else
             //s+=callingContext.getString(R.string.costoInteroNonNoto)+" ";

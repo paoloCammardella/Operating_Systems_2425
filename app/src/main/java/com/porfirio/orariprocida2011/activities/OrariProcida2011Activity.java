@@ -50,9 +50,9 @@ import com.porfirio.orariprocida2011.entity.Osservazione;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -329,21 +329,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
         selectMezzi = new ArrayList<>();
-        Comparator<Mezzo> comparator = (m1, m2) -> {
-            if (m1.getGiornoSeguente() == m2.getGiornoSeguente()) {
-                if (m1.oraPartenza.before(m2.oraPartenza))
-                    return -1;
-                else if (m1.oraPartenza.after(m2.oraPartenza))
-                    return 1;
-                else
-                    return 0;
-            } else if (m1.getGiornoSeguente()) {
-                return 1;
-            } else if (m2.getGiornoSeguente()) {
-                return -1;
-            }
-            return 0;
-        };
 
         aalvMezzi.clear();
 
@@ -375,32 +360,41 @@ public class OrariProcida2011Activity extends FragmentActivity {
             portoArrivoEspanso = "Ischia Porto o Casamicciola";
         if (portoArrivo.equals("Monte di Procida"))
             portoArrivoEspanso = "Monte di Procida";
+
         Calendar oraLimite = (Calendar) c.clone();
         oraLimite.add(Calendar.HOUR_OF_DAY, 24);
 
         //qui riempio aalvMezzi in base agli input e ai dati di listMezzi
         for (int i = 0; i < transportList.size(); i++) {
+            Mezzo transport = transportList.get(i);
+
             //per ogni mezzo valuta se ci interessa
-            Calendar oraNave = (Calendar) transportList.get(i).oraPartenza.clone();
+            // FIXME: Calendar should be replace by LocalDateTime or something
+            Calendar oraNave = Calendar.getInstance();
+
             oraNave.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
             oraNave.set(Calendar.MONTH, c.get(Calendar.MONTH));
             oraNave.set(Calendar.YEAR, c.get(Calendar.YEAR));
+            oraNave.set(Calendar.HOUR_OF_DAY, transport.getDepartureTime().getHour());
+            oraNave.set(Calendar.MINUTE, transport.getDepartureTime().getMinute());
+
             if ((oraNave.get(Calendar.HOUR_OF_DAY) < c.get(Calendar.HOUR_OF_DAY)) || (oraNave.get(Calendar.HOUR_OF_DAY) == c.get(Calendar.HOUR_OF_DAY)) && (oraNave.get(Calendar.MINUTE) < c.get(Calendar.MINUTE)))
                 oraNave.add(Calendar.DAY_OF_MONTH, 1);
 
-            if (naveEspanso.contains(transportList.get(i).nave) || nave.equals(getString(R.string.tutti))) {
-                if ((transportList.get(i).portoPartenza.equals((portoPartenza))) || (portoPartenzaEspanso.contains(transportList.get(i).portoPartenza)) || (portoPartenza.equals(getString(R.string.tutti)))) {
-                    if ((transportList.get(i).portoArrivo.equals((portoArrivo))) || (portoArrivoEspanso.contains(transportList.get(i).portoArrivo)) || (portoArrivo.equals(getString(R.string.tutti)))) {
-                        if (transportList.get(i).inizioEsclusione.after(oraNave) || transportList.get(i).fineEsclusione.before(oraNave))
-                            if (transportList.get(i).giorniSettimana.contains(String.valueOf(oraNave.get(Calendar.DAY_OF_WEEK))))
-                                if (oraNave.before(oraLimite)) {
-                                    if (oraNave.get(Calendar.DAY_OF_MONTH) != c.get(Calendar.DAY_OF_MONTH))
-                                        transportList.get(i).setGiornoSeguente(true);
-                                    else
-                                        transportList.get(i).setGiornoSeguente(false);
-                                    //listMezzi.get(i).setId(i);
-                                    selectMezzi.add(transportList.get(i));
-                                }
+            LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+
+            if (naveEspanso.contains(transport.nave) || nave.equals(getString(R.string.tutti))) {
+                if (transport.portoPartenza.equals((portoPartenza)) || portoPartenzaEspanso.contains(transportList.get(i).portoPartenza) || portoPartenza.equals(getString(R.string.tutti))) {
+                    if ((transport.portoArrivo.equals((portoArrivo))) || (portoArrivoEspanso.contains(transportList.get(i).portoArrivo)) || (portoArrivo.equals(getString(R.string.tutti)))) {
+                        if (transport.isDateInExclusion(transportDate) && transport.isActiveOnDay(transportDate) && oraNave.before(oraLimite)) {
+                            if (oraNave.get(Calendar.DAY_OF_MONTH) != c.get(Calendar.DAY_OF_MONTH))
+                                transportList.get(i).setGiornoSeguente(true);
+                            else
+                                transportList.get(i).setGiornoSeguente(false);
+
+                            //listMezzi.get(i).setId(i);
+                            selectMezzi.add(transportList.get(i));
+                        }
                     }
                 }
             }
@@ -408,22 +402,24 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         }
 
-        selectMezzi.sort(comparator);
+        selectMezzi.sort((m1, m2) -> {
+            if (m1.getGiornoSeguente() == m2.getGiornoSeguente())
+                return m1.getDepartureTime().compareTo(m2.getDepartureTime());
+            else if (m1.getGiornoSeguente())
+                return 1;
+            else if (m2.getGiornoSeguente())
+                return -1;
+
+            return 0;
+        });
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
         for (int i = 0; i < selectMezzi.size(); i++) {
             Mezzo route = selectMezzi.get(i);
 
             route.setOrderInList(i);
-            String s = route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ";
-            if (route.oraPartenza.get(Calendar.HOUR_OF_DAY) < 10)
-                s += "0";
-
-            s += route.oraPartenza.get(Calendar.HOUR_OF_DAY) + ":";
-
-            if (route.oraPartenza.get(Calendar.MINUTE) < 10)
-                s += "0";
-
-            s += route.oraPartenza.get(Calendar.MINUTE) + " ";
+            String s = route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - " + formatter.format(route.getDepartureTime()) + " - " + formatter.format(route.getArrivalTime());
 
             s += getWeatherConditionsString(this, route);
 
