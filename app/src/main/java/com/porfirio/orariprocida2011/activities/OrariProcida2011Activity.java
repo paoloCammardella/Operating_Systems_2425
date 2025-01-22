@@ -51,9 +51,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -330,15 +330,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
         selectMezzi = new ArrayList<>();
-        Comparator<Mezzo> comparator = (m1, m2) -> {
-            if (m1.getGiornoSeguente() == m2.getGiornoSeguente()) {
-                return m1.oraPartenza.compareTo(m2.oraPartenza);
-            } else if (m1.getGiornoSeguente()) {
-                return 1;
-            } else {
-                return -1;
-            }
-        };
 
         aalvMezzi.clear();
 
@@ -350,7 +341,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         for (Mezzo mezzo : transportList) {
             LocalDateTime oraNave = LocalDate.now()
-                    .atTime(mezzo.oraPartenza);
+                    .atTime(mezzo.getDepartureTime());
 
             if (oraNave.isBefore(LocalDateTime.now())) {
                 oraNave = oraNave.plusDays(1);
@@ -359,8 +350,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             if (isNaveCompatibile(naveEspanso, mezzo) &&
                     isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
                     isPortoCompatibile(portoArrivo, portoArrivoEspanso, mezzo.portoArrivo) &&
-                    isEsclusioneCompatibile(mezzo, oraNave) &&
-                    mezzo.giorniSettimana.contains(String.valueOf(oraNave.getDayOfWeek().getValue())) &&
+                    mezzo.isDateInExclusion(oraNave.toLocalDate()) &&
+                    mezzo.isActiveOnDay(oraNave.getDayOfWeek()) &&
                     oraNave.isBefore(oraLimite)) {
 
                 mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(LocalDateTime.now().toLocalDate()));
@@ -368,10 +359,22 @@ public class OrariProcida2011Activity extends FragmentActivity {
             }
         }
 
-        selectMezzi.sort(comparator);
+        selectMezzi.sort((m1, m2) -> {
+            if (m1.getGiornoSeguente() == m2.getGiornoSeguente())
+                return m1.getDepartureTime().compareTo(m2.getDepartureTime());
+            else if (m1.getGiornoSeguente())
+                return 1;
+            else if (m2.getGiornoSeguente())
+                return -1;
+
+            return 0;
+        });
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
         for (int i = 0; i < selectMezzi.size(); i++) {
             Mezzo route = selectMezzi.get(i);
+
             route.setOrderInList(i);
 
             String s = formatMezzoInfo(route);
@@ -414,14 +417,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         return portoMezzo.equals(porto) || portoEspanso.contains(portoMezzo) || porto.equals(getString(R.string.tutti));
     }
 
-    private boolean isEsclusioneCompatibile(Mezzo mezzo, LocalDateTime oraNave) {
-        return mezzo.inizioEsclusione == null || mezzo.fineEsclusione == null ||
-                oraNave.isBefore(mezzo.inizioEsclusione.atStartOfDay()) || oraNave.isAfter(mezzo.fineEsclusione.atStartOfDay());
-    }
-
     private String formatMezzoInfo(Mezzo route) {
         StringBuilder s = new StringBuilder(route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ");
-        s.append(route.oraPartenza.format(DateTimeFormatter.ofPattern("HH:mm")));
+        s.append(route.getDepartureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 
         String spc = "";
         if (route.segnalazionePiuComune() > -1)

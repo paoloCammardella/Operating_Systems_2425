@@ -24,7 +24,10 @@ import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -37,7 +40,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
     private Calendar orarioRef;
     private ArrayList<Compagnia> listCompagnia;
 
-    private AlertsDAO alertsDAO;
+    private final AlertsDAO alertsDAO;
     private Analytics analytics;
 
     public SegnalazioneDialog(AlertsDAO alertsDAO) {
@@ -97,16 +100,23 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
             dismiss();
         });
 
+        LocalDate departureDate = LocalDateTime.ofInstant(orarioRef.toInstant(), orarioRef.getTimeZone().toZoneId()).toLocalDate();
+        LocalDate arrivalDate = LocalDateTime.ofInstant(orarioRef.toInstant(), orarioRef.getTimeZone().toZoneId()).toLocalDate();
+
+        if (mezzo.getGiornoSeguente()) {
+            departureDate = departureDate.plusDays(1);
+            arrivalDate = arrivalDate.plusDays(1);
+        }
+
         final String text = "    " + mezzo.nave + "    ";
         txtMezzo.setText(text);
-        String s;
-        s = callingContext.getString(R.string.parteAlle) + " " + mezzo.oraPartenza.getHour() + ":" + mezzo.oraPartenza.getMinute();
-        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraPartenza).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraPartenza).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraPartenza).getYear();
+        String s = callingContext.getString(R.string.parteAlle) + " " + DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(mezzo.getDepartureTime());
+        s += " " + callingContext.getString(R.string.del) + " " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(departureDate);
         s += " " + callingContext.getString(R.string.da) + " " + mezzo.portoPartenza;
         txtPartenza.setText(s);
         //s=new String();
-        s = callingContext.getString(R.string.arrivaAlle) + " " + mezzo.oraArrivo.getHour() + ":" + mezzo.oraArrivo.getMinute();
-        s += " " + callingContext.getString(R.string.del) + " " + LocalDate.now().atTime(mezzo.oraArrivo).getDayOfMonth() + "/" + (LocalDate.now().atTime(mezzo.oraArrivo).getMonthValue() + 1) + "/" + LocalDate.now().atTime(mezzo.oraArrivo).getYear();
+        s = callingContext.getString(R.string.arrivaAlle) + " " + DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(mezzo.getArrivalTime());
+        s += " " + callingContext.getString(R.string.del) + " " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(arrivalDate);
         s += " " + callingContext.getString(R.string.a) + " " + mezzo.portoArrivo;
         txtArrivo.setText(s);
 
@@ -136,10 +146,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
         if (mezzo.getGiornoSeguente())
             transportDate = transportDate.plusDays(1);
 
-        LocalTime departureTime = LocalTime.of(mezzo.oraPartenza.getHour(), mezzo.oraPartenza.getMinute());
-        LocalTime arrivalTime = LocalTime.of(mezzo.oraArrivo.getHour(), mezzo.oraArrivo.getMinute());
-
-        Alert alert = new Alert(mezzo.nave, reason, dettagli, mezzo.portoPartenza, departureTime, mezzo.portoArrivo, arrivalTime, transportDate);
+        Alert alert = new Alert(mezzo.nave, reason, dettagli, mezzo.portoPartenza, mezzo.getDepartureTime(), mezzo.portoArrivo, mezzo.getArrivalTime(), transportDate);
         alertsDAO.send(alert);
 
         return "ok";

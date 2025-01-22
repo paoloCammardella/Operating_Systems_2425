@@ -11,7 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.porfirio.orariprocida2011.entity.Mezzo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class OnRequestTransportsDAO implements TransportsDAO {
@@ -53,17 +55,31 @@ public class OnRequestTransportsDAO implements TransportsDAO {
     }
 
     private Mezzo parseMezzo(DataSnapshot snapshot) {
+        LocalDate exclusionStart = snapshot.hasChild("inizioEsclusione") ? LocalDate.parse(snapshot.child("inizioEsclusione").getValue(String.class)) : null;
+        LocalDate exclusionEnd = snapshot.hasChild("fineEsclusione") ? LocalDate.parse(snapshot.child("fineEsclusione").getValue(String.class)) : null;
+        LocalTime departureTime = LocalTime.parse(snapshot.child("oraPartenza").getValue(String.class));
+        LocalTime arrivalTime = LocalTime.parse(snapshot.child("oraArrivo").getValue(String.class));
+        byte activeDays = snapshot.hasChild("giorniSettimana") ? getActiveDays(snapshot.child("giorniSettimana").getValue(String.class)) : Byte.MIN_VALUE;
+
         return new Mezzo(
-            snapshot.child("nomeNave").getValue(String.class),
-            snapshot.child("oraPartenza").getValue(String.class),
-            snapshot.child("oraArrivo").getValue(String.class),
-            snapshot.child("inizioEsclusione").getValue(String.class),
-            snapshot.child("fineEsclusione").getValue(String.class),
-            snapshot.child("portoPartenza").getValue(String.class),
-            snapshot.child("portoArrivo").getValue(String.class),
-            snapshot.child("giorniSettimana").getValue(String.class)
+                snapshot.child("nomeNave").getValue(String.class),
+                snapshot.child("portoPartenza").getValue(String.class), departureTime,
+                snapshot.child("portoArrivo").getValue(String.class), arrivalTime,
+                exclusionStart, exclusionEnd,
+                activeDays,
+                0, 0
         );
     }
 
+    private byte getActiveDays(String days) {
+        byte d = 0;
+
+        for (byte i = 1; i <= 7; i++) {
+            if (days.contains(Byte.toString(i)))
+                d |= (byte) (1 << i);
+        }
+
+        return d;
+    }
 
 }

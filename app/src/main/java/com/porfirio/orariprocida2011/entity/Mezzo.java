@@ -1,69 +1,63 @@
 package com.porfirio.orariprocida2011.entity;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Mezzo {
+    //gestite nel dettaglio segnalazioni per tipologia e motivi
     public final String nave;
-    public final LocalTime oraPartenza;
-    public final LocalTime oraArrivo;
+
     public final String portoPartenza;
     public final String portoArrivo;
-    public final LocalDate inizioEsclusione;
-    public final LocalDate fineEsclusione;
-    public final String giorniSettimana;
-    private final int[] segnalazioni = new int[100];
+
+
     public int conferme = 0;
     public int tot = 0;
     public boolean conc = true;
     private boolean giornoSeguente;
-    private boolean esclusione;
     private int orderInList;
+
     private double costoIntero;
     private double costoResidente;
     private boolean circaIntero = false;
     private boolean circaResidente = false;
 
-    public Mezzo(String n, String partenzaIso, String arrivoIso, String esclusioneInizioIso, String esclusioneFineIso, String pp, String pa, String gs) {
-        nave = n;
-        Arrays.fill(segnalazioni, 0);
+    private final LocalTime departureTime, arrivalTime;
+    private final LocalDate exclusionStart, exclusionEnd;
+    private final byte activeDays;
+    private final float fullPrice, reducedPrice;
 
-        DateTimeFormatter isoDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        DateTimeFormatter isoTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+    private final int[] reports = new int[32];
 
-        oraPartenza = LocalTime.parse(partenzaIso, isoTimeFormatter);
-        oraArrivo = LocalTime.parse(arrivoIso, isoTimeFormatter);
+    public Mezzo(String transport, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate exclusionStart, LocalDate exclusionEnd, byte activeDays, float fullPrice, float reducedPrice) {
+        this.nave = Objects.requireNonNull(transport);
+        this.portoPartenza = Objects.requireNonNull(departureLocation);
+        this.portoArrivo = Objects.requireNonNull(arrivalLocation);
+        this.departureTime = Objects.requireNonNull(departureTime);
+        this.arrivalTime = Objects.requireNonNull(arrivalTime);
+        this.exclusionStart = exclusionStart;
+        this.exclusionEnd = exclusionEnd;
+        this.activeDays = activeDays;
+        this.fullPrice = fullPrice;
+        this.reducedPrice = reducedPrice;
 
-        portoPartenza = pp;
-        portoArrivo = pa;
+        Arrays.fill(reports, 0);
 
-        esclusione = esclusioneInizioIso != null && esclusioneFineIso != null;
-        if (esclusione) {
-            inizioEsclusione = LocalDate.parse(esclusioneInizioIso, isoDateFormatter);
-            fineEsclusione = LocalDate.parse(esclusioneFineIso, isoDateFormatter);
-        } else {
-            inizioEsclusione = null;
-            fineEsclusione = null;
-        }
-
-        giorniSettimana = gs;
-
-        if (pp.equals("Procida")) {
-            calcolaCosto(n, pa);
-        } else {
-            calcolaCosto(n, pp);
-        }
+        if (departureLocation.contentEquals("Procida"))
+            calcolaCosto(transport, arrivalLocation);
+        else
+            calcolaCosto(transport, departureLocation);
     }
 
     public int segnalazionePiuComune() {
         int max = 0;
         int spc = -1;
-        for (int i = 0; i < segnalazioni.length; i++) {
-            if (segnalazioni[i] > max) {
-                max = segnalazioni[i];
+        for (int i = 0; i < reports.length; i++) {
+            if (reports[i] > max) {
+                max = reports[i];
                 spc = i;
             }
         }
@@ -199,7 +193,7 @@ public class Mezzo {
         this.orderInList = orderInList;
     }
 
-    public double getCostoIntero() {
+    public double getFullPrice() {
         return costoIntero;
     }
 
@@ -223,29 +217,41 @@ public class Mezzo {
         this.circaResidente = circaResidente;
     }
 
-    public void addReason(String rigaMotivo) {
-        int motivo = Integer.parseInt(rigaMotivo);
-        addReason(motivo);
-    }
-
-    public void addReason(int motivo) {
-        if (motivo == 99) {
+    public void addReason(int reason) {
+        if (reason == 99) {
             conferme++;
         } else {
-            if (tot > segnalazioni[motivo]) {
+            if (tot > reports[reason])
                 conc = false;
-            }
-            segnalazioni[motivo]++;
+            reports[reason]++;
             tot++;
         }
     }
 
     public LocalTime getDepartureTime() {
-        return oraPartenza;
+        return departureTime;
     }
 
     public LocalTime getArrivalTime() {
-        return oraArrivo;
+        return arrivalTime;
+    }
+
+    public boolean isActiveOnDay(LocalDate date) {
+        return isActiveOnDay(date.getDayOfWeek());
+    }
+
+    public boolean isActiveOnDay(DayOfWeek day) {
+        // The n-th bit represents whether or not the route is active in that day, where the first day (monday) is the the second bit
+
+        // e.g.
+        // A route active on monday, tuesday and friday is represented as 00100110
+        // tuesday = 2, so 00100110 & 00000100 = 00001000 != 0 so it is active on tuesday
+
+        return (activeDays & (1 << day.getValue())) != 0;
+    }
+
+    public boolean isDateInExclusion(LocalDate date) {
+        return (exclusionStart != null && exclusionStart.isAfter(date)) || (exclusionEnd != null && exclusionEnd.isBefore(date));
     }
 
 }

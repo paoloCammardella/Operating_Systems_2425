@@ -18,7 +18,7 @@ public class Meteo {
         if (forecasts.isEmpty())
             return 0;
 
-        LocalDateTime departureTime = LocalDate.now().atTime(route.oraPartenza);
+        LocalDateTime departureTime = LocalDate.now().atTime(route.getDepartureTime());
         LocalDateTime now = LocalDateTime.now();
 
         // NOTE: workaround because departure time doesn't save the actual day so it may be checking the next-day route
