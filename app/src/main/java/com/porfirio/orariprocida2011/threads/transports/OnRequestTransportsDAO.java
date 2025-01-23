@@ -67,7 +67,8 @@ public class OnRequestTransportsDAO implements TransportsDAO {
                 snapshot.child("portoArrivo").getValue(String.class), arrivalTime,
                 exclusionStart, exclusionEnd,
                 activeDays,
-                0, 0
+                snapshot.child("prezzoIntero").getValue(Float.class),
+                snapshot.child("prezzoRidotto").getValue(Float.class)
         );
     }
 

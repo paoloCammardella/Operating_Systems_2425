@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class DettagliMezzoDialog extends DialogFragment implements OnClickListener {
@@ -140,21 +141,13 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 //        lvNumeri.setAdapter(aalvNumeri);
 //
         s = "";
-        if (mezzo.getCostoResidente() > 0.0) {
-            if (mezzo.isCircaResidente())
-                s += callingContext.getString(R.string.circa) + " ";
-            s += callingContext.getString(R.string.costo) + " " + mezzo.getCostoResidente() + " euro ";
-        } else
-            //s+=callingContext.getString(R.string.costoResidenteNonNoto)+" ";
-            s += " ";
-        if (mezzo.getFullPrice() > 0.0) {
-            if (mezzo.isCircaIntero())
-                s += callingContext.getString(R.string.circa) + " ";
-            s += callingContext.getString(R.string.residenteO) + " " + mezzo.getFullPrice() + " euro ";
-            s += " " + callingContext.getString(R.string.intero);
-        } else
-            //s+=callingContext.getString(R.string.costoInteroNonNoto)+" ";
-            s += " ";
+
+        if (mezzo.getCostoResidente() > 0)
+            s += callingContext.getString(R.string.costo) + " " + String.format(Locale.getDefault(), "%.2f", mezzo.getCostoResidente()) + " € ";
+
+        if (mezzo.getFullPrice() > 0)
+            s += callingContext.getString(R.string.residenteO) + " " + String.format(Locale.getDefault(), "%.2f", mezzo.getFullPrice()) + " € " + callingContext.getString(R.string.intero);
+
         txtCosto.setText(s);
 
         //trova compagnia c

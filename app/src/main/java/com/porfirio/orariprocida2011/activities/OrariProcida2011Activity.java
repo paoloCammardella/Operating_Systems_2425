@@ -483,7 +483,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         adapter3.setDropDownViewResource(R.layout.spinner_item);
         spnPortoArrivo.setAdapter(adapter3);
 
-        if (!(portoPartenza.contentEquals("Procida") || portoPartenza.contentEquals(getString(R.string.tutti)))) {
+        if (!portoPartenza.contentEquals("Procida") || portoPartenza.contentEquals(getString(R.string.tutti))) {
             portoArrivo = "Procida";
             setSpnPortoArrivo(spnPortoArrivo, adapter3);
         }

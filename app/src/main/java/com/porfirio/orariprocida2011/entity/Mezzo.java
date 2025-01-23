@@ -20,11 +20,6 @@ public class Mezzo {
     private boolean giornoSeguente;
     private int orderInList;
 
-    private double costoIntero;
-    private double costoResidente;
-    private boolean circaIntero = false;
-    private boolean circaResidente = false;
-
     private final LocalTime departureTime, arrivalTime;
     private final LocalDate exclusionStart, exclusionEnd;
     private final byte activeDays;
@@ -45,11 +40,6 @@ public class Mezzo {
         this.reducedPrice = reducedPrice;
 
         Arrays.fill(reports, 0);
-
-        if (departureLocation.contentEquals("Procida"))
-            calcolaCosto(transport, arrivalLocation);
-        else
-            calcolaCosto(transport, departureLocation);
     }
 
     public int segnalazionePiuComune() {
@@ -65,116 +55,6 @@ public class Mezzo {
             return spc;
         else
             return -1;
-    }
-
-    private void calcolaCosto(String n, String p) {
-        //TODO Anche questi dati andrebbero messi in un file esterno o su una risorsa web tipo Firebase
-        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Pozzuoli")) {
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.70;
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Medmar") && p.contentEquals("Pozzuoli")) {
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.70;
-            setCircaResidente(true);
-            return;
-        }
-//		if (n.contentEquals("Procida Lines") && p.contentEquals("Pozzuoli")){
-//			costoIntero=5;
-//			costoResidente=2.5;
-//			setCircaIntero(true);
-//			setCircaResidente(true);
-//			return;
-//		}
-        if ((n.contentEquals("Motonave Gestur") || n.contentEquals("Traghetto Gestur")) && p.contentEquals("Pozzuoli")) {
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.70;
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Napoli Porta di Massa")) {
-            costoIntero = 10.60;
-            costoResidente = 3.10;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Napoli Beverello")) {
-            costoIntero = 14.40;
-            costoResidente = 4.90;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Napoli Beverello")) {
-            costoIntero = 19.20;
-            costoResidente = 5.70;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Traghetto Caremar") && p.contentEquals("Ischia Porto")) {
-            costoIntero = 7.80;
-            costoResidente = 2.50;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Aliscafo Caremar") && p.contentEquals("Ischia Porto")) {
-            costoIntero = 8.70;
-            costoResidente = 2.70;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Aliscafo SNAV") && p.contentEquals("Casamicciola")) {
-            costoIntero = 9.30;
-            costoResidente = 2.60;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Medmar") && p.contentEquals("Ischia Porto")) {
-            costoIntero = 7.80;
-            costoResidente = 2.70;
-            setCircaIntero(true);
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Ippocampo")) { //TODO Da verificare
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.50;
-            setCircaResidente(true);
-            return;
-        }
-        if (n.contentEquals("Scotto Line")) { //TODO Da verificare
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.50;
-            setCircaResidente(true);
-            return;
-        }
-//		if (n.contentEquals("Aladino") ){ //TODO Da verificare
-//			costoIntero=0.00;
-//			costoResidente=0.00;
-//			setCircaIntero(true);
-//			setCircaResidente(true);
-//			return;
-//		}
-
-        if (n.contentEquals("LazioMar")) { //TODO Da verificare
-            costoIntero = 7.90;
-            setCircaIntero(true);
-            costoResidente = 2.60;
-            setCircaResidente(true);
-        }
-
     }
 
     public boolean getGiornoSeguente() {
@@ -193,28 +73,12 @@ public class Mezzo {
         this.orderInList = orderInList;
     }
 
-    public double getFullPrice() {
-        return costoIntero;
+    public float getFullPrice() {
+        return fullPrice;
     }
 
-    public double getCostoResidente() {
-        return costoResidente;
-    }
-
-    public boolean isCircaIntero() {
-        return circaIntero;
-    }
-
-    private void setCircaIntero(boolean circaIntero) {
-        this.circaIntero = circaIntero;
-    }
-
-    public boolean isCircaResidente() {
-        return circaResidente;
-    }
-
-    private void setCircaResidente(boolean circaResidente) {
-        this.circaResidente = circaResidente;
+    public float getCostoResidente() {
+        return reducedPrice;
     }
 
     public void addReason(int reason) {
