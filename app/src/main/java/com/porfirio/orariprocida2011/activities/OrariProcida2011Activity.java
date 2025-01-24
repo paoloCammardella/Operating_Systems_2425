@@ -337,15 +337,14 @@ public class OrariProcida2011Activity extends FragmentActivity {
         String portoPartenzaEspanso = espandiPorto(portoPartenza);
         String portoArrivoEspanso = espandiPorto(portoArrivo);
 
-        LocalDateTime oraLimite = LocalDateTime.now().plusHours(24);
+        LocalDateTime selectedDate = LocalDateTime.ofInstant(c.toInstant(), c.getTimeZone().toZoneId());
+        LocalDateTime oraLimite = selectedDate.plusDays(1);
 
         for (Mezzo mezzo : transportList) {
-            LocalDateTime oraNave = LocalDate.now()
-                    .atTime(mezzo.getDepartureTime());
+            LocalDateTime oraNave = selectedDate.toLocalDate().atTime(mezzo.getDepartureTime());
 
-            if (oraNave.isBefore(LocalDateTime.now())) {
+            if (oraNave.isBefore(selectedDate))
                 oraNave = oraNave.plusDays(1);
-            }
 
             if (isNaveCompatibile(naveEspanso, mezzo) &&
                     isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
@@ -354,7 +353,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     mezzo.isActiveOnDay(oraNave.getDayOfWeek()) &&
                     oraNave.isBefore(oraLimite)) {
 
-                mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(LocalDateTime.now().toLocalDate()));
+                mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(selectedDate.toLocalDate()));
+
                 selectMezzi.add(mezzo);
             }
         }
@@ -443,7 +443,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         return s.toString();
     }
-
 
     private void setSpinner() {
         Spinner spnNave = findViewById(R.id.spnNave);
