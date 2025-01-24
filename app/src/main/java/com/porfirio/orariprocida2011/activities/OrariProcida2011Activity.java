@@ -494,7 +494,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     portoArrivo = getString(R.string.tutti);
                     setSpnPortoArrivo(spnPortoArrivo, adapter2);
                     setSpnPortoPartenza(spnPortoPartenza, adapter3);
-                } else if (!(portoPartenza.contentEquals("Procida") || portoPartenza.contentEquals(getString(R.string.tutti)))) {
+                } else if (!portoPartenza.contentEquals("Procida") || portoPartenza.contentEquals(getString(R.string.tutti))) {
                     portoArrivo = "Procida";
                     setSpnPortoArrivo(spnPortoArrivo, adapter2);
                     setSpnPortoPartenza(spnPortoPartenza, adapter3);
@@ -514,7 +514,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     portoPartenza = getString(R.string.tutti);
                     setSpnPortoPartenza(spnPortoPartenza, adapter2);
                     setSpnPortoArrivo(spnPortoArrivo, adapter3);
-                } else if (!(portoArrivo.contentEquals("Procida") || portoArrivo.contentEquals(getString(R.string.tutti)))) {
+                } else if (!portoArrivo.contentEquals("Procida") || portoArrivo.contentEquals(getString(R.string.tutti))) {
                     portoPartenza = "Procida";
                     setSpnPortoPartenza(spnPortoPartenza, adapter2);
                     setSpnPortoArrivo(spnPortoArrivo, adapter3);
