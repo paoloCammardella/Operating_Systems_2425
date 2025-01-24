@@ -782,19 +782,12 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private boolean sameTransport(Mezzo transport, Alert alert) {
-        LocalTime transportDepartureTime = transport.getDepartureTime();
-        LocalTime transportArrivalTime = transport.getArrivalTime();
         LocalDate transportDate = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
 
         if (transport.getGiornoSeguente())
             transportDate = transportDate.plusDays(1);
 
-        return alert.getTransport().equals(transport.nave)
-                && alert.getDepartureTime().equals(transportDepartureTime)
-                && alert.getArrivalTime().equals(transportArrivalTime)
-                && alert.getDepartureLocation().equals(transport.portoPartenza)
-                && alert.getArrivalLocation().equals(transport.portoArrivo)
-                && alert.getTransportDate().equals(transportDate);
+        return alert.getRouteId().equals(transport.getId()) && alert.getTransportDate().equals(transportDate);
     }
 
 }

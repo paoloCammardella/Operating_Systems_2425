@@ -62,6 +62,7 @@ public class OnRequestTransportsDAO implements TransportsDAO {
         byte activeDays = snapshot.hasChild("giorniSettimana") ? getActiveDays(snapshot.child("giorniSettimana").getValue(String.class)) : Byte.MIN_VALUE;
 
         return new Mezzo(
+                snapshot.getKey(),
                 snapshot.child("nomeNave").getValue(String.class),
                 snapshot.child("portoPartenza").getValue(String.class), departureTime,
                 snapshot.child("portoArrivo").getValue(String.class), arrivalTime,

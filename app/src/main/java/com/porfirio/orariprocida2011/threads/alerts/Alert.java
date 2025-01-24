@@ -7,6 +7,8 @@ public class Alert {
 
     public static final int REASON_NO_PROBLEM = 99;
 
+    private final String id;
+    private final String routeId;
     private final String transport;
     private final int reason;
     private final String details;
@@ -16,7 +18,13 @@ public class Alert {
     private final LocalTime arrivalTime;
     private final LocalDate transportDate;
 
-    public Alert(String transport, int reason, String details, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate transportDate) {
+    public Alert(String routeId, String transport, int reason, String details, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate transportDate) {
+        this(null, routeId, transport, reason, details, departureLocation, departureTime, arrivalLocation, arrivalTime, transportDate);
+    }
+
+    public Alert(String id, String routeId, String transport, int reason, String details, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate transportDate) {
+        this.id = id;
+        this.routeId = routeId;
         this.transport = transport;
         this.reason = reason;
         this.details = details;
@@ -25,6 +33,14 @@ public class Alert {
         this.arrivalTime = arrivalTime;
         this.arrivalLocation = arrivalLocation;
         this.transportDate = transportDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getRouteId() {
+        return routeId;
     }
 
     public String getTransport() {

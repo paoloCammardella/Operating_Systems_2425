@@ -109,6 +109,8 @@ public class AlertsService extends Service implements AlertsDAO {
 
     private Alert parse(DataSnapshot snapshot) {
         return new Alert(
+                snapshot.getKey(),
+                snapshot.child("routeId").getValue(String.class),
                 snapshot.child("transport").getValue(String.class),
                 snapshot.child("reason").getValue(Integer.class),
                 snapshot.child("details").getValue(String.class),

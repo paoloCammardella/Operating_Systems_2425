@@ -7,12 +7,14 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Mezzo {
+
+    private final String id;
+
     //gestite nel dettaglio segnalazioni per tipologia e motivi
     public final String nave;
 
     public final String portoPartenza;
     public final String portoArrivo;
-
 
     public int conferme = 0;
     public int tot = 0;
@@ -27,7 +29,8 @@ public class Mezzo {
 
     private final int[] reports = new int[32];
 
-    public Mezzo(String transport, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate exclusionStart, LocalDate exclusionEnd, byte activeDays, float fullPrice, float reducedPrice) {
+    public Mezzo(String id, String transport, String departureLocation, LocalTime departureTime, String arrivalLocation, LocalTime arrivalTime, LocalDate exclusionStart, LocalDate exclusionEnd, byte activeDays, float fullPrice, float reducedPrice) {
+        this.id = id;
         this.nave = Objects.requireNonNull(transport);
         this.portoPartenza = Objects.requireNonNull(departureLocation);
         this.portoArrivo = Objects.requireNonNull(arrivalLocation);
@@ -40,6 +43,10 @@ public class Mezzo {
         this.reducedPrice = reducedPrice;
 
         Arrays.fill(reports, 0);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public int segnalazionePiuComune() {

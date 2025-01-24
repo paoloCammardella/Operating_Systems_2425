@@ -65,6 +65,7 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
         HashMap<String, Object> attributes = new HashMap<>();
 
+        attributes.put("routeId", alert.getRouteId());
         attributes.put("arrivalLocation", alert.getArrivalLocation());
         attributes.put("arrivalTime", DateTimeFormatter.ISO_LOCAL_TIME.format(alert.getArrivalTime()));
         attributes.put("departureLocation", alert.getDepartureLocation());
@@ -79,6 +80,8 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
     private Alert parse(DataSnapshot snapshot) {
         return new Alert(
+                snapshot.getKey(),
+                snapshot.child("routeId").getValue(String.class),
                 snapshot.child("transport").getValue(String.class),
                 snapshot.child("reason").getValue(Integer.class),
                 snapshot.child("details").getValue(String.class),

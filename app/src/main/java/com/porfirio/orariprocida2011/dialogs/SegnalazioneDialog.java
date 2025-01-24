@@ -146,7 +146,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
         if (mezzo.getGiornoSeguente())
             transportDate = transportDate.plusDays(1);
 
-        Alert alert = new Alert(mezzo.nave, reason, dettagli, mezzo.portoPartenza, mezzo.getDepartureTime(), mezzo.portoArrivo, mezzo.getArrivalTime(), transportDate);
+        Alert alert = new Alert(mezzo.getId(), mezzo.nave, reason, dettagli, mezzo.portoPartenza, mezzo.getDepartureTime(), mezzo.portoArrivo, mezzo.getArrivalTime(), transportDate);
         alertsDAO.send(alert);
 
         return "ok";
