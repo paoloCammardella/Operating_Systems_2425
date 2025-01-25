@@ -36,15 +36,15 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren())
                         companies.add(parse(snapshot));
 
-                    update.postValue(new CompaniesUpdate(companies));
+                    update.setValue(new CompaniesUpdate(companies));
                 } catch (Exception e) {
-                    update.postValue(new CompaniesUpdate(e));
+                    update.setValue(new CompaniesUpdate(e));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                update.postValue(new CompaniesUpdate(databaseError.toException()));
+                update.setValue(new CompaniesUpdate(databaseError.toException()));
             }
 
         });

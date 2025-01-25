@@ -1,5 +1,7 @@
 package com.porfirio.orariprocida2011.threads.alerts;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,10 +31,14 @@ public class OnRequestAlertsDAO implements AlertsDAO {
     }
 
     public void requestUpdate() {
+        Log.d("TAG", "requestUpdate: " + Thread.currentThread().getName());
+
         database.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("TAG", "requestUpdate: " + Thread.currentThread().getName());
+
                 ArrayList<Alert> alerts = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -40,12 +46,12 @@ public class OnRequestAlertsDAO implements AlertsDAO {
                     alerts.add(alert);
                 }
 
-                update.postValue(new AlertUpdate(alerts));
+                update.setValue(new AlertUpdate(alerts));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                update.postValue(new AlertUpdate(databaseError.toException()));
+                update.setValue(new AlertUpdate(databaseError.toException()));
             }
 
         });

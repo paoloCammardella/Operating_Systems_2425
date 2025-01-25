@@ -38,12 +38,12 @@ public class OnRequestTransportsDAO implements TransportsDAO {
                     transportList.add(mezzo);
                 }
 
-                update.postValue(new TransportsUpdate(transportList, LocalDateTime.now()));
+                update.setValue(new TransportsUpdate(transportList, LocalDateTime.now()));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                update.postValue(new TransportsUpdate(databaseError.toException()));
+                update.setValue(new TransportsUpdate(databaseError.toException()));
             }
 
         });
