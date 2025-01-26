@@ -24,6 +24,9 @@ public class OnRequestTransportsDAO implements TransportsDAO {
 
     public OnRequestTransportsDAO() {
         this.update = new MutableLiveData<>();
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         this.databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
     }
 
@@ -31,6 +34,7 @@ public class OnRequestTransportsDAO implements TransportsDAO {
         if (requested)
             return;
 
+        databaseReference.keepSynced(true);
         requested = true;
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -45,12 +49,14 @@ public class OnRequestTransportsDAO implements TransportsDAO {
                 }
 
                 update.setValue(new TransportsUpdate(transportList, LocalDateTime.now()));
+                databaseReference.keepSynced(false);
                 requested = false;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 update.setValue(new TransportsUpdate(databaseError.toException()));
+                databaseReference.keepSynced(false);
                 requested = false;
             }
 
