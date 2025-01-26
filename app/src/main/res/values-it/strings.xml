@@ -3,8 +3,8 @@
     <string name="app_name">Uno Procida Residente</string>
     <string-array name="strMezzi">
         <item>Tutti</item>
-        <item >Traghetti</item>
-        <item >Aliscafi</item>
+        <item>Traghetti</item>
+        <item>Aliscafi</item>
         <item>Traghetto Caremar</item>
         <item>Aliscafo Caremar</item>
         <item>Aliscafo SNAV</item>
@@ -23,14 +23,14 @@
         <item>Ischia</item>
         <item>Napoli o Pozzuoli</item>
         <item>Napoli Beverello</item>
-        <item>Napoli Porta di Massa</item>        
-        <item>Napoli Mergellina</item>        
-		<item>Ischia Porto</item>                
+        <item>Napoli Porta di Massa</item>
+        <item>Napoli Mergellina</item>
+        <item>Ischia Porto</item>
         <item>Casamicciola</item>
         <item>Ischia</item>
         <item>Monte di Procida</item>
     </string-array>
-        <string-array name="strRagioni">
+    <string-array name="strRagioni">
         <item>Ragioni sconosciute</item>
         <item>Cattive Condizioni Meteomarine</item>
         <item>Sciopero</item>
@@ -39,105 +39,109 @@
         <item>Cambio di orario o soppressione</item>
         <item>In Ritardo</item>
     </string-array>
-        <string name="mezzo">Mezzo : </string>
-        <string name="portoPartenza">Da : </string>
-        <string name="portoArrivo">A : </string>
-        <string name="minusminus">&lt;&lt;</string>
-        <string name="minus">&lt;</string>
-        <string name="plus">&gt;</string>
-        <string name="plusplus">&gt;&gt;</string>
-        <string name="about">Info</string>
-        <string name="esci">Esci</string>
-        <string name="backTimetable">Torna agli orari</string>
-        <string name="numeriUtili">Chiama la biglietteria</string>
-        <string name="tampone">1234567890123456789012345</string>
-        <string name="labelBackground">labelBackground</string>
-        <string name="back">Indietro</string>
-        <string name="inserisciFinestra">Dimensione della finestra temporale da mostrare (max=24 ore)</string>
-        <string name="ok">OK</string>
-        <string name="ventiquattro">24</string>
-        <string name="updateWeb">Aggiorna orari da Web</string>
-        <string name="numeriTaxi">Chiama un taxi</string>
-        <string name="noUpdateWeb">Non aggiornare orari da Web</string>
+    <string name="mezzo">"Mezzo: "</string>
+    <string name="portoPartenza">"Da: "</string>
+    <string name="portoArrivo">"A: "</string>
+    <string name="minusminus">&lt;&lt;</string>
+    <string name="minus">&lt;</string>
+    <string name="plus">&gt;</string>
+    <string name="plusplus">&gt;&gt;</string>
+    <string name="about">Info</string>
+    <string name="esci">Esci</string>
+    <string name="backTimetable">Torna agli orari</string>
+    <string name="numeriUtili">Chiama la biglietteria</string>
+    <string name="tampone">1234567890123456789012345</string>
+    <string name="labelBackground">labelBackground</string>
+    <string name="back">Indietro</string>
+    <string name="inserisciFinestra">Dimensione della finestra temporale da mostrare (max=24 ore)</string>
+    <string name="ok">OK</string>
+    <string name="ventiquattro">24</string>
+    <string name="updateWeb">Aggiorna orari da Web</string>
+    <string name="numeriTaxi">Chiama un taxi</string>
+    <string name="noUpdateWeb">Non aggiornare orari da Web</string>
     <string name="disclaimer">"Gli orari sono quelli resi noti dalle compagnie di navigazione alle biglietterie o sui loro siti web. L'autore non e' in alcun modo responsabile di ogni eventuale loro cambiamento.
 Questa Applicazione raccoglie la geolocalizzazione degli utenti (non continuativamente), salva dei dati (orari e informazioni meteo) sulla memoria interna del dispositivo, invia dati a Google Analytics a scopo statistico. La GPDR completa è accessibile all'indirizzo http://unoprocidaresidente.altervista.org/PrivacyPolicyUnoProcidaResidente.htm"</string>
-        <string name="condimeteo">Condizioni meteo:</string>
-        <string name="dalle">Dalle</string>
-        <string name="orariAggiornatiAl">Orari aggiornati al </string>
-        <string name="nuovoAggiornamento">Nuovo aggiornamento degli orari al </string>
-        <string name="novita">Novita\'</string>
-        <string name="aggiornamentoDaWeb">Aggiornamento degli orari letto da Web</string>
-        <string name="secondoMeVuoiPartireDa">Secondo me, vuoi partire da </string>
-        <string name="da">da </string>
-        <string name="parteAlle">Parte alle </string>
-        <string name="del"> del </string>
-        <string name="arrivaAlle">Arriva alle </string>
-        <string name="costo">Costo : </string>
-        <string name="a">a</string>
-        <string name="circa">(circa) </string>
-        <string name="residenteO">(residente) o </string>
-        <string name="intero">(intero)</string>
-        <string name="trasportaSoloPasseggeri">Trasporta solo passeggeri</string>
-        <string name="trasportaAutoPasseggeri">Trasporta auto e passeggeri</string>
-        <string name="calma">Calma</string>
-        <string name="bavaDiVento">Bava di vento</string>
-        <string name="brezzaLeggera">Brezza leggera</string>
-        <string name="brezzaTesa">Brezza tesa</string>
-        <string name="ventoModerato">Vento moderato</string>
-        <string name="ventoTeso">Vento teso</string>
-        <string name="ventoFresco">Vento fresco</string>
-        <string name="ventoForte">Vento forte</string>
-        <string name="burrasca">Burrasca</string>
-        <string name="burrascaForte">Burrasca forte</string>
-        <string name="tempesta">Tempesta</string>
-        <string name="fortunale">Fortunale</string>
-        <string name="uragano">Uragano</string>
-        <string name="pocoProbabile">Poco probabile rischio Maltempo!!!</string>
-        <string name="aRischio">A rischio Maltempo!!!</string>
-        <string name="corsaQuasi">Corsa quasi sicuramente sospesa !!!</string>
-        <string name="corsaImpossibile">Corsa impossibile !!!</string>
-        <string name="errore">Errore</string>
-        <string name="nord">Nord</string>
-        <string name="nordOvest">Nord-Ovest</string>
-        <string name="ovest">Ovest</string>
-        <string name="sudOvest">Sud-Ovest</string>
-        <string name="sud">Sud</string>
-        <string name="sudEst">Sud-Est</string>
-        <string name="est">Est</string>
-        <string name="nordEst">Nord-Est</string>
-        <string name="tutti">Tutti</string>
-        <string name="traghetti">Traghetti</string>
-        <string name="aliscafi">Aliscafi</string>
-        <string name="traghetto">Traghetto</string>
-        <string name="aliscafo">Aliscafo</string>
-        <string name="costoResidenteNonNoto">Non conosco il prezzo del biglietto residente</string>
-        <string name="costoInteroNonNoto">Non conosco il prezzo del biglietto intero</string>
-        <string name="updated">Meteo aggiornato al  </string>
-        <string name="meteo">Aggiorna dati meteo</string>
-        <string name="ore">ore </string>
+    <string name="condimeteo">Condizioni meteo:</string>
+    <string name="dalle">Dalle</string>
+    <string name="orariAggiornatiAl">Orari aggiornati al </string>
+    <string name="nuovoAggiornamento">Nuovo aggiornamento degli orari al </string>
+    <string name="novita">Novita\'</string>
+    <string name="aggiornamentoDaWeb">Aggiornamento degli orari letto da Web</string>
+    <string name="secondoMeVuoiPartireDa">Secondo me, vuoi partire da </string>
+    <string name="da">da </string>
+    <string name="parteAlle">Parte alle </string>
+    <string name="del"> del </string>
+    <string name="arrivaAlle">Arriva alle </string>
+    <string name="costo">"Costo: "</string>
+    <string name="a">a</string>
+    <string name="circa">(circa) </string>
+    <string name="residenteO">(residente) o </string>
+    <string name="intero">(intero)</string>
+    <string name="trasportaSoloPasseggeri">Trasporta solo passeggeri</string>
+    <string name="trasportaAutoPasseggeri">Trasporta auto e passeggeri</string>
+    <string name="calma">Calma</string>
+    <string name="bavaDiVento">Bava di vento</string>
+    <string name="brezzaLeggera">Brezza leggera</string>
+    <string name="brezzaTesa">Brezza tesa</string>
+    <string name="ventoModerato">Vento moderato</string>
+    <string name="ventoTeso">Vento teso</string>
+    <string name="ventoFresco">Vento fresco</string>
+    <string name="ventoForte">Vento forte</string>
+    <string name="burrasca">Burrasca</string>
+    <string name="burrascaForte">Burrasca forte</string>
+    <string name="tempesta">Tempesta</string>
+    <string name="fortunale">Fortunale</string>
+    <string name="uragano">Uragano</string>
+    <string name="pocoProbabile">Poco probabile rischio Maltempo!!!</string>
+    <string name="aRischio">A rischio Maltempo!!!</string>
+    <string name="corsaQuasi">Corsa quasi sicuramente sospesa !!!</string>
+    <string name="corsaImpossibile">Corsa impossibile !!!</string>
+    <string name="errore">Errore</string>
+    <string name="nord">Nord</string>
+    <string name="nordOvest">Nord-Ovest</string>
+    <string name="ovest">Ovest</string>
+    <string name="sudOvest">Sud-Ovest</string>
+    <string name="sud">Sud</string>
+    <string name="sudEst">Sud-Est</string>
+    <string name="est">Est</string>
+    <string name="nordEst">Nord-Est</string>
+    <string name="tutti">Tutti</string>
+    <string name="traghetti">Traghetti</string>
+    <string name="aliscafi">Aliscafi</string>
+    <string name="traghetto">Traghetto</string>
+    <string name="aliscafo">Aliscafo</string>
+    <string name="costoResidenteNonNoto">Non conosco il prezzo del biglietto residente</string>
+    <string name="costoInteroNonNoto">Non conosco il prezzo del biglietto intero</string>
+    <string name="updated">Meteo aggiornato al  </string>
+    <string name="meteo">Aggiorna dati meteo</string>
+    <string name="ore">ore </string>
     <string name="credits">By Porfirio Tramontana 2011,2012. Licenza GPL3. Si ringraziano il Prof.Tramontana per l\'algoritmo meteorologico, Maria per il nome Uno Procida Residente, l\'icona, la pubblicita\' a livello internazionale e le critiche sull\'interfaccia, Angela per il supporto linguistico, Gilda per le continue critiche, Google e Open Weather Map per i dati meteorologici, le compagnie di navigazione per i continui cambiamenti degli orari e i pendolari procidani per le continue segnalazioni di cambiamento.</string>
-		<string name="inviaSegnalazione">Vuoi segnalare una avvenuta soppressione o modifica di questa corsa oggi?</string>
-		<string name="ragione">Motivo :</string>
-		<string name="altriDettagliRagione">"Altri dettagli : "</string>
-		<string name="invia">Invia</string>        
-        <string name="ringraziamentoSegnalazione">Grazie per la segnalazione: sara\' visibile alla prossima apertura dell\'app!</string>
-		<string name="textConferma">Oppure vuoi confermare la regolarita\' di questa corsa?</string>
-		<string name="Conferma">Conferma</string>        
-		<string name="segnalazione">segnalazione</string>
-		<string name="segnalazioni">segnalazioni</string>
-		<string name="diProblemi">di problemi</string>      
-		<string name="possibiliProblemi">possibili problemi</string>
-		<string name="utenteDice">utente dice</string>
-		<string name="utentiDicono">utenti dicono</string>  
-		<string name="cheLaCorsaERegolare">che la corsa e\' regolare</string>
-		<string name="inParticolare">in particolare</string>
-		<string name="confermaOSmentisci">Conferma la regolarita\' o segnala un problema per questa corsa </string>
-		<string name="connessioneLenta">La connessione e\' troppo lenta: gli ultimi aggiornamenti degli orari non sono stati caricati!</string>
+    <string name="inviaSegnalazione">Vuoi segnalare una avvenuta soppressione o modifica di questa corsa oggi?</string>
+    <string name="ragione">Motivo:</string>
+    <string name="altriDettagliRagione">"Altri dettagli: "</string>
+    <string name="invia">Invia</string>
+    <string name="ringraziamentoSegnalazione">Grazie per la segnalazione: sara\' visibile alla prossima apertura dell\'app!</string>
+    <string name="textConferma">Oppure vuoi confermare la regolarita\' di questa corsa?</string>
+    <string name="Conferma">Conferma</string>
+    <string name="segnalazione">segnalazione</string>
+    <string name="segnalazioni">segnalazioni</string>
+    <string name="diProblemi">di problemi</string>
+    <string name="possibiliProblemi">possibili problemi</string>
+    <string name="utenteDice">utente dice</string>
+    <string name="utentiDicono">utenti dicono</string>
+    <string name="cheLaCorsaERegolare">che la corsa e\' regolare</string>
+    <string name="inParticolare">in particolare</string>
+    <string name="confermaOSmentisci">Conferma la regolarita\' o segnala un problema per questa corsa </string>
+    <string name="connessioneLenta">La connessione e\' troppo lenta: gli ultimi aggiornamenti degli orari non sono stati caricati!</string>
     <string name="soloOnline">Funzionalita\' accessibile solo in presenza di connessione a Internet</string>
     <string name="hintDettagli">Inserisci qui i dettagli del problema, se noti</string>
     <string name="timeTest">Dalle 88:88 del 88/88</string>
     <string name="NoBiglietterie">Non ci sono biglietterie in questo porto: biglietti a bordo</string>
     <string name="alleOre">alle ore</string>
-    <string name="previsioni">Previsioni :</string>
+    <string name="previsioni">Previsioni:</string>
     <string name="pippo">Pippo</string>
+    <string name="error_update_weather">Si è verificato un errore</string>
+    <string name="error_update_alerts">Si è verificato un errore</string>
+    <string name="error_update_transports">Si è verificato un errore</string>
+    <string name="error_update_companies">Si è verificato un errore</string>
 </resources>

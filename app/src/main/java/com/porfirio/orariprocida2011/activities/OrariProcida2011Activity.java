@@ -49,7 +49,6 @@ import com.porfirio.orariprocida2011.entity.Osservazione;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -91,6 +90,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private OnRequestTransportsDAO transportsDAO;
     private OnRequestAlertsDAO alertsDAO;
     private Analytics analytics;
+
+    private boolean hasReceivedWeather, hasReceivedCompanies, hasReceivedTransports, hasReceivedAlerts;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -326,6 +327,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void aggiornaLista() {
+        if (!hasReceivedWeather || !hasReceivedTransports || !hasReceivedCompanies || !hasReceivedAlerts)
+            return;
+
         // Non è chiaro perché il controllo del locale debba essere fatto proprio qui!
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
@@ -350,7 +354,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
                     isPortoCompatibile(portoArrivo, portoArrivoEspanso, mezzo.portoArrivo) &&
                     mezzo.isDateInExclusion(oraNave.toLocalDate()) &&
-                    mezzo.isActiveOnDay(oraNave.getDayOfWeek()) &&
+                    mezzo.isActiveOnDay(oraNave.toLocalDate()) &&
                     oraNave.isBefore(oraLimite)) {
 
                 mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(selectedDate.toLocalDate()));
@@ -369,8 +373,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
             return 0;
         });
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
 
         for (int i = 0; i < selectMezzi.size(); i++) {
             Mezzo route = selectMezzi.get(i);
@@ -419,7 +421,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
     private String formatMezzoInfo(Mezzo route) {
         StringBuilder s = new StringBuilder(route.nave + " - " + route.portoPartenza + " - " + route.portoArrivo + " - ");
-        s.append(route.getDepartureTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        s.append(route.getDepartureTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
 
         String spc = "";
         if (route.segnalazionePiuComune() > -1)
@@ -629,6 +631,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void onAlertsUpdate(AlertUpdate update) {
+        hasReceivedAlerts = true;
+
         if (update.isValid()) {
 
             // FIXME: highly inefficient, transport list is sorted by time so it could be possible to do a binary search
@@ -643,22 +647,27 @@ public class OrariProcida2011Activity extends FragmentActivity {
         } else {
             // TODO: handle exception
             Log.e("MainActivity", "OnAlertsUpdate: ", update.getError());
-            Toast.makeText(this, "Could not update alerts: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_update_alerts), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void onCompaniesUpdate(CompaniesUpdate update) {
+        hasReceivedCompanies = true;
+
         if (update.isValid()) {
             listCompagnia.clear();
             listCompagnia.addAll(update.getData());
         } else {
             // TODO: handle exception
             Log.e("MainActivity", "OnCompaniesUpdate: ", update.getError());
-            Toast.makeText(this, "Could not update companies: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_update_companies), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void onTransportsUpdate(TransportsUpdate update) {
+        boolean showToast = hasReceivedTransports;
+        hasReceivedTransports = true;
+
         if (update.isValid()) {
             transportList.clear();
             transportList.addAll(update.getData());
@@ -666,15 +675,19 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
             alertsDAO.requestUpdate();
 
-            Toast.makeText(this, getString(R.string.orariAggiornatiAl) + " " + DateTimeFormatter.ISO_LOCAL_DATE.format(update.getUpdateTime()), Toast.LENGTH_LONG).show();
+            if (showToast)
+                Toast.makeText(this, getString(R.string.orariAggiornatiAl) + " " + DateTimeFormatter.ISO_LOCAL_DATE.format(update.getUpdateTime()), Toast.LENGTH_SHORT).show();
         } else {
             // TODO: handle exception
             Log.e("MainActivity", "OnTransportsUpdate: ", update.getError());
-            Toast.makeText(this, "Could not update transports: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_update_transports), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void onWeatherUpdate(WeatherUpdate update) {
+        boolean showToast = hasReceivedWeather;
+        hasReceivedWeather = true;
+
         if (update.isValid()) {
             List<Osservazione> forecasts = update.getData();
 
@@ -682,12 +695,13 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
             aggiornaLista();
 
-            // TODO: before it would show a complete dialog, as of now I changed it to just display a toast
-            showWeatherUpdateMessage(meteo.getForecasts().get(0));
+            // NOTE: before it would show a complete dialog, as of now I changed it to just display a toast
+            if (showToast)
+                showWeatherUpdateMessage(meteo.getForecasts().get(0));
         } else {
             // TODO: handle exception
             Log.e("MainActivity", "OnWeatherUpdate: ", update.getError());
-            Toast.makeText(this, "Could not update weather: " + update.getError().getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_update_weather), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -698,7 +712,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                 getString(R.string.condimeteo) + " " + getWindBeaufortString(forecast) +
                 " (" + (int) forecast.getWindSpeed() + " km/h) " + getString(R.string.da) + " " + getWindDirectionString(forecast);
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private String getWindBeaufortString(Osservazione forecast) {
