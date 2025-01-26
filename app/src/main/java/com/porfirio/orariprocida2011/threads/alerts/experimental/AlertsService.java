@@ -95,12 +95,7 @@ public class AlertsService extends Service implements AlertsDAO {
 
         HashMap<String, Object> attributes = new HashMap<>();
 
-        attributes.put("arrivalLocation", alert.getArrivalLocation());
-        attributes.put("arrivalTime", DateTimeFormatter.ISO_LOCAL_TIME.format(alert.getArrivalTime()));
-        attributes.put("departureLocation", alert.getDepartureLocation());
-        attributes.put("departureTime", DateTimeFormatter.ISO_LOCAL_TIME.format(alert.getDepartureTime()));
         attributes.put("transportDate", DateTimeFormatter.ISO_LOCAL_DATE.format(alert.getTransportDate()));
-        attributes.put("transport", alert.getTransport());
         attributes.put("details", alert.getDetails());
         attributes.put("reason", alert.getReason());
 
@@ -111,13 +106,8 @@ public class AlertsService extends Service implements AlertsDAO {
         return new Alert(
                 snapshot.getKey(),
                 snapshot.child("routeId").getValue(String.class),
-                snapshot.child("transport").getValue(String.class),
                 snapshot.child("reason").getValue(Integer.class),
                 snapshot.child("details").getValue(String.class),
-                snapshot.child("departureLocation").getValue(String.class),
-                LocalTime.parse(snapshot.child("departureTime").getValue(String.class)),
-                snapshot.child("arrivalLocation").getValue(String.class),
-                LocalTime.parse(snapshot.child("arrivalTime").getValue(String.class)),
                 LocalDate.parse(snapshot.child("transportDate").getValue(String.class))
         );
     }
