@@ -26,6 +26,7 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
     public OnRequestAlertsDAO() {
         this.update = new MutableLiveData<>();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
@@ -33,6 +34,7 @@ public class OnRequestAlertsDAO implements AlertsDAO {
         if (requested)
             return;
 
+        database.keepSynced(true);
         requested = true;
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -47,12 +49,14 @@ public class OnRequestAlertsDAO implements AlertsDAO {
                 }
 
                 update.setValue(new AlertUpdate(alerts));
+                database.keepSynced(false);
                 requested = false;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 update.setValue(new AlertUpdate(databaseError.toException()));
+                database.keepSynced(false);
                 requested = false;
             }
 
