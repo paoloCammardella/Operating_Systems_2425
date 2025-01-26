@@ -71,9 +71,9 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
             DataSnapshot contacts = snapshot.child("contacts");
 
             for (DataSnapshot contact : contacts.getChildren()) {
-                String name = contact.child("name").getValue(String.class);
+                String name = contact.getKey();
 
-                for (DataSnapshot number : contact.child("numbers").getChildren())
+                for (DataSnapshot number : contact.getChildren())
                     company.addContact(name, number.getValue(String.class));
             }
         }
