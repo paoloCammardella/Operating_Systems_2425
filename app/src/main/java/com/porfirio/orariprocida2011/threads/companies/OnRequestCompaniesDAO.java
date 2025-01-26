@@ -19,13 +19,19 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
 
     private final MutableLiveData<CompaniesUpdate> update;
     private final DatabaseReference database;
+    private boolean requested;
 
     public OnRequestCompaniesDAO() {
         this.update = new MutableLiveData<>();
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
-    public void requestUpdate() {
+    public synchronized void requestUpdate() {
+        if (requested)
+            return;
+
+        requested = true;
+
         database.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -40,11 +46,14 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
                 } catch (Exception e) {
                     update.setValue(new CompaniesUpdate(e));
                 }
+
+                requested = false;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 update.setValue(new CompaniesUpdate(databaseError.toException()));
+                requested = false;
             }
 
         });

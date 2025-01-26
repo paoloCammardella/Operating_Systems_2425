@@ -14,8 +14,14 @@ public class OnRequestWeatherDAO implements WeatherDAO, Closeable {
 
     private final MutableLiveData<WeatherUpdate> updates = new MutableLiveData<>();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private boolean requested;
 
-    public void requestUpdate() {
+    public synchronized void requestUpdate() {
+        if (requested)
+            return;
+
+        requested = true;
+
         executorService.submit(() -> {
             try {
                 List<Osservazione> forecasts = WeatherAPI.getForecasts();
@@ -23,6 +29,8 @@ public class OnRequestWeatherDAO implements WeatherDAO, Closeable {
             } catch (Exception e) {
                 updates.postValue(new WeatherUpdate(e));
             }
+
+            requested = false;
         });
     }
 
@@ -32,7 +40,7 @@ public class OnRequestWeatherDAO implements WeatherDAO, Closeable {
     }
 
     @Override
-    public void close() {
+    public synchronized void close() {
         executorService.shutdown();
     }
 

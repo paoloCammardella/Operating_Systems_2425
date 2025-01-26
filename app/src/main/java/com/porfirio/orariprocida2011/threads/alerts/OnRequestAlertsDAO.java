@@ -1,7 +1,5 @@
 package com.porfirio.orariprocida2011.threads.alerts;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -24,21 +22,23 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
     private final MutableLiveData<AlertUpdate> update;
     private final DatabaseReference database;
+    private boolean requested = false;
 
     public OnRequestAlertsDAO() {
         this.update = new MutableLiveData<>();
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
-    public void requestUpdate() {
-        Log.d("TAG", "requestUpdate: " + Thread.currentThread().getName());
+    public synchronized void requestUpdate() {
+        if (requested)
+            return;
+
+        requested = true;
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("TAG", "requestUpdate: " + Thread.currentThread().getName());
-
                 ArrayList<Alert> alerts = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -47,11 +47,13 @@ public class OnRequestAlertsDAO implements AlertsDAO {
                 }
 
                 update.setValue(new AlertUpdate(alerts));
+                requested = false;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 update.setValue(new AlertUpdate(databaseError.toException()));
+                requested = false;
             }
 
         });
