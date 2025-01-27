@@ -354,7 +354,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
                     isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
                     isPortoCompatibile(portoArrivo, portoArrivoEspanso, mezzo.portoArrivo) &&
                     mezzo.isDateInExclusion(oraNave.toLocalDate()) &&
-                    mezzo.isActiveOnDay(oraNave.toLocalDate()) &&
+                    mezzo.isActiveOnDay(oraNave.getDayOfWeek()) &&
                     oraNave.isBefore(oraLimite)) {
 
                 mezzo.setGiornoSeguente(!oraNave.toLocalDate().equals(selectedDate.toLocalDate()));

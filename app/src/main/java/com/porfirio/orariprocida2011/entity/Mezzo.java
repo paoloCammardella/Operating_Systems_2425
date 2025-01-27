@@ -84,7 +84,7 @@ public class Mezzo {
         return fullPrice;
     }
 
-    public float getCostoResidente() {
+    public float getReducedPrice() {
         return reducedPrice;
     }
 

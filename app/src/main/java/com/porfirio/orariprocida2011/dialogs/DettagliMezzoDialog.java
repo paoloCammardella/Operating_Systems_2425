@@ -142,8 +142,8 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
 //
         s = "";
 
-        if (mezzo.getCostoResidente() > 0)
-            s += callingContext.getString(R.string.costo) + " " + String.format(Locale.getDefault(), "%.2f", mezzo.getCostoResidente()) + " € ";
+        if (mezzo.getReducedPrice() > 0)
+            s += callingContext.getString(R.string.costo) + " " + String.format(Locale.getDefault(), "%.2f", mezzo.getReducedPrice()) + " € ";
 
         if (mezzo.getFullPrice() > 0)
             s += callingContext.getString(R.string.residenteO) + " " + String.format(Locale.getDefault(), "%.2f", mezzo.getFullPrice()) + " € " + callingContext.getString(R.string.intero);
