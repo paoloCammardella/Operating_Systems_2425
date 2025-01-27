@@ -10,12 +10,18 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Weather DAO which needs a manual request to receive updates.
+ */
 public class OnRequestWeatherDAO implements WeatherDAO, Closeable {
 
     private final MutableLiveData<WeatherUpdate> updates = new MutableLiveData<>();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private boolean requested;
 
+    /**
+     * Requests an update.
+     */
     public synchronized void requestUpdate() {
         if (requested)
             return;

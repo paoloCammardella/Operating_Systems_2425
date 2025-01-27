@@ -24,10 +24,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * A service which automatically retrieves alerts.
+ */
 public class AlertsService extends Service implements AlertsDAO {
 
+    /**
+     * A local binder to communicate with the service.
+     */
     public final class LocalBinder extends Binder {
 
+        private LocalBinder() {
+
+        }
+
+        /**
+         * Returns the service associated with this binder.
+         *
+         * @return service of this binder
+         */
         public AlertsService getService() {
             return AlertsService.this;
         }

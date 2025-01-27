@@ -16,6 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Alerts DAO which needs a manual request to receive updates.
+ */
 public class OnRequestAlertsDAO implements AlertsDAO {
 
     private static final String DATABASE_TAG = "alerts";
@@ -29,6 +32,9 @@ public class OnRequestAlertsDAO implements AlertsDAO {
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
+    /**
+     * Requests an update.
+     */
     public synchronized void requestUpdate() {
         if (requested)
             return;

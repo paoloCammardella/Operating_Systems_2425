@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**
+ * Transports DAO which needs a manual request to receive updates.
+ */
 public class OnRequestTransportsDAO implements TransportsDAO {
 
     private final MutableLiveData<TransportsUpdate> update;
@@ -27,6 +30,9 @@ public class OnRequestTransportsDAO implements TransportsDAO {
         this.databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
     }
 
+    /**
+     * Requests an update.
+     */
     public synchronized void requestUpdate() {
         if (requested)
             return;

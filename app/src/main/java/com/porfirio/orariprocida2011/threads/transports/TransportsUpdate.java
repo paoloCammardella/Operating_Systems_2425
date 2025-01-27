@@ -28,6 +28,11 @@ public class TransportsUpdate extends DataUpdate<List<Mezzo>> {
         this.updateTime = updateTime;
     }
 
+    /**
+     * Returns the timestamp of the update.
+     *
+     * @return timestamp of the update
+     */
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }

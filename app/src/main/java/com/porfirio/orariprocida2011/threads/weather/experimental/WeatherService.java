@@ -19,11 +19,25 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A service which automatically retrieves weather forecasts.
+ */
 public class WeatherService extends Service implements WeatherDAO {
 
-
+    /**
+     * A local binder to communicate with the service.
+     */
     public final class LocalBinder extends Binder {
 
+        private LocalBinder() {
+
+        }
+
+        /**
+         * Returns the service associated with this binder.
+         *
+         * @return service of this binder
+         */
         public WeatherService getService() {
             return WeatherService.this;
         }

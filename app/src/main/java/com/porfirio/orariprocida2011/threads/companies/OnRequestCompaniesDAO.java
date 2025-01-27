@@ -13,6 +13,9 @@ import com.porfirio.orariprocida2011.entity.Compagnia;
 
 import java.util.ArrayList;
 
+/**
+ * Companies DAO which needs a manual request to receive updates.
+ */
 public class OnRequestCompaniesDAO implements CompaniesDAO {
 
     private static final String DATABASE_TAG = "companies";
@@ -26,6 +29,9 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
+    /**
+     * Requests an update.
+     */
     public synchronized void requestUpdate() {
         if (requested)
             return;
