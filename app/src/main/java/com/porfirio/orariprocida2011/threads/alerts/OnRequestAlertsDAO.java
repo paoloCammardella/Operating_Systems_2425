@@ -26,7 +26,6 @@ public class OnRequestAlertsDAO implements AlertsDAO {
 
     public OnRequestAlertsDAO() {
         this.update = new MutableLiveData<>();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 

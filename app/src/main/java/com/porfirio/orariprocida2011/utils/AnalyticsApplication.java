@@ -20,6 +20,7 @@ import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.google.firebase.database.FirebaseDatabase;
 import com.porfirio.orariprocida2011.R;
 
 /**
@@ -36,6 +37,7 @@ public class AnalyticsApplication extends Application {
         super.onCreate();
 
         sAnalytics = GoogleAnalytics.getInstance(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     /**

@@ -24,9 +24,6 @@ public class OnRequestTransportsDAO implements TransportsDAO {
 
     public OnRequestTransportsDAO() {
         this.update = new MutableLiveData<>();
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         this.databaseReference = FirebaseDatabase.getInstance().getReference("Transports");
     }
 
