@@ -12,6 +12,8 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +48,9 @@ public final class WeatherAPI {
                     double windSpeed = cond.getJSONObject("wind").getDouble("speed") * 3.6;
                     String timestamp = cond.getString("dt_txt");
 
-                    LocalDateTime time = LocalDateTime.parse(timestamp, TIME_FORMATTER);
+                    ZonedDateTime time = ZonedDateTime.of(LocalDateTime.parse(timestamp, TIME_FORMATTER), ZoneOffset.UTC);
 
-                    forecasts.add(new Osservazione(windSpeed, windDir, time));
+                    forecasts.add(new Osservazione((float) windSpeed, (float) windDir, time));
                 }
 
                 return forecasts;

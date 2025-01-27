@@ -706,9 +706,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void showWeatherUpdateMessage(Osservazione forecast) {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy", Locale.getDefault());
-
-        String message = getString(R.string.updated) + " " + dateFormatter.format(forecast.getTime()) + "\n" +
+        String message = getString(R.string.updated) + " " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(forecast.getTime()) + "\n" +
                 getString(R.string.condimeteo) + " " + getWindBeaufortString(forecast) +
                 " (" + (int) forecast.getWindSpeed() + " km/h) " + getString(R.string.da) + " " + getWindDirectionString(forecast);
 
