@@ -6,13 +6,13 @@ import java.util.Objects;
 public class Compagnia {
 
     private final String id;
-    public final String nome;
+    private final String name;
     private final ArrayList<String> contactsNames;
     private final ArrayList<String> contactsNumbers;
 
     public Compagnia(String id, String name) {
         this.id = Objects.requireNonNull(id);
-        this.nome = Objects.requireNonNull(name);
+        this.name = Objects.requireNonNull(name);
         this.contactsNames = new ArrayList<>(4);
         this.contactsNumbers = new ArrayList<>(4);
     }
@@ -30,7 +30,7 @@ public class Compagnia {
     }
 
     public String getName() {
-        return nome;
+        return name;
     }
 
     public String getContactName(int index) {

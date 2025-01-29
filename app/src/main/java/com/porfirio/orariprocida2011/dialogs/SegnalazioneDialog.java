@@ -124,7 +124,7 @@ public class SegnalazioneDialog extends DialogFragment implements OnClickListene
         //trova compagnia c
         Compagnia c = null;
         for (int i = 0; i < listCompagnia.size(); i++) {
-            if (mezzo.nave.contains(listCompagnia.get(i).nome))
+            if (mezzo.nave.contains(listCompagnia.get(i).getName()))
                 c = listCompagnia.get(i);
         }
 

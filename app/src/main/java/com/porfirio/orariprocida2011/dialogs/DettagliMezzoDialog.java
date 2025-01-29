@@ -153,13 +153,13 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
         //trova compagnia c
         Compagnia c = null;
         for (int i = 0; i < lc.size(); i++) {
-            if (mezzo.nave.contains(lc.get(i).nome))
+            if (mezzo.nave.contains(lc.get(i).getName()))
                 c = lc.get(i);
         }
 
         //Aggiunto Aladino
         if (c != null) {
-            if (c.nome.contains("Ippocampo") || c.nome.contentEquals("Procida Lines") || mezzo.nave.contains("Aliscafo") || mezzo.nave.contains("Aladino") || mezzo.nave.contains("Motonave") || mezzo.nave.contains("Scotto Line"))
+            if (c.getName().contains("Ippocampo") || c.getName().contentEquals("Procida Lines") || mezzo.nave.contains("Aliscafo") || mezzo.nave.contains("Aladino") || mezzo.nave.contains("Motonave") || mezzo.nave.contains("Scotto Line"))
                 txtAuto.setText(callingContext.getString(R.string.trasportaSoloPasseggeri));
             else
                 txtAuto.setText(callingContext.getString(R.string.trasportaAutoPasseggeri));
