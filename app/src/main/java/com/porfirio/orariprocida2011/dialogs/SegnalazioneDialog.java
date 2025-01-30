@@ -19,13 +19,12 @@ import androidx.fragment.app.DialogFragment;
 import com.porfirio.orariprocida2011.R;
 import com.porfirio.orariprocida2011.entity.Compagnia;
 import com.porfirio.orariprocida2011.entity.Mezzo;
-import com.porfirio.orariprocida2011.threads.alerts.Alert;
+import com.porfirio.orariprocida2011.entity.Alert;
 import com.porfirio.orariprocida2011.threads.alerts.AlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;

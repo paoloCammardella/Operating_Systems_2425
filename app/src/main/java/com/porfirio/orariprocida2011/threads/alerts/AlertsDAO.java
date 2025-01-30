@@ -2,6 +2,8 @@ package com.porfirio.orariprocida2011.threads.alerts;
 
 import androidx.lifecycle.LiveData;
 
+import com.porfirio.orariprocida2011.entity.Alert;
+
 /**
  * Interface to receive and send alerts.
  */

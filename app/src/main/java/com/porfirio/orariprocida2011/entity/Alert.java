@@ -1,4 +1,4 @@
-package com.porfirio.orariprocida2011.threads.alerts;
+package com.porfirio.orariprocida2011.entity;
 
 import java.time.LocalDate;
 

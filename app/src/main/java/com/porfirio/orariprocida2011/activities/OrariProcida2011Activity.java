@@ -33,7 +33,7 @@ import com.porfirio.orariprocida2011.threads.companies.OnRequestCompaniesDAO;
 import com.porfirio.orariprocida2011.threads.taxies.OnRequestTaxisDAO;
 import com.porfirio.orariprocida2011.threads.transports.OnRequestTransportsDAO;
 import com.porfirio.orariprocida2011.threads.transports.TransportsUpdate;
-import com.porfirio.orariprocida2011.threads.alerts.Alert;
+import com.porfirio.orariprocida2011.entity.Alert;
 import com.porfirio.orariprocida2011.threads.alerts.AlertUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.OnRequestAlertsDAO;
 import com.porfirio.orariprocida2011.utils.Analytics;
@@ -55,7 +55,6 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class OrariProcida2011Activity extends FragmentActivity {

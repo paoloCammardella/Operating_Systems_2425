@@ -1,5 +1,6 @@
 package com.porfirio.orariprocida2011.threads.alerts;
 
+import com.porfirio.orariprocida2011.entity.Alert;
 import com.porfirio.orariprocida2011.threads.DataUpdate;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public class AlertUpdate extends DataUpdate<List<Alert>> {
     public AlertUpdate(Exception error) {
         super(error);
     }
-    
+
 }
