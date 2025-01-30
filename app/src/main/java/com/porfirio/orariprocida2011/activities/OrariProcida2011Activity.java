@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.porfirio.orariprocida2011.threads.companies.CompaniesUpdate;
 import com.porfirio.orariprocida2011.threads.companies.OnRequestCompaniesDAO;
+import com.porfirio.orariprocida2011.threads.taxies.OnRequestTaxisDAO;
 import com.porfirio.orariprocida2011.threads.transports.OnRequestTransportsDAO;
 import com.porfirio.orariprocida2011.threads.transports.TransportsUpdate;
 import com.porfirio.orariprocida2011.threads.alerts.Alert;
@@ -89,6 +90,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private OnRequestWeatherDAO weatherDAO;
     private OnRequestTransportsDAO transportsDAO;
     private OnRequestAlertsDAO alertsDAO;
+    private OnRequestTaxisDAO taxisDAO;
     private Analytics analytics;
 
     private boolean hasReceivedWeather, hasReceivedCompanies, hasReceivedTransports, hasReceivedAlerts;
@@ -149,6 +151,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
         companiesDAO = new OnRequestCompaniesDAO();
         companiesDAO.getUpdate().observe(this, this::onCompaniesUpdate);
         companiesDAO.requestUpdate();
+
+        taxisDAO = new OnRequestTaxisDAO();
+        taxisDAO.requestUpdate();
 
         fm = getSupportFragmentManager();
 
@@ -227,7 +232,7 @@ public class OrariProcida2011Activity extends FragmentActivity {
         aalvMezzi = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvMezzi.setAdapter(aalvMezzi);
 
-        dettagliMezzoDialog = new DettagliMezzoDialog(alertsDAO);
+        dettagliMezzoDialog = new DettagliMezzoDialog(alertsDAO, taxisDAO);
         dettagliMezzoDialog.setDettagliMezzoDialog(fm, this, this, c);
         dettagliMezzoDialog.setAnalytics(analytics);
 
