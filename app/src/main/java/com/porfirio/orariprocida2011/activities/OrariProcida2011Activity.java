@@ -3,7 +3,6 @@ package com.porfirio.orariprocida2011.activities;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -95,46 +94,22 @@ public class OrariProcida2011Activity extends FragmentActivity {
     private boolean hasReceivedWeather, hasReceivedCompanies, hasReceivedTransports, hasReceivedAlerts;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Open Menu");
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case (R.id.about):
-                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "About");
-                aboutDialog.show();
-                return true;
-            // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
-            case (R.id.updateWeb):
-                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Orari da Web da Menu");
-                transportsDAO.requestUpdate();
-                return true;
-            case (R.id.meteo):
-                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Meteo da Menu");
-                weatherDAO.requestUpdate();
-                return true;
-            case (R.id.esci):
-                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Exit da Menu");
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.main);
+
+        // NOTE (2025-02-02):
+        // this check breaks the reportFullyDrawn method somehow and the time never shows up in the logs
+        // you can uncomment this if you don't intend to use it i guess idk the permission request shouldn't even be here
+//        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Request Permission");
+//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 534534);
+//        }
+
+        fm = getSupportFragmentManager();
+
         analytics = new Analytics((AnalyticsApplication) getApplication());
-        analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "onCreate");
 
         weatherDAO = new OnRequestWeatherDAO();
         weatherDAO.getUpdates().observe(this, this::onWeatherUpdate);
@@ -153,20 +128,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         taxisDAO = new OnRequestTaxisDAO();
         taxisDAO.requestUpdate();
-
-        fm = getSupportFragmentManager();
-
-        if (ActivityCompat.checkSelfPermission(OrariProcida2011Activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Request Permission");
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.INTERNET}, 1
-            );
-        }
-
-        //TODO: Sempre necessario?
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.main);
 
         myManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -310,6 +271,41 @@ public class OrariProcida2011Activity extends FragmentActivity {
         weatherDAO.close();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Open Menu");
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case (R.id.about):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "About");
+                aboutDialog.show();
+                return true;
+            // cambiata semantica pulsante: se scelgo, allora carico esplicitamente da web
+            case (R.id.updateWeb):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Orari da Web da Menu");
+                transportsDAO.requestUpdate();
+                return true;
+            case (R.id.meteo):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Update Meteo da Menu");
+                weatherDAO.requestUpdate();
+                return true;
+            case (R.id.esci):
+                analytics.send(ANALYTICS_CATEGORY_UI_EVENT, "Exit da Menu");
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void setTxtOrario(Calendar c) {
         String s = getString(R.string.dalle) + " ";
         if (c.get(Calendar.HOUR_OF_DAY) < 10)
@@ -334,16 +330,15 @@ public class OrariProcida2011Activity extends FragmentActivity {
         if (!hasReceivedWeather || !hasReceivedTransports || !hasReceivedCompanies || !hasReceivedAlerts)
             return;
 
-        // Non è chiaro perché il controllo del locale debba essere fatto proprio qui!
         analytics.send(ANALYTICS_CATEGORY_APP_EVENT, "Aggiorna Lista");
 
         selectMezzi = new ArrayList<>();
 
         aalvMezzi.clear();
 
-        String naveEspanso = espandiNave(nave);
-        String portoPartenzaEspanso = espandiPorto(portoPartenza);
-        String portoArrivoEspanso = espandiPorto(portoArrivo);
+        String expandedTransportName = espandiNave(nave);
+        String expandedDepartureLocation = espandiPorto(portoPartenza);
+        String expandedArrivalLocation = espandiPorto(portoArrivo);
 
         LocalDateTime selectedDate = LocalDateTime.ofInstant(c.toInstant(), c.getTimeZone().toZoneId());
         LocalDateTime oraLimite = selectedDate.plusDays(1);
@@ -354,9 +349,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
             if (oraNave.isBefore(selectedDate))
                 oraNave = oraNave.plusDays(1);
 
-            if (isNaveCompatibile(naveEspanso, mezzo) &&
-                    isPortoCompatibile(portoPartenza, portoPartenzaEspanso, mezzo.portoPartenza) &&
-                    isPortoCompatibile(portoArrivo, portoArrivoEspanso, mezzo.portoArrivo) &&
+            if (isNaveCompatibile(expandedTransportName, mezzo) &&
+                    isPortoCompatibile(portoPartenza, expandedDepartureLocation, mezzo.portoPartenza) &&
+                    isPortoCompatibile(portoArrivo, expandedArrivalLocation, mezzo.portoArrivo) &&
                     mezzo.isDateInExclusion(oraNave.toLocalDate()) &&
                     mezzo.isActiveOnDay(oraNave.getDayOfWeek()) &&
                     oraNave.isBefore(oraLimite)) {
@@ -386,6 +381,8 @@ public class OrariProcida2011Activity extends FragmentActivity {
             String s = formatMezzoInfo(route);
             aalvMezzi.add(s);
         }
+
+        reportFullyDrawn();
     }
 
     private String espandiNave(String nave) {
@@ -534,7 +531,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void setSpnPortoArrivo(Spinner spnPortoArrivo, final ArrayAdapter<CharSequence> adapter3) {
-        //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoArrivo.getCount(); i++) {
             if (adapter3.getItem(i).equals(portoArrivo)) {
                 spnPortoArrivo.setSelection(i);
@@ -543,7 +539,6 @@ public class OrariProcida2011Activity extends FragmentActivity {
     }
 
     private void setSpnPortoPartenza(Spinner spnPortoPartenza, ArrayAdapter<CharSequence> adapter2) {
-        //trova il valore corretto nello spinner
         for (int i = 0; i < spnPortoPartenza.getCount(); i++) {
             if (adapter2.getItem(i).equals(portoPartenza)) {
                 spnPortoPartenza.setSelection(i);
