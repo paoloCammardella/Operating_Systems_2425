@@ -1,0 +1,2362 @@
+{
+  "Transports": [
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "10:40:00",
+      "oraPartenza": "10:15:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "11:20:00",
+      "oraPartenza": "10:45:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "12:30:00",
+      "oraPartenza": "11:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "12:45:00",
+      "oraPartenza": "12:30:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "13:20:00",
+      "oraPartenza": "13:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "13:50:00",
+      "oraPartenza": "13:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "14:00:00",
+      "oraPartenza": "13:20:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "14:10:00",
+      "oraPartenza": "13:55:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "14:45:00",
+      "oraPartenza": "14:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "15:30:00",
+      "oraPartenza": "14:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "15:35:00",
+      "oraPartenza": "14:55:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "15:45:00",
+      "oraPartenza": "15:30:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "16:45:00",
+      "oraPartenza": "16:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "17:30:00",
+      "oraPartenza": "16:50:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2023-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "18:10:00",
+      "oraPartenza": "17:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2024-09-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-06-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "20:40:00",
+      "oraPartenza": "20:05:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2015-01-16",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "19:00:00",
+      "oraPartenza": "18:15:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "19:15:00",
+      "oraPartenza": "19:00:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-05-29",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "20:10:00",
+      "oraPartenza": "19:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2024-05-31",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2023-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "20:05:00",
+      "oraPartenza": "19:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-05-29",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "20:25:00",
+      "oraPartenza": "20:10:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2024-09-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-05-31",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "20:50:00",
+      "oraPartenza": "20:10:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2024-05-31",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2023-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "21:45:00",
+      "oraPartenza": "21:05:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2024-05-31",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2023-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "22:10:00",
+      "oraPartenza": "21:50:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "07:20:00",
+      "oraPartenza": "06:35:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "07:40:00",
+      "oraPartenza": "07:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "08:35:00",
+      "oraPartenza": "07:55:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-11-26",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "08:25:00",
+      "oraPartenza": "07:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "08:25:00",
+      "oraPartenza": "08:10:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "09:35:00",
+      "oraPartenza": "08:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "09:05:00",
+      "oraPartenza": "08:50:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2020-06-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2017-05-13",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "10:00:00",
+      "oraPartenza": "09:20:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 14.9,
+      "prezzoRidotto": 4.9
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "10:00:00",
+      "oraPartenza": "09:45:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "10:45:00",
+      "oraPartenza": "10:10:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2022-07-18",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "12:05:00",
+      "oraPartenza": "11:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2021-04-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-11-05",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "13:05:00",
+      "oraPartenza": "12:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2022-07-18",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "12:30:00",
+      "oraPartenza": "12:15:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2021-04-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-11-05",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "13:30:00",
+      "oraPartenza": "13:15:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2021-04-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-11-05",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "14:15:00",
+      "oraPartenza": "13:50:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2021-04-30",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-11-05",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "14:55:00",
+      "oraPartenza": "14:15:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "16:55:00",
+      "oraPartenza": "16:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2023-05-31",
+      "giorniSettimana": "167",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "17:45:00",
+      "oraPartenza": "17:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "17:55:00",
+      "oraPartenza": "17:40:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "17:20:00",
+      "oraPartenza": "17:05:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2023-05-31",
+      "giorniSettimana": "167",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "18:35:00",
+      "oraPartenza": "17:55:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "18:40:00",
+      "oraPartenza": "18:05:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2023-05-31",
+      "giorniSettimana": "167",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "18:45:00",
+      "oraPartenza": "18:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2023-05-31",
+      "giorniSettimana": "167",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "19:35:00",
+      "oraPartenza": "19:00:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-24",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "19:35:00",
+      "oraPartenza": "19:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "20:10:00",
+      "oraPartenza": "19:45:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "07:25:00",
+      "oraPartenza": "07:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "08:15:00",
+      "oraPartenza": "07:35:00",
+      "portoArrivo": "Napoli Beverello",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "09:00:00",
+      "oraPartenza": "08:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Beverello",
+      "prezzoIntero": 19.2,
+      "prezzoRidotto": 5.7
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "09:35:00",
+      "oraPartenza": "09:10:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2014-12-25",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-12-25",
+      "nomeNave": "Aliscafo SNAV",
+      "oraArrivo": "10:00:00",
+      "oraPartenza": "09:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 9.3,
+      "prezzoRidotto": 2.6
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "10:25:00",
+      "oraPartenza": "10:00:00",
+      "portoArrivo": "Monte di Procida",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "10:40:00",
+      "oraPartenza": "10:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Monte di Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "18:25:00",
+      "oraPartenza": "18:15:00",
+      "portoArrivo": "Monte di Procida",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "19:50:00",
+      "oraPartenza": "19:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Monte di Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "08:50:00",
+      "oraPartenza": "08:40:00",
+      "portoArrivo": "Monte di Procida",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "11:20:00",
+      "oraPartenza": "10:40:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "12:20:00",
+      "oraPartenza": "12:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "13:50:00",
+      "oraPartenza": "13:30:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "14:50:00",
+      "oraPartenza": "14:15:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "18:45:00",
+      "oraPartenza": "18:15:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "19:25:00",
+      "oraPartenza": "19:05:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "09:10:00",
+      "oraPartenza": "08:40:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2023-09-19",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "09:45:00",
+      "oraPartenza": "09:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2024-09-08",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-06-10",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "08:10:00",
+      "oraPartenza": "07:50:00",
+      "portoArrivo": "Monte di Procida",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2024-09-08",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-06-10",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "14:30:00",
+      "oraPartenza": "14:10:00",
+      "portoArrivo": "Monte di Procida",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-06-10",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "07:50:00",
+      "oraPartenza": "07:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Monte di Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-06-10",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "13:30:00",
+      "oraPartenza": "13:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Monte di Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "08:30:00",
+      "oraPartenza": "07:50:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "09:55:00",
+      "oraPartenza": "09:15:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "11:55:00",
+      "oraPartenza": "11:15:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "17:30:00",
+      "oraPartenza": "16:50:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "20:05:00",
+      "oraPartenza": "19:25:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "09:00:00",
+      "oraPartenza": "08:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "10:35:00",
+      "oraPartenza": "09:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "13:05:00",
+      "oraPartenza": "12:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "18:15:00",
+      "oraPartenza": "17:35:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-16",
+      "nomeNave": "Ippocampo",
+      "oraArrivo": "20:40:00",
+      "oraPartenza": "20:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "11:05:00",
+      "oraPartenza": "10:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "12:00:00",
+      "oraPartenza": "11:20:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "13:20:00",
+      "oraPartenza": "12:40:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "14:10:00",
+      "oraPartenza": "13:30:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "16:30:00",
+      "oraPartenza": "15:50:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-09-30",
+      "nomeNave": "Medmar",
+      "oraArrivo": "17:05:00",
+      "oraPartenza": "16:40:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2022-09-30",
+      "nomeNave": "Medmar",
+      "oraArrivo": "18:35:00",
+      "oraPartenza": "17:35:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2022-09-30",
+      "nomeNave": "Medmar",
+      "oraArrivo": "19:25:00",
+      "oraPartenza": "18:45:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2019-09-16",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2014-12-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "03:00:00",
+      "oraPartenza": "02:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2019-11-28",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2019-11-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "05:50:00",
+      "oraPartenza": "05:10:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2019-11-28",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2019-11-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "06:34:00",
+      "oraPartenza": "05:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-03-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "05:00:00",
+      "oraPartenza": "04:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2019-09-16",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2014-12-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "05:30:00",
+      "oraPartenza": "05:00:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2099-11-28",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-11-01",
+      "nomeNave": "Medmar",
+      "oraArrivo": "19:00:00",
+      "oraPartenza": "18:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "giorniSettimana": "2099",
+      "inizioEsclusione": "0003-01-28",
+      "nomeNave": "Medmar",
+      "oraArrivo": "06:50:00",
+      "oraPartenza": "06:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "07:20:00",
+      "oraPartenza": "06:45:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "08:15:00",
+      "oraPartenza": "07:35:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2023-03-26",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-01-17",
+      "nomeNave": "Medmar",
+      "oraArrivo": "09:10:00",
+      "oraPartenza": "08:30:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-10-28",
+      "nomeNave": "Medmar",
+      "oraArrivo": "09:25:00",
+      "oraPartenza": "08:55:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "11:15:00",
+      "oraPartenza": "10:40:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "12:20:00",
+      "oraPartenza": "11:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "16:25:00",
+      "oraPartenza": "15:50:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "17:05:00",
+      "oraPartenza": "16:40:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "18:15:00",
+      "oraPartenza": "17:40:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "18:50:00",
+      "oraPartenza": "18:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-06-01",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2023-09-19",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "20:20:00",
+      "oraPartenza": "19:45:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-06-01",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2023-09-19",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "20:55:00",
+      "oraPartenza": "20:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "07:50:00",
+      "oraPartenza": "07:15:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2025-06-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2024-09-17",
+      "nomeNave": "Scotto Line",
+      "oraArrivo": "08:35:00",
+      "oraPartenza": "08:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2020-05-28",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2019-06-15",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "10:55:00",
+      "oraPartenza": "10:15:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2021-01-31",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-09-24",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "10:55:00",
+      "oraPartenza": "10:30:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2016-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "11:45:00",
+      "oraPartenza": "10:45:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2015-03-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "11:20:00",
+      "oraPartenza": "10:55:00",
+      "portoArrivo": "Casamicciola",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2020-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "12:05:00",
+      "oraPartenza": "11:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2016-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "12:20:00",
+      "oraPartenza": "11:55:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2020-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "12:45:00",
+      "oraPartenza": "12:00:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2013-11-12",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "13:25:00",
+      "oraPartenza": "12:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "14:35:00",
+      "oraPartenza": "13:30:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2020-05-13",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "14:35:00",
+      "oraPartenza": "14:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2020-05-13",
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "15:10:00",
+      "oraPartenza": "14:45:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "16:15:00",
+      "oraPartenza": "15:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "16:05:00",
+      "oraPartenza": "15:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "16:50:00",
+      "oraPartenza": "16:20:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2013-11-12",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "17:05:00",
+      "oraPartenza": "16:05:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2020-05-10",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "17:55:00",
+      "oraPartenza": "17:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2016-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "18:00:00",
+      "oraPartenza": "17:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Casamicciola",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "12:10:00",
+      "oraPartenza": "11:30:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "13:40:00",
+      "oraPartenza": "13:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2022-03-16",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "14:45:00",
+      "oraPartenza": "14:05:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "234567",
+      "inizioEsclusione": "2022-03-16",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "16:10:00",
+      "oraPartenza": "15:30:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "17:45:00",
+      "oraPartenza": "17:05:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2024-06-20",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "18:50:00",
+      "oraPartenza": "18:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "19:25:00",
+      "oraPartenza": "18:50:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "05:40:00",
+      "oraPartenza": "05:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "06:30:00",
+      "oraPartenza": "05:50:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "23456",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "07:40:00",
+      "oraPartenza": "07:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "08:40:00",
+      "oraPartenza": "08:00:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-11-06",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2021-11-08",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "10:10:00",
+      "oraPartenza": "09:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2024-06-20",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2021-10-01",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "19:55:00",
+      "oraPartenza": "19:10:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-06-01",
+      "giorniSettimana": "16",
+      "inizioEsclusione": "2021-10-01",
+      "nomeNave": "Traghetto Gestur",
+      "oraArrivo": "20:45:00",
+      "oraPartenza": "20:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "21:15:00",
+      "oraPartenza": "20:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2022-10-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "21:55:00",
+      "oraPartenza": "21:20:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "22:45:00",
+      "oraPartenza": "22:05:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "22:55:00",
+      "oraPartenza": "22:35:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "23:25:00",
+      "oraPartenza": "23:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-01",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "00:40:00",
+      "oraPartenza": "23:35:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-04",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "01:20:00",
+      "oraPartenza": "00:35:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 0,
+      "prezzoRidotto": 0
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2022-10-04",
+      "nomeNave": "Aliscafo Caremar",
+      "oraArrivo": "01:45:00",
+      "oraPartenza": "01:25:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 8.7,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2013-11-12",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "18:40:00",
+      "oraPartenza": "17:35:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:05:00",
+      "oraPartenza": "17:55:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:10:00",
+      "oraPartenza": "18:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2020-05-13",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:05:00",
+      "oraPartenza": "18:10:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2013-11-12",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:15:00",
+      "oraPartenza": "18:45:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2020-05-13",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:40:00",
+      "oraPartenza": "19:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:40:00",
+      "oraPartenza": "19:15:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "19:50:00",
+      "oraPartenza": "19:15:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2015-07-05",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2015-03-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:30:00",
+      "oraPartenza": "19:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:00:00",
+      "oraPartenza": "19:40:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2016-05-14",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2001-01-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:00:00",
+      "oraPartenza": "19:40:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:40:00",
+      "oraPartenza": "19:40:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:02:00",
+      "oraPartenza": "19:55:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:40:00",
+      "oraPartenza": "20:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2013-11-12",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2013-11-12",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "21:15:00",
+      "oraPartenza": "20:15:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2020-05-13",
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "20:50:00",
+      "oraPartenza": "20:30:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "21:15:00",
+      "oraPartenza": "20:45:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "21:45:00",
+      "oraPartenza": "20:45:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2015-07-05",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2015-03-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "23:00:00",
+      "oraPartenza": "21:55:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "23:20:00",
+      "oraPartenza": "22:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2015-07-05",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2015-03-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "23:30:00",
+      "oraPartenza": "23:00:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1",
+      "inizioEsclusione": "2020-09-07",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "23:55:00",
+      "oraPartenza": "23:25:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "07:10:00",
+      "oraPartenza": "06:00:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2021-02-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-09-24",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "06:40:00",
+      "oraPartenza": "06:10:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "giorniSettimana": "1234567",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "07:35:00",
+      "oraPartenza": "07:15:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-10-28",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "07:40:00",
+      "oraPartenza": "07:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2021-06-15",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-09-24",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "07:55:00",
+      "oraPartenza": "06:50:00",
+      "portoArrivo": "Napoli Porta di Massa",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-10-28",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "08:35:00",
+      "oraPartenza": "08:00:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2017-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2016-12-05",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "08:40:00",
+      "oraPartenza": "08:20:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Ischia Porto",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    },
+    {
+      "fineEsclusione": "2015-05-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2014-10-01",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "09:35:00",
+      "oraPartenza": "09:00:00",
+      "portoArrivo": "Pozzuoli",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-10-28",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "09:40:00",
+      "oraPartenza": "09:05:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Pozzuoli",
+      "prezzoIntero": 7.9,
+      "prezzoRidotto": 2.7
+    },
+    {
+      "fineEsclusione": "2021-01-31",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-09-24",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "10:30:00",
+      "oraPartenza": "09:25:00",
+      "portoArrivo": "Procida",
+      "portoPartenza": "Napoli Porta di Massa",
+      "prezzoIntero": 10.6,
+      "prezzoRidotto": 3.1
+    },
+    {
+      "fineEsclusione": "2099-01-01",
+      "giorniSettimana": "1234567",
+      "inizioEsclusione": "2020-10-28",
+      "nomeNave": "Traghetto Caremar",
+      "oraArrivo": "10:10:00",
+      "oraPartenza": "09:50:00",
+      "portoArrivo": "Ischia Porto",
+      "portoPartenza": "Procida",
+      "prezzoIntero": 7.8,
+      "prezzoRidotto": 2.5
+    }
+  ],
+  "alerts": {
+    "-OHXrxogLmoqNoljARLe": {
+      "details": "",
+      "reason": 0,
+      "routeId": "126",
+      "transportDate": "2025-01-26"
+    },
+    "-OHsEOB6doEWJXpcMGde": {
+      "details": "",
+      "reason": 99,
+      "routeId": "158",
+      "transportDate": "2025-01-30"
+    }
+  },
+  "companies": [
+    {
+      "contacts": {
+        "Ischia": [
+          "081984818",
+          "081991953"
+        ],
+        "Napoli (Molo Beverello)": [
+          " 08118966690"
+        ],
+        "Pozzuoli": [
+          "0815262711",
+          "0815261335"
+        ],
+        "Procida": [
+          "0818967280"
+        ]
+      },
+      "name": "Caremar"
+    },
+    {
+      "contacts": {
+        "Pozzuoli": [
+          "0818531405"
+        ]
+      },
+      "name": "Gestour"
+    },
+    {
+      "contacts": {
+        "Call Center": [
+          "0814285111"
+        ],
+        "Ischia": [
+          "081984818"
+        ],
+        "Napoli": [
+          "0814285111"
+        ],
+        "Procida": [
+          "0818969975"
+        ]
+      },
+      "name": "SNAV"
+    },
+    {
+      "contacts": {
+        "Napoli": [
+          "0813334411"
+        ],
+        "Procida": [
+          "0818969594",
+          "0818969190"
+        ]
+      },
+      "name": "Medmar"
+    },
+    {
+      "contacts": {
+        "Monte di Procida": [
+          "3397585125"
+        ],
+        "Procida": [
+          "3663575751",
+          "0818967764"
+        ]
+      },
+      "name": "Ippocampo"
+    },
+    {
+      "contacts": {
+        "Procida": [
+          "3343525753",
+          "0818968753",
+          "3394775523"
+        ]
+      },
+      "name": "Scotto Line"
+    },
+    {
+      "contacts": {
+        "Napoli": [
+          "0771700604"
+        ]
+      },
+      "name": "LazioMar"
+    },
+    {
+      "contacts": {
+        "Call Center": [
+          "0814972222"
+        ],
+        "Napoli": [
+          "0814972252"
+        ]
+      },
+      "name": "Alilauro"
+    }
+  ],
+  "taxis": [
+    {
+      "location": "Procida",
+      "name": "Marina Grande",
+      "number": "0818968785"
+    },
+    {
+      "location": "Napoli",
+      "name": "Radiotaxi Free",
+      "number": "0815515151"
+    },
+    {
+      "location": "Napoli",
+      "name": "Radiopartenope",
+      "number": "0815560202"
+    },
+    {
+      "location": "Napoli",
+      "name": "Radionapoli",
+      "number": "0815564444"
+    },
+    {
+      "location": "Ischia",
+      "name": "Piazza Antica Reggia (Ischia Porto)",
+      "number": "081984998"
+    },
+    {
+      "location": "Ischia",
+      "name": "C.so Vittorio Colonna (Ischia Porto)",
+      "number": "081993720"
+    },
+    {
+      "location": "Ischia",
+      "name": "Piazza degli Eroi (Ischia Porto)",
+      "number": "081992550"
+    },
+    {
+      "location": "Ischia",
+      "name": "Piazza Marina (Casamicciola)",
+      "number": "081994800"
+    },
+    {
+      "location": "Ischia",
+      "name": "Arrivo porto turistico (Casamicciola)",
+      "number": "081900369"
+    },
+    {
+      "location": "Ischia",
+      "name": "Piazza Bagni (Casamicciola)",
+      "number": "081900881"
+    },
+    {
+      "location": "Pozzuoli",
+      "name": "Piazza della Repubblica",
+      "number": "0815265800"
+    },
+    {
+      "location": "Monte di Procida",
+      "name": "Via Faro, Bacoli",
+      "number": "3349003894"
+    }
+  ]
+}
