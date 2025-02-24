@@ -16,4 +16,4 @@ L'applicazione permette di:
 Tutte le informazioni necessarie sono contenute nella documentazione.
 
 ## Autori
-Paolo Cammardella N97000538, Salvatore Di Gennaro N97000479, Rodolfo Diana N97000508.
+ Salvatore Di Gennaro N97000479, Rodolfo Diana N97000508, Paolo Cammardella N97000538.
