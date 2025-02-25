@@ -1,0 +1,29 @@
+{
+  "rules": {
+    // everyone can read and write alerts
+    "alerts": {      
+      ".read": "true", 
+      ".write": "true",
+    },
+    "taxis": {
+      ".read": "true",
+      ".write": "false"
+    },
+    
+    // Regole per la sottocartella "transports"
+    "Transports": {
+      ".read": "true",  // Accesso in lettura per la cartella "transports" per tutti
+      ".write": "false"  // No scrittura per la cartella "transports" (solo lettura)
+    },
+    
+    "companies": {
+      ".read": "true",  // Accesso in lettura per la cartella "transports" per tutti
+      ".write": "false"  // No scrittura per la cartella "transports" (solo lettura)
+    },
+    
+    // Regole generali per il resto del database
+    ".read": "false",
+    ".write": "false"
+  }
+}
+
