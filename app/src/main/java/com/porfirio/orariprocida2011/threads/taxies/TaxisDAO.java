@@ -13,6 +13,6 @@ public interface TaxisDAO {
      *
      * @return LiveData with latest taxis update
      */
-    LiveData<TaxisUpdate> getUpdate();
+    LiveData<TaxisUpdate> getUpdates();
 
 }

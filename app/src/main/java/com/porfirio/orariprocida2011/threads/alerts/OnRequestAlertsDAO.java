@@ -27,13 +27,16 @@ public class OnRequestAlertsDAO implements AlertsDAO {
     private final DatabaseReference database;
     private boolean requested = false;
 
+    /**
+     * Constructs a new DAO to retrieve alerts.
+     */
     public OnRequestAlertsDAO() {
         this.update = new MutableLiveData<>();
         this.database = FirebaseDatabase.getInstance().getReference(DATABASE_TAG);
     }
 
     /**
-     * Requests an update.
+     * Requests an update. Data will be sent through the LiveData obtainable from {@link #getUpdates()}.
      */
     public synchronized void requestUpdate() {
         if (requested)

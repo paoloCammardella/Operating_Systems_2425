@@ -1,7 +1,7 @@
 package com.porfirio.orariprocida2011.threads;
 
 /**
- * An object representing the result of an update. It either contains the new data or the error generated during the update.
+ * The result of an update. It contains new data or the error generated during processing.
  *
  * @param <T> type of the data
  */
@@ -12,7 +12,7 @@ public class DataUpdate<T> {
     private final Exception error;
 
     /**
-     * Creates a new successful update with the given data.
+     * Constructs a new successful update with the given data.
      *
      * @param data result of the update
      */
@@ -23,7 +23,7 @@ public class DataUpdate<T> {
     }
 
     /**
-     * Creates a new failed update with the given error.
+     * Constructs a new failed update with the given error.
      *
      * @param error error occurred during the update
      */
@@ -34,9 +34,9 @@ public class DataUpdate<T> {
     }
 
     /**
-     * Checks if the update contains data or an error.
+     * Returns {@code true} if the update contains data.
      *
-     * @return {@code true} if the update is successful and it contains data, {@code false} otherwise
+     * @return {@code true} if the update contains data
      */
     public boolean isValid() {
         return isValid;

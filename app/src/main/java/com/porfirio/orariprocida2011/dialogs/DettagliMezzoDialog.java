@@ -176,7 +176,7 @@ public class DettagliMezzoDialog extends DialogFragment implements OnClickListen
         taxiDialog = new TaxiDialog();
         taxiDialog.setPorto(mezzo.portoPartenza);
 
-        taxisDAO.getUpdate().observe(this, update -> {
+        taxisDAO.getUpdates().observe(this, update -> {
             if (update.isValid())
                 taxiDialog.setTaxis(update.getData());
         });

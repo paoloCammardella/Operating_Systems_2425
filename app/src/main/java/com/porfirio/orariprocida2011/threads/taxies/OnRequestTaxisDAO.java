@@ -65,7 +65,7 @@ public class OnRequestTaxisDAO implements TaxisDAO {
     }
 
     @Override
-    public LiveData<TaxisUpdate> getUpdate() {
+    public LiveData<TaxisUpdate> getUpdates() {
         return update;
     }
 

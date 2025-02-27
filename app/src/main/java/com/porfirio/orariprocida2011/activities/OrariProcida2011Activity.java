@@ -107,8 +107,9 @@ public class OrariProcida2011Activity extends FragmentActivity {
 //            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 534534);
 //        }
 
-        fm = getSupportFragmentManager();
-
+        // NOTE (2025-02-25):
+        // these DAO calls are mixed here and there through the code because the UI is confusing to navigate at the moment
+        // they should be moved
         analytics = new Analytics((AnalyticsApplication) getApplication());
 
         weatherDAO = new OnRequestWeatherDAO();
@@ -121,14 +122,17 @@ public class OrariProcida2011Activity extends FragmentActivity {
 
         alertsDAO = new OnRequestAlertsDAO();
         alertsDAO.getUpdates().observe(this, this::onAlertsUpdate);
+        // alerts are requested after transports data is received
 
         companiesDAO = new OnRequestCompaniesDAO();
-        companiesDAO.getUpdate().observe(this, this::onCompaniesUpdate);
+        companiesDAO.getUpdates().observe(this, this::onCompaniesUpdate);
         companiesDAO.requestUpdate();
 
         taxisDAO = new OnRequestTaxisDAO();
         taxisDAO.requestUpdate();
+        // taxis data are observed by DettagliMezzoDialog because they were hardcoded in there before and it's useless to fix something that will be refactored in the future
 
+        fm = getSupportFragmentManager();
         myManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_LOW);
@@ -264,8 +268,10 @@ public class OrariProcida2011Activity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        // NOTE:
+        // LiveData should automatically remove destroyed observers but let's do it for clarity's sake
         alertsDAO.getUpdates().removeObservers(this);
-        companiesDAO.getUpdate().removeObservers(this);
+        companiesDAO.getUpdates().removeObservers(this);
         transportsDAO.getUpdates().removeObservers(this);
         weatherDAO.getUpdates().removeObservers(this);
         weatherDAO.close();

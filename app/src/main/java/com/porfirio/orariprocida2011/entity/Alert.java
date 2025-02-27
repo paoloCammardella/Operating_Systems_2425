@@ -18,10 +18,27 @@ public class Alert {
     private final String details;
     private final LocalDate transportDate;
 
+    /**
+     * Constructs a new alert without an id.
+     *
+     * @param routeId       id of the route
+     * @param reason        reason of the alert
+     * @param details       details of the alert
+     * @param transportDate date of the route
+     */
     public Alert(String routeId, int reason, String details, LocalDate transportDate) {
         this(null, routeId, reason, details, transportDate);
     }
 
+    /**
+     * Constructs a new alert.
+     *
+     * @param id            id of the alert
+     * @param routeId       id of the route
+     * @param reason        reason of the alert
+     * @param details       details of the alert
+     * @param transportDate date of the route
+     */
     public Alert(String id, String routeId, int reason, String details, LocalDate transportDate) {
         this.id = id;
         this.routeId = routeId;

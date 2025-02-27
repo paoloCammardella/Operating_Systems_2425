@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * A service which automatically retrieves alerts.
+ * Experimental alerts DAO implemented as a service to automatically retrieve alerts.
+ * To access DAO methods, the service should be bound.
  */
 public class AlertsService extends Service implements AlertsDAO {
 

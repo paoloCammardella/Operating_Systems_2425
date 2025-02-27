@@ -30,7 +30,7 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
     }
 
     /**
-     * Requests an update.
+     * Requests an update. Data will be sent through the LiveData obtainable from {@link #getUpdates()}.
      */
     public synchronized void requestUpdate() {
         if (requested)
@@ -66,7 +66,7 @@ public class OnRequestCompaniesDAO implements CompaniesDAO {
     }
 
     @Override
-    public LiveData<CompaniesUpdate> getUpdate() {
+    public LiveData<CompaniesUpdate> getUpdates() {
         return update;
     }
 

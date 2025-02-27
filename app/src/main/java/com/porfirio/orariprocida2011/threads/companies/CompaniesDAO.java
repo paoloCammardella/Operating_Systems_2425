@@ -13,6 +13,6 @@ public interface CompaniesDAO {
      *
      * @return LiveData with latest companies update
      */
-    LiveData<CompaniesUpdate> getUpdate();
+    LiveData<CompaniesUpdate> getUpdates();
 
 }
